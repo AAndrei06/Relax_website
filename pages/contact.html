@@ -6,8 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../styles/contact.css">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function ()
+        {
+            emailjs.init("gtbYy5uqwFGl3Kxzl");
+        })();
+    </script>
     <script defer src="../scripts/general.js"></script>
     <script defer src="../scripts/navbar.js"></script>
+    <script defer src="../scripts/contact.js"></script>
+
+
     <title>Relax | Contacte</title>
 </head>
 
@@ -26,7 +36,11 @@
         </div>
         <div class="account">
             <button class="transparent-bttn">Autentificare</button>
-            <button class="outline-buttn">Conectează-te</button>
+            <button class="outline-buttn">
+                <a href="./inregistrare.html">
+                    Înregistrează-te
+                </a>
+            </button>
         </div>
     </nav>
     <main>
@@ -34,10 +48,14 @@
             <div class="content">
                 <div class="text">
                     <h1 class="header">Contactează-ne</h1>
-                    <p class="paragraph">Whether you’re wanting to get in touch with a brief or simply get directions to
-                        the office, you
-                        can find all the
-                        information you need below.</p>
+                    <p class="paragraph">Indiferent dacă dorești să ne contactezi în legătură cu o solicitare sau doar
+                        să obții indicații, poți găsi
+                        toate informațiile de care ai nevoie mai jos.</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16.0007 8V24M16.0007 24L9.33398 17.3333M16.0007 24L22.6673 17.3333" stroke="#0C0C0C"
+                            stroke-opacity="0.75" stroke-width="2.66667" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
                 </div>
                 <div class="images">
 
@@ -56,11 +74,18 @@
         <section class="form-section">
             <div class="content">
                 <div class="text">
-                    <h2 class="header">Hai sa vorbim</h2>
+                    <h2 class="header">
+                        Hai sa vorbim
+                        <div class="underline-anim">
+                            <div class="wrapper">
+                                <div class="underline" id="underline-anim"></div>
+                            </div>
+                        </div>
+                    </h2>
                     <p class="paragraph">Contactează-ne direct sau completează formularul pentru a intra în legătură cu
                         noi</p>
                 </div>
-                <form action="" class="form-content">
+                <form action="" class="form-content" id="form">
                     <div class="column1">
                         <div class="inputs">
                             <div>
@@ -85,7 +110,11 @@
                                         d="M12 13.5C13.6569 13.5 15 12.1569 15 10.5C15 8.84315 13.6569 7.5 12 7.5C10.3431 7.5 9 8.84315 9 10.5C9 12.1569 10.3431 13.5 12 13.5Z"
                                         stroke="#0C0C0C" stroke-opacity="0.75" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" />
-                                </svg> Strada Independenţei 14, Leova
+                                </svg>
+                                <span>
+                                    Strada Independenţei 14, Leova
+                                </span>
+
                             </div>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
@@ -95,7 +124,10 @@
                                         stroke="#0C0C0C" stroke-opacity="0.75" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                061007030
+                                <span>
+                                    061007030
+                                </span>
+
                             </div>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
@@ -108,7 +140,10 @@
                                         stroke="#0C0C0C" stroke-opacity="0.75" stroke-width="2"
                                         stroke-linecap="round" />
                                 </svg>
-                                relaxcaffeleova@gmail.com
+                                <span>
+                                    relaxcaffeleova@gmail.com
+                                </span>
+
                             </div>
                         </div>
 
@@ -120,19 +155,22 @@
 
                         </div>
 
-                        <button class="send-bttn">Trimite</button>
-                        <div class="social-media">
-                            <a href="https://www.facebook.com/RelaxCaffeLeova/" target="_blank">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"
-                                    fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M39 13H17V47H24V51H32V47H39V13Z"
-                                        fill="white" />
-                                    <path
-                                        d="M28.0019 4.6709C15.1172 4.6709 4.6709 15.1172 4.6709 28.0019C4.6709 39.6452 13.2016 49.2959 24.3572 51.0529V34.7476H18.4306V28.0019H24.3572V22.8616C24.3572 17.0096 27.8409 13.7826 33.1679 13.7826C35.7206 13.7826 38.3946 14.2376 38.3946 14.2376V19.9752H35.4452C32.5519 19.9752 31.6466 21.7766 31.6466 23.6222V27.9972H38.1122L37.0786 34.7429H31.6466V51.0482C42.8022 49.3006 51.3329 39.6476 51.3329 28.0019C51.3329 15.1172 40.8866 4.6709 28.0019 4.6709Z"
-                                        fill="#6A36FF" />
-                                </svg>
-                            </a>
+                        <button type="submit" id="send-bttn" class="send-bttn">
+                            <div class="feedback">Succes</div>
+                            <div class="loading">
+                                <div class="content">
+                                    <svg class="spinner" width="28px" height="28px" viewBox="0 0 66 66"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33"
+                                            cy="33" r="30"></circle>
+                                    </svg>
+                                </div>
 
+                            </div>
+                            <span class="text">Trimite</span>
+
+                        </button>
+                        <div class="social-media">
                             <a href="https://www.instagram.com/leovarelax/" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"
                                     fill="none">
@@ -151,6 +189,18 @@
                                     </defs>
                                 </svg>
                             </a>
+                            <a href="https://www.facebook.com/RelaxCaffeLeova/" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M39 13H17V47H24V51H32V47H39V13Z"
+                                        fill="white" />
+                                    <path
+                                        d="M28.0019 4.6709C15.1172 4.6709 4.6709 15.1172 4.6709 28.0019C4.6709 39.6452 13.2016 49.2959 24.3572 51.0529V34.7476H18.4306V28.0019H24.3572V22.8616C24.3572 17.0096 27.8409 13.7826 33.1679 13.7826C35.7206 13.7826 38.3946 14.2376 38.3946 14.2376V19.9752H35.4452C32.5519 19.9752 31.6466 21.7766 31.6466 23.6222V27.9972H38.1122L37.0786 34.7429H31.6466V51.0482C42.8022 49.3006 51.3329 39.6476 51.3329 28.0019C51.3329 15.1172 40.8866 4.6709 28.0019 4.6709Z"
+                                        fill="#6A36FF" />
+                                </svg>
+                            </a>
+
+
 
                         </div>
 
@@ -167,9 +217,17 @@
                         mereu disponibili să
                         îți oferim indicații și sfaturi.</p>
                 </div>
-                <iframe class="map"
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10990.157926638973!2d28.2538091!3d46.4776291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c9fec47611fe05%3A0xadd21194240e6729!2sRelax!5e0!3m2!1sfr!2s!4v1698409198997!5m2!1sfr!2s"
-                    allowfullscreen="false" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="map-div">
+                    <iframe class="map"
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10990.157926638973!2d28.2538091!3d46.4776291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c9fec47611fe05%3A0xadd21194240e6729!2sRelax!5e0!3m2!1sfr!2s!4v1698505701690!5m2!1sfr!2s"
+                        width="600" height="450" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div id="shadow1"></div>
+                    <div id="shadow2"></div>
+                    <div id="shadow3"></div>
+                    <div id="shadow4"></div>
+                </div>
+
             </div>
         </section>
         <section class="faq-section">

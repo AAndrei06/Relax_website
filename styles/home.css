@@ -194,6 +194,26 @@ section {
     align-items: center;
 }
 
+.type2>.content>.main>button>a>svg.anim {
+    animation: shake 0.35s ease-in-out 2;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: rotate(0);
+    }
+
+    25% {
+        transform: rotate(15deg);
+    }
+
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
 .stats {
     padding: 96px 0;
     background: #000;
@@ -285,20 +305,28 @@ section {
     justify-content: center;
 }
 
-.reviews-section>.content>.reviews>.review>img {
+
+.reviews-section>.content>.reviews>.review>div {
+    position: relative;
+}
+
+.reviews-section>.content>.reviews>.review>div>img {
     width: 128px;
     height: 128px;
     border-radius: 100%;
     position: relative;
 }
 
-.reviews-section>.content>.reviews>.review>img:before {
-    content: '';
+.reviews-section>.content>.reviews>.review>div>.circle {
+    width: 142px;
+    height: 142px;
+    border-radius: 100%;
+    left: 50%;
+    top: 47.5%;
+    transform: translate(-50%, -50%);
+    border-radius: 100px;
+    border: 3px solid var(--day-dark05);
     position: absolute;
-    bottom: -4px;
-    width: 100%;
-    height: 100%;
-    background-color: var(--day-m-shadow01);
 }
 
 .reviews-section>.content>.reviews>.review>.stars {
@@ -306,9 +334,37 @@ section {
     font-size: 40px;
     font-weight: 700;
     margin-top: 32px;
-    /* letter-spacing: 9.2px; */
     letter-spacing: 5px;
     white-space: nowrap;
+    display: flex;
+    gap: 12px;
+}
+
+@keyframes jump {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-25%);
+    }
+}
+
+.reviews-section>.content>.reviews>.review>.stars>svg>.fill {
+    transform: translate(50%, 50%) scale(0);
+
+}
+
+@keyframes big-star {
+    from {
+        transform: translate(50%, 50%) scale(0);
+    }
+
+    to {
+        transform: translate(0%, 0%) scale(1);
+    }
 }
 
 .reviews-section>.content>.reviews>.review>.text {
@@ -374,7 +430,15 @@ section {
     height: 361px;
     border-radius: 8px;
     background: var(--day-white, #FFF);
+    transform: translate(-10%, -10%);
     box-shadow: 1px 6px 14px 0px rgba(115, 115, 115, 0.10), 2px 25px 25px 0px rgba(115, 115, 115, 0.09), 5px 56px 34px 0px rgba(115, 115, 115, 0.05), 9px 100px 40px 0px rgba(115, 115, 115, 0.01), 13px 157px 44px 0px rgba(115, 115, 115, 0.00);
+}
+
+@keyframes ascend {
+
+    100% {
+        transform: translate(0, 0);
+    }
 }
 
 .services-section>.content>.services>.service>h3 {
@@ -421,12 +485,42 @@ section {
     gap: 24px;
 }
 
+
+.articles-section>.content>.articles>a {
+    transform: translateX(250%);
+    opacity: 0;
+}
+
 .articles-section>.content>.articles>a>.article {
     width: 100%;
     height: 256px;
     border-radius: 8px;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
+}
+
+.articles-section>.content>.articles>a.anim {
+    animation: side-effect 0.30s ease-in-out forwards;
+}
+
+#article1 {
+    animation-delay: 0.15s;
+}
+
+#article2 {
+    animation-delay: 0.3s;
+}
+
+#article3 {
+    animation-delay: 0.45s;
+}
+
+@keyframes side-effect {
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 .articles-section>.content>.articles>a>.article>.data {
@@ -455,4 +549,10 @@ section {
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
+    transition: all 0.25s ease-in-out;
+}
+
+
+.articles-section>.content>.articles>a>.article:hover>img {
+    transform: scale(1.10);
 }

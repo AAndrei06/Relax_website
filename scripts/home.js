@@ -57,3 +57,91 @@ window.addEventListener('scroll', () =>
 
     previousScrollPosition = currentScrollPosition;
 });
+
+// Animations
+
+const phoneSVG = document.querySelector(".type2>.content>.main>button>a>svg")
+
+const phoneObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            phoneSVG.classList.add("anim")
+        }
+
+
+    });
+});
+
+phoneObserver.observe(phoneSVG);
+
+const articles = document.querySelector(".articles-section>.content>.articles")
+
+const articlesObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            Array.from(articles.children).forEach(a =>
+            {
+                a.classList.add("anim")
+            })
+
+        }
+
+
+    });
+});
+
+articlesObserver.observe(articles);
+
+const starsDiv = document.querySelectorAll('.stars')
+
+const starsObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            starsDiv.forEach(div =>
+            {
+                Array.from(div.children).forEach((star, index) =>
+                {
+                    star.style.animation = `jump 0.35s ease-in-out forwards ${index * 0.15}s`;
+                    const fill = star.querySelector('.fill')
+                    fill.style.animation = `big-star 0.25s ease-in-out forwards ${index * 0.15}s`;
+                })
+            })
+
+        }
+
+
+    });
+});
+
+starsObserver.observe(starsDiv[0]);
+
+const services = document.querySelectorAll('.services-section>.content>.services>.service')
+
+const servicesObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            services.forEach((div, index) =>
+            {
+                div.style.animation = `ascend 0.35s ease-in-out forwards ${index * 0.15}s`;
+
+            })
+
+        }
+
+
+    });
+});
+
+servicesObserver.observe(services[0]);

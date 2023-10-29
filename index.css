@@ -82,6 +82,72 @@ textarea {
     resize: none;
 }
 
+.loading>.content>.spinner {
+    -webkit-animation: rotator 1.4s linear infinite;
+    animation: rotator 1.4s linear infinite;
+}
+
+.loading>.content>.spinner>.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    -webkit-animation: dash 1.4s ease-in-out infinite;
+    animation: dash 1.4s ease-in-out infinite;
+    stroke: white;
+}
+
+@-webkit-keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+@keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(270deg);
+    }
+}
+
+@-webkit-keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+
+    50% {
+        stroke-dashoffset: 46.75;
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 187;
+    }
+
+    50% {
+        stroke-dashoffset: 46.75;
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
+    }
+}
+
 .space {
     padding-top: 256px;
     padding-bottom: 256px;
@@ -101,7 +167,7 @@ nav {
 
 nav.fixed {
     position: fixed;
-    background-color: white;
+    background-color: var(--day-white01);
     transform: translateY(-100%);
 }
 
@@ -110,24 +176,39 @@ nav.fixed.normal {
 }
 
 nav.fixed>.content>.logo {
-    color: #000;
+    color: var(--day-dark01);
 }
 
 nav.fixed>.content>.links-list>.link {
-    color: rgba(0, 0, 0, 0.75);
+    color: var(--day-dark03);
+}
+
+nav.fixed>.content>.links-list>.link:hover {
+    color: var(--day-dark02);
 }
 
 nav.fixed>.content>.links-list>.link.current {
-    color: #000;
+    color: var(--day-dark01);
 }
 
 nav.fixed>.account>.transparent-bttn {
-    color: #000;
+    color: var(--day-dark01);
+    transition: color 0.1s linear;
+}
+
+nav.fixed>.account>.transparent-bttn:hover {
+    color: var(--day-dark03);
 }
 
 nav.fixed>.account>.outline-buttn {
     border: none;
-    background: #000;
+    background: var(--day-dark01);
+    transition: background 0.1s linear;
+}
+
+nav.fixed>.account>.outline-buttn:hover {
+    background: var(--day-dark03);
+    color: white;
 }
 
 nav>.content {
@@ -137,7 +218,7 @@ nav>.content {
 }
 
 nav>.content>.logo {
-    color: #FFF;
+    color: var(--day-white01);
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 6.36px;
@@ -153,6 +234,11 @@ nav>.content>.links-list>.link {
     color: rgba(255, 255, 255, 0.75);
     font-size: 20px;
     font-weight: 600;
+    transition: color 0.1s linear;
+}
+
+nav>.content>.links-list>.link:hover {
+    color: rgba(255, 255, 255, 0.90);
 }
 
 nav>.content>.links-list>.link.current {
@@ -176,6 +262,11 @@ nav>.account>.transparent-bttn {
     font-size: 20px;
     font-weight: 600;
     background: none;
+    transition: color 0.1s linear;
+}
+
+nav>.account>.transparent-bttn:hover {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 nav>.account>.outline-buttn {
@@ -191,6 +282,12 @@ nav>.account>.outline-buttn {
     font-size: 20px;
     font-weight: 600;
     background: none;
+    transition: all 0.1s linear;
+}
+
+nav>.account>.outline-buttn:hover {
+    border-color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 footer {
