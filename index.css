@@ -96,6 +96,50 @@ textarea {
     stroke: white;
 }
 
+#submit-bttn {
+    position: relative;
+    overflow: hidden;
+}
+
+#submit-bttn>.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.1s ease-in-out;
+}
+
+#submit-bttn>.loading>.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit-bttn>.feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    height: 100%;
+    border-radius: 4px;
+    background: #799F82;
+    cursor: default;
+    color: var(--day-white01);
+    font-size: 24px;
+    font-weight: 700;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease-in-out;
+}
+
 @-webkit-keyframes rotator {
     0% {
         transform: rotate(0deg);

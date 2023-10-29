@@ -45,12 +45,10 @@ const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const messageInput = document.querySelector('#message');
 
-const sendBttn = document.querySelector("#send-bttn")
-const sendBttnFeedback = document.querySelector('#send-bttn>.feedback');
-const sendBttnLoading = document.querySelector('#send-bttn>.loading');
-const sendBttnText = document.querySelector('#send-bttn>.text');
-
-
+const sendBttn = document.querySelector("#submit-bttn")
+const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
+const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
+const sendBttnText = document.querySelector('#submit-bttn>.text');
 
 function deleteTextAnim(input)
 {
