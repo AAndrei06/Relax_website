@@ -58,7 +58,11 @@ header>.social-media>button {
     width: 64px;
     height: 64px;
     border-radius: 100%;
-    background-color: var(--day-background);
+    background-color: #F9F9F9;
+}
+
+header>.social-media>button:nth-child(3)>svg {
+    margin-bottom: 2px;
 }
 
 header>.separator {
@@ -100,6 +104,7 @@ header>form>div>input {
     font-size: 16px;
     font-weight: 600;
     padding-left: 16px;
+    padding-right: 48px;
 }
 
 header>form>div {
@@ -111,17 +116,31 @@ header>form>div>.see-password {
     width: 32px;
     background: none;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 
-header>form>button {
+#submit-bttn {
     border-radius: 4px;
     background: var(--day-dark01);
     width: 200px;
     height: 44px;
     margin-top: 8px;
+    position: relative;
+}
+
+#submit-bttn>.text {
+    color: var(--day-white01);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#submit-bttn>.feedback {
     color: var(--day-white01);
     font-size: 18px;
     font-weight: 600;
