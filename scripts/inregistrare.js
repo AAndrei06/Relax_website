@@ -31,7 +31,7 @@ function loadingAnim()
     sendBttnLoading.style.opacity = "1"
 }
 
-function responseAnim(err)
+function responseAnim(err = false)
 {
     sendBttnLoading.style.opacity = "0"
 
@@ -77,7 +77,7 @@ form.addEventListener('submit', (e) =>
 
         const erroare = false;
 
-        responseAnim(erroare)
+        responseAnim(erroare) // Daca nu este nici o erroare nu pune nimic lasa doar responseAnim()
 
         setTimeout(() =>
         {
