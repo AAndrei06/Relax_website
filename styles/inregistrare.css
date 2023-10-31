@@ -61,9 +61,7 @@ header>.social-media>button {
     background-color: #F9F9F9;
 }
 
-header>.social-media>button:nth-child(3)>svg {
-    margin-bottom: 2px;
-}
+
 
 header>.separator {
     display: flex;
