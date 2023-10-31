@@ -1,5 +1,8 @@
+import { deleteTextAnim } from "./utils.js";
+
 // Show / Hide password text
 
+const emailField = document.querySelector('#email');
 const passwordField = document.querySelector('#password');
 const togglePasswordButton = document.querySelector('.see-password');
 
@@ -66,6 +69,9 @@ form.addEventListener('submit', (e) =>
 {
     e.preventDefault();
 
+    deleteTextAnim(emailField)
+    deleteTextAnim(passwordField)
+
     loadingAnim()
 
     // Cand vine response
@@ -82,6 +88,8 @@ form.addEventListener('submit', (e) =>
         setTimeout(() =>
         {
             endAnim()
+
+
 
             // Asta cand account-ul o fost cu succes in baza de date
             // window.location.href = '/';
