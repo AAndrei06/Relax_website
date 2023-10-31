@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../index.css">
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <link rel="stylesheet" href="../styles/inregistrare.css">
     <script defer src="../scripts/inregistrare.js"></script>
     <title>Relax | Autentificare</title>
+    <script defer src="../scripts/firebase/main.js"></script>
+    <script defer src="../scripts/firebase/login.js"></script>
 </head>
 
 <body>
@@ -20,7 +26,7 @@
             <h1>Conectează-te in cont</h1>
             <p>Conectează-te prin network-uri sociale</p>
             <div class="social-media">
-                <button>
+                <button id = "google-login-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                         <g clip-path="url(#clip0_58_2652)">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -43,7 +49,7 @@
                         </defs>
                     </svg>
                 </button>
-                <button>
+                <button id = "facebook-login-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                         <path
                             d="M37.5001 20C37.5001 15.3587 35.6563 10.9075 32.3745 7.62564C29.0926 4.34375 24.6414 2.50001 20.0001 2.50001C15.5934 2.49594 11.3475 4.15449 8.11032 7.14435C4.87316 10.1342 2.88314 14.2353 2.53775 18.6284C2.19237 23.0215 3.51705 27.3831 6.24719 30.8422C8.97734 34.3012 12.9119 36.6029 17.2651 37.2875V25.0575H12.8251V20H17.2676V16.145C17.2676 11.76 19.8801 9.33501 23.8776 9.33501C25.7926 9.33501 27.7951 9.67751 27.7951 9.67751V13.985H25.5876C23.4126 13.985 22.7376 15.335 22.7376 16.7175V20H27.5901L26.8151 25.0575H22.7351V37.2875C26.8513 36.6357 30.5999 34.5364 33.3066 31.3674C36.0132 28.1984 37.5002 24.1676 37.5001 20Z"
@@ -53,7 +59,9 @@
                             fill="white" />
                     </svg>
                 </button>
-                <button>
+
+            
+                <button id = "twitter-login-btn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="36" viewBox="0 0 48 36" fill="none">
                         <path
                             d="M9.67468 4.09326L20.7901 18.9557L9.60449 31.0394H12.1219L21.9149 20.4599L29.8273 31.0394H38.3943L26.6534 15.341L37.0649 4.09326H34.5475L25.5286 13.8368L18.2416 4.09326H9.67468ZM13.3768 5.94761H17.3124L34.6916 29.1848H30.756L13.3768 5.94761Z"
@@ -67,9 +75,9 @@
                 <div></div>
             </div>
             <form id="form">
-                <input type="email" placeholder="Email" autocomplete="off" required id="email">
+                <input type="email" placeholder="Email" autocomplete="off" required id="email" class = "email-login-page-input">
                 <div>
-                    <input type="password" placeholder="Parola" autocomplete="off" required id="password">
+                    <input type="password" placeholder="Parola" autocomplete="off" required id="password" class = "password-login-page-input">
                     <button type="button" class="see-password">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <path
@@ -80,7 +88,7 @@
                     </button>
                 </div>
 
-                <button type="submit" id="submit-bttn">
+                <button type="submit" id="submit-bttn" class = "submit-btn-form-pass">
                     <div class="feedback">Succes</div>
                     <div class="loading">
                         <div class="content">
