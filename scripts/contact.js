@@ -1,3 +1,5 @@
+import { deleteTextAnim } from "./utils.js";
+
 // Copy Function
 
 const infoDivs = document.querySelectorAll('.form-section>.content>.form-content>.column1>.info>div');
@@ -50,27 +52,27 @@ const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-function deleteTextAnim(input)
-{
-    let time = 5;
+// function deleteTextAnim(input)
+// {
+//     let time = 5;
 
-    if (input.value.length < 50)
-    {
-        time = 10;
-    }
+//     if (input.value.length < 50)
+//     {
+//         time = 10;
+//     }
 
-    let interval = setInterval(() =>
-    {
-        if (input.value.length > 0)
-        {
-            input.value = input.value.slice(0, -1);
-        }
-        else
-        {
-            clearInterval(interval);
-        }
-    }, time);
-}
+//     let interval = setInterval(() =>
+//     {
+//         if (input.value.length > 0)
+//         {
+//             input.value = input.value.slice(0, -1);
+//         }
+//         else
+//         {
+//             clearInterval(interval);
+//         }
+//     }, time);
+// }
 
 form.addEventListener('submit', (e) =>
 {

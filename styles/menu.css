@@ -33,6 +33,22 @@
     cursor: pointer;
 }
 
+.filter-section>.content>.stars>div>svg>rect {
+    pointer-events: none;
+}
+
+.filter-section>.content>.stars>div>svg>path {
+    pointer-events: none;
+}
+
+.filter-section>.content>.stars>div>svg>.fill {
+    transition: all 0.15s ease-in-out;
+}
+
+.filter-section>.content>.stars>div>svg>.fill.not {
+    transform: translate(50%, 50%) scale(0);
+}
+
 .filter-section>.content>.price>.slider {
     display: flex;
     align-items: center;
@@ -58,22 +74,354 @@
     }
 }
 
-.filter-section>.content>.price>.slider>input::-webkit-slider-runnable-track::before {
-    content: "";
-    display: block;
-    width: var(--progress-width);
-    height: 100%;
-    background: #007bff;
-    /* Customize the progress color */
-    border-radius: 5px;
-}
-
 .filter-section>.content>.price>.slider>.value {
     position: absolute;
-    /* left: -3px; */
-    /* transform: translateX(-50%); */
+    left: calc(100% - 14px);
     color: var(--day-dark03);
     font-size: 18px;
     font-weight: 600;
     bottom: -36px;
+}
+
+.filter-section>.content>.price>.slider>.progress {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: var(--day-gold);
+    border-radius: 100px;
+    pointer-events: none;
+}
+
+.filter-section>.content>.categories {
+
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    z-index: 4;
+}
+
+.filter-section>.content>.categories>span {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.filter-section>.content>.categories>svg {
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>span:hover+svg {
+    transform: translateY(10%);
+}
+
+.filter-section>.content>.categories>.popup {
+    position: absolute;
+    left: 50%;
+    bottom: -404px;
+    cursor: default;
+    transform: translateX(-50%) scale(0);
+    width: 300px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    background: var(--day-white, #FFF);
+    padding: 24px 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>.popup.show {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.filter-section>.content>.categories>.popup>.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    margin-left: 16px;
+}
+
+.filter-section>.content>.categories>.popup>.content>.pointer {
+    position: absolute;
+    left: calc(50% - 10px);
+    top: -35px;
+    transform: translateX(calc(-50% - 10px));
+    width: 20px;
+    height: 20px;
+    transform: rotate(-45deg);
+    border-radius: 0px 2px 2px 0px;
+    border-top: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    border-right: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    background: var(--day-white01);
+}
+
+.filter-section>.content>.categories>.popup>.content>.category {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category>svg {
+    pointer-events: none;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background: var(--day-gold, #FF971E);
+    pointer-events: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category.selected:before {
+    transform: translateY(-50%) scale(1);
+}
+
+.filter-section>.content>.search {
+    position: relative;
+}
+
+.filter-section>.content>.search>.placeholder {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.filter-section>.content>.search>.placeholder>span {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.filter-section>.content>.search>input {
+    width: 100%;
+    height: 100%;
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 32px;
+}
+
+.filter-section>.separator {
+    width: 100%;
+    height: 2px;
+    background: var(--day-separator);
+    margin-top: 24px;
+}
+
+.menu-bttn {
+    position: fixed;
+    right: 32px;
+    bottom: 32px;
+    width: 64px;
+    height: 64px;
+    border-radius: 100px;
+    border: 2px solid var(--day-separator);
+    background: var(--day-white01);
+    z-index: 4;
+}
+
+.menu-bttn>.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.menu-bttn>.wrap>.items-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 11px;
+    top: 11px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100px;
+    background: var(--day-heart);
+    color: var(--day-white01);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#menu-overlay.show {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.menu-side {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 384px;
+    border-radius: 16px 0px 0px 16px;
+    background: var(--day-white01);
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(100%);
+    transition: all 0.15s ease-in-out;
+}
+
+.menu-side.show {
+    opacity: 1;
+    pointer-events: initial;
+    transform: translateX(0%);
+}
+
+.menu-side>.wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 32px 24px 32px;
+    height: 100%;
+}
+
+.menu-side>.wrap>.logo {
+    color: var(--day-dark01);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 6.36px;
+}
+
+.menu-side>.wrap>.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    padding-top: 8px;
+    height: calc(100vh - 275px);
+    margin-top: 28px;
+}
+
+.menu-side>.wrap>.orders>.order {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    width: 100%;
+    column-gap: 16px;
+    position: relative;
+    height: 80px;
+}
+
+.menu-side>.wrap>.orders>.order>.img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.menu-side>.wrap>.orders>.order>.img>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.menu-side>.wrap>.orders>.order>.img>.quantity {
+    position: absolute;
+    top: -8px;
+    right: -7px;
+    border-radius: 100px;
+    background: var(--day-dark02);
+    width: 24px;
+    height: 24px;
+    color: var(--day-white01);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.menu-side>.wrap>.orders>.order>.text {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu-side>.wrap>.orders>.order>.text>.name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.menu-side>.wrap>.orders>.order>.text>.name>.delete {
+    background: none;
+    width: 16px;
+    height: 16px;
+}
+
+.menu-side>.wrap>.orders>.order>.text>.stars {
+    display: flex;
+    height: 22px;
+}
+
+.menu-side>.wrap>.orders>.order>.text>.price {
+    color: var(--day-dark03);
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.menu-side>.wrap>.separator {
+    width: 100%;
+    height: 1px;
+    background: var(--day-separator);
+    margin-top: 24px;
+}
+
+.menu-side>.wrap>.checkout {
+    position: absolute;
+    bottom: 24px;
+    left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: calc(100% - 64px);
+}
+
+.menu-side>.wrap>.checkout>span {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.menu-side>.wrap>.checkout>button {
+    width: 100%;
+    height: 48px;
+    border-radius: 4px;
+    background: var(--day-dark01);
+    color: var(--day-white01);
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

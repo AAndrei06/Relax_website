@@ -197,6 +197,19 @@ textarea {
     padding-bottom: 256px;
 }
 
+.overlay {
+    background: rgba(0, 0, 0, 0.75);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease-in-out;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -217,6 +230,10 @@ nav.fixed {
 
 nav.fixed.normal {
     transform: translateY(0%);
+}
+
+nav.fixed.abs {
+    position: absolute;
 }
 
 nav.fixed>.content>.logo {
