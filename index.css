@@ -220,6 +220,7 @@ nav {
     top: 0px;
     z-index: 4;
     transition: transform 0.15s;
+    top: 0;
 }
 
 nav.fixed {
@@ -234,6 +235,7 @@ nav.fixed.normal {
 
 nav.fixed.abs {
     position: absolute;
+    padding: 32px 64px;
 }
 
 nav.fixed>.content>.logo {

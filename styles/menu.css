@@ -330,7 +330,7 @@
 
 .menu-side>.wrap>.orders>.order>.img {
     width: 100%;
-    height: 100%;
+    height: 80px;
     position: relative;
 }
 
@@ -421,6 +421,201 @@
     color: var(--day-white01);
     font-size: 20px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories-sections {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 0 64px;
+}
+
+.menu-section>.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.menu-section>.content>h2 {
+    color: var(--day-dark01);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.menu-section>.content>.items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 48px;
+}
+
+.menu-section>.content>.items>.item {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-section>.content>.items>.item>img {
+    width: 100%;
+    /* height: 250px; */
+    height: 300px;
+    border-radius: 4px;
+}
+
+.menu-section>.content>.items>.item>.name {
+    color: var(--day-dark01);
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 8px;
+    line-height: 42px;
+}
+
+.menu-section>.content>.items>.item>.stars {
+    white-space: nowrap;
+    color: var(--day-gold);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 42px;
+    margin-top: -8px;
+}
+
+.menu-section>.content>.items>.item>.price,
+.menu-section>.content>.items>.item>.price>span {
+    color: var(--day-dark03);
+    font-size: 24px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.menu-section>.content>.items>.item>button {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    margin-top: 12px;
+    background: var(--day-dark01);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#item-overlay.show {
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.item-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 675px;
+    height: 415px;
+    border-radius: 8px;
+    background: #FFF;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 32px;
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup.show {
+    opacity: 1;
+    pointer-events: initial;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.item-popup>.image {
+    width: 100%;
+    height: 415px;
+    position: relative;
+}
+
+.item-popup>.image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px 0 0 8px;
+}
+
+.item-popup>.text {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 32px 32px 0;
+}
+
+.item-popup>.text>.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.item-popup>.text>.header>.name {
+    color: var(--day-dark01);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.item-popup>.text>.header>.price,
+.item-popup>.text>.header>.price>span {
+    color: var(--day-dark03);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.item-popup>.text>.reviews {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-popup>.text>.reviews>.stars {
+    color: var(--day-gold);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.item-popup>.text>.reviews>.num {
+    color: var(--day-gold);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.item-popup>.text>.description {
+    margin-top: 8px;
+    color: var(--day-dark01);
+    font-size: 18px;
+    font-weight: 500;
+    overflow-y: auto;
+    height: 188px;
+}
+
+.item-popup>.text>.end {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-popup>.text>.end>.masa {
+    color: var(--day-dark03);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.item-popup>.text>.end>button {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    background: var(--day-dark01);
     display: flex;
     align-items: center;
     justify-content: center;
