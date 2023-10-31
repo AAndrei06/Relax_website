@@ -33,6 +33,22 @@
     cursor: pointer;
 }
 
+.filter-section>.content>.stars>div>svg>rect {
+    pointer-events: none;
+}
+
+.filter-section>.content>.stars>div>svg>path {
+    pointer-events: none;
+}
+
+.filter-section>.content>.stars>div>svg>.fill {
+    transition: all 0.15s ease-in-out;
+}
+
+.filter-section>.content>.stars>div>svg>.fill.not {
+    transform: translate(50%, 50%) scale(0);
+}
+
 .filter-section>.content>.price>.slider {
     display: flex;
     align-items: center;
@@ -58,22 +74,159 @@
     }
 }
 
-.filter-section>.content>.price>.slider>input::-webkit-slider-runnable-track::before {
-    content: "";
-    display: block;
-    width: var(--progress-width);
-    height: 100%;
-    background: #007bff;
-    /* Customize the progress color */
-    border-radius: 5px;
-}
-
 .filter-section>.content>.price>.slider>.value {
     position: absolute;
-    /* left: -3px; */
-    /* transform: translateX(-50%); */
+    left: calc(100% - 14px);
     color: var(--day-dark03);
     font-size: 18px;
     font-weight: 600;
     bottom: -36px;
+}
+
+.filter-section>.content>.price>.slider>.progress {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: var(--day-gold);
+    border-radius: 100px;
+    pointer-events: none;
+}
+
+.filter-section>.content>.categories {
+
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    z-index: 4;
+}
+
+.filter-section>.content>.categories>span {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.filter-section>.content>.categories>svg {
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>span:hover+svg {
+    transform: translateY(10%);
+}
+
+.filter-section>.content>.categories>.popup {
+    position: absolute;
+    left: 50%;
+    bottom: -404px;
+    cursor: default;
+    transform: translateX(-50%) scale(0);
+    width: 300px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    background: var(--day-white, #FFF);
+    padding: 24px 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>.popup.show {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    pointer-events: initial;
+}
+
+.filter-section>.content>.categories>.popup>.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    margin-left: 16px;
+}
+
+.filter-section>.content>.categories>.popup>.content>.pointer {
+    position: absolute;
+    left: calc(50% - 10px);
+    top: -35px;
+    transform: translateX(calc(-50% - 10px));
+    width: 20px;
+    height: 20px;
+    transform: rotate(-45deg);
+    border-radius: 0px 2px 2px 0px;
+    border-top: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    border-right: 2px solid var(--day-separator, rgba(12, 12, 12, 0.10));
+    background: var(--day-white01);
+}
+
+.filter-section>.content>.categories>.popup>.content>.category {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category>svg {
+    pointer-events: none;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background: var(--day-gold, #FF971E);
+    pointer-events: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-section>.content>.categories>.popup>.content>.category.selected:before {
+    transform: translateY(-50%) scale(1);
+}
+
+.filter-section>.content>.search {
+    position: relative;
+}
+
+.filter-section>.content>.search>.placeholder {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.filter-section>.content>.search>.placeholder>span {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.filter-section>.content>.search>input {
+    width: 100%;
+    height: 100%;
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 500;
+    padding-left: 32px;
+}
+
+.filter-section>.separator {
+    width: 100%;
+    height: 2px;
+    background: var(--day-separator);
+    margin-top: 24px;
 }
