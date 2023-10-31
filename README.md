@@ -1,36 +1,37 @@
-Website pentru Relax
+# Website pentru Relax 
 ❕ Acest proiect a fost dezvoltat de Arseni Andrei și Gisca Artur, 2 elevi pasionați de front-end, în cadrul Tekwill Junior Ambassadors, categoria de proiectare si dezvoltare web.
 
 Scopul nostru a fost să creăm un website interactiv, plin de diferite functii pentru restaurantul Relax, un restaurant din or.Leova care oferă cea mai bună mâncare din oraș și cele mai distractive petreceri.
 
-Prezentare generală a proiectului
+## Prezentare generală a proiectului
 Site-ul web va oferi restaurantului Relax o prezență online, unde clienții pot afla mai multe despre local, produsele și serviciile sale, precum și cum să găsească și să ia legătura cu staff-ul. Site-ul va include următoarele pagini:
 
-Meniu: o prezentare a bucatelor restaurantului,imagini și prețuri.
-Pagina Principală: o multitudine de informatii legate de Relax dar și o doză mică din serviciile restaurantului.
-Contact: un formular pentru clienți să ia legătura cu magazinul pentru întrebări sau feedback.
-Articole: Pagina unde clienții și proprietarul pot vorbi între ei.
+- Meniu: o prezentare a bucatelor restaurantului,imagini și prețuri.
+- Pagina Principală: o multitudine de informatii legate de Relax dar și o doză mică din serviciile restaurantului.
+- Contact: un formular pentru clienți să ia legătura cu magazinul pentru întrebări sau feedback.
+- Articole: Pagina unde clienții și proprietarul pot vorbi între ei.
 
-Tehnologii utilizate
+## Tehnologii utilizate
 Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
 
-HTML - pentru structura și conținutul paginilor web.
-CSS - pentru prezentare și aspectul paginilor web.
-JavaScript - pentru interactivitate și conținut dinamic.
-Anime.js - pentru animatii complexe.
-Git și GitHub - pentru controlul versiunilor și colaborare.
-Scopuri
-Firebase - pentru funcțiile backend (CRUD).
-In cadrul proiectului am avut o varietate de scopuri, ne-am concentrat ca website-ul sa aibă:
+- HTML - pentru structura și conținutul paginilor web.
+- CSS - pentru prezentare și aspectul paginilor web.
+-  JavaScript - pentru interactivitate și conținut dinamic.
+- Git și GitHub - pentru controlul versiunilor și colaborare.
+- Scopuri
+- Firebase - pentru funcțiile backend (CRUD).
 
-Design minimalist
-Identitate unică
-Interactivitate
-Idei originale
-Doar content/functii necesare
-Animatii simple
-Contribuitori
-Arseni Andrei: https://github.com/AAndrei06
-Gisca Artur: https://github.com/Arsitur
-Mulțumiri
+## Scopuri
+
+- Design minimalist 
+- Identitate unică 
+- Interactivitate 
+- Idei originale 
+- Doar content/functii necesare 
+- Animatii simple 
+- Contribuitori 
+- Arseni Andrei: https://github.com/AAndrei06 
+- Gisca Artur: https://github.com/Arsitur
+
+### Mulțumiri 
 ❤️ Dorim să le mulțumim instructorului nostru de dezvoltare web și colegilor noștri pentru sprijinul și feedback-ul acordat pe parcursul acestui proiect. De asemenea, dorim să mulțumim restaurantului Relax pentru că ne-a oferit oportunitatea de a crea acest website.
