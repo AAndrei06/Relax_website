@@ -1,17 +1,15 @@
+import { lockScroll, unlockScroll } from "./utils.js";
+
 const slider = document.querySelector('#slider');
 const sliderValue = document.querySelector('.slider>.value');
 const sliderProgress = document.querySelector('.slider>.progress');
 
-// const valueRect = sliderValue.getBoundingClientRect();
-// sliderValue.style.left = `calc(100% - 16px) `
-// sliderValue.textContent = "500"
 
-// Function to update the progress width
+
 function updateProgress()
 {
 
     const progressValue = (slider.value / slider.max) * 100;
-    // slider.style.setProperty('--progress-width', `${progressValue}%`);
     sliderProgress.style.width = `${progressValue}%`
 
     const valueRect = sliderValue.getBoundingClientRect();
@@ -19,7 +17,6 @@ function updateProgress()
     sliderValue.textContent = slider.value
 }
 
-// Add an event listener to the slider to update the progress on input change
 slider.addEventListener('input', updateProgress);
 
 // Stars
@@ -119,3 +116,37 @@ categoriesPopup.addEventListener('click', (event) =>
 {
     event.stopPropagation();
 });
+
+// Menu 
+
+const menuButton = document.querySelector(".menu-bttn");
+const menuOverlay = document.querySelector("#menu-overlay");
+const menuSide = document.querySelector('.menu-side');
+
+let xDeletes;
+
+menuButton.addEventListener('click', () =>
+{
+    openMenu()
+})
+
+menuOverlay.addEventListener('click', () =>
+{
+    closeMenu()
+})
+
+function openMenu()
+{
+    menuOverlay.classList.add('show');
+    menuSide.classList.add('show');
+    lockScroll();
+    xDeletes = document.querySelectorAll('.menu-side>.wrap>.orders>.order>.text>.name>.delete')
+}
+
+function closeMenu()
+{
+    menuOverlay.classList.remove('show');
+    menuSide.classList.remove('show');
+    unlockScroll();
+}
+
