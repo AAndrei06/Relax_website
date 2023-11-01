@@ -21,7 +21,7 @@ togglePasswordButton.addEventListener('click', function ()
 });
 
 // Button Animation
-
+/*
 const form = document.querySelector("#form")
 
 const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
@@ -73,3 +73,4 @@ form.addEventListener('submit', (e) =>
 {
     e.preventDefault();
 })
+*/
