@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/menu.css">
     <script defer src="../scripts/general.js"></script>
     <script defer type="module" src="../scripts/menu.js"></script>
+    <script defer type="module" src="../scripts/components/menuItem.js"></script>
     <title>Relax | Meniu</title>
 </head>
 
@@ -407,28 +408,26 @@
 
         <div class="overlay" id="item-overlay"></div>
         <div class="item-popup">
-            <div class="image"><img src="../assets/Account/pizza.png" alt=""></div>
+            <div class="image"><img src="" alt=""></div>
             <div class="text">
                 <div class="header">
-                    <p class="name">BBQ Pizza</p>
-                    <p class="price"><span>110</span> MDL</p>
+                    <p class="name"></p>
+                    <p class="price"><span></span> MDL</p>
                 </div>
                 <div class="reviews">
-                    <div class="stars">★ ★ ★ ★ ★</div>
-                    <div class="num">5 (202)</div>
+                    <div class="stars"></div>
+                    <div class="num"><span class="star-num"></span> (<span class="reviews-num"></span>)</div>
                 </div>
-                <div class="description">
-                    Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos
-                    swit, chili
-                </div>
+                <div class="description"></div>
                 <div class="end">
-                    <span class="masa">Masa gr. (netă), 0,720</span>
+                    <span class="masa">Masa gr. (netă), <span></span></span>
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
                                 stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+                        <span></span>
                     </button>
                 </div>
 
@@ -441,51 +440,20 @@
                 <div class="content">
                     <h2>Pizza</h2>
                     <div class="items">
-                        <div class="item">
-                            <img src="../assets/Account/pizza.png" alt="">
-                            <p class="name">BBQ Pizza</p>
-                            <p class="stars">
-                                ★ ★ ★ ★ ★
-                            </p>
-                            <p class="price"><span>110</span> MDL</p>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none">
-                                    <path
-                                        d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                                        stroke="white" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                <span></span>
-                            </button>
-                        </div>
-                        <div class="item">
-                            <img src="../assets/Account/pizza.png" alt="">
-                            <p class="name">BBQ Pizza</p>
-                            <p class="stars">
-                                ★ ★ ★ ★ ★
-                            </p>
-                            <p class="price"><span>110</span> MDL</p>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none">
-                                    <path
-                                        d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                                        stroke="white" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                <span></span>
-                            </button>
-                        </div>
 
+                        <menu-item name="BBQ Pizza" price="110" img="../assets/Account/pizza.png" stars="5"
+                            reviews="100"
+                            description="Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili"
+                            masa="0.720" uid="1"></menu-item>
+
+                        <menu-item name="Andrei Pizza" price="1100" img="../assets/Account/pizza2.png" stars="4"
+                            reviews="50" description="Andrei e prost" masa="0.920" uid="2"></menu-item>
 
                     </div>
 
                 </div>
             </section>
         </section>
-
-
 
         <div class="space">space</div>
         <div class="space">space</div>

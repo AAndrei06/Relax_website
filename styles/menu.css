@@ -453,56 +453,6 @@
     row-gap: 48px;
 }
 
-.menu-section>.content>.items>.item {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.menu-section>.content>.items>.item>img {
-    width: 100%;
-    /* height: 250px; */
-    height: 300px;
-    border-radius: 4px;
-}
-
-.menu-section>.content>.items>.item>.name {
-    color: var(--day-dark01);
-    font-size: 28px;
-    font-weight: 700;
-    margin-top: 8px;
-    line-height: 42px;
-}
-
-.menu-section>.content>.items>.item>.stars {
-    white-space: nowrap;
-    color: var(--day-gold);
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 42px;
-    margin-top: -8px;
-}
-
-.menu-section>.content>.items>.item>.price,
-.menu-section>.content>.items>.item>.price>span {
-    color: var(--day-dark03);
-    font-size: 24px;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.menu-section>.content>.items>.item>button {
-    width: 100%;
-    height: 40px;
-    border-radius: 4px;
-    margin-top: 12px;
-    background: var(--day-dark01);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 #item-overlay.show {
     opacity: 1;
     pointer-events: initial;
@@ -582,7 +532,8 @@
     font-weight: 700;
 }
 
-.item-popup>.text>.reviews>.num {
+.item-popup>.text>.reviews>.num,
+.item-popup>.text>.reviews>.num>span {
     color: var(--day-gold);
     font-size: 16px;
     font-weight: 700;
@@ -605,7 +556,8 @@
     gap: 8px;
 }
 
-.item-popup>.text>.end>.masa {
+.item-popup>.text>.end>.masa,
+.item-popup>.text>.end>.masa>span {
     color: var(--day-dark03);
     font-size: 16px;
     font-weight: 500;
@@ -619,4 +571,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+}
+
+.item-popup>.text>.end>button>span {
+    color: var(--day-white01);
+    font-size: 16px;
+    font-weight: 600;
+    display: none;
 }

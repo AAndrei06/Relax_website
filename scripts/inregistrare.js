@@ -1,5 +1,8 @@
+import { deleteTextAnim } from "./utils.js";
+
 // Show / Hide password text
 
+const emailField = document.querySelector('#email');
 const passwordField = document.querySelector('#password');
 const togglePasswordButton = document.querySelector('.see-password');
 
