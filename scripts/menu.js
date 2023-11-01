@@ -152,19 +152,19 @@ function closeMenu()
 
 // Item Popup
 
-const itemOverlay = document.querySelector('#item-overlay');
-const itemPopup = document.querySelector(".item-popup");
-const item = document.querySelector(".menu-section>.content>.items>.item");
+// const itemOverlay = document.querySelector('#item-overlay');
+// const itemPopup = document.querySelector(".item-popup");
+// const item = document.querySelector(".menu-section>.content>.items>.item");
 
-item.addEventListener('click', () =>
-{
-    itemPopup.classList.add('show');
-    itemOverlay.classList.add('show');
-    lockScroll();
-})
-itemOverlay.addEventListener('click', () =>
-{
-    itemPopup.classList.remove('show');
-    itemOverlay.classList.remove('show');
-    unlockScroll();
-})
+// item.addEventListener('click', () =>
+// {
+//     itemPopup.classList.add('show');
+//     itemOverlay.classList.add('show');
+//     lockScroll();
+// })
+// itemOverlay.addEventListener('click', () =>
+// {
+//     itemPopup.classList.remove('show');
+//     itemOverlay.classList.remove('show');
+//     unlockScroll();
+// })
