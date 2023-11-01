@@ -34,8 +34,16 @@ function loadingAnim()
     sendBttnLoading.style.opacity = "1"
 }
 
-function responseAnim(err = false)
+function responseAnim(err = false,msg)
 {
+    if (err)
+    {
+        sendBttnFeedback.style.background = '#EF5B5B'
+        sendBttnFeedback.textContent = msg
+    }else{
+        sendBttnFeedback.style.background = '#799f82'
+        sendBttnFeedback.textContent = msg
+    }
     sendBttnLoading.style.opacity = "0"
 
     setTimeout(() =>
@@ -46,11 +54,7 @@ function responseAnim(err = false)
     sendBttnFeedback.style.transform = "translateX(0%)"
     sendBttnFeedback.style.opacity = "1"
 
-    if (err)
-    {
-        sendBttnFeedback.style.background = '#EF5B5B'
-        sendBttnFeedback.textContent = "Erroare"
-    }
+    
 }
 
 function endAnim()
@@ -68,37 +72,4 @@ function endAnim()
 form.addEventListener('submit', (e) =>
 {
     e.preventDefault();
-
-    deleteTextAnim(emailField)
-    deleteTextAnim(passwordField)
-
-    loadingAnim()
-
-    // Cand vine response
-
-    setTimeout(() =>
-    {
-
-        // Daca ne da erroare
-
-        const erroare = false;
-
-        responseAnim(erroare) // Daca nu este nici o erroare nu pune nimic lasa doar responseAnim()
-
-        setTimeout(() =>
-        {
-            endAnim()
-
-
-
-            // Asta cand account-ul o fost cu succes in baza de date
-            // window.location.href = '/';
-        }, 2000)
-
-
-
-    }, 1000)
-
 })
-
-// Vasea o scris asta
