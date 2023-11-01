@@ -12,15 +12,35 @@ GoogleBTN.addEventListener("click", () => {
     firebase.auth()
         .signInWithPopup(GoogleProvider)
         .then((result) => {
-
             var user = result.user;
-            //console.log(user);
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+            }).then(() => {
+
+                loadingAnim()
+
+                setTimeout(() => {
+                    responseAnim(false, "Succes")
+                    setTimeout(() => {
+                        endAnim()
+                        window.location.href = '/';
+                    }, 2000)
+                }, 1000)
+
             });
+
         }).catch((error) => {
+            loadingAnim()
+
+            setTimeout(() => {
+                responseAnim(true, "Eroare")
+
+                setTimeout(() => {
+                    endAnim()
+                }, 2000)
+            }, 1000)
             console.log(error);
         });
 });
@@ -35,20 +55,39 @@ FacebookBTN.addEventListener("click", () => {
         .then((result) => {
 
             var user = result.user;
-            //  console.log(user);
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+            }).then(() => {
+
+                loadingAnim()
+
+                setTimeout(() => {
+                    responseAnim(false, "Succes")
+                    setTimeout(() => {
+                        endAnim();
+                        window.location.href = '/';
+                    }, 2000)
+                }, 1000)
+
             });
 
         })
         .catch((error) => {
+            loadingAnim()
+
+            setTimeout(() => {
+                responseAnim(true, "Eroare")
+
+                setTimeout(() => {
+                    endAnim()
+                }, 2000)
+            }, 1000)
             console.log(error);
         });
 
 });
-
 
 // Twitter SignIn
 
@@ -60,20 +99,38 @@ TwitterBTN.addEventListener("click", () => {
         .then((result) => {
 
             var user = result.user;
-            //    console.log(user);
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+            }).then(() => {
+
+                loadingAnim()
+
+                setTimeout(() => {
+                    responseAnim(false, "Succes")
+                    setTimeout(() => {
+                        endAnim()
+                        window.location.href = '/';
+                    }, 2000)
+                }, 1000)
+
             });
 
         })
         .catch((error) => {
+            loadingAnim()
+
+            setTimeout(() => {
+                responseAnim(true, "Eroare")
+
+                setTimeout(() => {
+                    endAnim()
+                }, 2000)
+            }, 1000)
             console.log(error);
         });
 });
-
-
 
 submitBtn.onclick = () => {
     email = emailField.value;
@@ -82,19 +139,46 @@ submitBtn.onclick = () => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 var user = userCredential.user;
-                //console.log(user.uid);
                 usersDB.add({
                     name: "NewUser",
                     PASS: password,
                     EMAIL: email,
                     ID: user.uid,
                     photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+                }).then(() => {
+
+                    loadingAnim()
+
+                    setTimeout(() => {
+                        responseAnim(false, "Succes")
+                        setTimeout(() => {
+                            endAnim()
+                            window.location.href = '/';
+                        }, 2000)
+                    }, 1000)
+
                 });
             })
             .catch((error) => {
+                loadingAnim()
+                let message = "";
+                if (error.code == "auth/invalid-email") {
+                    message = "Email Nevalid";
+                } else if (error.code == "auth/weak-password") {
+                    message = "Parolă Prea Slabă";
+                } else if (error.code == "auth/email-already-in-use") {
+                    message = "Email Folosit";
+                } else {
+                    message = "Eroare";
+                }
 
-                console.log(error);
+                setTimeout(() => {
+                    responseAnim(true, message)
+
+                    setTimeout(() => {
+                        endAnim()
+                    }, 2000)
+                }, 1000)
             });
     }
-
 }
