@@ -30,3 +30,11 @@ export function deleteTextAnim(input)
         }
     }, time);
 }
+export function assignStars(starsNum)
+{
+    starsNum = Math.min(Math.max(starsNum, 0), 5);
+
+    const starsString = '★ '.repeat(starsNum) + '☆ '.repeat(5 - starsNum);
+
+    return starsString;
+}

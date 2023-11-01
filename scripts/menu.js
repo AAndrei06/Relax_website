@@ -151,20 +151,16 @@ function closeMenu()
 }
 
 // Item Popup
+const reviewSide = document.querySelector('.reviews-side')
+const reviewSideBack = document.querySelector(".item-popup>.reviews-side>.content>.header>.back")
+const reviewSideBttn = document.querySelector('.item-popup>.text>.reviews>.num')
 
-// const itemOverlay = document.querySelector('#item-overlay');
-// const itemPopup = document.querySelector(".item-popup");
-// const item = document.querySelector(".menu-section>.content>.items>.item");
+reviewSideBttn.addEventListener('click', () =>
+{
+    reviewSide.classList.add('show');
+})
 
-// item.addEventListener('click', () =>
-// {
-//     itemPopup.classList.add('show');
-//     itemOverlay.classList.add('show');
-//     lockScroll();
-// })
-// itemOverlay.addEventListener('click', () =>
-// {
-//     itemPopup.classList.remove('show');
-//     itemOverlay.classList.remove('show');
-//     unlockScroll();
-// })
+reviewSideBack.addEventListener('click', () =>
+{
+    reviewSide.classList.remove('show');
+})

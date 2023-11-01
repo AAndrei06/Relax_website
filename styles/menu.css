@@ -252,15 +252,15 @@
     height: 100%;
 }
 
-.menu-bttn>.wrap>.items-num {
+.menu-bttn>.wrap>.new {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 11px;
-    top: 11px;
-    width: 18px;
-    height: 18px;
+    right: 14px;
+    top: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 100px;
     background: var(--day-heart);
     color: var(--day-white01);
@@ -474,6 +474,7 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 32px;
     transition: all 0.1s ease-in-out;
+    overflow: hidden;
 }
 
 .item-popup.show {
@@ -579,4 +580,93 @@
     font-size: 16px;
     font-weight: 600;
     display: none;
+}
+
+.item-popup>.reviews-side {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background: var(--day-white01);
+    transform: translateY(100%);
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.reviews-side.show {
+    pointer-events: initial;
+    transform: translateY(0%);
+}
+
+.item-popup>.reviews-side>.content {
+    padding: 32px 32px 0 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-popup>.reviews-side>.content>.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-popup>.reviews-side>.content>.header>.back {
+    background: none;
+    color: var(--day-dark01);
+    font-size: 28px;
+    font-weight: 700;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.item-popup>.reviews-side>.content>.header>.reviews-stats {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.stars {
+    color: var(--day-gold);
+    font-size: 28px;
+}
+
+.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating,
+.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num {
+    color: var(--day-gold);
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.item-popup>.reviews-side>.content>.header>.reviews-stats>button {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-popup>.reviews-side>.content>.separator {
+    width: 100%;
+    height: 1px;
+    border-radius: 2px;
+    background: var(--day-separator);
+    margin-top: 12px;
+}
+
+.item-popup>.reviews-side>.content>.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 16px;
+    padding-bottom: 24px;
 }

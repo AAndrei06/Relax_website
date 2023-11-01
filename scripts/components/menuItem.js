@@ -1,4 +1,4 @@
-import { lockScroll, unlockScroll } from "../utils.js";
+import { lockScroll, unlockScroll, assignStars } from "../utils.js";
 
 const itemQuantityMap = new Map();
 let currentID = '';
@@ -17,22 +17,19 @@ const popupMasa = document.querySelector('.item-popup>.text>.end>.masa>span')
 const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>span')
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
 
+const reviewSide = document.querySelector('.reviews-side')
+const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.stars')
+const reviewRatings = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating')
+const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num')
+
 itemOverlay.addEventListener('click', () =>
 {
     itemPopup.classList.remove('show');
     itemOverlay.classList.remove('show');
     unlockScroll();
+    reviewSide.classList.remove('show')
+
 })
-
-function assignStars(starsNum)
-{
-    starsNum = Math.min(Math.max(starsNum, 0), 5);
-
-    const starsString = '★ '.repeat(starsNum) + '☆ '.repeat(5 - starsNum);
-
-    return starsString;
-}
-
 
 class MenuItem extends HTMLElement
 {
@@ -41,7 +38,6 @@ class MenuItem extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.numValue = 0;
-
     }
 
     connectedCallback()
@@ -164,6 +160,9 @@ class MenuItem extends HTMLElement
             popupReviewsNum.innerText = `${this.getAttribute('reviews')}`
             popupDescription.innerText = `${this.getAttribute('description')}`
             popupMasa.innerText = `${this.getAttribute('masa')}`
+            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))}`
+            reviewRatings.innerText = `${this.getAttribute('stars')}`
+            reviewReviewsNum.innerText = `(${this.getAttribute('reviews')})`
 
             if (this.numValue > 0)
             {
