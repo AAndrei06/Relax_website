@@ -22,6 +22,10 @@ const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.
 const reviewRatings = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating')
 const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num')
 
+const newPoint = document.querySelector(".menu-bttn>.wrap>.new")
+const ordersDiv = document.querySelector(".menu-side>.wrap>.orders")
+const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price')
+
 itemOverlay.addEventListener('click', () =>
 {
     itemPopup.classList.remove('show');
@@ -30,6 +34,31 @@ itemOverlay.addEventListener('click', () =>
     reviewSide.classList.remove('show')
 
 })
+
+let sideMenuIDs = [];
+
+function updateMenuSidebar()
+{
+    let ordersString = '';
+    let ordersPrice = 0;
+
+    sideMenuIDs.forEach(itemId =>
+    {
+        const item = itemQuantityMap.get(itemId);
+
+        ordersPrice += Number(`${item.getAttribute('price')}`);
+
+        if (item && item.numValue > 0)
+        {
+            ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.getAttribute('stars')}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
+                        quantity="${item.numValue}"></side-menu-item>`;
+        }
+    });
+
+    ordersDiv.innerHTML = ordersString;
+    ordersPriceDiv.innerText = ordersPrice;
+
+}
 
 class MenuItem extends HTMLElement
 {
@@ -113,7 +142,7 @@ class MenuItem extends HTMLElement
         }
       </style>
 
-      <img src="${this.getAttribute('img')}" alt="">
+      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
       <p class="name">${this.getAttribute('name')}</p>
       <p class="stars">
       ${assignStars(this.getAttribute('stars'))}
@@ -142,6 +171,13 @@ class MenuItem extends HTMLElement
         {
             e.stopPropagation();
             this.updateNumValue();
+            newPoint.classList.add('show')
+            if (!sideMenuIDs.includes(itemId))
+            {
+                sideMenuIDs.push(itemId)
+            }
+
+            updateMenuSidebar()
         });
 
         this.addEventListener('click', () =>
@@ -201,5 +237,154 @@ popupButton.addEventListener('click', () =>
     currentItem.updateNumValue();
     popupItemQuantity.style.display = 'initial'
     popupItemQuantity.textContent = `x ${currentItem.numValue}`
+    newPoint.classList.add('show')
+    if (!sideMenuIDs.includes(currentItem.getAttribute('uid')))
+    {
+        sideMenuIDs.push(currentItem.getAttribute('uid'))
+    }
+
+    updateMenuSidebar()
 
 })
+
+class SideMenuItem extends HTMLElement
+{
+    constructor()
+    {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback()
+    {
+        this.shadowRoot.innerHTML = `
+      <style>
+        *
+        {
+            margin : 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, Roboto;
+            user-select: none;
+            z-index: 3;
+        }
+        :host {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            width: 100%;
+            column-gap: 16px;
+            position: relative;
+            height: 80px;
+        }
+
+        :host>.img {
+            width: 100%;
+            height: 80px;
+            position: relative;
+        }
+
+        :host>.img>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        :host>.img>.quantity {
+            position: absolute;
+            top: -8px;
+            right: -7px;
+            border-radius: 100px;
+            background: var(--day-dark02);
+            width: 24px;
+            height: 24px;
+            color: var(--day-white01);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        :host>.text {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        :host>.text>.name {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--day-dark01);
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        :host>.text>.name>.delete {
+            background: none;
+            width: 16px;
+            height: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        :host>.text>.stars {
+            display: flex;
+            align-items: center;
+            height: 22px;
+            color: var(--day-gold);
+            font-size: 21px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        :host>.text>.price {
+            color: var(--day-dark03);
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+        
+      </style>
+
+        <div class="img">
+            <div class="quantity">${this.getAttribute('quantity')}</div>
+            <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
+        </div>
+        <div class="text">
+            <div class="name">
+                <span>${this.getAttribute('name')}</span>
+
+                <button class="delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                        fill="none">
+                        <g clip-path="url(#clip0_41_1430)">
+                            <path
+                                d="M9.87523 7.93264L15.4608 13.547C15.968 14.0558 15.968 14.883 15.4608 15.3918C14.9536 15.9022 14.1312 15.9022 13.624 15.3918L8.03843 9.77904L2.39683 15.4494C1.88483 15.9646 1.05603 15.9646 0.544034 15.4494C0.0320342 14.9358 0.0320342 14.1006 0.544034 13.587L6.18563 7.91504L0.771234 2.47344C0.264034 1.96304 0.264034 1.13744 0.771234 0.627039C1.27843 0.116639 2.10083 0.116639 2.60643 0.627039L8.02083 6.07024L13.5136 0.550239C14.0256 0.0366391 14.8544 0.0366391 15.3664 0.550239C15.8784 1.06544 15.8784 1.89904 15.3664 2.41264L9.87523 7.93264Z"
+                                fill="#0C0C0C" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_41_1430">
+                                <rect width="16" height="16" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </button>
+
+            </div>
+            <span class="stars">
+                ${assignStars(this.getAttribute('stars'))}
+            </span>
+            <span class="price">${this.getAttribute('price')} MDL</span>
+        </div>
+
+    
+    `;
+
+    }
+}
+
+window.customElements.define("side-menu-item", SideMenuItem)

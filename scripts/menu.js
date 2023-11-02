@@ -164,3 +164,56 @@ reviewSideBack.addEventListener('click', () =>
 {
     reviewSide.classList.remove('show');
 })
+
+// Custom Mouse
+
+const popupImageDiv = document.querySelector('.item-popup>.image');
+const customMouse = document.querySelector('.item-popup>.image>.mouse');
+
+let isMouseMoving = false;
+
+popupImageDiv.addEventListener('mousemove', (e) =>
+{
+    if (!isMouseMoving)
+    {
+        isMouseMoving = true;
+        requestAnimationFrame(() =>
+        {
+            const containerRect = popupImageDiv.getBoundingClientRect();
+            const followerSize = 48;
+            const x = e.clientX - containerRect.left - followerSize / 2;
+            const y = e.clientY - containerRect.top - followerSize / 2;
+
+            const maxX = containerRect.width - followerSize;
+            const maxY = containerRect.height - followerSize;
+
+            const clampedX = Math.min(Math.max(x, 0), maxX);
+            const clampedY = Math.min(Math.max(y, 0), maxY);
+
+            customMouse.style.left = clampedX + 'px';
+            customMouse.style.top = clampedY + 'px';
+
+            isMouseMoving = false;
+        });
+    }
+});
+
+const zoomImage = document.querySelector('.item-popup>.image>img')
+
+popupImageDiv.addEventListener('mousedown', (e) =>
+{
+    const boundingBox = popupImageDiv.getBoundingClientRect();
+    const clickX = e.clientX - boundingBox.left;
+    const clickY = e.clientY - boundingBox.top;
+
+    const zoomOriginX = (clickX / boundingBox.width) * 100 + '%';
+    const zoomOriginY = (clickY / boundingBox.height) * 100 + '%';
+
+    zoomImage.style.transformOrigin = `${zoomOriginX} ${zoomOriginY}`;
+    zoomImage.classList.toggle('zoom');
+});
+
+popupImageDiv.addEventListener('mouseup', (e) =>
+{
+    zoomImage.classList.toggle('zoom');
+});
