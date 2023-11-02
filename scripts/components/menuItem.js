@@ -46,12 +46,12 @@ function updateMenuSidebar()
     {
         const item = itemQuantityMap.get(itemId);
 
-        ordersPrice += Number(`${item.getAttribute('price')}`);
+        ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
         if (item && item.numValue > 0)
         {
             ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.getAttribute('stars')}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
-                        quantity="${item.numValue}"></side-menu-item>`;
+                        quantity="${item.numValue}" uid="${item.getAttribute('uid')}"></side-menu-item>`;
         }
     });
 
@@ -142,7 +142,7 @@ class MenuItem extends HTMLElement
         }
       </style>
 
-      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
+      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
       <p class="name">${this.getAttribute('name')}</p>
       <p class="stars">
       ${assignStars(this.getAttribute('stars'))}
@@ -170,7 +170,7 @@ class MenuItem extends HTMLElement
         button.addEventListener('click', (e) =>
         {
             e.stopPropagation();
-            this.updateNumValue();
+            this.addNumValue();
             newPoint.classList.add('show')
             if (!sideMenuIDs.includes(itemId))
             {
@@ -216,16 +216,30 @@ class MenuItem extends HTMLElement
 
     }
 
-    updateNumValue()
+    addNumValue()
     {
-
-        this.numValue++;
         const numSpan = this.shadowRoot.querySelector('.num');
-
+        this.numValue++;
         numSpan.textContent = `x ${this.numValue}`;
         numSpan.style.display = 'initial';
 
     };
+
+    updateNumValue()
+    {
+        console.log(this.numValue)
+        const numSpan = this.shadowRoot.querySelector('.num');
+        if (this.numValue > 0)
+        {
+            numSpan.textContent = `x ${this.numValue}`;
+            numSpan.style.display = 'initial';
+        }
+        else
+        {
+            numSpan.style.display = 'none';
+        }
+
+    }
 
 }
 
@@ -234,9 +248,17 @@ window.customElements.define("menu-item", MenuItem)
 popupButton.addEventListener('click', () =>
 {
     const currentItem = itemQuantityMap.get(currentID);
-    currentItem.updateNumValue();
-    popupItemQuantity.style.display = 'initial'
-    popupItemQuantity.textContent = `x ${currentItem.numValue}`
+    currentItem.addNumValue();
+    if (currentItem.numValue > 0)
+    {
+        popupItemQuantity.style.display = 'initial'
+        popupItemQuantity.textContent = `x ${currentItem.numValue}`
+    }
+    else
+    {
+        popupItemQuantity.style.display = 'none'
+    }
+
     newPoint.classList.add('show')
     if (!sideMenuIDs.includes(currentItem.getAttribute('uid')))
     {
@@ -329,6 +351,14 @@ class SideMenuItem extends HTMLElement
             border: none;
             cursor: pointer;
         }
+        :host>.text>.name>.delete>svg
+        {
+            transition: all 0.15s ease-in-out;
+        }
+        :host>.text>.name>.delete:hover>svg
+        {
+            transform: scale(0.85);
+        }
 
         :host>.text>.stars {
             display: flex;
@@ -352,7 +382,7 @@ class SideMenuItem extends HTMLElement
 
         <div class="img">
             <div class="quantity">${this.getAttribute('quantity')}</div>
-            <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
+            <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
         </div>
         <div class="text">
             <div class="name">
@@ -383,6 +413,24 @@ class SideMenuItem extends HTMLElement
 
     
     `;
+
+        const deleteBttn = this.shadowRoot.querySelector(".delete")
+        const ID = this.getAttribute('uid')
+
+        deleteBttn.addEventListener('click', () =>
+        {
+            const item = itemQuantityMap.get(ID);
+            item.numValue = item.numValue - 1
+            if (item.numValue <= 0)
+            {
+                sideMenuIDs = sideMenuIDs.filter(id => id !== ID)
+            }
+
+            item.updateNumValue()
+
+            updateMenuSidebar()
+        })
+
 
     }
 }

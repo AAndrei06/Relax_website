@@ -210,10 +210,10 @@ popupImageDiv.addEventListener('mousedown', (e) =>
     const zoomOriginY = (clickY / boundingBox.height) * 100 + '%';
 
     zoomImage.style.transformOrigin = `${zoomOriginX} ${zoomOriginY}`;
-    zoomImage.classList.toggle('zoom');
+    zoomImage.classList.add('zoom');
 });
 
-popupImageDiv.addEventListener('mouseup', (e) =>
+window.addEventListener('mouseup', (e) =>
 {
-    zoomImage.classList.toggle('zoom');
+    zoomImage.classList.remove('zoom');
 });
