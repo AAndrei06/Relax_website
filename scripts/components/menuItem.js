@@ -2,6 +2,7 @@ import { lockScroll, unlockScroll, assignStars } from "../utils.js";
 
 const itemQuantityMap = new Map();
 let currentID = '';
+let sideMenuIDs = [];
 
 const itemOverlay = document.querySelector('#item-overlay');
 const itemPopup = document.querySelector(".item-popup");
@@ -25,6 +26,9 @@ const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.cont
 const newPoint = document.querySelector(".menu-bttn>.wrap>.new")
 const ordersDiv = document.querySelector(".menu-side>.wrap>.orders")
 const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price')
+const ordersEmpty = document.querySelector('.menu-side>.wrap>.empty')
+
+const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button')
 
 itemOverlay.addEventListener('click', () =>
 {
@@ -35,7 +39,15 @@ itemOverlay.addEventListener('click', () =>
 
 })
 
-let sideMenuIDs = [];
+checkoutButton.addEventListener('click', () =>
+{
+    if (sideMenuIDs.length > 0)
+    {
+        window.location.href = '/pages/checkout.html'
+    }
+})
+
+
 
 function updateMenuSidebar()
 {
@@ -54,7 +66,18 @@ function updateMenuSidebar()
                         quantity="${item.numValue}" uid="${item.getAttribute('uid')}"></side-menu-item>`;
         }
     });
-
+    if (ordersString == '')
+    {
+        ordersEmpty.classList.add('show')
+        newPoint.classList.remove('show')
+        checkoutButton.classList.remove("active")
+    }
+    else
+    {
+        ordersEmpty.classList.remove('show')
+        newPoint.classList.add('show')
+        checkoutButton.classList.add("active")
+    }
     ordersDiv.innerHTML = ordersString;
     ordersPriceDiv.innerText = ordersPrice;
 
@@ -171,7 +194,6 @@ class MenuItem extends HTMLElement
         {
             e.stopPropagation();
             this.addNumValue();
-            newPoint.classList.add('show')
             if (!sideMenuIDs.includes(itemId))
             {
                 sideMenuIDs.push(itemId)
@@ -259,7 +281,6 @@ popupButton.addEventListener('click', () =>
         popupItemQuantity.style.display = 'none'
     }
 
-    newPoint.classList.add('show')
     if (!sideMenuIDs.includes(currentItem.getAttribute('uid')))
     {
         sideMenuIDs.push(currentItem.getAttribute('uid'))
