@@ -4,8 +4,6 @@ const slider = document.querySelector('#slider');
 const sliderValue = document.querySelector('.slider>.value');
 const sliderProgress = document.querySelector('.slider>.progress');
 
-
-
 function updateProgress()
 {
 
@@ -23,14 +21,13 @@ slider.addEventListener('input', updateProgress);
 
 const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
 
-let starsSelected = 5;
-
-function assignStars(star)
+function assignStars(stars, star, path)
 {
-
     const indexClicked = Array.from(stars).indexOf(star);
 
-    const starsFilled = document.querySelectorAll('.filter-section>.content>.stars>div>svg>.fill:not(.not)').length;
+    const fullPath = `${path}:not(.not)`
+
+    const starsFilled = document.querySelectorAll(fullPath).length;
 
     if (indexClicked >= 0 && indexClicked < stars.length)
     {
@@ -58,7 +55,7 @@ stars.forEach(star =>
 {
     star.addEventListener('click', (e) =>
     {
-        const starsFilled = assignStars(e.target)
+        const starsFilled = assignStars(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
     })
 })
 
@@ -123,7 +120,12 @@ const menuButton = document.querySelector(".menu-bttn");
 const menuOverlay = document.querySelector("#menu-overlay");
 const menuSide = document.querySelector('.menu-side');
 
-let xDeletes;
+const itemOverlay = document.querySelector('#item-overlay');
+
+itemOverlay.addEventListener('click', () =>
+{
+    resetReviewSlide()
+})
 
 menuButton.addEventListener('click', () =>
 {
@@ -140,7 +142,6 @@ function openMenu()
     menuOverlay.classList.add('show');
     menuSide.classList.add('show');
     lockScroll();
-    xDeletes = document.querySelectorAll('.menu-side>.wrap>.orders>.order>.text>.name>.delete')
 }
 
 function closeMenu()
@@ -152,7 +153,7 @@ function closeMenu()
 
 // Item Popup
 const reviewSide = document.querySelector('.reviews-side')
-const reviewSideBack = document.querySelector(".item-popup>.reviews-side>.content>.header>.back")
+const reviewSideBack = document.querySelector(".item-popup>.reviews-side>.content>.header>.first>.back")
 const reviewSideBttn = document.querySelector('.item-popup>.text>.reviews>.num')
 
 reviewSideBttn.addEventListener('click', () =>
@@ -163,6 +164,7 @@ reviewSideBttn.addEventListener('click', () =>
 reviewSideBack.addEventListener('click', () =>
 {
     reviewSide.classList.remove('show');
+    resetReviewSlide()
 })
 
 // Custom Mouse
@@ -217,3 +219,55 @@ window.addEventListener('mouseup', (e) =>
 {
     zoomImage.classList.remove('zoom');
 });
+
+// Create Review
+
+const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
+const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>button>svg')
+
+const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
+const createReviewDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
+
+const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
+const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>.max>span')
+
+const reviewStars = document.querySelectorAll(".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg")
+
+createReviewBttn.addEventListener('click', () =>
+{
+    createReviewBttn.classList.toggle('active')
+    reviewsDiv.classList.toggle('active');
+    createReviewDiv.classList.toggle('active');
+    xSVG.classList.toggle('active')
+})
+
+function resetReviewSlide()
+{
+    createReviewBttn.classList.remove('active')
+    reviewsDiv.classList.add('active');
+    createReviewDiv.classList.remove('active');
+    xSVG.classList.remove('active')
+}
+
+let pastTextareaValue = ''
+
+reviewTextarea.addEventListener('input', (e) =>
+{
+    if (e.target.value.length <= 500)
+    {
+        reviewWordsSpan.innerText = `${e.target.value.length}`;
+        pastTextareaValue = e.target.value
+    }
+    else
+    {
+        e.target.value = pastTextareaValue;
+    }
+})
+
+reviewStars.forEach(star =>
+{
+    star.addEventListener('click', (e) =>
+    {
+        const starsFilled = assignStars(reviewStars, e.target, ".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill")
+    })
+})

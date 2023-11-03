@@ -319,9 +319,9 @@
     position: absolute;
     top: calc(50% - 32px);
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
     align-items: center;
-
+    transition: all 0.15s ease-in-out;
 }
 
 .menu-side>.wrap>.empty>span {
@@ -333,6 +333,7 @@
 
 .menu-side>.wrap>.empty.show {
     opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .menu-side>.wrap>.logo {
@@ -389,6 +390,7 @@
     justify-content: center;
     cursor: not-allowed;
     opacity: 0.5;
+    transition: opacity 0.25s ease-in-out;
 }
 
 .menu-side>.wrap>.checkout>button.active {
@@ -436,9 +438,10 @@
     width: 675px;
     height: 415px;
     border-radius: 8px;
-    background: #FFF;
+    background: var(--day-white01);
     opacity: 0;
     pointer-events: none;
+    border: none;
     z-index: 5;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -455,10 +458,11 @@
 
 .item-popup>.image {
     width: 100%;
-    height: 415px;
+    height: 100%;
     position: relative;
     cursor: none;
     overflow: hidden;
+    border-radius: 8px 0 0 8px;
 }
 
 .item-popup>.image:hover>.mouse {
@@ -537,12 +541,16 @@
     font-weight: 700;
 }
 
+.item-popup>.text>.reviews>.num {
+    margin-top: 2px;
+    background: none;
+}
+
 .item-popup>.text>.reviews>.num,
 .item-popup>.text>.reviews>.num>span {
     color: var(--day-gold);
     font-size: 16px;
     font-weight: 700;
-    cursor: pointer;
 }
 
 .item-popup>.text>.description {
@@ -579,6 +587,14 @@
     gap: 8px;
 }
 
+.item-popup>.text>.end>button>svg {
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.text>.end>button.shake>svg {
+    transform: rotate(-15deg);
+}
+
 .item-popup>.text>.end>button>span {
     color: var(--day-white01);
     font-size: 16px;
@@ -597,6 +613,7 @@
     left: 0;
     bottom: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     transition: all 0.1s ease-in-out;
 }
 
@@ -609,6 +626,7 @@
     padding: 32px 32px 0 32px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .item-popup>.reviews-side>.content>.header {
@@ -617,7 +635,13 @@
     justify-content: space-between;
 }
 
-.item-popup>.reviews-side>.content>.header>.back {
+.item-popup>.reviews-side>.content>.header>.first {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-popup>.reviews-side>.content>.header>.first>.back {
     background: none;
     color: var(--day-dark01);
     font-size: 28px;
@@ -625,38 +649,66 @@
     gap: 8px;
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
-.item-popup>.reviews-side>.content>.header>.reviews-stats {
+.item-popup>.reviews-side>.content>.header>.first>.reviews-stats {
     display: flex;
     align-items: center;
     gap: 14px;
 }
 
-.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div {
+.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.stars {
+.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars {
     color: var(--day-gold);
-    font-size: 28px;
+    font-size: 24px;
+    font-weight: 700;
 }
 
-.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating,
-.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num {
+.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num {
     color: var(--day-gold);
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 16px;
+
+    font-weight: 700;
     margin-top: 2px;
 }
 
-.item-popup>.reviews-side>.content>.header>.reviews-stats>button {
+.item-popup>.reviews-side>.content>.header>button {
     background: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 4px;
+    border-radius: 4px;
+    border: 2px solid var(--day-dark01);
+    width: 128px;
+    height: 32px;
+    color: var(--day-dark01);
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.15s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.header>button.active {
+    border: none;
+    background-color: var(--day-dark01);
+    color: var(--day-white01);
+}
+
+.item-popup>.reviews-side>.content>.header>button>svg {
+    stroke: var(--day-dark01);
+    transition: transform 0.15s ease-in-out;
+    margin-top: 1px;
+}
+
+.item-popup>.reviews-side>.content>.header>button.active>svg {
+    transform: rotate(-45deg);
+    stroke: var(--day-white01);
 }
 
 .item-popup>.reviews-side>.content>.separator {
@@ -671,6 +723,151 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 16px;
     padding-bottom: 24px;
+    padding-right: 32px;
+    position: absolute;
+    top: 100px;
+    left: 32px;
+    pointer-events: none;
+    transform: translateX(-110%);
+    transition: all 0.15s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.reviews.active {
+    pointer-events: initial;
+    transform: translateX(0%);
+}
+
+.item-popup>.reviews-side>.content>.create-review {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding-top: 12px;
+    gap: 16px;
+    padding-right: 64px;
+    position: absolute;
+    top: 100px;
+    left: 32px;
+    pointer-events: none;
+    transform: translateX(110%);
+    transition: all 0.15s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review.active {
+    pointer-events: initial;
+    transform: translateX(0%);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.10), 0px 3px 3px 0px rgba(0, 0, 0, 0.09), 0px 6px 4px 0px rgba(0, 0, 0, 0.05), 0px 10px 4px 0px rgba(0, 0, 0, 0.01), 0px 16px 5px 0px rgba(0, 0, 0, 0.00);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.img>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.name {
+    color: var(--day-dark01);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars {
+    display: flex;
+    align-items: center;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars>svg {
+    cursor: pointer;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>rect {
+    pointer-events: none;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>path {
+    pointer-events: none;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill {
+    transition: all 0.15s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill.not {
+    transform: translate(50%, 50%) scale(0);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea {
+    position: relative;
+    width: 100%;
+    height: 156px;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea {
+    width: 100%;
+    height: 156px;
+    color: var(--day-dark04);
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid var(--day-dark06);
+    padding: 16px;
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea:focus {
+    color: var(--day-dark03);
+    border: 1px solid var(--day-dark05);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea:focus::placeholder {
+    color: var(--day-dark03);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea:focus+.max {
+    color: var(--day-dark04);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea:focus+.max>span {
+    color: var(--day-dark04);
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>.max {
+    position: absolute;
+    right: 24px;
+    bottom: 8px;
+    color: var(--day-dark05);
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>.max>span {
+    color: var(--day-dark05);
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review>button {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    background: var(--day-dark01);
+    color: var(--day-white01);
+    font-size: 16px;
+    font-weight: 700;
 }

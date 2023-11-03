@@ -11,7 +11,7 @@ const popupImage = document.querySelector('.item-popup>.image>img')
 const popupName = document.querySelector('.item-popup>.text>.header>.name')
 const popupPrice = document.querySelector('.item-popup>.text>.header>.price>span')
 const popupStars = document.querySelector('.item-popup>.text>.reviews>.stars')
-const popupStarsNum = document.querySelector('.item-popup>.text>.reviews>.num>.star-num')
+// const popupStarsNum = document.querySelector('.item-popup>.text>.reviews>.num>.star-num')
 const popupReviewsNum = document.querySelector('.item-popup>.text>.reviews>.num>.reviews-num')
 const popupDescription = document.querySelector('.item-popup>.text>.description')
 const popupMasa = document.querySelector('.item-popup>.text>.end>.masa>span')
@@ -19,9 +19,8 @@ const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
 
 const reviewSide = document.querySelector('.reviews-side')
-const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.stars')
-const reviewRatings = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating')
-const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num')
+const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars')
+const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num')
 
 const newPoint = document.querySelector(".menu-bttn>.wrap>.new")
 const ordersDiv = document.querySelector(".menu-side>.wrap>.orders")
@@ -36,7 +35,7 @@ itemOverlay.addEventListener('click', () =>
     itemOverlay.classList.remove('show');
     unlockScroll();
     reviewSide.classList.remove('show')
-
+    popupButton.classList.remove('shake')
 })
 
 checkoutButton.addEventListener('click', () =>
@@ -46,8 +45,6 @@ checkoutButton.addEventListener('click', () =>
         window.location.href = '/pages/checkout.html'
     }
 })
-
-
 
 function updateMenuSidebar()
 {
@@ -158,7 +155,26 @@ class MenuItem extends HTMLElement
             color: var(--day-white01);
             font-size: 16px;
             font-weight: 600;
+            transition: background 0.1s linear;
         }
+        :host>button:hover
+        {
+            background: var(--day-dark02);
+        }
+        :host>button:active
+        {
+            background: var(--day-dark03);
+        }
+        :host>button>svg
+        {
+            transform: rotate(0deg);
+            transition: all 0.1s ease-in-out;
+        }
+        :host>button.shake>svg
+        {
+            transform: rotate(-15deg);
+        }
+
         :host>button>span
         {
             display: none;
@@ -189,7 +205,6 @@ class MenuItem extends HTMLElement
 
         const button = this.shadowRoot.querySelector('.bttn');
 
-        // Add a click event listener to the button
         button.addEventListener('click', (e) =>
         {
             e.stopPropagation();
@@ -198,6 +213,7 @@ class MenuItem extends HTMLElement
             {
                 sideMenuIDs.push(itemId)
             }
+            e.target.classList.add('shake');
 
             updateMenuSidebar()
         });
@@ -210,22 +226,21 @@ class MenuItem extends HTMLElement
 
             popupImage.src = `${this.getAttribute('img')}`;
 
-
             popupName.innerText = `${this.getAttribute('name')}`
             popupPrice.innerText = `${this.getAttribute('price')}`
             popupStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            popupStarsNum.innerText = `${this.getAttribute('stars')}`
             popupReviewsNum.innerText = `${this.getAttribute('reviews')}`
             popupDescription.innerText = `${this.getAttribute('description')}`
             popupMasa.innerText = `${this.getAttribute('masa')}`
             reviewStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            reviewRatings.innerText = `${this.getAttribute('stars')}`
-            reviewReviewsNum.innerText = `(${this.getAttribute('reviews')})`
+            reviewReviewsNum.innerText = `${this.getAttribute('reviews')} recenzii`
 
             if (this.numValue > 0)
             {
                 popupItemQuantity.style.display = 'initial'
                 popupItemQuantity.innerText = `x ${this.numValue}`
+                popupButton.classList.add('shake')
+
             }
             else
             {
@@ -245,11 +260,14 @@ class MenuItem extends HTMLElement
         numSpan.textContent = `x ${this.numValue}`;
         numSpan.style.display = 'initial';
 
+        popupButton.classList.add('shake')
+        this.shadowRoot.querySelector('.bttn').classList.add('shake');
+        console.log('vasea')
+
     };
 
     updateNumValue()
     {
-        console.log(this.numValue)
         const numSpan = this.shadowRoot.querySelector('.num');
         if (this.numValue > 0)
         {
@@ -259,6 +277,7 @@ class MenuItem extends HTMLElement
         else
         {
             numSpan.style.display = 'none';
+            this.shadowRoot.querySelector('.bttn').classList.remove('shake');
         }
 
     }
