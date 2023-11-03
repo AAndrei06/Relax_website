@@ -2,6 +2,7 @@ import { lockScroll, unlockScroll, assignStars } from "../utils.js";
 
 const itemQuantityMap = new Map();
 let currentID = '';
+let sideMenuIDs = [];
 
 const itemOverlay = document.querySelector('#item-overlay');
 const itemPopup = document.querySelector(".item-popup");
@@ -10,21 +11,83 @@ const popupImage = document.querySelector('.item-popup>.image>img')
 const popupName = document.querySelector('.item-popup>.text>.header>.name')
 const popupPrice = document.querySelector('.item-popup>.text>.header>.price>span')
 const popupStars = document.querySelector('.item-popup>.text>.reviews>.stars')
-const popupStarsNum = document.querySelector('.item-popup>.text>.reviews>.num>.star-num')
 const popupReviewsNum = document.querySelector('.item-popup>.text>.reviews>.num>.reviews-num')
 const popupDescription = document.querySelector('.item-popup>.text>.description')
 const popupMasa = document.querySelector('.item-popup>.text>.end>.masa>span')
 const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>span')
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
+const popupReviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
 
 const reviewSide = document.querySelector('.reviews-side')
-const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.stars')
-const reviewRatings = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.rating')
-const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.reviews-stats>.stars-div>.reviews-num')
+const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars')
+const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num')
 
-const newPoint = document.querySelector(".menu-bttn>.wrap>.new")
-const ordersDiv = document.querySelector(".menu-side>.wrap>.orders")
-const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price')
+const newPoint = document.querySelector(".menu-bttn>.wrap>.new");
+const ordersDiv = document.querySelector(".menu-side>.wrap>.orders");
+const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price');
+const ordersEmpty = document.querySelector('.menu-side>.wrap>.empty');
+
+const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button');
+const checkoutTotalSpan = document.querySelector('.menu-side>.wrap>.checkout>span');
+
+const pizzaSection = document.querySelector("#pizza-section");
+const pizzaItems = pizzaSection.querySelector('.items');
+
+const menuItems =
+{
+    pizzaSection: [
+        {
+            name: "BBQ Pizza",
+            price: "110",
+            img: "../assets/Account/pizza.png",
+            stars: "5",
+            reviews: [
+                {
+                    name: "Andrei Arseni",
+                    date: "7 septembrie 2023",
+                    stars: "5",
+                    description: "Marcare buna",
+                    img: "../assets/Account/pizza.png"
+                },
+                {
+                    name: "Artur Gisca",
+                    date: "3 noiembrie 2023",
+                    stars: "4",
+                    description: "Marcarea mere",
+                    img: "../assets/Account/pizza2.png"
+                },
+
+            ],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.720",
+            uid: "Abcwasda42wda421sfa",
+        },
+        // {
+        //     name: "SAR Pizza",
+        //     price: "135",
+        //     img: "../assets/Account/pizza2.png",
+        //     stars: "5",
+        //     reviews: "52",
+        //     description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui",
+        //     masa: "0.300",
+        //     uid: "Abcw3adawadwsda42wda421sfa"
+        // },
+    ]
+
+}
+// Fetch Menu
+
+let tempString = ''
+menuItems.pizzaSection.forEach(item =>
+{
+    tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
+                            reviews='${JSON.stringify(item.reviews)}'
+                            description="${item.description}"
+                            masa="${item.masa}" uid="${item.uid}"></menu-item>`;
+})
+
+pizzaItems.innerHTML = tempString;
+
 
 itemOverlay.addEventListener('click', () =>
 {
@@ -32,10 +95,16 @@ itemOverlay.addEventListener('click', () =>
     itemOverlay.classList.remove('show');
     unlockScroll();
     reviewSide.classList.remove('show')
-
+    popupButton.classList.remove('shake')
 })
 
-let sideMenuIDs = [];
+checkoutButton.addEventListener('click', () =>
+{
+    if (sideMenuIDs.length > 0)
+    {
+        window.location.href = '/pages/checkout.html'
+    }
+})
 
 function updateMenuSidebar()
 {
@@ -46,15 +115,28 @@ function updateMenuSidebar()
     {
         const item = itemQuantityMap.get(itemId);
 
-        ordersPrice += Number(`${item.getAttribute('price')}`);
+        ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
         if (item && item.numValue > 0)
         {
             ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.getAttribute('stars')}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
-                        quantity="${item.numValue}"></side-menu-item>`;
+                        quantity="${item.numValue}" uid="${item.getAttribute('uid')}"></side-menu-item>`;
         }
     });
-
+    if (ordersString == '')
+    {
+        ordersEmpty.classList.add('show')
+        newPoint.classList.remove('show')
+        checkoutButton.classList.remove("active")
+        checkoutTotalSpan.classList.remove("active")
+    }
+    else
+    {
+        ordersEmpty.classList.remove('show')
+        newPoint.classList.add('show')
+        checkoutButton.classList.add("active")
+        checkoutTotalSpan.classList.add("active")
+    }
     ordersDiv.innerHTML = ordersString;
     ordersPriceDiv.innerText = ordersPrice;
 
@@ -135,14 +217,35 @@ class MenuItem extends HTMLElement
             color: var(--day-white01);
             font-size: 16px;
             font-weight: 600;
+            transition: opacity 0.1s linear;
         }
+        :host>button:hover
+        {
+            opacity: 0.9;
+            // background: var(--day-dark02);
+        }
+        :host>button:active
+        {
+            opacity: 1;
+            // background: var(--day-dark03);
+        }
+        :host>button>svg
+        {
+            transform: rotate(0deg);
+            transition: all 0.1s ease-in-out;
+        }
+        :host>button.shake>svg
+        {
+            transform: rotate(-15deg);
+        }
+
         :host>button>span
         {
             display: none;
         }
       </style>
 
-      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
+      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
       <p class="name">${this.getAttribute('name')}</p>
       <p class="stars">
       ${assignStars(this.getAttribute('stars'))}
@@ -160,22 +263,21 @@ class MenuItem extends HTMLElement
       </button>
     `;
 
-        // Get the span element and the button element
         const itemId = this.getAttribute('uid');
         itemQuantityMap.set(itemId, this);
 
         const button = this.shadowRoot.querySelector('.bttn');
+        const reviews = JSON.parse(this.getAttribute('reviews'));
 
-        // Add a click event listener to the button
         button.addEventListener('click', (e) =>
         {
             e.stopPropagation();
-            this.updateNumValue();
-            newPoint.classList.add('show')
+            this.addNumValue();
             if (!sideMenuIDs.includes(itemId))
             {
                 sideMenuIDs.push(itemId)
             }
+            e.target.classList.add('shake');
 
             updateMenuSidebar()
         });
@@ -186,46 +288,73 @@ class MenuItem extends HTMLElement
             itemOverlay.classList.add('show');
             lockScroll();
 
-            popupImage.src = `${this.getAttribute('img')}`;
+            popupImage.src = `${this.getAttribute('img')
+                }`;
 
+            popupName.innerText = `${this.getAttribute('name')} `
+            popupPrice.innerText = `${this.getAttribute('price')} `
+            popupStars.innerText = `${assignStars(this.getAttribute('stars'))} `
+            popupReviewsNum.innerText = `${reviews.length} `
+            popupDescription.innerText = `${this.getAttribute('description')} `
+            popupMasa.innerText = `${this.getAttribute('masa')} `
+            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))} `
+            reviewReviewsNum.innerText = `${reviews.length} recenzii`
 
-            popupName.innerText = `${this.getAttribute('name')}`
-            popupPrice.innerText = `${this.getAttribute('price')}`
-            popupStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            popupStarsNum.innerText = `${this.getAttribute('stars')}`
-            popupReviewsNum.innerText = `${this.getAttribute('reviews')}`
-            popupDescription.innerText = `${this.getAttribute('description')}`
-            popupMasa.innerText = `${this.getAttribute('masa')}`
-            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            reviewRatings.innerText = `${this.getAttribute('stars')}`
-            reviewReviewsNum.innerText = `(${this.getAttribute('reviews')})`
+            console.log(reviews)
+            let tempReviewsString = ''
+            reviews.forEach(review =>
+            {
+                tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
+                            description="${review.description}" date="${review.date}"
+                            img="${review.img}"></item-review>`;
+            })
+
+            popupReviewsDiv.innerHTML = tempReviewsString;
 
             if (this.numValue > 0)
             {
                 popupItemQuantity.style.display = 'initial'
-                popupItemQuantity.innerText = `x ${this.numValue}`
+                popupItemQuantity.innerText = `x ${this.numValue} `
+                popupButton.classList.add('shake')
             }
             else
             {
                 popupItemQuantity.style.display = 'none'
+                popupButton.classList.remove('shake')
             }
 
-            currentID = `${this.getAttribute('uid')}`
+            currentID = `${this.getAttribute('uid')} `
 
         });
 
     }
 
-    updateNumValue()
+    addNumValue()
     {
-
-        this.numValue++;
         const numSpan = this.shadowRoot.querySelector('.num');
-
-        numSpan.textContent = `x ${this.numValue}`;
+        this.numValue++;
+        numSpan.textContent = `x ${this.numValue} `;
         numSpan.style.display = 'initial';
 
+        popupButton.classList.add('shake')
+        this.shadowRoot.querySelector('.bttn').classList.add('shake');
     };
+
+    updateNumValue()
+    {
+        const numSpan = this.shadowRoot.querySelector('.num');
+        if (this.numValue > 0)
+        {
+            numSpan.textContent = `x ${this.numValue} `;
+            numSpan.style.display = 'initial';
+        }
+        else
+        {
+            numSpan.style.display = 'none';
+            this.shadowRoot.querySelector('.bttn').classList.remove('shake');
+        }
+
+    }
 
 }
 
@@ -234,10 +363,17 @@ window.customElements.define("menu-item", MenuItem)
 popupButton.addEventListener('click', () =>
 {
     const currentItem = itemQuantityMap.get(currentID);
-    currentItem.updateNumValue();
-    popupItemQuantity.style.display = 'initial'
-    popupItemQuantity.textContent = `x ${currentItem.numValue}`
-    newPoint.classList.add('show')
+    currentItem.addNumValue();
+    if (currentItem.numValue > 0)
+    {
+        popupItemQuantity.style.display = 'initial'
+        popupItemQuantity.textContent = `x ${currentItem.numValue} `
+    }
+    else
+    {
+        popupItemQuantity.style.display = 'none'
+    }
+
     if (!sideMenuIDs.includes(currentItem.getAttribute('uid')))
     {
         sideMenuIDs.push(currentItem.getAttribute('uid'))
@@ -258,101 +394,109 @@ class SideMenuItem extends HTMLElement
     connectedCallback()
     {
         this.shadowRoot.innerHTML = `
-      <style>
+    < style >
         *
-        {
-            margin : 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Poppins, Roboto;
-            user-select: none;
-            z-index: 3;
+    {
+        margin: 0;
+        padding: 0;
+        box- sizing: border - box;
+font - family: Poppins, Roboto;
+user - select: none;
+z - index: 3;
         }
         :host {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            width: 100%;
-            column-gap: 16px;
-            position: relative;
-            height: 80px;
-        }
+    display: grid;
+    grid - template - columns: 80px 1fr;
+    width: 100 %;
+    column - gap: 16px;
+    position: relative;
+    height: 80px;
+}
 
-        :host>.img {
-            width: 100%;
-            height: 80px;
-            position: relative;
-        }
+        : host >.img {
+    width: 100 %;
+    height: 80px;
+    position: relative;
+}
 
-        :host>.img>img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+        : host >.img > img {
+    width: 100 %;
+    height: 100 %;
+    object - fit: cover;
+    border - radius: 4px;
+}
 
-        :host>.img>.quantity {
-            position: absolute;
-            top: -8px;
-            right: -7px;
-            border-radius: 100px;
-            background: var(--day-dark02);
-            width: 24px;
-            height: 24px;
-            color: var(--day-white01);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
+        : host >.img >.quantity {
+    position: absolute;
+    top: -8px;
+    right: -7px;
+    border - radius: 100px;
+    background: var(--day - dark02);
+    width: 24px;
+    height: 24px;
+    color: var(--day - white01);
+    display: flex;
+    align - items: center;
+    justify - content: center;
+    font - size: 12px;
+    font - weight: 700;
+}
 
-        :host>.text {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
+        : host >.text {
+    display: flex;
+    flex - direction: column;
+    width: 100 %;
+}
 
-        :host>.text>.name {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--day-dark01);
-            font-size: 20px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+        : host >.text >.name {
+    display: flex;
+    align - items: center;
+    justify - content: space - between;
+    color: var(--day - dark01);
+    font - size: 20px;
+    font - weight: 700;
+    white - space: nowrap;
+}
 
-        :host>.text>.name>.delete {
-            background: none;
-            width: 16px;
-            height: 16px;
-            border: none;
-            cursor: pointer;
-        }
+        : host >.text >.name >.delete {
+    background: none;
+    width: 16px;
+    height: 16px;
+    border: none;
+    cursor: pointer;
+}
+        : host >.text >.name >.delete > svg
+{
+    transition: all 0.15s ease -in -out;
+}
+        : host >.text >.name >.delete: hover > svg
+{
+    transform: scale(0.85);
+}
 
-        :host>.text>.stars {
-            display: flex;
-            align-items: center;
-            height: 22px;
-            color: var(--day-gold);
-            font-size: 21px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+        : host >.text >.stars {
+    display: flex;
+    align - items: center;
+    height: 22px;
+    color: var(--day - gold);
+    font - size: 21px;
+    font - weight: 700;
+    white - space: nowrap;
+}
 
-        :host>.text>.price {
-            color: var(--day-dark03);
-            font-size: 20px;
-            font-weight: 600;
-            margin-top: 2px;
-            white-space: nowrap;
-        }
+        : host >.text >.price {
+    color: var(--day - dark03);
+    font - size: 20px;
+    font - weight: 600;
+    margin - top: 2px;
+    white - space: nowrap;
+}
         
-      </style>
+      </style >
 
         <div class="img">
             <div class="quantity">${this.getAttribute('quantity')}</div>
-            <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}">
+            <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
         </div>
         <div class="text">
             <div class="name">
@@ -381,8 +525,26 @@ class SideMenuItem extends HTMLElement
             <span class="price">${this.getAttribute('price')} MDL</span>
         </div>
 
-    
-    `;
+
+`;
+
+        const deleteBttn = this.shadowRoot.querySelector(".delete")
+        const ID = this.getAttribute('uid')
+
+        deleteBttn.addEventListener('click', () =>
+        {
+            const item = itemQuantityMap.get(ID);
+            item.numValue = item.numValue - 1
+            if (item.numValue <= 0)
+            {
+                sideMenuIDs = sideMenuIDs.filter(id => id !== ID)
+            }
+
+            item.updateNumValue()
+
+            updateMenuSidebar()
+        })
+
 
     }
 }

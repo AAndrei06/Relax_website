@@ -311,13 +311,23 @@
         <div class="overlay" id="menu-overlay"></div>
         <div class="menu-side">
             <div class="wrap">
+                <div class="empty show">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+                        <path
+                            d="M90.6667 90.6667C84.7755 90.6667 80 95.4421 80 101.333C80 107.225 84.7755 112 90.6667 112C96.5579 112 101.333 107.225 101.333 101.333C101.333 95.4421 96.5579 90.6667 90.6667 90.6667ZM90.6667 90.6667H49.5677C47.1087 90.6667 45.877 90.6667 44.8646 90.2293C43.9715 89.8432 43.1967 89.2219 42.6322 88.4293C41.9995 87.5413 41.745 86.3536 41.2413 84.0027L28.1146 22.7448C27.5991 20.3394 27.338 19.138 26.6979 18.2396C26.1334 17.4472 25.3588 16.8235 24.4657 16.4376C23.4531 16 22.2282 16 19.7682 16H16M32 32H100.657C104.507 32 106.429 32 107.722 32.8019C108.853 33.5043 109.682 34.606 110.043 35.888C110.455 37.3516 109.925 39.1998 108.859 42.8985L101.474 68.4987C100.836 70.7099 100.517 71.8133 99.8699 72.6341C99.2987 73.3584 98.5451 73.9253 97.6907 74.2736C96.7259 74.6667 95.5792 74.6667 93.2912 74.6667H41.2292M42.6667 112C36.7756 112 32 107.225 32 101.333C32 95.4421 36.7756 90.6667 42.6667 90.6667C48.5577 90.6667 53.3333 95.4421 53.3333 101.333C53.3333 107.225 48.5577 112 42.6667 112Z"
+                            stroke="#0C0C0C" stroke-opacity="0.75" stroke-width="7.25" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <span>Coșul este gol</span>
+
+                </div>
                 <div class="logo">RELAX</div>
                 <div class="orders"></div>
                 <div class="separator"></div>
                 <div class="checkout">
                     <span>Total: <span class="price">0</span> MDL</span>
                     <button>
-                        <a href="">Cumpără</a>
+                        Cumpără
                     </button>
                 </div>
             </div>
@@ -343,7 +353,7 @@
                 </div>
                 <div class="reviews">
                     <div class="stars"></div>
-                    <div class="num"><span class="star-num"></span> (<span class="reviews-num"></span>)</div>
+                    <button class="num"><span class="reviews-num"></span> recenzii</button>
                 </div>
                 <div class="description"></div>
                 <div class="end">
@@ -363,52 +373,116 @@
             <div class="reviews-side">
                 <div class="content">
                     <div class="header">
-                        <button class="back">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
-                                fill="none">
-                                <path d="M8 16.0002H24M8 16.0002L14.6667 9.3335M8 16.0002L14.6667 22.6668"
-                                    stroke="#0C0C0C" stroke-width="2.66667" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                            Reviews
-                        </button>
-                        <div class="reviews-stats">
-                            <div class="stars-div">
-                                <span class="stars"></span>
-                                <span class="rating"></span>
-                                <span class="reviews-num"></span>
-                            </div>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18"
+                        <div class="first">
+                            <button class="back">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
                                     fill="none">
-                                    <g clip-path="url(#clip0_56_1732)">
-                                        <path d="M7.99976 1.40723V16.5931" stroke="#FF971E" stroke-width="1.99999"
-                                            stroke-linecap="round" />
-                                        <path d="M15.3359 9L0.663761 9" stroke="#FF971E" stroke-width="1.99999"
-                                            stroke-linecap="round" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_56_1732">
-                                            <rect width="16" height="16.5137" fill="white"
-                                                transform="translate(0 0.743164)" />
-                                        </clipPath>
-                                    </defs>
+                                    <path d="M8 16.0002H24M8 16.0002L14.6667 9.3335M8 16.0002L14.6667 22.6668"
+                                        stroke="var(--day-dark01)" stroke-width="2.66667" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
+                                Recenzii
                             </button>
+                            <div class="reviews-stats">
+                                <div class="stars-div">
+                                    <span class="stars"></span>
+                                    <span class="reviews-num"></span>
+                                </div>
+                            </div>
                         </div>
+
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18"
+                                fill="none">
+                                <g clip-path="url(#clip0_216_361)">
+                                    <path d="M8 1.40723V16.5931" stroke-width="1.99999" stroke-linecap="round" />
+                                    <path d="M15.3364 9L0.664249 9" stroke-width="1.99999" stroke-linecap="round" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_216_361">
+                                        <rect width="16" height="16.5137" fill="white"
+                                            transform="translate(0 0.743164)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            Adaugă
+                        </button>
                     </div>
                     <div class="separator"></div>
-                    <div class="reviews">
+                    <div class="reviews active"></div>
+                    <form class="create-review">
+                        <div class="front">
+                            <div class="img">
+                                <img src="../assets/Account/pizza.png" alt="Imaginea de profil a lui">
+                            </div>
+                            <p class="name">Artas Titanic</p>
+                            <div class="stars">
+                                <svg width="24" height="24" viewBox="0 0 60 60" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" fill="white" />
+                                    <path
+                                        d="M29.3636 42.7926L13.2557 54.4261L19.6051 35.5057L3.45455 23.8295H23.2273L29.3636 4.90909L35.5 23.8295H55.2727L39.1222 35.5057L45.4716 54.4261L29.3636 42.7926ZM29.3636 36.571L35.7131 41.152L33.1989 33.5881L39.7614 28.858H31.8778L29.3636 21.1875L26.892 28.858H19.0085L25.5497 33.5881L23.0142 41.152L29.3636 36.571Z"
+                                        fill="#FF971E" />
+                                    <path
+                                        d="M29.6364 36.7699L22.1193 42.1989L25.0824 33.3693L17.5455 27.9205H26.7727L29.6364 19.0909L32.5 27.9205H41.7273L34.1903 33.3693L37.1534 42.1989L29.6364 36.7699Z"
+                                        fill="#FF971E" class="fill" />
 
-                        <item-review name="Andrei Arseni" stars="5" description="Mâncarea e destul de bună, însă deservirea lasă de dorit. Am aṣteptat 20 de minute până
-                                chelnerul mi-a adus meniul apoi
-                                40 de minute până am primit mâncarea. Multe poziții din meniu nu le aveau."
-                            date="7 septembrie 2023" img="../assets/Account/pizza.png"></item-review>
-                        <item-review name="Artur Gisca" stars="3" description="Cat e 7 + 7?" date="1 noiembrie 2023"
-                            img="../assets/Account/pizza2.png"></item-review>
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 60 60" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" fill="white" />
+                                    <path
+                                        d="M29.3636 42.7926L13.2557 54.4261L19.6051 35.5057L3.45455 23.8295H23.2273L29.3636 4.90909L35.5 23.8295H55.2727L39.1222 35.5057L45.4716 54.4261L29.3636 42.7926ZM29.3636 36.571L35.7131 41.152L33.1989 33.5881L39.7614 28.858H31.8778L29.3636 21.1875L26.892 28.858H19.0085L25.5497 33.5881L23.0142 41.152L29.3636 36.571Z"
+                                        fill="#FF971E" />
+                                    <path
+                                        d="M29.6364 36.7699L22.1193 42.1989L25.0824 33.3693L17.5455 27.9205H26.7727L29.6364 19.0909L32.5 27.9205H41.7273L34.1903 33.3693L37.1534 42.1989L29.6364 36.7699Z"
+                                        fill="#FF971E" class="fill" />
+
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 60 60" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" fill="white" />
+                                    <path
+                                        d="M29.3636 42.7926L13.2557 54.4261L19.6051 35.5057L3.45455 23.8295H23.2273L29.3636 4.90909L35.5 23.8295H55.2727L39.1222 35.5057L45.4716 54.4261L29.3636 42.7926ZM29.3636 36.571L35.7131 41.152L33.1989 33.5881L39.7614 28.858H31.8778L29.3636 21.1875L26.892 28.858H19.0085L25.5497 33.5881L23.0142 41.152L29.3636 36.571Z"
+                                        fill="#FF971E" />
+                                    <path
+                                        d="M29.6364 36.7699L22.1193 42.1989L25.0824 33.3693L17.5455 27.9205H26.7727L29.6364 19.0909L32.5 27.9205H41.7273L34.1903 33.3693L37.1534 42.1989L29.6364 36.7699Z"
+                                        fill="#FF971E" class="fill" />
+
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 60 60" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" fill="white" />
+                                    <path
+                                        d="M29.3636 42.7926L13.2557 54.4261L19.6051 35.5057L3.45455 23.8295H23.2273L29.3636 4.90909L35.5 23.8295H55.2727L39.1222 35.5057L45.4716 54.4261L29.3636 42.7926ZM29.3636 36.571L35.7131 41.152L33.1989 33.5881L39.7614 28.858H31.8778L29.3636 21.1875L26.892 28.858H19.0085L25.5497 33.5881L23.0142 41.152L29.3636 36.571Z"
+                                        fill="#FF971E" />
+                                    <path
+                                        d="M29.6364 36.7699L22.1193 42.1989L25.0824 33.3693L17.5455 27.9205H26.7727L29.6364 19.0909L32.5 27.9205H41.7273L34.1903 33.3693L37.1534 42.1989L29.6364 36.7699Z"
+                                        fill="#FF971E" class="fill" />
+
+                                </svg>
+                                <svg width="24" height="24" viewBox="0 0 60 60" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" fill="white" />
+                                    <path
+                                        d="M29.3636 42.7926L13.2557 54.4261L19.6051 35.5057L3.45455 23.8295H23.2273L29.3636 4.90909L35.5 23.8295H55.2727L39.1222 35.5057L45.4716 54.4261L29.3636 42.7926ZM29.3636 36.571L35.7131 41.152L33.1989 33.5881L39.7614 28.858H31.8778L29.3636 21.1875L26.892 28.858H19.0085L25.5497 33.5881L23.0142 41.152L29.3636 36.571Z"
+                                        fill="#FF971E" />
+                                    <path
+                                        d="M29.6364 36.7699L22.1193 42.1989L25.0824 33.3693L17.5455 27.9205H26.7727L29.6364 19.0909L32.5 27.9205H41.7273L34.1903 33.3693L37.1534 42.1989L29.6364 36.7699Z"
+                                        fill="#FF971E" class="fill" />
+
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="textarea">
+                            <textarea placeholder="Scrie recenzia..." name="" id="" cols="30" rows="10"></textarea>
+                            <div class="max"><span>0</span>/500</div>
+                        </div>
+                        <button type="submit">Adaugă</button>
+
+                    </form>
 
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -419,14 +493,12 @@
                     <h2>Pizza</h2>
                     <div class="items">
 
-                        <menu-item name="BBQ Pizza" price="110" img="../assets/Account/pizza.png" stars="5"
-                            reviews="100"
+                        <!-- <menu-item name="BBQ Pizza" price="110" img="../assets/Account/pizza.png" stars="5"
                             description="Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili"
                             masa="0.720" uid="1"></menu-item>
 
                         <menu-item name="Andrei Pizza" price="1100" img="../assets/Account/pizza2.png" stars="4"
-                            reviews="50" description="Andrei e prost" masa="0.920" uid="2"></menu-item>
-
+                            description="Andrei e prost" masa="0.920" uid="2"></menu-item> -->
                     </div>
 
                 </div>
