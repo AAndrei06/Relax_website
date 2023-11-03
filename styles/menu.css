@@ -541,6 +541,10 @@
     font-weight: 700;
 }
 
+.item-popup>.text>.header>.price {
+    margin-top: 4px;
+}
+
 .item-popup>.text>.header>.price,
 .item-popup>.text>.header>.price>span {
     color: var(--day-dark03);
@@ -900,10 +904,14 @@
     height: 40px;
     border-radius: 4px;
     background: var(--day-dark01);
+    transition: opacity 0.1s linear;
+    position: relative;
+}
+
+.item-popup>.reviews-side>.content>.create-review>button>.text {
     color: var(--day-white01);
     font-size: 16px;
     font-weight: 700;
-    transition: opacity 0.1s linear;
 }
 
 .item-popup>.reviews-side>.content>.create-review>button:hover {

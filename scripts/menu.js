@@ -1,4 +1,4 @@
-import { lockScroll, unlockScroll } from "./utils.js";
+import { lockScroll, unlockScroll, starsAnim } from "./utils.js";
 
 const slider = document.querySelector('#slider');
 const sliderValue = document.querySelector('.slider>.value');
@@ -21,41 +21,11 @@ slider.addEventListener('input', updateProgress);
 
 const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
 
-function assignStars(stars, star, path)
-{
-    const indexClicked = Array.from(stars).indexOf(star);
-
-    const fullPath = `${path}:not(.not)`
-
-    const starsFilled = document.querySelectorAll(fullPath).length;
-
-    if (indexClicked >= 0 && indexClicked < stars.length)
-    {
-        if (indexClicked + 1 <= starsFilled)
-        {
-            for (let i = indexClicked + 1; i < stars.length; i++)
-            {
-                stars[i].children[2].classList.add('not');
-            }
-        }
-        else
-        {
-            for (let i = 0; i < indexClicked + 1; i++)
-            {
-                stars[i].children[2].classList.remove('not');
-            }
-        }
-    }
-
-    return indexClicked + 1;
-
-}
-
 stars.forEach(star =>
 {
     star.addEventListener('click', (e) =>
     {
-        const starsFilled = assignStars(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
+        const starsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
     })
 })
 
@@ -228,11 +198,6 @@ const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>
 const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
 const createReviewDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
 
-const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
-const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>.max>span')
-
-const reviewStars = document.querySelectorAll(".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg")
-
 createReviewBttn.addEventListener('click', () =>
 {
     createReviewBttn.classList.toggle('active')
@@ -248,26 +213,3 @@ function resetReviewSlide()
     createReviewDiv.classList.remove('active');
     xSVG.classList.remove('active')
 }
-
-let pastTextareaValue = ''
-
-reviewTextarea.addEventListener('input', (e) =>
-{
-    if (e.target.value.length <= 500)
-    {
-        reviewWordsSpan.innerText = `${e.target.value.length}`;
-        pastTextareaValue = e.target.value
-    }
-    else
-    {
-        e.target.value = pastTextareaValue;
-    }
-})
-
-reviewStars.forEach(star =>
-{
-    star.addEventListener('click', (e) =>
-    {
-        const starsFilled = assignStars(reviewStars, e.target, ".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill")
-    })
-})

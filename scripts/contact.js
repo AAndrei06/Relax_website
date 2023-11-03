@@ -52,27 +52,6 @@ const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-// function deleteTextAnim(input)
-// {
-//     let time = 5;
-
-//     if (input.value.length < 50)
-//     {
-//         time = 10;
-//     }
-
-//     let interval = setInterval(() =>
-//     {
-//         if (input.value.length > 0)
-//         {
-//             input.value = input.value.slice(0, -1);
-//         }
-//         else
-//         {
-//             clearInterval(interval);
-//         }
-//     }, time);
-// }
 
 form.addEventListener('submit', (e) =>
 {

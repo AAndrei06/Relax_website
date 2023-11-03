@@ -1,4 +1,4 @@
-import { lockScroll, unlockScroll, assignStars } from "../utils.js";
+import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, loadingAnim } from "../utils.js";
 
 const itemQuantityMap = new Map();
 let currentID = '';
@@ -62,16 +62,34 @@ const menuItems =
             masa: "0.720",
             uid: "Abcwasda42wda421sfa",
         },
-        // {
-        //     name: "SAR Pizza",
-        //     price: "135",
-        //     img: "../assets/Account/pizza2.png",
-        //     stars: "5",
-        //     reviews: "52",
-        //     description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui",
-        //     masa: "0.300",
-        //     uid: "Abcw3adawadwsda42wda421sfa"
-        // },
+        {
+            name: "Artas e Pizza",
+            price: "135",
+            img: "../assets/Account/pizza2.png",
+            stars: "5",
+            reviews: [
+                // {
+                //     name: "Andrei2 Arseni",
+                //     date: "7 septembrie 2023",
+                //     stars: "5",
+                //     description: "Marcare buna",
+                //     img: "../assets/Account/pizza.png"
+                // },
+                // {
+                //     name: "Artur2 Gisca",
+                //     date: "3 noiembrie 2023",
+                //     stars: "1",
+                //     description: "Marcarea mere",
+                //     img: "../assets/Account/pizza2.png"
+                // },
+
+            ],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsadaw",
+        },
+
+
     ]
 
 }
@@ -140,6 +158,12 @@ function updateMenuSidebar()
     ordersDiv.innerHTML = ordersString;
     ordersPriceDiv.innerText = ordersPrice;
 
+}
+
+function assignReviewNum(div, num)
+{
+    const pluralText = num === 1 ? 'recenzie' : 'recenzii';
+    div.innerText = `${num} ${pluralText}`;
 }
 
 class MenuItem extends HTMLElement
@@ -267,7 +291,6 @@ class MenuItem extends HTMLElement
         itemQuantityMap.set(itemId, this);
 
         const button = this.shadowRoot.querySelector('.bttn');
-        const reviews = JSON.parse(this.getAttribute('reviews'));
 
         button.addEventListener('click', (e) =>
         {
@@ -288,28 +311,17 @@ class MenuItem extends HTMLElement
             itemOverlay.classList.add('show');
             lockScroll();
 
-            popupImage.src = `${this.getAttribute('img')
-                }`;
+            popupImage.src = `${this.getAttribute('img')}`;
 
             popupName.innerText = `${this.getAttribute('name')} `
             popupPrice.innerText = `${this.getAttribute('price')} `
             popupStars.innerText = `${assignStars(this.getAttribute('stars'))} `
-            popupReviewsNum.innerText = `${reviews.length} `
+
             popupDescription.innerText = `${this.getAttribute('description')} `
             popupMasa.innerText = `${this.getAttribute('masa')} `
             reviewStars.innerText = `${assignStars(this.getAttribute('stars'))} `
-            reviewReviewsNum.innerText = `${reviews.length} recenzii`
 
-            console.log(reviews)
-            let tempReviewsString = ''
-            reviews.forEach(review =>
-            {
-                tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
-                            description="${review.description}" date="${review.date}"
-                            img="${review.img}"></item-review>`;
-            })
-
-            popupReviewsDiv.innerHTML = tempReviewsString;
+            this.renderReviews()
 
             if (this.numValue > 0)
             {
@@ -323,7 +335,7 @@ class MenuItem extends HTMLElement
                 popupButton.classList.remove('shake')
             }
 
-            currentID = `${this.getAttribute('uid')} `
+            currentID = `${this.getAttribute('uid')}`
 
         });
 
@@ -355,6 +367,32 @@ class MenuItem extends HTMLElement
         }
 
     }
+    renderReviews()
+    {
+        const reviews = JSON.parse(this.getAttribute('reviews'));
+        let tempReviewsString = ''
+        reviews.forEach(review =>
+        {
+            tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
+                            description="${review.description}" date="${review.date}"
+                            img="${review.img}"></item-review>`;
+        })
+
+        popupReviewsDiv.innerHTML = tempReviewsString;
+        assignReviewNum(popupReviewsNum, reviews.length)
+        assignReviewNum(reviewReviewsNum, reviews.length)
+    }
+    addReview(review)
+    {
+        const currentReviews = JSON.parse(this.getAttribute('reviews'));
+
+        currentReviews.push(review);
+        this.setAttribute('reviews', JSON.stringify(currentReviews));
+        this.renderReviews();
+
+        const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
+        deleteTextAnim(reviewTextarea)
+    }
 
 }
 
@@ -378,9 +416,7 @@ popupButton.addEventListener('click', () =>
     {
         sideMenuIDs.push(currentItem.getAttribute('uid'))
     }
-
     updateMenuSidebar()
-
 })
 
 class SideMenuItem extends HTMLElement
@@ -394,105 +430,105 @@ class SideMenuItem extends HTMLElement
     connectedCallback()
     {
         this.shadowRoot.innerHTML = `
-    < style >
+    <style>
         *
-    {
-        margin: 0;
-        padding: 0;
-        box- sizing: border - box;
-font - family: Poppins, Roboto;
-user - select: none;
-z - index: 3;
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins, Roboto;
+            user-select: none;
+            z-index: 3;
         }
         :host {
-    display: grid;
-    grid - template - columns: 80px 1fr;
-    width: 100 %;
-    column - gap: 16px;
-    position: relative;
-    height: 80px;
-}
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            width: 100%;
+            column-gap: 16px;
+            position: relative;
+            height: 80px;
+        }
 
-        : host >.img {
-    width: 100 %;
-    height: 80px;
-    position: relative;
-}
+        :host>.img {
+            width: 100%;
+            height: 80px;
+            position: relative;
+        }
 
-        : host >.img > img {
-    width: 100 %;
-    height: 100 %;
-    object - fit: cover;
-    border - radius: 4px;
-}
+        :host>.img>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
 
-        : host >.img >.quantity {
-    position: absolute;
-    top: -8px;
-    right: -7px;
-    border - radius: 100px;
-    background: var(--day - dark02);
-    width: 24px;
-    height: 24px;
-    color: var(--day - white01);
-    display: flex;
-    align - items: center;
-    justify - content: center;
-    font - size: 12px;
-    font - weight: 700;
-}
+        :host>.img>.quantity {
+            position: absolute;
+            top: -8px;
+            right: -7px;
+            border-radius: 100px;
+            background: var(--day-dark02);
+            width: 24px;
+            height: 24px;
+            color: var(--day-white01);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
 
-        : host >.text {
-    display: flex;
-    flex - direction: column;
-    width: 100 %;
-}
+        :host>.text {
+            display: flex;
+            flex-direction: column;
+            width: 100 %;
+        }
 
-        : host >.text >.name {
-    display: flex;
-    align - items: center;
-    justify - content: space - between;
-    color: var(--day - dark01);
-    font - size: 20px;
-    font - weight: 700;
-    white - space: nowrap;
-}
+        :host>.text>.name {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--day-dark01);
+            font-size: 20px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
 
-        : host >.text >.name >.delete {
-    background: none;
-    width: 16px;
-    height: 16px;
-    border: none;
-    cursor: pointer;
-}
-        : host >.text >.name >.delete > svg
-{
-    transition: all 0.15s ease -in -out;
-}
-        : host >.text >.name >.delete: hover > svg
-{
-    transform: scale(0.85);
-}
+        :host>.text>.name>.delete {
+            background: none;
+            width: 16px;
+            height: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        :host>.text>.name>.delete>svg
+        {
+            transition: all 0.15s ease-in-out;
+        }
+        :host>.text>.name>.delete:hover>svg
+        {
+            transform: scale(0.85);
+        }
 
-        : host >.text >.stars {
-    display: flex;
-    align - items: center;
-    height: 22px;
-    color: var(--day - gold);
-    font - size: 21px;
-    font - weight: 700;
-    white - space: nowrap;
-}
+        :host>.text>.stars {
+            display: flex;
+            align-items: center;
+            height: 22px;
+            color: var(--day-gold);
+            font-size: 21px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
 
-        : host >.text >.price {
-    color: var(--day - dark03);
-    font - size: 20px;
-    font - weight: 600;
-    margin - top: 2px;
-    white - space: nowrap;
-}
+        :host>.text>.price {
+            color: var(--day-dark03);
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
         
-      </style >
+      </style>
 
         <div class="img">
             <div class="quantity">${this.getAttribute('quantity')}</div>
@@ -550,3 +586,50 @@ z - index: 3;
 }
 
 window.customElements.define("side-menu-item", SideMenuItem)
+
+const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
+const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>.max>span')
+
+const createReviewStars = document.querySelectorAll(".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg")
+const createReviewForm = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
+const createReviewSubmitButton = document.querySelector('#submit-bttn')
+
+let pastTextareaValue = ''
+let createReviewStarsFilled = 5;
+
+reviewTextarea.addEventListener('input', (e) =>
+{
+    if (e.target.value.length <= 500)
+    {
+        reviewWordsSpan.innerText = `${e.target.value.length}`;
+        pastTextareaValue = e.target.value
+    }
+    else
+    {
+        e.target.value = pastTextareaValue;
+    }
+})
+
+createReviewStars.forEach(star =>
+{
+    star.addEventListener('click', (e) =>
+    {
+        createReviewStarsFilled = starsAnim(createReviewStars, e.target, ".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill")
+
+    })
+})
+
+createReviewForm.addEventListener('submit', (e) =>
+{
+    e.preventDefault();
+    const currentItem = itemQuantityMap.get(currentID);
+    currentItem.addReview({
+        name: "Andrei Arseni",
+        date: "7 septembrie 2023",
+        stars: `${createReviewStarsFilled}`,
+        description: `${reviewTextarea.value}`,
+        img: "../assets/Account/pizza.png"
+    })
+
+    loadingAnim(createReviewSubmitButton)
+})

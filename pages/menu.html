@@ -353,7 +353,7 @@
                 </div>
                 <div class="reviews">
                     <div class="stars"></div>
-                    <button class="num"><span class="reviews-num"></span> recenzii</button>
+                    <button class="num"><span class="reviews-num"></span></button>
                 </div>
                 <div class="description"></div>
                 <div class="end">
@@ -475,10 +475,23 @@
                             </div>
                         </div>
                         <div class="textarea">
-                            <textarea placeholder="Scrie recenzia..." name="" id="" cols="30" rows="10"></textarea>
+                            <textarea placeholder="Scrie recenzia..." name="" id="" cols="30" rows="10"
+                                required></textarea>
                             <div class="max"><span>0</span>/500</div>
                         </div>
-                        <button type="submit">Adaugă</button>
+                        <button type="submit" id="submit-bttn">
+                            <div class="loading">
+                                <div class="content">
+                                    <svg class="spinner" width="28px" height="28px" viewBox="0 0 66 66"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33"
+                                            cy="33" r="30"></circle>
+                                    </svg>
+                                </div>
+
+                            </div>
+                            <span class="text">Adaugă</span>
+                        </button>
 
                     </form>
 
