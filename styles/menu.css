@@ -288,7 +288,7 @@
     top: 0;
     height: 100vh;
     width: 384px;
-    border-radius: 16px 0px 0px 16px;
+    border-radius: 8px 0px 0px 8px;
     background: var(--day-white01);
     z-index: 5;
     opacity: 0;
@@ -370,8 +370,17 @@
     width: calc(100% - 64px);
 }
 
+.menu-side>.wrap>.checkout>span {
+    opacity: 0.5;
+    transition: all 0.20s ease-in-out;
+}
+
+.menu-side>.wrap>.checkout>span.active {
+    opacity: 1;
+}
+
 .menu-side>.wrap>.checkout>span,
-.menu-side>.wrap>.checkout>span>span {
+.menu-side>.wrap>.checkout>span>.price {
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 600;
@@ -390,11 +399,20 @@
     justify-content: center;
     cursor: not-allowed;
     opacity: 0.5;
-    transition: opacity 0.25s ease-in-out;
+    transition: opacity 0.20s ease-in-out;
 }
 
 .menu-side>.wrap>.checkout>button.active {
     cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+.menu-side>.wrap>.checkout>button.active:hover {
+    opacity: 0.9;
+}
+
+.menu-side>.wrap>.checkout>button.active:active {
     opacity: 1;
 }
 
@@ -457,12 +475,13 @@
 }
 
 .item-popup>.image {
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 2px);
+    height: 415px;
     position: relative;
     cursor: none;
     overflow: hidden;
     border-radius: 8px 0 0 8px;
+    background-color: var(--day-dark01);
 }
 
 .item-popup>.image:hover>.mouse {
@@ -622,8 +641,8 @@
     pointer-events: none;
     left: 0;
     bottom: 0;
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: hidden;
     transition: all 0.1s ease-in-out;
 }
 
@@ -637,6 +656,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    height: 100%;
 }
 
 .item-popup>.reviews-side>.content>.header {
@@ -741,6 +761,9 @@
     pointer-events: none;
     transform: translateX(-110%);
     transition: all 0.15s ease-in-out;
+    overflow-y: auto;
+    height: 315px;
+    width: calc(100% - 64px);
 }
 
 .item-popup>.reviews-side>.content>.reviews.active {

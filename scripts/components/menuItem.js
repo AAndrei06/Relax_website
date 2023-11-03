@@ -16,17 +16,78 @@ const popupDescription = document.querySelector('.item-popup>.text>.description'
 const popupMasa = document.querySelector('.item-popup>.text>.end>.masa>span')
 const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>span')
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
+const popupReviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
 
 const reviewSide = document.querySelector('.reviews-side')
 const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars')
 const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num')
 
-const newPoint = document.querySelector(".menu-bttn>.wrap>.new")
-const ordersDiv = document.querySelector(".menu-side>.wrap>.orders")
-const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price')
-const ordersEmpty = document.querySelector('.menu-side>.wrap>.empty')
+const newPoint = document.querySelector(".menu-bttn>.wrap>.new");
+const ordersDiv = document.querySelector(".menu-side>.wrap>.orders");
+const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>span>.price');
+const ordersEmpty = document.querySelector('.menu-side>.wrap>.empty');
 
-const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button')
+const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button');
+const checkoutTotalSpan = document.querySelector('.menu-side>.wrap>.checkout>span');
+
+const pizzaSection = document.querySelector("#pizza-section");
+const pizzaItems = pizzaSection.querySelector('.items');
+
+const menuItems =
+{
+    pizzaSection: [
+        {
+            name: "BBQ Pizza",
+            price: "110",
+            img: "../assets/Account/pizza.png",
+            stars: "5",
+            reviews: [
+                {
+                    name: "Andrei Arseni",
+                    date: "7 septembrie 2023",
+                    stars: "5",
+                    description: "Marcare buna",
+                    img: "../assets/Account/pizza.png"
+                },
+                {
+                    name: "Artur Gisca",
+                    date: "3 noiembrie 2023",
+                    stars: "4",
+                    description: "Marcarea mere",
+                    img: "../assets/Account/pizza2.png"
+                },
+
+            ],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.720",
+            uid: "Abcwasda42wda421sfa",
+        },
+        // {
+        //     name: "SAR Pizza",
+        //     price: "135",
+        //     img: "../assets/Account/pizza2.png",
+        //     stars: "5",
+        //     reviews: "52",
+        //     description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui",
+        //     masa: "0.300",
+        //     uid: "Abcw3adawadwsda42wda421sfa"
+        // },
+    ]
+
+}
+// Fetch Menu
+
+let tempString = ''
+menuItems.pizzaSection.forEach(item =>
+{
+    tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
+                            reviews='${JSON.stringify(item.reviews)}'
+                            description="${item.description}"
+                            masa="${item.masa}" uid="${item.uid}"></menu-item>`;
+})
+
+pizzaItems.innerHTML = tempString;
+
 
 itemOverlay.addEventListener('click', () =>
 {
@@ -67,12 +128,14 @@ function updateMenuSidebar()
         ordersEmpty.classList.add('show')
         newPoint.classList.remove('show')
         checkoutButton.classList.remove("active")
+        checkoutTotalSpan.classList.remove("active")
     }
     else
     {
         ordersEmpty.classList.remove('show')
         newPoint.classList.add('show')
         checkoutButton.classList.add("active")
+        checkoutTotalSpan.classList.add("active")
     }
     ordersDiv.innerHTML = ordersString;
     ordersPriceDiv.innerText = ordersPrice;
@@ -204,6 +267,7 @@ class MenuItem extends HTMLElement
         itemQuantityMap.set(itemId, this);
 
         const button = this.shadowRoot.querySelector('.bttn');
+        const reviews = JSON.parse(this.getAttribute('reviews'));
 
         button.addEventListener('click', (e) =>
         {
@@ -224,23 +288,34 @@ class MenuItem extends HTMLElement
             itemOverlay.classList.add('show');
             lockScroll();
 
-            popupImage.src = `${this.getAttribute('img')}`;
+            popupImage.src = `${this.getAttribute('img')
+                }`;
 
-            popupName.innerText = `${this.getAttribute('name')}`
-            popupPrice.innerText = `${this.getAttribute('price')}`
-            popupStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            popupReviewsNum.innerText = `${this.getAttribute('reviews')}`
-            popupDescription.innerText = `${this.getAttribute('description')}`
-            popupMasa.innerText = `${this.getAttribute('masa')}`
-            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))}`
-            reviewReviewsNum.innerText = `${this.getAttribute('reviews')} recenzii`
+            popupName.innerText = `${this.getAttribute('name')} `
+            popupPrice.innerText = `${this.getAttribute('price')} `
+            popupStars.innerText = `${assignStars(this.getAttribute('stars'))} `
+            popupReviewsNum.innerText = `${reviews.length} `
+            popupDescription.innerText = `${this.getAttribute('description')} `
+            popupMasa.innerText = `${this.getAttribute('masa')} `
+            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))} `
+            reviewReviewsNum.innerText = `${reviews.length} recenzii`
+
+            console.log(reviews)
+            let tempReviewsString = ''
+            reviews.forEach(review =>
+            {
+                tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
+                            description="${review.description}" date="${review.date}"
+                            img="${review.img}"></item-review>`;
+            })
+
+            popupReviewsDiv.innerHTML = tempReviewsString;
 
             if (this.numValue > 0)
             {
                 popupItemQuantity.style.display = 'initial'
-                popupItemQuantity.innerText = `x ${this.numValue}`
+                popupItemQuantity.innerText = `x ${this.numValue} `
                 popupButton.classList.add('shake')
-
             }
             else
             {
@@ -248,7 +323,7 @@ class MenuItem extends HTMLElement
                 popupButton.classList.remove('shake')
             }
 
-            currentID = `${this.getAttribute('uid')}`
+            currentID = `${this.getAttribute('uid')} `
 
         });
 
@@ -258,13 +333,11 @@ class MenuItem extends HTMLElement
     {
         const numSpan = this.shadowRoot.querySelector('.num');
         this.numValue++;
-        numSpan.textContent = `x ${this.numValue}`;
+        numSpan.textContent = `x ${this.numValue} `;
         numSpan.style.display = 'initial';
 
         popupButton.classList.add('shake')
         this.shadowRoot.querySelector('.bttn').classList.add('shake');
-        console.log('vasea')
-
     };
 
     updateNumValue()
@@ -272,7 +345,7 @@ class MenuItem extends HTMLElement
         const numSpan = this.shadowRoot.querySelector('.num');
         if (this.numValue > 0)
         {
-            numSpan.textContent = `x ${this.numValue}`;
+            numSpan.textContent = `x ${this.numValue} `;
             numSpan.style.display = 'initial';
         }
         else
@@ -294,7 +367,7 @@ popupButton.addEventListener('click', () =>
     if (currentItem.numValue > 0)
     {
         popupItemQuantity.style.display = 'initial'
-        popupItemQuantity.textContent = `x ${currentItem.numValue}`
+        popupItemQuantity.textContent = `x ${currentItem.numValue} `
     }
     else
     {
@@ -321,105 +394,105 @@ class SideMenuItem extends HTMLElement
     connectedCallback()
     {
         this.shadowRoot.innerHTML = `
-      <style>
+    < style >
         *
-        {
-            margin : 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Poppins, Roboto;
-            user-select: none;
-            z-index: 3;
+    {
+        margin: 0;
+        padding: 0;
+        box- sizing: border - box;
+font - family: Poppins, Roboto;
+user - select: none;
+z - index: 3;
         }
         :host {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            width: 100%;
-            column-gap: 16px;
-            position: relative;
-            height: 80px;
-        }
+    display: grid;
+    grid - template - columns: 80px 1fr;
+    width: 100 %;
+    column - gap: 16px;
+    position: relative;
+    height: 80px;
+}
 
-        :host>.img {
-            width: 100%;
-            height: 80px;
-            position: relative;
-        }
+        : host >.img {
+    width: 100 %;
+    height: 80px;
+    position: relative;
+}
 
-        :host>.img>img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-        }
+        : host >.img > img {
+    width: 100 %;
+    height: 100 %;
+    object - fit: cover;
+    border - radius: 4px;
+}
 
-        :host>.img>.quantity {
-            position: absolute;
-            top: -8px;
-            right: -7px;
-            border-radius: 100px;
-            background: var(--day-dark02);
-            width: 24px;
-            height: 24px;
-            color: var(--day-white01);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
+        : host >.img >.quantity {
+    position: absolute;
+    top: -8px;
+    right: -7px;
+    border - radius: 100px;
+    background: var(--day - dark02);
+    width: 24px;
+    height: 24px;
+    color: var(--day - white01);
+    display: flex;
+    align - items: center;
+    justify - content: center;
+    font - size: 12px;
+    font - weight: 700;
+}
 
-        :host>.text {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
+        : host >.text {
+    display: flex;
+    flex - direction: column;
+    width: 100 %;
+}
 
-        :host>.text>.name {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--day-dark01);
-            font-size: 20px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+        : host >.text >.name {
+    display: flex;
+    align - items: center;
+    justify - content: space - between;
+    color: var(--day - dark01);
+    font - size: 20px;
+    font - weight: 700;
+    white - space: nowrap;
+}
 
-        :host>.text>.name>.delete {
-            background: none;
-            width: 16px;
-            height: 16px;
-            border: none;
-            cursor: pointer;
-        }
-        :host>.text>.name>.delete>svg
-        {
-            transition: all 0.15s ease-in-out;
-        }
-        :host>.text>.name>.delete:hover>svg
-        {
-            transform: scale(0.85);
-        }
+        : host >.text >.name >.delete {
+    background: none;
+    width: 16px;
+    height: 16px;
+    border: none;
+    cursor: pointer;
+}
+        : host >.text >.name >.delete > svg
+{
+    transition: all 0.15s ease -in -out;
+}
+        : host >.text >.name >.delete: hover > svg
+{
+    transform: scale(0.85);
+}
 
-        :host>.text>.stars {
-            display: flex;
-            align-items: center;
-            height: 22px;
-            color: var(--day-gold);
-            font-size: 21px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
+        : host >.text >.stars {
+    display: flex;
+    align - items: center;
+    height: 22px;
+    color: var(--day - gold);
+    font - size: 21px;
+    font - weight: 700;
+    white - space: nowrap;
+}
 
-        :host>.text>.price {
-            color: var(--day-dark03);
-            font-size: 20px;
-            font-weight: 600;
-            margin-top: 2px;
-            white-space: nowrap;
-        }
+        : host >.text >.price {
+    color: var(--day - dark03);
+    font - size: 20px;
+    font - weight: 600;
+    margin - top: 2px;
+    white - space: nowrap;
+}
         
-      </style>
+      </style >
 
         <div class="img">
             <div class="quantity">${this.getAttribute('quantity')}</div>
@@ -452,8 +525,8 @@ class SideMenuItem extends HTMLElement
             <span class="price">${this.getAttribute('price')} MDL</span>
         </div>
 
-    
-    `;
+
+`;
 
         const deleteBttn = this.shadowRoot.querySelector(".delete")
         const ID = this.getAttribute('uid')
