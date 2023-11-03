@@ -585,9 +585,19 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    transition: opacity 0.1s linear;
+}
+
+.item-popup>.text>.end>button:hover {
+    opacity: 0.9;
+}
+
+.item-popup>.text>.end>button:active {
+    opacity: 1;
 }
 
 .item-popup>.text>.end>button>svg {
+    transform: rotate(0deg);
     transition: all 0.1s ease-in-out;
 }
 
@@ -870,4 +880,13 @@
     color: var(--day-white01);
     font-size: 16px;
     font-weight: 700;
+    transition: opacity 0.1s linear;
+}
+
+.item-popup>.reviews-side>.content>.create-review>button:hover {
+    opacity: 0.9;
+}
+
+.item-popup>.reviews-side>.content>.create-review>button:active {
+    opacity: 1;
 }

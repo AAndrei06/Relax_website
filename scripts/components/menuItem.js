@@ -11,7 +11,6 @@ const popupImage = document.querySelector('.item-popup>.image>img')
 const popupName = document.querySelector('.item-popup>.text>.header>.name')
 const popupPrice = document.querySelector('.item-popup>.text>.header>.price>span')
 const popupStars = document.querySelector('.item-popup>.text>.reviews>.stars')
-// const popupStarsNum = document.querySelector('.item-popup>.text>.reviews>.num>.star-num')
 const popupReviewsNum = document.querySelector('.item-popup>.text>.reviews>.num>.reviews-num')
 const popupDescription = document.querySelector('.item-popup>.text>.description')
 const popupMasa = document.querySelector('.item-popup>.text>.end>.masa>span')
@@ -155,15 +154,17 @@ class MenuItem extends HTMLElement
             color: var(--day-white01);
             font-size: 16px;
             font-weight: 600;
-            transition: background 0.1s linear;
+            transition: opacity 0.1s linear;
         }
         :host>button:hover
         {
-            background: var(--day-dark02);
+            opacity: 0.9;
+            // background: var(--day-dark02);
         }
         :host>button:active
         {
-            background: var(--day-dark03);
+            opacity: 1;
+            // background: var(--day-dark03);
         }
         :host>button>svg
         {
@@ -199,7 +200,6 @@ class MenuItem extends HTMLElement
       </button>
     `;
 
-        // Get the span element and the button element
         const itemId = this.getAttribute('uid');
         itemQuantityMap.set(itemId, this);
 
@@ -245,6 +245,7 @@ class MenuItem extends HTMLElement
             else
             {
                 popupItemQuantity.style.display = 'none'
+                popupButton.classList.remove('shake')
             }
 
             currentID = `${this.getAttribute('uid')}`
