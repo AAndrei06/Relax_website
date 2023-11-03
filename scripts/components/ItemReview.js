@@ -93,7 +93,7 @@ class ItemReview extends HTMLElement
             <div class="acc">
                 <div class="img">
                     <img src="${this.getAttribute('img')}"
-                        alt="Imaginea de profil a lui ${this.getAttribute('name')}">
+                        alt="Imaginea de profil a lui ${this.getAttribute('name')}" draggable="false">
                 </div>
 
                 <div class="text">

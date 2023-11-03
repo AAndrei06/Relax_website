@@ -38,3 +38,65 @@ export function assignStars(starsNum)
 
     return starsString;
 }
+export function starsAnim(stars, star, path)
+{
+    const indexClicked = Array.from(stars).indexOf(star);
+
+    const fullPath = `${path}:not(.not)`
+
+    const starsFilled = document.querySelectorAll(fullPath).length;
+
+    if (indexClicked >= 0 && indexClicked < stars.length)
+    {
+        if (indexClicked + 1 <= starsFilled)
+        {
+            for (let i = indexClicked + 1; i < stars.length; i++)
+            {
+                stars[i].children[2].classList.add('not');
+            }
+        }
+        else
+        {
+            for (let i = 0; i < indexClicked + 1; i++)
+            {
+                stars[i].children[2].classList.remove('not');
+            }
+        }
+    }
+
+    return indexClicked + 1;
+
+}
+
+export function loadingAnim(button)
+{
+    const loading = button.querySelector(".loading")
+    const text = button.querySelector(".text")
+
+    text.innerText = ''
+    loading.style.opacity = "1"
+}
+export function responseAnim(res)
+{
+    if (res)
+    {
+        setTimeout(() =>
+        {
+            text.innerText = 'Trimite'
+            loading.style.opacity = "0"
+        }, 250)
+    }
+
+    sendBttnFeedback.style.transform = "translateX(0%)"
+    sendBttnFeedback.style.opacity = "1"
+    setTimeout(() =>
+    {
+        sendBttnFeedback.style.transform = "translateX(100%)"
+        setTimeout(() =>
+        {
+            sendBttnFeedback.style.opacity = "0"
+            sendBttnFeedback.style.transform = "translateX(-100%)"
+        }, 250);
+    }, 2000)
+
+}   
