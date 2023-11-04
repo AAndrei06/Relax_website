@@ -32,12 +32,11 @@ export function deleteTextAnim(input)
 }
 export function assignStars(starsNum)
 {
-    if (starsNum)
+    if (starsNum && starsNum !== 'NaN')
     {
         starsNum = Math.min(Math.max(starsNum, 0), 5);
 
         const starsString = '★ '.repeat(starsNum) + '☆ '.repeat(5 - starsNum);
-
         return starsString;
     }
     else
