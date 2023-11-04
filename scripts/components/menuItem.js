@@ -1,4 +1,4 @@
-import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, loadingAnim } from "../utils.js";
+import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate } from "../utils.js";
 
 const itemQuantityMap = new Map();
 let currentID = '';
@@ -54,6 +54,13 @@ const menuItems =
                     date: "3 noiembrie 2023",
                     stars: "4",
                     description: "Marcarea mere",
+                    img: "../assets/Account/pizza2.png"
+                },
+                {
+                    name: "Artur Gisca",
+                    date: "3 noiembrie 2023",
+                    stars: "1",
+                    description: "Leva",
                     img: "../assets/Account/pizza2.png"
                 },
 
@@ -114,6 +121,7 @@ itemOverlay.addEventListener('click', () =>
     unlockScroll();
     reviewSide.classList.remove('show')
     popupButton.classList.remove('shake')
+    resetReviewSlide()
 })
 
 checkoutButton.addEventListener('click', () =>
@@ -173,6 +181,8 @@ class MenuItem extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.numValue = 0;
+
+        this.starScore = this.calculateStars();
     }
 
     connectedCallback()
@@ -246,12 +256,10 @@ class MenuItem extends HTMLElement
         :host>button:hover
         {
             opacity: 0.9;
-            // background: var(--day-dark02);
         }
         :host>button:active
         {
             opacity: 1;
-            // background: var(--day-dark03);
         }
         :host>button>svg
         {
@@ -272,7 +280,7 @@ class MenuItem extends HTMLElement
       <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
       <p class="name">${this.getAttribute('name')}</p>
       <p class="stars">
-      ${assignStars(this.getAttribute('stars'))}
+      ${assignStars(this.starScore)}
       </p>
       <p class="price"><span>${this.getAttribute('price')}</span> MDL</p>
       <button class="bttn">
@@ -313,13 +321,13 @@ class MenuItem extends HTMLElement
 
             popupImage.src = `${this.getAttribute('img')}`;
 
-            popupName.innerText = `${this.getAttribute('name')} `
-            popupPrice.innerText = `${this.getAttribute('price')} `
-            popupStars.innerText = `${assignStars(this.getAttribute('stars'))} `
+            popupName.innerText = `${this.getAttribute('name')}`
+            popupPrice.innerText = `${this.getAttribute('price')}`
+            popupStars.innerText = `${assignStars(this.starScore)}`
+            reviewStars.innerText = `${assignStars(this.starScore)}`
+            popupDescription.innerText = `${this.getAttribute('description')}`
+            popupMasa.innerText = `${this.getAttribute('masa')}`
 
-            popupDescription.innerText = `${this.getAttribute('description')} `
-            popupMasa.innerText = `${this.getAttribute('masa')} `
-            reviewStars.innerText = `${assignStars(this.getAttribute('stars'))} `
 
             this.renderReviews()
 
@@ -340,6 +348,7 @@ class MenuItem extends HTMLElement
         });
 
     }
+
 
     addNumValue()
     {
@@ -370,28 +379,83 @@ class MenuItem extends HTMLElement
     renderReviews()
     {
         const reviews = JSON.parse(this.getAttribute('reviews'));
-        let tempReviewsString = ''
-        reviews.forEach(review =>
+        if (reviews.length > 0)
         {
-            tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
+            popupReviewsDiv.classList.remove('none');
+            let tempReviewsString = ''
+            reviews.forEach(review =>
+            {
+                tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
                             description="${review.description}" date="${review.date}"
                             img="${review.img}"></item-review>`;
-        })
+            })
 
-        popupReviewsDiv.innerHTML = tempReviewsString;
+            popupReviewsDiv.innerHTML = tempReviewsString;
+        }
+        else
+        {
+            popupReviewsDiv.innerHTML = `
+            <div class="none-div">
+                <svg xmlns="http://www.w3.org/2000/svg" width="97" height="96" viewBox="0 0 97 96" fill="none">
+                    <path d="M36.5005 36L60.5005 60M60.5005 36L36.5005 60M84.5005 48C84.5005 67.8824 68.3829 84 48.5005 84C28.6182 84 12.5005 67.8824 12.5005 48C12.5005 28.1178 28.6182 12 48.5005 12C68.3829 12 84.5005 28.1178 84.5005 48Z" stroke="#0C0C0C" stroke-opacity="0.5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Nu exista recenzii
+            </div>`
+            popupReviewsDiv.classList.add('none');
+        }
+
         assignReviewNum(popupReviewsNum, reviews.length)
         assignReviewNum(reviewReviewsNum, reviews.length)
+        // this.starScore = this.calculateStars();
+        // console.log(this.starScore)
     }
     addReview(review)
     {
         const currentReviews = JSON.parse(this.getAttribute('reviews'));
-
-        currentReviews.push(review);
+        currentReviews.push(review)
         this.setAttribute('reviews', JSON.stringify(currentReviews));
         this.renderReviews();
 
+        // Salvare in main
+        for (const sectionName in menuItems)
+        {
+            const section = menuItems[sectionName];
+            if (section)
+            {
+                const foundItem = section.find(item => item.uid === currentID);
+
+                if (foundItem)
+                {
+                    // Item found, you can access it as foundItem
+                    foundItem.reviews.push(review)
+                    break; // Exit the loop since you found the item
+                }
+            }
+        }
+
         const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
         deleteTextAnim(reviewTextarea)
+        this.starScore = this.calculateStars();
+
+        this.updateStars();
+    }
+    calculateStars()
+    {
+        const reviews = JSON.parse(this.getAttribute('reviews'));
+        let totalStars = 0;
+
+        reviews.forEach(review =>
+        {
+            totalStars += Number(review.stars);
+        });
+
+        return Math.round(totalStars / reviews.length);
+    }
+    updateStars()
+    {
+        popupStars.innerText = `${assignStars(this.starScore)}`
+        reviewStars.innerText = `${assignStars(this.starScore)}`
+        this.shadowRoot.querySelector(':host>.stars').innerText = `${assignStars(this.starScore)}`
     }
 
 }
@@ -592,10 +656,17 @@ const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.conte
 
 const createReviewStars = document.querySelectorAll(".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg")
 const createReviewForm = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
-const createReviewSubmitButton = document.querySelector('#submit-bttn')
 
-let pastTextareaValue = ''
-let createReviewStarsFilled = 5;
+const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
+const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>button>svg')
+
+const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
+const createReviewDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
+const createStarsDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.front>.stars')
+
+let pastTextareaValue = '';
+let createReviewStarsFilled = 0;
+let starsAreSelected = false;
 
 reviewTextarea.addEventListener('input', (e) =>
 {
@@ -614,22 +685,63 @@ createReviewStars.forEach(star =>
 {
     star.addEventListener('click', (e) =>
     {
+        starsAreSelected = true;
         createReviewStarsFilled = starsAnim(createReviewStars, e.target, ".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill")
-
     })
 })
 
 createReviewForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();
-    const currentItem = itemQuantityMap.get(currentID);
-    currentItem.addReview({
-        name: "Andrei Arseni",
-        date: "7 septembrie 2023",
-        stars: `${createReviewStarsFilled}`,
-        description: `${reviewTextarea.value}`,
-        img: "../assets/Account/pizza.png"
-    })
 
-    loadingAnim(createReviewSubmitButton)
+    if (starsAreSelected && reviewTextarea.value !== '')
+    {
+        const currentItem = itemQuantityMap.get(currentID);
+        const uid = generateMongoLikeID();
+        const date = formatDate(new Date());
+
+        currentItem.addReview({
+            name: "Andrei Arseni",
+            date: date,
+            stars: `${createReviewStarsFilled}`,
+            description: `${reviewTextarea.value}`,
+            img: "../assets/Account/pizza.png",
+            uid: uid
+        })
+        resetReviewSlide()
+    }
+    if (!starsAreSelected)
+    {
+        createStarsDiv.classList.add('anim')
+        setTimeout(() =>
+        {
+            createStarsDiv.classList.remove('anim')
+        }, 350)
+    }
+    if (reviewTextarea.value == '')
+    {
+        reviewTextarea.classList.add('anim')
+        setTimeout(() =>
+        {
+            reviewTextarea.classList.remove('anim')
+        }, 350)
+    }
+
 })
+
+function resetReviewSlide()
+{
+    reviewWordsSpan.innerText = "0";
+
+    createReviewBttn.classList.remove('active')
+    reviewsDiv.classList.add('active');
+    createReviewDiv.classList.remove('active');
+    xSVG.classList.remove('active')
+
+    createReviewStars.forEach(star =>
+    {
+        star.querySelector('path.fill').classList.add('not')
+    })
+    starsAreSelected = false;
+    createReviewStarsFilled = 0;
+}

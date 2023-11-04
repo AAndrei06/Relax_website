@@ -397,7 +397,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: not-allowed;
+    cursor: default;
     opacity: 0.5;
     transition: opacity 0.20s ease-in-out;
 }
@@ -770,6 +770,23 @@
     width: calc(100% - 64px);
 }
 
+.item-popup>.reviews-side>.content>.reviews.none {
+    align-items: center;
+    justify-content: center;
+}
+
+.item-popup>.reviews-side>.content>.reviews>.none-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--day-dark04);
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
 .item-popup>.reviews-side>.content>.reviews.active {
     pointer-events: initial;
     transform: translateX(0%);
@@ -827,6 +844,42 @@
     align-items: center;
 }
 
+.item-popup>.reviews-side>.content>.create-review>.front>.stars.anim {
+    animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(5%);
+    }
+
+    75% {
+        transform: translateX(-5%);
+    }
+}
+
+@keyframes mini-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(1%);
+    }
+
+    75% {
+        transform: translateX(-1%);
+    }
+}
+
 .item-popup>.reviews-side>.content>.create-review>.front>.stars>svg {
     cursor: pointer;
 }
@@ -863,6 +916,10 @@
     border: 1px solid var(--day-dark06);
     padding: 16px;
     transition: all 0.1s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.create-review>.textarea>textarea.anim {
+    animation: mini-shake 0.35s ease-in-out;
 }
 
 .item-popup>.reviews-side>.content>.create-review>.textarea>textarea:focus {
@@ -906,6 +963,12 @@
     background: var(--day-dark01);
     transition: opacity 0.1s linear;
     position: relative;
+}
+
+.item-popup>.reviews-side>.content>.create-review>button>.feedback {
+    color: var(--day-white01) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
 }
 
 .item-popup>.reviews-side>.content>.create-review>button>.text {
