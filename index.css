@@ -79,6 +79,13 @@ textarea {
     border: none;
     outline: transparent;
     resize: none;
+    word-break: break-all;
+}
+
+div[contenteditable="true"] {
+    word-break: break-all;
+    border: none;
+    outline: transparent;
 }
 
 .loading>.content>.spinner {
@@ -131,7 +138,7 @@ textarea {
     height: 100%;
     border-radius: 4px;
     background: #799F82;
-    cursor: default;
+    cursor: not-allowed;
     color: var(--day-white01);
     font-size: 24px;
     font-weight: 700;

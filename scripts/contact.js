@@ -1,4 +1,4 @@
-import { deleteTextAnim } from "./utils.js";
+import { deleteTextAnim, loadingAnim, responseAnim, endAnim } from "./utils.js";
 
 // Copy Function
 
@@ -10,7 +10,6 @@ infoDivs.forEach(div =>
 {
     div.addEventListener('click', (e) =>
     {
-        console.log(e.target)
         e.target.style.pointerEvents = 'none'
         const span = e.target.children[1]
         const text = span.innerText;
@@ -66,8 +65,7 @@ form.addEventListener('submit', (e) =>
     const serviceId = "service_mcv5bfc";
     const templateId = "template_iviag0d";
 
-    sendBttnText.innerText = ''
-    sendBttnLoading.style.opacity = "1"
+    loadingAnim(sendBttn)
 
     deleteTextAnim(nameInput)
     deleteTextAnim(emailInput)
@@ -75,25 +73,15 @@ form.addEventListener('submit', (e) =>
 
     emailjs.send(serviceId, templateId, params).then(res =>
     {
-        sendBttnLoading.style.opacity = "0"
-        setTimeout(() =>
-        {
-            sendBttnText.innerText = 'Trimite'
-        }, 250)
+
+        responseAnim(res.status != 200, sendBttn, "Trimite")
 
 
         if (res.status == 200)
         {
-            sendBttnFeedback.style.transform = "translateX(0%)"
-            sendBttnFeedback.style.opacity = "1"
             setTimeout(() =>
             {
-                sendBttnFeedback.style.transform = "translateX(100%)"
-                setTimeout(() =>
-                {
-                    sendBttnFeedback.style.opacity = "0"
-                    sendBttnFeedback.style.transform = "translateX(-100%)"
-                }, 250);
+                endAnim(sendBttn)
             }, 2000)
         }
 

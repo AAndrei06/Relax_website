@@ -90,13 +90,6 @@ const menuButton = document.querySelector(".menu-bttn");
 const menuOverlay = document.querySelector("#menu-overlay");
 const menuSide = document.querySelector('.menu-side');
 
-const itemOverlay = document.querySelector('#item-overlay');
-
-itemOverlay.addEventListener('click', () =>
-{
-    resetReviewSlide()
-})
-
 menuButton.addEventListener('click', () =>
 {
     openMenu()
@@ -205,11 +198,3 @@ createReviewBttn.addEventListener('click', () =>
     createReviewDiv.classList.toggle('active');
     xSVG.classList.toggle('active')
 })
-
-function resetReviewSlide()
-{
-    createReviewBttn.classList.remove('active')
-    reviewsDiv.classList.add('active');
-    createReviewDiv.classList.remove('active');
-    xSVG.classList.remove('active')
-}
