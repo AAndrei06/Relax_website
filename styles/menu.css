@@ -719,30 +719,32 @@
     justify-content: center;
     gap: 4px;
     border-radius: 4px;
-    border: 2px solid var(--day-dark01);
     width: 128px;
     height: 32px;
-    color: var(--day-dark01);
+    border: none;
+    background-color: var(--day-dark01);
+    color: var(--day-white01);
     font-size: 16px;
     font-weight: 600;
     transition: all 0.15s ease-in-out;
 }
 
 .item-popup>.reviews-side>.content>.header>button.active {
-    border: none;
-    background-color: var(--day-dark01);
-    color: var(--day-white01);
+    background-color: var(--day-white01);
+    color: var(--day-dark01);
+    border: 2px solid var(--day-dark01);
 }
 
 .item-popup>.reviews-side>.content>.header>button>svg {
-    stroke: var(--day-dark01);
+    stroke: var(--day-white01);
     transition: transform 0.15s ease-in-out;
     margin-top: 1px;
 }
 
 .item-popup>.reviews-side>.content>.header>button.active>svg {
     transform: rotate(-45deg);
-    stroke: var(--day-white01);
+
+    stroke: var(--day-dark01);
 }
 
 .item-popup>.reviews-side>.content>.separator {

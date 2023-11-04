@@ -112,7 +112,7 @@ const menuItems =
             },],
             description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
             masa: "0.220",
-            uid: "dsadaw",
+            uid: "dsadawdawadwawdqwr2141daw",
         },
         {
             name: "Vasea Pizza",
@@ -144,7 +144,7 @@ const menuItems =
             ],
             description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
             masa: "0.720",
-            uid: "Abcwasda42wda421sfa",
+            uid: "Abcwasda42wda4231223121sfa",
         },
 
     ]

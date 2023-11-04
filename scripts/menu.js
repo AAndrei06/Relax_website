@@ -108,6 +108,8 @@ function closeMenu()
 const reviewSide = document.querySelector('.reviews-side')
 const reviewSideBack = document.querySelector(".item-popup>.reviews-side>.content>.header>.first>.back")
 const reviewSideBttn = document.querySelector('.item-popup>.text>.reviews>.num')
+const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>.max>span')
+
 
 reviewSideBttn.addEventListener('click', () =>
 {
@@ -117,7 +119,12 @@ reviewSideBttn.addEventListener('click', () =>
 reviewSideBack.addEventListener('click', () =>
 {
     reviewSide.classList.remove('show');
-    resetReviewSlide()
+    reviewWordsSpan.innerText = "0";
+
+    createReviewBttn.classList.remove('active')
+    reviewsDiv.classList.add('active');
+    createReviewDiv.classList.remove('active');
+    xSVG.classList.remove('active')
 })
 
 // Custom Mouse
