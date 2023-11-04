@@ -1,33 +1,33 @@
 import { lockScroll, unlockScroll, starsAnim } from "./utils.js";
 
-const slider = document.querySelector('#slider');
-const sliderValue = document.querySelector('.slider>.value');
-const sliderProgress = document.querySelector('.slider>.progress');
+// const slider = document.querySelector('#slider');
+// const sliderValue = document.querySelector('.slider>.value');
+// const sliderProgress = document.querySelector('.slider>.progress');
 
-function updateProgress()
-{
+// function updateProgress()
+// {
 
-    const progressValue = (slider.value / slider.max) * 100;
-    sliderProgress.style.width = `${progressValue}%`
+//     const progressValue = (slider.value / slider.max) * 100;
+//     sliderProgress.style.width = `${progressValue}%`
 
-    const valueRect = sliderValue.getBoundingClientRect();
-    sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
-    sliderValue.textContent = slider.value
-}
+//     const valueRect = sliderValue.getBoundingClientRect();
+//     sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
+//     sliderValue.textContent = slider.value
+// }
 
-slider.addEventListener('input', updateProgress);
+// slider.addEventListener('input', updateProgress);
 
-// Stars
+// // Stars
 
-const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
+// const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
 
-stars.forEach(star =>
-{
-    star.addEventListener('click', (e) =>
-    {
-        const starsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
-    })
-})
+// stars.forEach(star =>
+// {
+//     star.addEventListener('click', (e) =>
+//     {
+//         const starsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
+//     })
+// })
 
 // Search placeholder
 
@@ -48,16 +48,6 @@ search.addEventListener('blur', (e) =>
 })
 
 // Categories
-
-const cateogries = document.querySelectorAll('.filter-section>.content>.categories>.popup>.content>.category')
-
-cateogries.forEach(category =>
-{
-    category.addEventListener('click', (e) =>
-    {
-        e.target.classList.toggle('selected')
-    })
-})
 
 const categoriesPopup = document.querySelector(".filter-section>.content>.categories>.popup");
 const categoriesBttn = document.querySelector(".filter-section>.content>.categories")

@@ -30,17 +30,17 @@ const ordersEmpty = document.querySelector('.menu-side>.wrap>.empty');
 const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button');
 const checkoutTotalSpan = document.querySelector('.menu-side>.wrap>.checkout>span');
 
+const allSections = document.querySelector('.categories-sections')
 const pizzaSection = document.querySelector("#pizza-section");
 const pizzaItems = pizzaSection.querySelector('.items');
 
 const menuItems =
 {
-    pizzaSection: [
+    "pizza-section": [
         {
             name: "BBQ Pizza",
             price: "110",
             img: "../assets/Account/pizza.png",
-            stars: "5",
             reviews: [
                 {
                     name: "Andrei Arseni",
@@ -73,7 +73,6 @@ const menuItems =
             name: "Artas e Pizza",
             price: "135",
             img: "../assets/Account/pizza2.png",
-            stars: "5",
             reviews: [
                 // {
                 //     name: "Andrei2 Arseni",
@@ -97,22 +96,224 @@ const menuItems =
         },
 
 
+    ],
+    "gustari-section": [
+
+        {
+            name: "Invers",
+            price: "175",
+            img: "../assets/Account/pizza2.png",
+            reviews: [{
+                name: "Andrei Arseni",
+                date: "7 septembrie 2023",
+                stars: "5",
+                description: "Marcare buna",
+                img: "../assets/Account/pizza.png"
+            },],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsadaw",
+        },
+        {
+            name: "Vasea Pizza",
+            price: "50",
+            img: "../assets/Account/pizza.png",
+            reviews: [
+                {
+                    name: "Andrei Arseni",
+                    date: "7 septembrie 2023",
+                    stars: "5",
+                    description: "Marcare buna",
+                    img: "../assets/Account/pizza.png"
+                },
+                {
+                    name: "Artur Gisca",
+                    date: "3 noiembrie 2023",
+                    stars: "4",
+                    description: "Marcarea mere",
+                    img: "../assets/Account/pizza2.png"
+                },
+                {
+                    name: "Artur Gisca",
+                    date: "3 noiembrie 2023",
+                    stars: "1",
+                    description: "Leva",
+                    img: "../assets/Account/pizza2.png"
+                },
+
+            ],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.720",
+            uid: "Abcwasda42wda421sfa",
+        },
+
     ]
 
 }
-// Fetch Menu
 
-let tempString = ''
-menuItems.pizzaSection.forEach(item =>
+// Filter
+
+const slider = document.querySelector('#slider');
+const sliderValue = document.querySelector('.slider>.value');
+const sliderProgress = document.querySelector('.slider>.progress');
+const mainSearch = document.querySelector('.filter-section>.content>.search>input')
+
+const categories = document.querySelectorAll('.filter-section>.content>.categories>.popup>.content>.category')
+
+let price = 500;
+let mainStarsFilled = 5;
+let categoriesArray = [];
+updateMainCategories();
+
+// Price
+
+function updateProgress()
 {
-    tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
+
+    const progressValue = (slider.value / slider.max) * 100;
+    sliderProgress.style.width = `${progressValue}%`
+
+    const valueRect = sliderValue.getBoundingClientRect();
+    sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
+    sliderValue.textContent = slider.value
+    price = slider.value;
+    filterAndRender()
+}
+
+slider.addEventListener('input', updateProgress);
+
+mainSearch.addEventListener('input', () =>
+{
+    filterAndRender()
+})
+
+// Stars
+
+const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
+
+stars.forEach(star =>
+{
+    star.addEventListener('click', (e) =>
+    {
+        mainStarsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
+        filterAndRender()
+    })
+})
+
+
+filterAndRender()
+
+function filterMenuItems(menuItems, criteria)
+{
+
+    return menuItems.filter(item =>
+    {
+        const reviews = item.reviews;
+        let totalStars = 0;
+
+        reviews.forEach(review =>
+        {
+            totalStars += Number(review.stars);
+        });
+
+        const stars = Math.round(totalStars / reviews.length);
+
+        return criteria.every(criterion =>
+        {
+            const [field, value] = criterion;
+
+            if (field === 'stars' && stars > value)
+            {
+                return false;
+            }
+            if (field === 'search' && !item.name.toLowerCase().includes(value.toLowerCase()))
+            {
+                return false;
+            }
+            // if (field === 'categories')
+            // {
+            //     if (value.length == 0)
+            //     {
+            //         return true; // Skip the category check if no categories are selected.
+            //     }
+            //     if (!value.includes("Pizza"))
+            //     {
+            //         return false;
+            //     }
+            // }
+            if (field === 'price' && Number(item.price) > value)
+            {
+                return false;
+            }
+            return true;
+        });
+    });
+}
+
+function filterAndRender()
+{
+    const criteria = [
+        ['stars', mainStarsFilled],
+        ['search', mainSearch.value],
+        // ['categories', categoriesArray],
+        ['price', price],
+    ];
+
+    Object.keys(menuItems).forEach(key =>
+    {
+        const section = allSections.querySelector(`#${key}`)
+        const items = section.querySelector('.items')
+
+        const filteredItems = filterMenuItems(menuItems[key], criteria);
+
+        let tempString = ''
+        filteredItems.forEach(item =>
+        {
+            tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
                             reviews='${JSON.stringify(item.reviews)}'
                             description="${item.description}"
                             masa="${item.masa}" uid="${item.uid}"></menu-item>`;
+        })
+
+        items.innerHTML = tempString;
+
+        if (tempString == "")
+        {
+            section.style.display = 'none'
+        }
+        else
+        {
+            section.style.display = 'initial'
+        }
+    })
+
+}
+
+// Categories
+
+categories.forEach(category =>
+{
+    category.addEventListener('click', (e) =>
+    {
+        e.target.classList.toggle('selected')
+        updateMainCategories()
+        filterAndRender()
+    })
 })
 
-pizzaItems.innerHTML = tempString;
+function updateMainCategories()
+{
+    categoriesArray = []
+    categories.forEach(category =>
+    {
+        if (category.classList.contains('selected'))
+        {
+            categoriesArray.push(category.textContent.trim())
+        }
+    })
+}
 
+// Exit Popup
 
 itemOverlay.addEventListener('click', () =>
 {
@@ -123,6 +324,8 @@ itemOverlay.addEventListener('click', () =>
     popupButton.classList.remove('shake')
     resetReviewSlide()
 })
+
+// Checkout Page
 
 checkoutButton.addEventListener('click', () =>
 {
@@ -145,7 +348,7 @@ function updateMenuSidebar()
 
         if (item && item.numValue > 0)
         {
-            ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.getAttribute('stars')}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
+            ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
                         quantity="${item.numValue}" uid="${item.getAttribute('uid')}"></side-menu-item>`;
         }
     });
@@ -165,7 +368,6 @@ function updateMenuSidebar()
     }
     ordersDiv.innerHTML = ordersString;
     ordersPriceDiv.innerText = ordersPrice;
-
 }
 
 function assignReviewNum(div, num)
@@ -181,7 +383,6 @@ class MenuItem extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.numValue = 0;
-
         this.starScore = this.calculateStars();
     }
 
@@ -294,7 +495,6 @@ class MenuItem extends HTMLElement
         <span class="num"></span>
       </button>
     `;
-
         const itemId = this.getAttribute('uid');
         itemQuantityMap.set(itemId, this);
 
@@ -328,7 +528,6 @@ class MenuItem extends HTMLElement
             popupDescription.innerText = `${this.getAttribute('description')}`
             popupMasa.innerText = `${this.getAttribute('masa')}`
 
-
             this.renderReviews()
 
             if (this.numValue > 0)
@@ -348,7 +547,6 @@ class MenuItem extends HTMLElement
         });
 
     }
-
 
     addNumValue()
     {
@@ -376,6 +574,7 @@ class MenuItem extends HTMLElement
         }
 
     }
+
     renderReviews()
     {
         const reviews = JSON.parse(this.getAttribute('reviews'));
@@ -406,8 +605,6 @@ class MenuItem extends HTMLElement
 
         assignReviewNum(popupReviewsNum, reviews.length)
         assignReviewNum(reviewReviewsNum, reviews.length)
-        // this.starScore = this.calculateStars();
-        // console.log(this.starScore)
     }
     addReview(review)
     {
@@ -438,6 +635,9 @@ class MenuItem extends HTMLElement
         this.starScore = this.calculateStars();
 
         this.updateStars();
+
+        // Sa se updateze stelele daca pui 0 si schimbi la 3 sa se schimbe si la meniu
+        updateMenuSidebar()
     }
     calculateStars()
     {
