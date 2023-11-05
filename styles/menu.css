@@ -1,3 +1,7 @@
+/* * {
+    outline: 1px solid black;
+} */
+
 .filter-section {
     margin-top: 112px;
     padding: 0 64px;
@@ -421,7 +425,7 @@
     display: flex;
     flex-direction: column;
     gap: 48px;
-    padding: 0 64px;
+    padding: 0 64px 128px 64px;
 }
 
 .menu-section>.content {
@@ -440,7 +444,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     column-gap: 24px;
-    row-gap: 48px;
+    row-gap: 32px;
 }
 
 #item-overlay.show {
@@ -527,6 +531,7 @@
     display: flex;
     flex-direction: column;
     padding: 32px 32px 32px 0;
+    position: relative;
 }
 
 .item-popup>.text>.header {
@@ -535,21 +540,17 @@
     gap: 16px;
 }
 
-.item-popup>.text>.header>.name {
+.item-popup>.text>.header>.main>.name {
     color: var(--day-dark01);
     font-size: 28px;
     font-weight: 700;
 }
 
-.item-popup>.text>.header>.price {
-    margin-top: 4px;
-}
-
-.item-popup>.text>.header>.price,
-.item-popup>.text>.header>.price>span {
+.item-popup>.text>.header>.main>.price {
     color: var(--day-dark03);
     font-size: 20px;
     font-weight: 600;
+    margin-left: 8px;
 }
 
 .item-popup>.text>.reviews {
@@ -586,10 +587,13 @@
 }
 
 .item-popup>.text>.end {
-    margin-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: absolute;
+    bottom: 32px;
+    left: 0;
+    width: calc(100% - 32px);
 }
 
 .item-popup>.text>.end>.masa,
