@@ -1,21 +1,21 @@
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        console.log(user);
-        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                console.log(doc.data().photoURL);
-                //Ce am facut?
-                /*
-                In baza de date am salvat o copie al fiecarui user,un fel de profil,si acolo am salvat si
-                poza de profil,acum am extras acest element din baza de date si am afisat linkul pozei din storage
-                tu iei linkul acesta si il pui in src la img,asta e tot,am afisat si obiectul json la user,dar nu iti va trebui precis.
-                */
-            });
-        })
-    } else {
-        console.log("user nu este logat");
-    }
-});
+// firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//         console.log(user);
+//         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+//             querySnapshot.forEach((doc) => {
+//                 console.log(doc.data().photoURL);
+//                 //Ce am facut?
+//                 /*
+//                 In baza de date am salvat o copie al fiecarui user,un fel de profil,si acolo am salvat si
+//                 poza de profil,acum am extras acest element din baza de date si am afisat linkul pozei din storage
+//                 tu iei linkul acesta si il pui in src la img,asta e tot,am afisat si obiectul json la user,dar nu iti va trebui precis.
+//                 */
+//             });
+//         })
+//     } else {
+//         console.log("user nu este logat");
+//     }
+// });
 
 let submitBtn = document.querySelector(".submit-btn-form-register");
 let passworField = document.querySelector(".pass-field-input");
@@ -34,22 +34,27 @@ const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-function loadingAnim() {
+function loadingAnim()
+{
     sendBttnText.innerText = ''
     sendBttnLoading.style.opacity = "1"
 }
 
-function responseAnim(err = false, msg) {
-    if (err) {
+function responseAnim(err = false, msg)
+{
+    if (err)
+    {
         sendBttnFeedback.style.background = '#EF5B5B'
         sendBttnFeedback.textContent = msg
-    } else {
+    } else
+    {
         sendBttnFeedback.style.background = '#799f82'
         sendBttnFeedback.textContent = msg
     }
     sendBttnLoading.style.opacity = "0"
 
-    setTimeout(() => {
+    setTimeout(() =>
+    {
         sendBttnText.innerText = 'Trimite'
     }, 250)
 
@@ -59,17 +64,20 @@ function responseAnim(err = false, msg) {
 
 }
 
-function endAnim() {
+function endAnim()
+{
 
     sendBttnFeedback.style.transform = "translateX(100%)"
-    setTimeout(() => {
+    setTimeout(() =>
+    {
         sendBttnFeedback.style.opacity = "0"
         sendBttnFeedback.style.transform = "translateX(-100%)"
     }, 250);
 
 }
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) =>
+{
     e.preventDefault();
 })
 
@@ -77,23 +85,28 @@ form.addEventListener('submit', (e) => {
 
 
 
-GoogleBTN.addEventListener("click", () => {
+GoogleBTN.addEventListener("click", () =>
+{
     console.log("hello");
     firebase.auth()
         .signInWithPopup(GoogleProvider)
-        .then((result) => {
+        .then((result) =>
+        {
             var user = result.user;
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
-            }).then(() => {
+            }).then(() =>
+            {
 
                 loadingAnim()
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     responseAnim(false, "Succes")
-                    setTimeout(() => {
+                    setTimeout(() =>
+                    {
                         endAnim()
                         window.location.href = '/';
                     }, 2000)
@@ -101,13 +114,16 @@ GoogleBTN.addEventListener("click", () => {
 
             });
 
-        }).catch((error) => {
+        }).catch((error) =>
+        {
             loadingAnim()
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 responseAnim(true, "Eroare")
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     endAnim()
                 }, 2000)
             }, 1000)
@@ -117,25 +133,30 @@ GoogleBTN.addEventListener("click", () => {
 
 // Facebook SignIn
 
-FacebookBTN.addEventListener("click", () => {
+FacebookBTN.addEventListener("click", () =>
+{
 
     firebase
         .auth()
         .signInWithPopup(FacebookProvider)
-        .then((result) => {
+        .then((result) =>
+        {
 
             var user = result.user;
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
-            }).then(() => {
+            }).then(() =>
+            {
 
                 loadingAnim()
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     responseAnim(false, "Succes")
-                    setTimeout(() => {
+                    setTimeout(() =>
+                    {
                         endAnim();
                         window.location.href = '/';
                     }, 2000)
@@ -144,13 +165,16 @@ FacebookBTN.addEventListener("click", () => {
             });
 
         })
-        .catch((error) => {
+        .catch((error) =>
+        {
             loadingAnim()
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 responseAnim(true, "Eroare")
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     endAnim()
                 }, 2000)
             }, 1000)
@@ -161,25 +185,30 @@ FacebookBTN.addEventListener("click", () => {
 
 // Twitter SignIn
 
-TwitterBTN.addEventListener("click", () => {
+TwitterBTN.addEventListener("click", () =>
+{
 
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
-        .then((result) => {
+        .then((result) =>
+        {
 
             var user = result.user;
             usersDB.add({
                 name: "NewUser",
                 ID: user.uid,
                 photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
-            }).then(() => {
+            }).then(() =>
+            {
 
                 loadingAnim()
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     responseAnim(false, "Succes")
-                    setTimeout(() => {
+                    setTimeout(() =>
+                    {
                         endAnim()
                         window.location.href = '/';
                     }, 2000)
@@ -188,13 +217,16 @@ TwitterBTN.addEventListener("click", () => {
             });
 
         })
-        .catch((error) => {
+        .catch((error) =>
+        {
             loadingAnim()
 
-            setTimeout(() => {
+            setTimeout(() =>
+            {
                 responseAnim(true, "Eroare")
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     endAnim()
                 }, 2000)
             }, 1000)
@@ -202,12 +234,15 @@ TwitterBTN.addEventListener("click", () => {
         });
 });
 
-submitBtn.onclick = () => {
+submitBtn.onclick = () =>
+{
     email = emailField.value;
     password = passworField.value;
-    if (email.value != "" && password.value != "") {
+    if (email.value != "" && password.value != "")
+    {
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
+            .then((userCredential) =>
+            {
                 var user = userCredential.user;
                 usersDB.add({
                     name: "NewUser",
@@ -215,13 +250,16 @@ submitBtn.onclick = () => {
                     EMAIL: email,
                     ID: user.uid,
                     photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
-                }).then(() => {
+                }).then(() =>
+                {
 
                     loadingAnim()
 
-                    setTimeout(() => {
+                    setTimeout(() =>
+                    {
                         responseAnim(false, "Succes")
-                        setTimeout(() => {
+                        setTimeout(() =>
+                        {
                             endAnim()
                             window.location.href = '/';
                         }, 2000)
@@ -229,23 +267,30 @@ submitBtn.onclick = () => {
 
                 });
             })
-            .catch((error) => {
+            .catch((error) =>
+            {
                 loadingAnim()
                 let message = "";
-                if (error.code == "auth/invalid-email") {
+                if (error.code == "auth/invalid-email")
+                {
                     message = "Email Nevalid";
-                } else if (error.code == "auth/weak-password") {
+                } else if (error.code == "auth/weak-password")
+                {
                     message = "Parolă Prea Slabă";
-                } else if (error.code == "auth/email-already-in-use") {
+                } else if (error.code == "auth/email-already-in-use")
+                {
                     message = "Email Folosit";
-                } else {
+                } else
+                {
                     message = "Eroare";
                 }
 
-                setTimeout(() => {
+                setTimeout(() =>
+                {
                     responseAnim(true, message)
 
-                    setTimeout(() => {
+                    setTimeout(() =>
+                    {
                         endAnim()
                     }, 2000)
                 }, 1000)

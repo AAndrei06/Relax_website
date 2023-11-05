@@ -317,7 +317,6 @@ function filterAndRender()
 
             if (tempString == "")
             {
-                console.log('1')
                 section.style.display = 'none'
             }
             else

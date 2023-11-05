@@ -1,33 +1,21 @@
 import { lockScroll, unlockScroll, starsAnim } from "./utils.js";
 
-// const slider = document.querySelector('#slider');
-// const sliderValue = document.querySelector('.slider>.value');
-// const sliderProgress = document.querySelector('.slider>.progress');
-
-// function updateProgress()
-// {
-
-//     const progressValue = (slider.value / slider.max) * 100;
-//     sliderProgress.style.width = `${progressValue}%`
-
-//     const valueRect = sliderValue.getBoundingClientRect();
-//     sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
-//     sliderValue.textContent = slider.value
-// }
-
-// slider.addEventListener('input', updateProgress);
-
-// // Stars
-
-// const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
-
-// stars.forEach(star =>
-// {
-//     star.addEventListener('click', (e) =>
-//     {
-//         const starsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
-//     })
-// })
+firebase.auth().onAuthStateChanged((user) =>
+{
+    if (user)
+    {
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((doc) =>
+            {
+                console.log(doc.data())
+            });
+        })
+    } else
+    {
+        console.log("user nu este logat");
+    }
+});
 
 // Search placeholder
 
