@@ -1,3 +1,22 @@
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        console.log(user);
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                console.log(doc.data().photoURL);
+                //Ce am facut?
+                /*
+                In baza de date am salvat o copie al fiecarui user,un fel de profil,si acolo am salvat si
+                poza de profil,acum am extras acest element din baza de date si am afisat linkul pozei din storage
+                tu iei linkul acesta si il pui in src la img,asta e tot,am afisat si obiectul json la user,dar nu iti va trebui precis.
+                */
+            });
+        })
+    } else {
+        console.log("user nu este logat");
+    }
+});
+
 let submitBtn = document.querySelector(".submit-btn-form-register");
 let passworField = document.querySelector(".pass-field-input");
 let emailField = document.querySelector(".email-field-input-sign");
@@ -15,49 +34,42 @@ const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-function loadingAnim()
-{
+function loadingAnim() {
     sendBttnText.innerText = ''
     sendBttnLoading.style.opacity = "1"
 }
 
-function responseAnim(err = false,msg)
-{
-    if (err)
-    {
+function responseAnim(err = false, msg) {
+    if (err) {
         sendBttnFeedback.style.background = '#EF5B5B'
         sendBttnFeedback.textContent = msg
-    }else{
+    } else {
         sendBttnFeedback.style.background = '#799f82'
         sendBttnFeedback.textContent = msg
     }
     sendBttnLoading.style.opacity = "0"
 
-    setTimeout(() =>
-    {
+    setTimeout(() => {
         sendBttnText.innerText = 'Trimite'
     }, 250)
 
     sendBttnFeedback.style.transform = "translateX(0%)"
     sendBttnFeedback.style.opacity = "1"
 
-    
+
 }
 
-function endAnim()
-{
+function endAnim() {
 
     sendBttnFeedback.style.transform = "translateX(100%)"
-    setTimeout(() =>
-    {
+    setTimeout(() => {
         sendBttnFeedback.style.opacity = "0"
         sendBttnFeedback.style.transform = "translateX(-100%)"
     }, 250);
 
 }
 
-form.addEventListener('submit', (e) =>
-{
+form.addEventListener('submit', (e) => {
     e.preventDefault();
 })
 
