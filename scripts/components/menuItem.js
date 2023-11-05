@@ -8,8 +8,8 @@ const itemOverlay = document.querySelector('#item-overlay');
 const itemPopup = document.querySelector(".item-popup");
 
 const popupImage = document.querySelector('.item-popup>.image>img')
-const popupName = document.querySelector('.item-popup>.text>.header>.name')
-const popupPrice = document.querySelector('.item-popup>.text>.header>.price>span')
+const popupName = document.querySelector('.item-popup>.text>.header>.main>.name')
+const popupPrice = document.querySelector('.item-popup>.text>.header>.main>.price')
 const popupStars = document.querySelector('.item-popup>.text>.reviews>.stars')
 const popupReviewsNum = document.querySelector('.item-popup>.text>.reviews>.num>.reviews-num')
 const popupDescription = document.querySelector('.item-popup>.text>.description')
@@ -31,14 +31,12 @@ const checkoutButton = document.querySelector('.menu-side>.wrap>.checkout>button
 const checkoutTotalSpan = document.querySelector('.menu-side>.wrap>.checkout>span');
 
 const allSections = document.querySelector('.categories-sections')
-const pizzaSection = document.querySelector("#pizza-section");
-const pizzaItems = pizzaSection.querySelector('.items');
 
 const menuItems =
 {
     "pizza-section": [
         {
-            name: "BBQ Pizza",
+            name: "BBQ Pizza Super Crocant",
             price: "110",
             img: "../assets/Account/pizza.png",
             reviews: [
@@ -70,29 +68,22 @@ const menuItems =
             uid: "Abcwasda42wda421sfa",
         },
         {
-            name: "Artas e Pizza",
+            name: "Omleta Bacon cu Ciuperci",
             price: "135",
             img: "../assets/Account/pizza2.png",
-            reviews: [
-                // {
-                //     name: "Andrei2 Arseni",
-                //     date: "7 septembrie 2023",
-                //     stars: "5",
-                //     description: "Marcare buna",
-                //     img: "../assets/Account/pizza.png"
-                // },
-                // {
-                //     name: "Artur2 Gisca",
-                //     date: "3 noiembrie 2023",
-                //     stars: "1",
-                //     description: "Marcarea mere",
-                //     img: "../assets/Account/pizza2.png"
-                // },
-
-            ],
+            reviews: [],
             description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
             masa: "0.220",
             uid: "dsadaw",
+        },
+        {
+            name: "Salata",
+            price: "35",
+            img: "../assets/Account/pizza.png",
+            reviews: [],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsad312312574aw",
         },
 
 
@@ -404,6 +395,8 @@ class MenuItem extends HTMLElement
             width: 100%;
             flex-direction: column;
             cursor: pointer;
+            height: 518px; 
+            position: relative;
         }
 
         :host img {
@@ -418,6 +411,10 @@ class MenuItem extends HTMLElement
             font-weight: 700;
             margin-top: 8px;
             line-height: 42px;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2
         }
 
         :host>.stars {
@@ -429,19 +426,29 @@ class MenuItem extends HTMLElement
             margin-top: -8px;
         }
 
-        :host>.price,
-        :host>.price>span {
+        :host>.bottom
+        {
+            width: 100%;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        :host>.bottom>.price,
+        :host>.bottom>.price>span {
             color: var(--day-dark03);
             font-size: 24px;
             font-weight: 600;
             white-space: nowrap;
         }
 
-        :host>button {
+        :host>.bottom>button {
             width: 100%;
             height: 40px;
             border-radius: 4px;
-            margin-top: 12px;
             background: var(--day-dark01);
             display: flex;
             align-items: center;
@@ -483,17 +490,20 @@ class MenuItem extends HTMLElement
       <p class="stars">
       ${assignStars(this.starScore)}
       </p>
-      <p class="price"><span>${this.getAttribute('price')}</span> MDL</p>
-      <button class="bttn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-            fill="none">
-            <path
-                d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                stroke="white" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-        </svg>
-        <span class="num"></span>
-      </button>
+      <div class="bottom">
+        <p class="price"><span>${this.getAttribute('price')}</span> MDL</p>
+        <button class="bttn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none">
+                <path
+                    d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span class="num"></span>
+        </button>
+      </div>
+      
     `;
         const itemId = this.getAttribute('uid');
         itemQuantityMap.set(itemId, this);
@@ -522,7 +532,7 @@ class MenuItem extends HTMLElement
             popupImage.src = `${this.getAttribute('img')}`;
 
             popupName.innerText = `${this.getAttribute('name')}`
-            popupPrice.innerText = `${this.getAttribute('price')}`
+            popupPrice.innerText = `${this.getAttribute('price')} MDL`
             popupStars.innerText = `${assignStars(this.starScore)}`
             reviewStars.innerText = `${assignStars(this.starScore)}`
             popupDescription.innerText = `${this.getAttribute('description')}`
