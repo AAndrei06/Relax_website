@@ -1,22 +1,5 @@
 import { lockScroll, unlockScroll, starsAnim } from "./utils.js";
 
-firebase.auth().onAuthStateChanged((user) =>
-{
-    if (user)
-    {
-        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-        {
-            querySnapshot.forEach((doc) =>
-            {
-                console.log(doc.data())
-            });
-        })
-    } else
-    {
-        console.log("user nu este logat");
-    }
-});
-
 // Search placeholder
 
 const search = document.querySelector('.filter-section>.content>.search>input')
