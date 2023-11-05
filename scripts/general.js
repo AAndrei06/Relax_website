@@ -30,10 +30,6 @@ firebase.auth().onAuthStateChanged((user) =>
     }
 });
 
-
-
-
-
 const copyright = document.querySelector('.copyright');
 const disclaimer = document.querySelector('.disclaimer-all');
 const disclaimerOverlay = document.querySelector('#disclaimer-overlay');
