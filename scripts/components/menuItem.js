@@ -83,7 +83,40 @@ const menuItems =
             reviews: [],
             description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
             masa: "0.220",
-            uid: "dsad312312574aw",
+            uid: "ds4ad312312574aw",
+        },
+        {
+            name: "Salata Mexicana",
+            price: "85",
+            img: "../assets/Account/pizza.png",
+            reviews: [],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsad32112312574aw",
+        },
+        {
+            name: "Dulce",
+            price: "15",
+            img: "../assets/Account/pizza.png",
+            reviews: [],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsad31231257sss4aw",
+        },
+        {
+            name: "Invers",
+            price: "175",
+            img: "../assets/Account/pizza2.png",
+            reviews: [{
+                name: "Andrei Arseni",
+                date: "7 septembrie 2023",
+                stars: "5",
+                description: "Marcare buna",
+                img: "../assets/Account/pizza.png"
+            },],
+            description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
+            masa: "0.220",
+            uid: "dsadawdawadwawdqwr2141daw",
         },
 
 
@@ -138,7 +171,15 @@ const menuItems =
             uid: "Abcwasda42wda4231223121sfa",
         },
 
-    ]
+    ],
+    "garnituri-section": [],
+    "ciorbe-section": [],
+    "micdejun-section": [],
+    "sushi-section": [],
+    "peste-section": [],
+    "salate-section": [],
+    "bere-section": [],
+    "carne-section": [],
 
 }
 
@@ -153,7 +194,7 @@ const categories = document.querySelectorAll('.filter-section>.content>.categori
 
 let price = 500;
 let mainStarsFilled = 5;
-let categoriesArray = [];
+let categoriesIndexesArray;
 updateMainCategories();
 
 // Price
@@ -246,36 +287,45 @@ function filterAndRender()
     const criteria = [
         ['stars', mainStarsFilled],
         ['search', mainSearch.value],
-        // ['categories', categoriesArray],
         ['price', price],
     ];
 
-    Object.keys(menuItems).forEach(key =>
+    Object.keys(menuItems).forEach((key, index) =>
     {
         const section = allSections.querySelector(`#${key}`)
         const items = section.querySelector('.items')
 
-        const filteredItems = filterMenuItems(menuItems[key], criteria);
-
-        let tempString = ''
-        filteredItems.forEach(item =>
-        {
-            tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
-                            reviews='${JSON.stringify(item.reviews)}'
-                            description="${item.description}"
-                            masa="${item.masa}" uid="${item.uid}"></menu-item>`;
-        })
-
-        items.innerHTML = tempString;
-
-        if (tempString == "")
+        if (categoriesIndexesArray.includes(index) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
         }
         else
         {
             section.style.display = 'initial'
+            const filteredItems = filterMenuItems(menuItems[key], criteria);
+
+            let tempString = ''
+            filteredItems.forEach(item =>
+            {
+                tempString += `<menu-item name="${item.name}" price="${item.price}" img="${item.img}" stars="${item.stars}"
+                            reviews='${JSON.stringify(item.reviews)}'
+                            description="${item.description}"
+                            masa="${item.masa}" uid="${item.uid}"></menu-item>`;
+            })
+
+            items.innerHTML = tempString;
+
+            if (tempString == "")
+            {
+                console.log('1')
+                section.style.display = 'none'
+            }
+            else
+            {
+                section.style.display = 'initial'
+            }
         }
+
     })
 
 }
@@ -294,12 +344,12 @@ categories.forEach(category =>
 
 function updateMainCategories()
 {
-    categoriesArray = []
-    categories.forEach(category =>
+    categoriesIndexesArray = [];
+    categories.forEach((category, index) =>
     {
-        if (category.classList.contains('selected'))
+        if (!category.classList.contains('selected'))
         {
-            categoriesArray.push(category.textContent.trim())
+            categoriesIndexesArray.push(index)
         }
     })
 }
@@ -485,7 +535,7 @@ class MenuItem extends HTMLElement
         }
       </style>
 
-      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false">
+      <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false" loading="lazy">
       <p class="name">${this.getAttribute('name')}</p>
       <p class="stars">
       ${assignStars(this.starScore)}
@@ -766,6 +816,7 @@ class SideMenuItem extends HTMLElement
             font-size: 20px;
             font-weight: 700;
             white-space: nowrap;
+            padding-right: 4px;
         }
 
         :host>.text>.name>.delete {

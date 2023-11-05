@@ -367,6 +367,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 4;
+    position: relative;
 }
 
 footer>.social-media {

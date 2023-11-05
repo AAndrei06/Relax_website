@@ -426,7 +426,6 @@
     flex-direction: column;
     gap: 48px;
     padding: 0 64px 128px 64px;
-
 }
 
 .menu-section>.content {
@@ -445,7 +444,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     column-gap: 24px;
-    row-gap: 48px;
+    row-gap: 32px;
 }
 
 #item-overlay.show {
