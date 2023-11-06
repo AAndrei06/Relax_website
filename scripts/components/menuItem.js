@@ -350,6 +350,23 @@ function filterAndRender()
 
     })
 
+    let emptySections = 0;
+    allSections.querySelectorAll('section').forEach(section =>
+    {
+        if (section.style.display == 'none')
+        {
+            emptySections += 1;
+        }
+    })
+    if (emptySections == 10)
+    {
+        allSections.querySelector('.empty-section').classList.add('show')
+    }
+    else
+    {
+        allSections.querySelector('.empty-section').classList.remove('show')
+    }
+
 }
 
 // Categories
@@ -564,7 +581,7 @@ class MenuItem extends HTMLElement
       </p>
       <div class="bottom">
         <p class="price"><span>${this.getAttribute('price')}</span> MDL</p>
-        <button class="bttn">
+        <button class="bttn" aria-label="Adaugă în coș">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none">
                 <path

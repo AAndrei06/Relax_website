@@ -15,6 +15,8 @@
     <script defer type="module" src="../scripts/menu.js"></script>
     <script defer type="module" src="../scripts/components/menuItem.js"></script>
     <script defer type="module" src="../scripts/components/ItemReview.js"></script>
+
+
     <title>Relax | Meniu</title>
 </head>
 
@@ -22,24 +24,27 @@
     <nav class="nav-bar fixed abs">
         <div class="content">
             <div class="logo">
-                <a href="../index.html">RELAX</a>
+                <a href="../index.html" aria-label="Intră pe pagina principala">RELAX</a>
             </div>
             <ul class="links-list">
-                <li class="link"><a href="../index.html">Acasă</a></li>
-                <li class="link current"><a href="">Meniu</a></li>
-                <li class="link"><a href="../pages/contact.html">Contacte</a></li>
-                <li class="link"><a href="">Articole</a></li>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class="link current"><a href="../pages/menu.html" aria-label="Intră pe pagina de meniu">Meniu</a>
+                </li>
+                <li class="link"><a href="../pages/contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                </li>
+                <li class="link"><a href="../pages/articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                </li>
             </ul>
         </div>
         <div class="account">
             <button class="transparent-bttn">
-                <a href="./autentificare.html">Autentificare</a></button>
+                <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">Autentificare</a></button>
             <button class="outline-buttn">
-                <a href="./inregistrare.html">
+                <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">
                     Înregistrează-te
                 </a>
             </button>
-            <button class="acc-img"><img src=""></button>
+            <button class="acc-img"><img src="" alt="Imaginea ta de profil"></button>
         </div>
     </nav>
     <main>
@@ -498,6 +503,30 @@
         </div>
 
         <section class="categories-sections">
+            <section class="empty-section">
+                <svg xmlns="http://www.w3.org/2000/svg" width="129" height="128" viewBox="0 0 129 128" fill="none">
+                    <g clip-path="url(#clip0_97_227)">
+                        <path
+                            d="M64.5024 127.999C29.2121 127.999 0.5 99.2871 0.5 63.9995C0.5 28.7118 29.2121 0 64.5024 0C99.7879 0 128.5 28.7118 128.5 63.9995C128.5 99.2871 99.7879 127.999 64.5024 127.999ZM64.5024 9.36416C34.3759 9.36416 9.8666 33.8757 9.8666 63.9995C9.8666 94.1209 34.3759 118.63 64.5024 118.63C94.6217 118.63 119.133 94.1209 119.133 63.9995C119.131 33.8757 94.6217 9.36416 64.5024 9.36416Z"
+                            fill="#0C0C0C" fill-opacity="0.75" />
+                        <path
+                            d="M50.0289 63.9967C53.4417 63.9967 56.2084 61.23 56.2084 57.8172C56.2084 54.4043 53.4417 51.6377 50.0289 51.6377C46.616 51.6377 43.8493 54.4043 43.8493 57.8172C43.8493 61.23 46.616 63.9967 50.0289 63.9967Z"
+                            fill="#0C0C0C" fill-opacity="0.75" />
+                        <path
+                            d="M78.9688 63.9967C82.3816 63.9967 85.1483 61.23 85.1483 57.8172C85.1483 54.4043 82.3816 51.6377 78.9688 51.6377C75.5559 51.6377 72.7892 54.4043 72.7892 57.8172C72.7892 61.23 75.5559 63.9967 78.9688 63.9967Z"
+                            fill="#0C0C0C" fill-opacity="0.75" />
+                        <path
+                            d="M96.214 88.9105H32.786C30.1993 88.9105 28.1038 86.8127 28.1038 84.2284C28.1038 81.6394 30.1993 79.5439 32.786 79.5439H96.2164C98.8031 79.5439 100.901 81.6394 100.901 84.2284C100.899 86.8127 98.8007 88.9105 96.214 88.9105Z"
+                            fill="#0C0C0C" fill-opacity="0.75" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_97_227">
+                            <rect width="128" height="127.999" fill="white" transform="translate(0.5)" />
+                        </clipPath>
+                    </defs>
+                </svg>
+                Nu am găsit niciun rezultat.
+            </section>
             <section class="menu-section" id="pizza-section">
                 <div class="content">
                     <h2>Pizza</h2>
@@ -580,7 +609,8 @@
 
         </div>
         <div class="social-media">
-            <a href="https://www.instagram.com/leovarelax/" target="_blank">
+            <a href="https://www.instagram.com/leovarelax/" target="_blank"
+                aria-label="Deschide pagina noastra de Instragram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
@@ -593,7 +623,8 @@
                         fill="white" />
                 </svg>
             </a>
-            <a href="https://www.facebook.com/RelaxCaffeLeova/" target="_blank">
+            <a href="https://www.facebook.com/RelaxCaffeLeova/" target="_blank"
+                aria-label="Deschide pagina noastra de Facebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H15V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"
@@ -601,8 +632,8 @@
                 </svg>
             </a>
         </div>
-        <h4 class="logo">RELAX</h4>
-        <button class="copyright">© Relax 2023
+        <span class="logo">RELAX</span>
+        <button class="copyright" aria-label="Vezi disclaimer">© Relax 2023
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
                     d="M8 7.33333V10.6667M8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8C14 11.3137 11.3137 14 8 14ZM8.0332 5.33333V5.4L7.9668 5.40013V5.33333H8.0332Z"

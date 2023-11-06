@@ -21,12 +21,14 @@ firebase.auth().onAuthStateChanged((user) =>
         })
     } else
     {
+
         navButtons.forEach(button =>
         {
             button.style.display = "initial"
             button.style.pointerEvents = "initial"
         })
         console.log("user nu este logat");
+        navAcc.style.display = 'none'
     }
 });
 

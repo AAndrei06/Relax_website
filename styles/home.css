@@ -145,6 +145,12 @@ section {
     right: -32px;
 }
 
+.type2>.content>.image>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .type2>.content>.main {
     display: flex;
     flex-direction: column;
@@ -260,7 +266,7 @@ section {
     width: 260px;
 }
 
-.stats>.content>.stat>h4 {
+.stats>.content>.stat>span {
     display: flex;
     align-items: center;
     justify-content: center;
