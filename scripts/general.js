@@ -14,18 +14,16 @@ firebase.auth().onAuthStateChanged((user) => {
                 //console.log(doc.data())
             });
         })
+
     } else {
         navButtons.forEach(button => {
             button.style.display = "initial"
             button.style.pointerEvents = "initial"
         })
         console.log("user nu este logat");
+        navAcc.style.display = 'none'
     }
 });
-
-
-
-
 
 const copyright = document.querySelector('.copyright');
 const disclaimer = document.querySelector('.disclaimer-all');

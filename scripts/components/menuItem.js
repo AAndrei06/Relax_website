@@ -1,5 +1,28 @@
 import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate } from "../utils.js";
 
+const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img")
+const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name")
+
+let accountName = ''
+let accountImage;
+
+firebase.auth().onAuthStateChanged((user) =>
+{
+    if (user)
+    {
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((doc) =>
+            {
+                createReviewImg.src = doc.data().photoURL
+                createReviewName.innerHTML = doc.data().name
+                accountName = doc.data().name
+                accountImage = doc.data().photoURL
+            });
+        })
+    }
+});
+
 const itemQuantityMap = new Map();
 let currentID = '';
 let sideMenuIDs = [];
@@ -327,6 +350,23 @@ function filterAndRender()
 
     })
 
+    let emptySections = 0;
+    allSections.querySelectorAll('section').forEach(section =>
+    {
+        if (section.style.display == 'none')
+        {
+            emptySections += 1;
+        }
+    })
+    if (emptySections == 10)
+    {
+        allSections.querySelector('.empty-section').classList.add('show')
+    }
+    else
+    {
+        allSections.querySelector('.empty-section').classList.remove('show')
+    }
+
 }
 
 // Categories
@@ -541,7 +581,7 @@ class MenuItem extends HTMLElement
       </p>
       <div class="bottom">
         <p class="price"><span>${this.getAttribute('price')}</span> MDL</p>
-        <button class="bttn">
+        <button class="bttn" aria-label="Adaugă în coș">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none">
                 <path
@@ -961,11 +1001,11 @@ createReviewForm.addEventListener('submit', (e) =>
         const date = formatDate(new Date());
 
         currentItem.addReview({
-            name: "Andrei Arseni",
+            name: accountName,
             date: date,
             stars: `${createReviewStarsFilled}`,
             description: `${reviewTextarea.value}`,
-            img: "../assets/Account/pizza.png",
+            img: accountImage,
             uid: uid
         })
         resetReviewSlide()

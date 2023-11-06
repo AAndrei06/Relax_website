@@ -394,7 +394,7 @@ footer {
 
 footer>.social-media {
     display: flex;
-    gap: 8px;
+    /* gap: 8px; */
     align-items: center;
 }
 
