@@ -22,7 +22,8 @@ Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
 
 ## Scopuri
 
-- Design minimalist 
+- Design minimalist
+- Sistem backend rapid și funcționabil
 - Identitate unică 
 - Interactivitate 
 - Idei originale 
