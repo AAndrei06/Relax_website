@@ -18,24 +18,46 @@
     --day-m-shadow01: rgba(12, 12, 12, 1);
     --day-m-shadow02: rgba(46, 46, 46, 1);
 
-    /* --night-dark01: rgba(255, 255, 255, 1);
-    --night-white01: rgba(12, 12, 12, 1);
-    --night-dark04: rgba(255, 255, 255, 0.75);
-    --night-background: rgba(27, 27, 27, 1);
-    --night-ebackground: rgba(18, 18, 18, 0.65);
-    --night-dark05: rgba(255, 255, 255, 0.25);
-    --night-dark04: rgba(255, 255, 255, 0.5);
-    --night-dark03: rgba(255, 255, 255, 0.9);
+    --night-dark01: rgba(255, 255, 255, 1);
     --night-dark02: rgba(255, 255, 255, 0.9);
+    --night-dark03: rgba(255, 255, 255, 0.75);
+    --night-dark04: rgba(255, 255, 255, 0.5);
+    /* --night-dark04: rgba(255, 255, 255, 0.75); */
+    --night-dark05: rgba(255, 255, 255, 0.25);
     --night-separator: rgba(255, 255, 255, 0.1);
+    --night-white01: rgba(12, 12, 12, 1);
+    --night-white02: rgba(12, 12, 12, 0.9);
+    --night-background: rgba(27, 27, 27, 1);
+    --night-i-background: rgba(9, 9, 9, 1);
+    --night-ebackground: rgba(18, 18, 18, 0.65);
     --night-admin: rgba(85, 255, 133, 1);
     --night-heart: rgba(255, 99, 99, 1);
     --night-brown: rgba(34, 34, 34, 1);
-    --night-white02: rgba(12, 12, 12, 0.9);
-    --night-i-background: rgba(9, 9, 9, 1);
     --night-m-shadow01: rgba(27, 27, 27, 1);
-    --night-m-shadow02: rgba(43, 43, 43, 1); */
+    --night-m-shadow02: rgba(43, 43, 43, 1);
 }
+
+.dark-theme {
+    --day-dark01: rgba(255, 255, 255, 1);
+    --day-dark02: rgba(255, 255, 255, 0.9);
+    --day-dark03: rgba(255, 255, 255, 0.75);
+    --day-dark04: rgba(255, 255, 255, 0.5);
+    --day-dark05: rgba(255, 255, 255, 0.25);
+    --day-dark06: rgba(255, 255, 255, 0.10);
+    --day-separator: rgba(255, 255, 255, 0.1);
+    --day-white01: rgba(12, 12, 12, 1);
+    --day-white02: rgba(12, 12, 12, 0.9);
+    --day-background: rgba(27, 27, 27, 1);
+    --day-i-background: rgba(9, 9, 9, 1);
+    --day-ebackground: rgba(18, 18, 18, 0.65);
+    --day-gold: rgba(255, 151, 30, 1);
+    --day-admin: rgba(85, 255, 133, 1);
+    --day-heart: rgba(255, 99, 99, 1);
+    --day-brown: rgba(34, 34, 34, 1);
+    --day-m-shadow01: rgba(27, 27, 27, 1);
+    --day-m-shadow02: rgba(43, 43, 43, 1);
+}
+
 
 * {
     padding: 0;
@@ -44,12 +66,13 @@
     user-select: none;
     z-index: 3;
     color: var(--day-dark02);
-    font-family: Poppins;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
 }
 
 body {
     position: relative;
     overflow-x: hidden;
+    background-color: var(--day-white01);
 }
 
 a {
@@ -68,6 +91,10 @@ ul {
 
 img {
     pointer-events: none;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 input {
