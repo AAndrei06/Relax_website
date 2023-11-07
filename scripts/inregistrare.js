@@ -1,5 +1,3 @@
-import { deleteTextAnim } from "./utils.js";
-
 // Show / Hide password text
 
 const emailField = document.querySelector('#email');
@@ -19,58 +17,3 @@ togglePasswordButton.addEventListener('click', function ()
 
     }
 });
-
-// Button Animation
-/*
-const form = document.querySelector("#form")
-
-const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
-const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
-const sendBttnText = document.querySelector('#submit-bttn>.text');
-
-function loadingAnim()
-{
-    sendBttnText.innerText = ''
-    sendBttnLoading.style.opacity = "1"
-}
-
-function responseAnim(err = false,msg)
-{
-    if (err)
-    {
-        sendBttnFeedback.style.background = '#EF5B5B'
-        sendBttnFeedback.textContent = msg
-    }else{
-        sendBttnFeedback.style.background = '#799f82'
-        sendBttnFeedback.textContent = msg
-    }
-    sendBttnLoading.style.opacity = "0"
-
-    setTimeout(() =>
-    {
-        sendBttnText.innerText = 'Trimite'
-    }, 250)
-
-    sendBttnFeedback.style.transform = "translateX(0%)"
-    sendBttnFeedback.style.opacity = "1"
-
-    
-}
-
-function endAnim()
-{
-
-    sendBttnFeedback.style.transform = "translateX(100%)"
-    setTimeout(() =>
-    {
-        sendBttnFeedback.style.opacity = "0"
-        sendBttnFeedback.style.transform = "translateX(-100%)"
-    }, 250);
-
-}
-
-form.addEventListener('submit', (e) =>
-{
-    e.preventDefault();
-})
-*/
