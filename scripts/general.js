@@ -42,22 +42,39 @@ copyright.addEventListener('click', () =>
 {
     disclaimer.classList.add('show')
     disclaimerContent.classList.add('show')
+    disclaimerOverlay.classList.add('show');
 })
 
 disclaimerBttn.addEventListener('click', () =>
 {
-    disclaimer.classList.remove('show')
-    disclaimerContent.classList.remove('show')
+    disclaimer.classList.remove('show');
+    disclaimerContent.classList.remove('show');
+    disclaimerOverlay.classList.remove('show');
 })
 disclaimerOverlay.addEventListener('click', () =>
 {
-    disclaimer.classList.remove('show')
-    disclaimerContent.classList.remove('show')
+    disclaimer.classList.remove('show');
+    disclaimerContent.classList.remove('show');
+    disclaimerOverlay.classList.remove('show');
 })
 
+// Dark theme
+
 const isDarkMode = localStorage.getItem('darkMode') === 'true';
+const isLightMode = localStorage.getItem('lightMode') === 'true';
 
 if (isDarkMode)
 {
     document.body.classList.add('dark-theme');
 }
+if (!isLightMode && !isDarkMode)
+{
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    {
+        document.body.classList.add('dark-theme');
+    } else
+    {
+        document.body.classList.remove('dark-theme');
+    }
+}
+

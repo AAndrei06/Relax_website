@@ -133,11 +133,3 @@ const formObserver = new IntersectionObserver((entries) =>
 
 
 formObserver.observe(underlineAnim);
-
-const isDarkMode = localStorage.getItem('darkMode') === 'true';
-
-// Set the initial dark mode state based on the preference
-if (isDarkMode)
-{
-    document.body.classList.add('dark-theme');
-}

@@ -36,30 +36,56 @@ settingsCancel.addEventListener('click', () =>
 const themeRadios = document.querySelectorAll('.block.actual>.content>.themes>.theme>input');
 
 const isDarkMode = localStorage.getItem('darkMode') === 'true';
+const isLightMode = localStorage.getItem('lightMode') === 'true';
+
 
 if (isDarkMode)
 {
-    document.body.classList.add('dark-theme');
     Array.from(themeRadios)[2].checked = true
 }
-else
+if (isLightMode)
 {
     Array.from(themeRadios)[1].checked = true
+}
+if (!isLightMode && !isDarkMode)
+{
+    Array.from(themeRadios)[0].checked = true
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    {
+        document.body.classList.add('dark-theme');
+    } else
+    {
+        document.body.classList.remove('dark-theme');
+    }
 }
 
 themeRadios.forEach(radio =>
 {
     radio.addEventListener('input', () =>
     {
+        if (radio.value == 'system')
+        {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            {
+                document.body.classList.add('dark-theme');
+            } else
+            {
+                document.body.classList.remove('dark-theme');
+            }
+            localStorage.setItem('darkMode', false);
+            localStorage.setItem('lightMode', false);
+        }
         if (radio.value == 'light')
         {
             document.body.classList.remove('dark-theme');
             localStorage.setItem('darkMode', false);
+            localStorage.setItem('lightMode', true);
         }
         if (radio.value == 'dark')
         {
             document.body.classList.add('dark-theme');
             localStorage.setItem('darkMode', true);
+            localStorage.setItem('lightMode', false);
         }
     })
 })

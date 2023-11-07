@@ -243,6 +243,11 @@ div[contenteditable="true"] {
     transition: opacity 0.15s ease-in-out;
 }
 
+.overlay.show {
+    opacity: 1;
+    pointer-events: initial;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -300,11 +305,11 @@ nav.fixed>.account>.outline-buttn {
     border: none;
     background: var(--day-dark01);
     transition: background 0.1s linear;
+    color: var(--day-white01);
 }
 
 nav.fixed>.account>.outline-buttn:hover {
     background: var(--day-dark03);
-    color: white;
 }
 
 nav>.content {
@@ -421,7 +426,7 @@ footer {
 
 footer>.social-media {
     display: flex;
-    /* gap: 8px; */
+    gap: 4px;
     align-items: center;
 }
 
@@ -474,15 +479,6 @@ footer>.copyright {
     justify-content: center;
 }
 
-.disclaimer-all>.content>.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-}
-
 .disclaimer-all>.content>.disclaimer {
     padding: 48px 40px;
     border-radius: 8px;
@@ -493,6 +489,7 @@ footer>.copyright {
     gap: 24px;
     align-items: center;
     transition: transform 0.15s;
+    z-index: 6;
 }
 
 .disclaimer-all>.content>.disclaimer.show {
