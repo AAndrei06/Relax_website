@@ -139,7 +139,7 @@ const menuItems =
             },],
             description: "Blat pizza, sos pilati, cașcaval mozzarella, bacon, piept de pui, cabanos, porumb, ceapă roșie, sos swit, chili",
             masa: "0.220",
-            uid: "dsadawdawadwawdqwr2141daw",
+            uid: "sallArtafostaici",
         },
 
 
@@ -285,17 +285,6 @@ function filterMenuItems(menuItems, criteria)
             {
                 return false;
             }
-            // if (field === 'categories')
-            // {
-            //     if (value.length == 0)
-            //     {
-            //         return true; // Skip the category check if no categories are selected.
-            //     }
-            //     if (!value.includes("Pizza"))
-            //     {
-            //         return false;
-            //     }
-            // }
             if (field === 'price' && Number(item.price) > value)
             {
                 return false;
@@ -562,12 +551,12 @@ class MenuItem extends HTMLElement
         {
             transform: rotate(0deg);
             transition: all 0.1s ease-in-out;
+            pointer-events:none;
         }
         :host>button.shake>svg
         {
             transform: rotate(-15deg);
         }
-
         :host>button>span
         {
             display: none;
@@ -586,7 +575,7 @@ class MenuItem extends HTMLElement
                 fill="none">
                 <path
                     d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                    stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke="var(--day-white01)" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg>
             <span class="num"></span>
@@ -607,7 +596,7 @@ class MenuItem extends HTMLElement
             {
                 sideMenuIDs.push(itemId)
             }
-            e.target.classList.add('shake');
+            button.classList.add('shake');
 
             updateMenuSidebar()
         });
@@ -694,9 +683,9 @@ class MenuItem extends HTMLElement
         {
             popupReviewsDiv.innerHTML = `
             <div class="none-div">
-                <svg xmlns="http://www.w3.org/2000/svg" width="97" height="96" viewBox="0 0 97 96" fill="none">
-                    <path d="M36.5005 36L60.5005 60M60.5005 36L36.5005 60M84.5005 48C84.5005 67.8824 68.3829 84 48.5005 84C28.6182 84 12.5005 67.8824 12.5005 48C12.5005 28.1178 28.6182 12 48.5005 12C68.3829 12 84.5005 28.1178 84.5005 48Z" stroke="#0C0C0C" stroke-opacity="0.5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="78" viewBox="0 0 77 78" fill="none">
+  <path d="M26.5005 27L50.5005 51M50.5005 27L26.5005 51M74.5005 39C74.5005 58.8824 58.3829 75 38.5005 75C18.6182 75 2.50049 58.8824 2.50049 39C2.50049 19.1178 18.6182 3 38.5005 3C58.3829 3 74.5005 19.1178 74.5005 39Z" stroke="var(--day-dark01)" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
                 Nu exista recenzii
             </div>`
             popupReviewsDiv.classList.add('none');
@@ -908,7 +897,7 @@ class SideMenuItem extends HTMLElement
                         <g clip-path="url(#clip0_41_1430)">
                             <path
                                 d="M9.87523 7.93264L15.4608 13.547C15.968 14.0558 15.968 14.883 15.4608 15.3918C14.9536 15.9022 14.1312 15.9022 13.624 15.3918L8.03843 9.77904L2.39683 15.4494C1.88483 15.9646 1.05603 15.9646 0.544034 15.4494C0.0320342 14.9358 0.0320342 14.1006 0.544034 13.587L6.18563 7.91504L0.771234 2.47344C0.264034 1.96304 0.264034 1.13744 0.771234 0.627039C1.27843 0.116639 2.10083 0.116639 2.60643 0.627039L8.02083 6.07024L13.5136 0.550239C14.0256 0.0366391 14.8544 0.0366391 15.3664 0.550239C15.8784 1.06544 15.8784 1.89904 15.3664 2.41264L9.87523 7.93264Z"
-                                fill="#0C0C0C" />
+                                fill="var(--day-dark01)" />
                         </g>
                         <defs>
                             <clipPath id="clip0_41_1430">
