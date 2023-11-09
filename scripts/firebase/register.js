@@ -17,6 +17,8 @@
 //     }
 // });
 
+let userInitialName = "user12747538";
+let startImage = "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/36caa0817d2c07fd46cf610c3aa4b1646254a1d4.png?alt=media&token=37e9da13-febb-4f75-b959-7109067af6cc";
 let submitBtn = document.querySelector(".submit-btn-form-register");
 let passworField = document.querySelector(".pass-field-input");
 let emailField = document.querySelector(".email-field-input-sign");
@@ -29,7 +31,6 @@ let TwitterBTN = document.getElementById("twitter-sigin-provider");
 
 
 const form = document.querySelector("#form")
-
 const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
@@ -94,10 +95,10 @@ GoogleBTN.addEventListener("click", () =>
         {
             var user = result.user;
             usersDB.add({
-                name: "NewUser",
+                name: userInitialName,
                 ID: user.uid,
                 admin:false,
-                photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+                photoURL: startImage,
             }).then(() =>
             {
 
@@ -145,10 +146,10 @@ FacebookBTN.addEventListener("click", () =>
 
             var user = result.user;
             usersDB.add({
-                name: "NewUser",
+                name: userInitialName,
                 ID: user.uid,
                 admin:false,
-                photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+                photoURL: startImage,
             }).then(() =>
             {
 
@@ -198,10 +199,10 @@ TwitterBTN.addEventListener("click", () =>
 
             var user = result.user;
             usersDB.add({
-                name: "NewUser",
+                name: userInitialName,
                 ID: user.uid,
                 admin:false,
-                photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+                photoURL: startImage,
             }).then(() =>
             {
 
@@ -248,12 +249,12 @@ submitBtn.onclick = () =>
             {
                 var user = userCredential.user;
                 usersDB.add({
-                    name: "NewUser",
+                    name: userInitialName,
                     PASS: password,
                     EMAIL: email,
                     admin:false,
                     ID: user.uid,
-                    photoURL: "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/default.jpg?alt=media&token=be2d14b5-aa80-417e-b1e3-4fb2a254357d&_gl=1*1uz8z3e*_ga*MTEyMjUzMjA4MS4xNjg4NzIxNjUw*_ga_CW55HF8NVT*MTY5ODc1NTkyMy41MS4xLjE2OTg3NTY3OTAuNDMuMC4w",
+                    photoURL: startImage,
                 }).then(() =>
                 {
 
