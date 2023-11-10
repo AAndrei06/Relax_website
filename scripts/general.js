@@ -1,6 +1,6 @@
 const navAcc = document.querySelector('nav>.account>.acc-img')
 const navButtons = document.querySelectorAll('nav>.account>button')
-
+document.getElementsByTagName("body")[0].style.display = "none";
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
@@ -19,6 +19,7 @@ firebase.auth().onAuthStateChanged((user) =>
                 //console.log(doc.data())
             });
         })
+        document.getElementsByTagName("body")[0].style.display = "block";
 
     } else
     {
@@ -29,6 +30,7 @@ firebase.auth().onAuthStateChanged((user) =>
         })
         console.log("user nu este logat");
         navAcc.style.display = 'none'
+        document.getElementsByTagName("body")[0].style.display = "block";
     }
 });
 

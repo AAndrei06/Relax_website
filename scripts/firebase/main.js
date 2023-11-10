@@ -22,3 +22,15 @@ let TwitterProvider = new firebase.auth.TwitterAuthProvider();;
 
 // User Collection
 const usersDB = firebase.firestore().collection("users");
+
+function formatDate(stamp){
+    let date = new Date(stamp);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let result = day + "." + month + "." + year;
+    return result;
+}
+
+let userInitialName = "user12747538";
+let startImage = "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/36caa0817d2c07fd46cf610c3aa4b1646254a1d4.png?alt=media&token=37e9da13-febb-4f75-b959-7109067af6cc";

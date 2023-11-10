@@ -139,17 +139,35 @@ GoogleBtn.addEventListener("click", () =>
         {
 
             var user = result.user;
-            loadingAnim()
+            let is_user = false;
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
+                    is_user = true;
+                })
+            }).then(() => {
+                if (!is_user) {
+                    let date = new Date();
+                    usersDB.add({
+                        name: userInitialName,
+                        ID: user.uid,
+                        admin: false,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
 
-            setTimeout(() =>
-            {
-                responseAnim(false, "Succes")
-                setTimeout(() =>
-                {
-                    endAnim();
-                    window.location.href = '/';
-                }, 2000)
-            }, 1000)
+                        loadingAnim()
+
+                        setTimeout(() => {
+                            responseAnim(false, "Succes")
+                            setTimeout(() => {
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+                        }, 1000)
+
+                    });
+                }
+            });
         }).catch((error) =>
         {
             loadingAnim()
@@ -177,17 +195,35 @@ FacebookBtn.addEventListener("click", () =>
         {
 
             var user = result.user;
-            loadingAnim()
+            let is_user = false;
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
+                    is_user = true;
+                })
+            }).then(() => {
+                if (!is_user) {
+                    let date = new Date();
+                    usersDB.add({
+                        name: userInitialName,
+                        ID: user.uid,
+                        admin: false,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
 
-            setTimeout(() =>
-            {
-                responseAnim(false, "Succes")
-                setTimeout(() =>
-                {
-                    endAnim();
-                    window.location.href = '/';
-                }, 2000)
-            }, 1000)
+                        loadingAnim()
+
+                        setTimeout(() => {
+                            responseAnim(false, "Succes")
+                            setTimeout(() => {
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+                        }, 1000)
+
+                    });
+                }
+            });
         })
         .catch((error) =>
         {
@@ -217,17 +253,36 @@ TwitterBtn.addEventListener("click", () =>
         {
 
             var user = result.user;
-            loadingAnim()
+            let is_user = false;
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
+                    is_user = true;
+                })
+            }).then(() => {
+                if (!is_user) {
+                    let date = new Date();
+                    usersDB.add({
+                        name: userInitialName,
+                        ID: user.uid,
+                        admin: false,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
 
-            setTimeout(() =>
-            {
-                responseAnim(false, "Succes")
-                setTimeout(() =>
-                {
-                    endAnim();
-                    window.location.href = '/';
-                }, 2000)
-            }, 1000)
+                        loadingAnim()
+
+                        setTimeout(() => {
+                            responseAnim(false, "Succes")
+                            setTimeout(() => {
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+                        }, 1000)
+                        
+
+                    });
+                }
+            });
         })
         .catch((error) =>
         {
