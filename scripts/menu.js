@@ -47,7 +47,7 @@ categoriesPopup.addEventListener('click', (event) =>
 
 // Menu 
 
-const menuButton = document.querySelector(".menu-bttn");
+const menuButton = document.querySelector("#menu-bttn");
 const menuOverlay = document.querySelector("#menu-overlay");
 const menuSide = document.querySelector('.menu-side');
 
@@ -166,3 +166,6 @@ createReviewBttn.addEventListener('click', () =>
     createReviewDiv.classList.toggle('active');
     xSVG.classList.toggle('active')
 })
+
+// Admin popup
+
