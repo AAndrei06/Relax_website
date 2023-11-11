@@ -539,25 +539,25 @@ class MenuItem extends HTMLElement
             font-weight: 600;
             transition: opacity 0.1s linear;
         }
-        :host>button:hover
+        :host>.bottom>button:hover
         {
             opacity: 0.9;
         }
-        :host>button:active
+        :host>.bottom>button:active
         {
             opacity: 1;
         }
-        :host>button>svg
+        :host>.bottom>button>svg
         {
             transform: rotate(0deg);
             transition: all 0.1s ease-in-out;
             pointer-events:none;
         }
-        :host>button.shake>svg
+        :host>.bottom>button.shake>svg
         {
             transform: rotate(-15deg);
         }
-        :host>button>span
+        :host>.bottom>button>span
         {
             display: none;
         }
@@ -845,6 +845,17 @@ class SideMenuItem extends HTMLElement
             font-weight: 700;
             white-space: nowrap;
             padding-right: 4px;
+            width: 180px;
+            text-overflow: ellipsis;
+            white-space: now-wrap;
+            overflow: hidden;
+        }
+        :host>.text>.name>span
+        {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
         }
 
         :host>.text>.name>.delete {
