@@ -9,14 +9,12 @@ firebase.auth().onAuthStateChanged((user) =>
         {
             button.style.display = "none"
         })
-
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
             {
                 navAcc.querySelector('img').src = doc.data().photoURL
                 navAcc.style.display = 'initial'
-                //console.log(doc.data())
             });
         })
         document.getElementsByTagName("body")[0].style.display = "block";
@@ -28,7 +26,7 @@ firebase.auth().onAuthStateChanged((user) =>
             button.style.display = "initial"
             button.style.pointerEvents = "initial"
         })
-        console.log("user nu este logat");
+
         navAcc.style.display = 'none'
         document.getElementsByTagName("body")[0].style.display = "block";
     }
