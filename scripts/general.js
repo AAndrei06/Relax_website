@@ -1,14 +1,14 @@
 const navAcc = document.querySelector('nav>.account>.acc-img')
 const navButtons = document.querySelectorAll('nav>.account>button')
-
+document.getElementsByTagName("body")[0].style.display = "none";
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
-        // navButtons.forEach(button =>
-        // {
-        //     button.style.display = "none"
-        // })
+        navButtons.forEach(button =>
+        {
+            button.style.display = "none"
+        })
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
@@ -17,6 +17,7 @@ firebase.auth().onAuthStateChanged((user) =>
                 navAcc.style.display = 'initial'
             });
         })
+        document.getElementsByTagName("body")[0].style.display = "block";
 
     } else
     {
@@ -27,6 +28,7 @@ firebase.auth().onAuthStateChanged((user) =>
         })
 
         navAcc.style.display = 'none'
+        document.getElementsByTagName("body")[0].style.display = "block";
     }
 });
 
