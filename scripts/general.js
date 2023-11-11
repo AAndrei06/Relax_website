@@ -14,6 +14,7 @@ firebase.auth().onAuthStateChanged((user) =>
             querySnapshot.forEach((doc) =>
             {
                 navAcc.querySelector('img').src = doc.data().photoURL
+                console.log(doc.data().admin)
                 navAcc.style.display = 'initial'
             });
         })

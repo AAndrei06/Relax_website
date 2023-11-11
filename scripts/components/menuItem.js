@@ -1,10 +1,141 @@
 import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate } from "../utils.js";
 
-const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img")
-const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name")
+let currentID = '';
+const itemQuantityMap = new Map();
+let sideMenuIDs = [];
 
+const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img");
+const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name");
+const addItemButton = document.querySelector(".add-item-bttn");
+const adminItemPopup = document.querySelector('.admin-item-popup');
+const adminItemOverlay = document.querySelector('#admin-item-overlay');
+const adminExtraButtons = document.querySelector('.admin-item-extra-buttons');
+const adminPopupInputs = document.querySelectorAll('.admin-item-popup>.inputs>.input>input');
+const adminPopupTextarea = document.querySelector('.admin-item-popup>.inputs>.input>textarea');
+const adminPopupChangeBttn = document.querySelector('.admin-item-popup>.image>.change')
+const adminPopupImgSVG = document.querySelector(".admin-item-popup>.image>.add")
+const adminExtraDelete = document.querySelector('#extra-delete')
+const adminExtraAction = document.querySelector('#extra-action')
+const adminCategorySelect = document.querySelector('#admin-item-category')
+
+let adminPopupImage = adminItemPopup.querySelector('.admin-item-popup>.image>img');
+let adminPopupName = adminItemPopup.querySelector('#admin-item-name');
+let adminPopupPrice = adminItemPopup.querySelector('#admin-item-price');
+let adminPopupDescription = adminItemPopup.querySelector('#admin-item-description');
+let adminPopupMasa = adminItemPopup.querySelector('#admin-item-masa');
+
+let accountAdmin = false
 let accountName = ''
 let accountImage;
+
+function openAdminPopup()
+{
+    lockScroll();
+    adminItemPopup.classList.add('show');
+    adminItemOverlay.classList.add('show');
+    adminExtraButtons.classList.add('show');
+}
+function closeAdminPopup()
+{
+    unlockScroll()
+    adminItemPopup.classList.remove('show');
+    adminItemOverlay.classList.remove('show');
+    adminExtraButtons.classList.remove('show');
+
+    setTimeout(() =>
+    {
+
+        adminExtraDelete.classList.remove('show');
+
+        adminPopupImage.value = '';
+        adminPopupName.value = '';
+        adminPopupPrice.value = '';
+        adminPopupDescription.value = '';
+        adminPopupMasa.value = '';
+
+        adminPopupImage.classList.remove('show')
+        adminPopupChangeBttn.classList.remove('show');
+        adminPopupImgSVG.classList.add('show')
+
+    }, 100)
+
+}
+
+addItemButton.addEventListener('click', () =>
+{
+    adminPopupInputs.forEach(input =>
+    {
+        input.nextElementSibling.classList.remove('move')
+
+    })
+    adminExtraAction.innerHTML = `
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26" fill="none">
+                    <g clip-path="url(#clip0_298_2425)">
+                        <path d="M11.9995 1.61084V24.3896" stroke="var(--day-dark01)" stroke-width="2.99998"
+                            stroke-linecap="round" />
+                        <path d="M23.0039 13.0005L0.99564 13.0005" stroke="var(--day-dark01)" stroke-width="2.99998"
+                            stroke-linecap="round" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_298_2425">
+                            <rect width="24" height="24.7705" fill="white" transform="translate(0 0.614258)" />
+                        </clipPath>
+                    </defs>
+                </svg>`
+
+    adminPopupTextarea.nextElementSibling.classList.remove('move')
+    adminCategorySelect.value = 'pizza-section'
+    openAdminPopup()
+})
+adminItemOverlay.addEventListener('click', () =>
+{
+    closeAdminPopup()
+})
+adminExtraDelete.addEventListener('click', () =>
+{
+    closeAdminPopup()
+})
+adminExtraAction.addEventListener('click', () =>
+{
+    const currentItem = itemQuantityMap.get(currentID);
+
+    currentItem.setAttribute('name', adminPopupName.value);
+    currentItem.setAttribute('price', adminPopupPrice.value);
+    currentItem.setAttribute('description', adminPopupDescription.value);
+    currentItem.setAttribute('masa', adminPopupMasa.value);
+
+    closeAdminPopup()
+})
+
+// Admin Inputs
+
+adminPopupInputs.forEach(input =>
+{
+    input.addEventListener('focus', (e) =>
+    {
+        e.target.nextElementSibling.classList.add('move')
+    })
+    input.addEventListener('blur', (e) =>
+    {
+        if (e.target.value == '')
+        {
+            e.target.nextElementSibling.classList.remove('move')
+        }
+    })
+})
+
+adminPopupTextarea.addEventListener('focus', (e) =>
+{
+    e.target.nextElementSibling.classList.add('move')
+})
+adminPopupTextarea.addEventListener('blur', (e) =>
+{
+    if (e.target.value == '')
+    {
+        e.target.nextElementSibling.classList.remove('move')
+    }
+})
 
 firebase.auth().onAuthStateChanged((user) =>
 {
@@ -18,14 +149,15 @@ firebase.auth().onAuthStateChanged((user) =>
                 createReviewName.innerHTML = doc.data().name
                 accountName = doc.data().name
                 accountImage = doc.data().photoURL
+                if (doc.data().admin)
+                {
+                    addItemButton.style.display = 'flex'
+                    accountAdmin = true;
+                }
             });
         })
     }
 });
-
-const itemQuantityMap = new Map();
-let currentID = '';
-let sideMenuIDs = [];
 
 const itemOverlay = document.querySelector('#item-overlay');
 const itemPopup = document.querySelector(".item-popup");
@@ -603,33 +735,73 @@ class MenuItem extends HTMLElement
 
         this.addEventListener('click', () =>
         {
-            itemPopup.classList.add('show');
-            itemOverlay.classList.add('show');
-            lockScroll();
-
-            popupImage.src = `${this.getAttribute('img')}`;
-
-            popupName.innerText = `${this.getAttribute('name')}`
-            popupPrice.innerText = `${this.getAttribute('price')} MDL`
-            popupStars.innerText = `${assignStars(this.starScore)}`
-            reviewStars.innerText = `${assignStars(this.starScore)}`
-            popupDescription.innerText = `${this.getAttribute('description')}`
-            popupMasa.innerText = `${this.getAttribute('masa')}`
-
-            this.renderReviews()
-
-            if (this.numValue > 0)
+            if (accountAdmin)
             {
-                popupItemQuantity.style.display = 'initial'
-                popupItemQuantity.innerText = `x ${this.numValue} `
-                popupButton.classList.add('shake')
+                openAdminPopup()
+
+                for (const section in menuItems)
+                {
+                    if (menuItems[section].some(item => item.uid === itemId))
+                    {
+                        adminCategorySelect.value = section;
+                    }
+                }
+
+
+                adminPopupImage.classList.add('show')
+                adminPopupChangeBttn.classList.add('show');
+                adminPopupImgSVG.classList.remove('show')
+                adminExtraDelete.classList.add('show')
+
+                adminPopupImage.src = `${this.getAttribute('img')}`;
+
+                adminPopupName.value = `${this.getAttribute('name')}`
+                adminPopupPrice.value = `${this.getAttribute('price')}`
+                adminPopupDescription.value = `${this.getAttribute('description')}`
+                adminPopupMasa.value = `${this.getAttribute('masa')}`
+
+                adminPopupInputs.forEach(input =>
+                {
+                    input.nextElementSibling.classList.add('move')
+
+                })
+
+                adminPopupTextarea.nextElementSibling.classList.add('move')
+
+                adminExtraAction.innerHTML = `<svg xmlns = "http://www.w3.org/2000/svg" width = "32" height = "32" viewBox = "0 0 32 32" fill = "none">
+            <path d="M5.3335 16.8146L11.8976 23.3332L26.6668 8.6665" stroke="#0C0C0C" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+</ >`
             }
             else
             {
-                popupItemQuantity.style.display = 'none'
-                popupButton.classList.remove('shake')
-            }
+                itemPopup.classList.add('show');
+                itemOverlay.classList.add('show');
+                lockScroll();
 
+                popupImage.src = `${this.getAttribute('img')}`;
+
+                popupName.innerText = `${this.getAttribute('name')}`
+                popupPrice.innerText = `${this.getAttribute('price')} MDL`
+                popupStars.innerText = `${assignStars(this.starScore)}`
+                reviewStars.innerText = `${assignStars(this.starScore)}`
+                popupDescription.innerText = `${this.getAttribute('description')}`
+                popupMasa.innerText = `${this.getAttribute('masa')}`
+
+                this.renderReviews()
+
+                if (this.numValue > 0)
+                {
+                    popupItemQuantity.style.display = 'initial'
+                    popupItemQuantity.innerText = `x ${this.numValue} `
+                    popupButton.classList.add('shake')
+                }
+                else
+                {
+                    popupItemQuantity.style.display = 'none'
+                    popupButton.classList.remove('shake')
+                }
+
+            }
             currentID = `${this.getAttribute('uid')}`
 
         });
