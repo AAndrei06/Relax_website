@@ -96,13 +96,49 @@ adminItemOverlay.addEventListener('click', () =>
 })
 adminExtraDelete.addEventListener('click', () =>
 {
-    closeAdminPopup()
+    for (const section in menuItems)
+    {
+        const items = menuItems[section];
+        const index = items.findIndex(item => item.uid === currentID);
+        if (index !== -1)
+        {
+            items.splice(index, 1);
+            break; // assuming each uid is unique, you can remove this if uids are not unique
+        }
+    }
+    filterAndRender();
+    closeAdminPopup();
 })
 adminExtraAction.addEventListener('click', () =>
 {
     if (!addItemBool)
     {
         const currentItem = itemQuantityMap.get(currentID);
+        let previousSection;
+
+        for (const section in menuItems)
+        {
+            if (menuItems[section].some(item => item.uid === currentID))
+            {
+                previousSection = section;
+            }
+        }
+
+        if (previousSection !== adminCategorySelect.value)
+        {
+            const sourceItems = menuItems[previousSection];
+            const targetItems = menuItems[adminCategorySelect.value];
+
+            const index = sourceItems.findIndex(item => item.uid === currentID);
+
+            if (index !== -1)
+            {
+                const itemToMove = sourceItems.splice(index, 1)[0];
+                targetItems.push(itemToMove);
+            }
+            filterAndRender();
+        }
+
         currentItem.setAttribute('name', adminPopupName.value);
         let nameField = currentItem.shadowRoot.querySelector('.name')
         nameField.innerText = currentItem.getAttribute('name');
@@ -111,10 +147,11 @@ adminExtraAction.addEventListener('click', () =>
         priceField.innerText = `${currentItem.getAttribute('price')} MDL`;
         currentItem.setAttribute('description', adminPopupDescription.value);
         currentItem.setAttribute('masa', adminPopupMasa.value);
+
+        console.log(menuItems)
     }
     else
     {
-        // itemQuantityMap.set(itemId, this);
         const ID = generateMongoLikeID();
         const section = allSections.querySelector(`#${adminCategorySelect.value}`);
         const items = section.querySelector('.items');
@@ -137,7 +174,6 @@ adminExtraAction.addEventListener('click', () =>
         filterAndRender()
     }
 
-    // filterAndRender();
     closeAdminPopup();
 })
 
