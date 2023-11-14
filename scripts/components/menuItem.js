@@ -3,6 +3,7 @@ import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, gener
 let currentID = '';
 const itemQuantityMap = new Map();
 let sideMenuIDs = [];
+let addItemBool = false;
 
 const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img");
 const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name");
@@ -63,6 +64,7 @@ function closeAdminPopup()
 
 addItemButton.addEventListener('click', () =>
 {
+    addItemBool = true;
     adminPopupInputs.forEach(input =>
     {
         input.nextElementSibling.classList.remove('move')
@@ -98,14 +100,45 @@ adminExtraDelete.addEventListener('click', () =>
 })
 adminExtraAction.addEventListener('click', () =>
 {
-    const currentItem = itemQuantityMap.get(currentID);
+    if (!addItemBool)
+    {
+        const currentItem = itemQuantityMap.get(currentID);
+        currentItem.setAttribute('name', adminPopupName.value);
+        let nameField = currentItem.shadowRoot.querySelector('.name')
+        nameField.innerText = currentItem.getAttribute('name');
+        currentItem.setAttribute('price', adminPopupPrice.value);
+        let priceField = currentItem.shadowRoot.querySelector('.price')
+        priceField.innerText = `${currentItem.getAttribute('price')} MDL`;
+        currentItem.setAttribute('description', adminPopupDescription.value);
+        currentItem.setAttribute('masa', adminPopupMasa.value);
+    }
+    else
+    {
+        // itemQuantityMap.set(itemId, this);
+        const ID = generateMongoLikeID();
+        const section = allSections.querySelector(`#${adminCategorySelect.value}`);
+        const items = section.querySelector('.items');
+        items.innerHTML += `<menu-item name="${adminPopupName.value}" price="${adminPopupPrice.value}" img="" stars=""
+                            reviews='[]'
+                            description="${adminPopupDescription.value}"
+                            masa="${adminPopupMasa.value}" uid="${ID}"></menu-item>`;
 
-    currentItem.setAttribute('name', adminPopupName.value);
-    currentItem.setAttribute('price', adminPopupPrice.value);
-    currentItem.setAttribute('description', adminPopupDescription.value);
-    currentItem.setAttribute('masa', adminPopupMasa.value);
 
-    closeAdminPopup()
+        menuItems[adminCategorySelect.value].push({
+            name: adminPopupName.value,
+            price: adminPopupPrice.value,
+            img: "",
+            reviews: [],
+            description: adminPopupDescription.value,
+            masa: adminPopupMasa.value,
+            uid: ID,
+        })
+
+        filterAndRender()
+    }
+
+    // filterAndRender();
+    closeAdminPopup();
 })
 
 // Admin Inputs
@@ -496,9 +529,9 @@ categories.forEach(category =>
 {
     category.addEventListener('click', (e) =>
     {
-        e.target.classList.toggle('selected')
-        updateMainCategories()
-        filterAndRender()
+        e.target.classList.toggle('selected');
+        updateMainCategories();
+        filterAndRender();
     })
 })
 
@@ -735,6 +768,7 @@ class MenuItem extends HTMLElement
 
         this.addEventListener('click', () =>
         {
+            addItemBool = false;
             if (accountAdmin)
             {
                 openAdminPopup()
