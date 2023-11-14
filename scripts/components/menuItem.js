@@ -515,7 +515,9 @@ function filterAndRender()
         else
         {
             section.style.display = 'initial'
-            const filteredItems = filterMenuItems(menuItems[key], criteria);
+            let filteredItems = filterMenuItems(menuItems[key], criteria);
+
+            filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
             let tempString = ''
             filteredItems.forEach(item =>
