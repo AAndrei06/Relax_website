@@ -3,6 +3,7 @@ import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, gener
 let currentID = '';
 const itemQuantityMap = new Map();
 let sideMenuIDs = [];
+let addItemBool = false;
 
 const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img");
 const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name");
@@ -63,6 +64,7 @@ function closeAdminPopup()
 
 addItemButton.addEventListener('click', () =>
 {
+    addItemBool = true;
     adminPopupInputs.forEach(input =>
     {
         input.nextElementSibling.classList.remove('move')
@@ -94,18 +96,85 @@ adminItemOverlay.addEventListener('click', () =>
 })
 adminExtraDelete.addEventListener('click', () =>
 {
-    closeAdminPopup()
+    for (const section in menuItems)
+    {
+        const items = menuItems[section];
+        const index = items.findIndex(item => item.uid === currentID);
+        if (index !== -1)
+        {
+            items.splice(index, 1);
+            break; // assuming each uid is unique, you can remove this if uids are not unique
+        }
+    }
+    filterAndRender();
+    closeAdminPopup();
 })
 adminExtraAction.addEventListener('click', () =>
 {
-    const currentItem = itemQuantityMap.get(currentID);
+    if (!addItemBool)
+    {
+        const currentItem = itemQuantityMap.get(currentID);
+        let previousSection;
 
-    currentItem.setAttribute('name', adminPopupName.value);
-    currentItem.setAttribute('price', adminPopupPrice.value);
-    currentItem.setAttribute('description', adminPopupDescription.value);
-    currentItem.setAttribute('masa', adminPopupMasa.value);
+        for (const section in menuItems)
+        {
+            if (menuItems[section].some(item => item.uid === currentID))
+            {
+                previousSection = section;
+            }
+        }
 
-    closeAdminPopup()
+        if (previousSection !== adminCategorySelect.value)
+        {
+            const sourceItems = menuItems[previousSection];
+            const targetItems = menuItems[adminCategorySelect.value];
+
+            const index = sourceItems.findIndex(item => item.uid === currentID);
+
+            if (index !== -1)
+            {
+                const itemToMove = sourceItems.splice(index, 1)[0];
+                targetItems.push(itemToMove);
+            }
+            filterAndRender();
+        }
+
+        currentItem.setAttribute('name', adminPopupName.value);
+        let nameField = currentItem.shadowRoot.querySelector('.name')
+        nameField.innerText = currentItem.getAttribute('name');
+        currentItem.setAttribute('price', adminPopupPrice.value);
+        let priceField = currentItem.shadowRoot.querySelector('.price')
+        priceField.innerText = `${currentItem.getAttribute('price')} MDL`;
+        currentItem.setAttribute('description', adminPopupDescription.value);
+        currentItem.setAttribute('masa', adminPopupMasa.value);
+
+        console.log(menuItems)
+    }
+    else
+    {
+        const ID = generateMongoLikeID();
+        const section = allSections.querySelector(`#${adminCategorySelect.value}`);
+        const items = section.querySelector('.items');
+        items.innerHTML += `<menu-item name="${adminPopupName.value}" price="${adminPopupPrice.value}" img="" stars=""
+                            reviews='[]'
+                            description="${adminPopupDescription.value}"
+                            masa="${adminPopupMasa.value}" uid="${ID}"></menu-item>`;
+
+
+        menuItems[adminCategorySelect.value].push({
+            name: adminPopupName.value,
+            price: adminPopupPrice.value,
+            img: "",
+            reviews: [],
+            description: adminPopupDescription.value,
+            masa: adminPopupMasa.value,
+            uid: ID,
+        })
+
+        filterAndRender()
+    }
+
+    closeAdminPopup();
 })
 
 // Admin Inputs
@@ -446,7 +515,9 @@ function filterAndRender()
         else
         {
             section.style.display = 'initial'
-            const filteredItems = filterMenuItems(menuItems[key], criteria);
+            let filteredItems = filterMenuItems(menuItems[key], criteria);
+
+            filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
             let tempString = ''
             filteredItems.forEach(item =>
@@ -496,9 +567,9 @@ categories.forEach(category =>
 {
     category.addEventListener('click', (e) =>
     {
-        e.target.classList.toggle('selected')
-        updateMainCategories()
-        filterAndRender()
+        e.target.classList.toggle('selected');
+        updateMainCategories();
+        filterAndRender();
     })
 })
 
@@ -735,6 +806,7 @@ class MenuItem extends HTMLElement
 
         this.addEventListener('click', () =>
         {
+            addItemBool = false;
             if (accountAdmin)
             {
                 openAdminPopup()
