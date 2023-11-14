@@ -13,11 +13,12 @@ const adminItemOverlay = document.querySelector('#admin-item-overlay');
 const adminExtraButtons = document.querySelector('.admin-item-extra-buttons');
 const adminPopupInputs = document.querySelectorAll('.admin-item-popup>.inputs>.input>input');
 const adminPopupTextarea = document.querySelector('.admin-item-popup>.inputs>.input>textarea');
-const adminPopupChangeBttn = document.querySelector('.admin-item-popup>.image>.change')
-const adminPopupImgSVG = document.querySelector(".admin-item-popup>.image>.add")
-const adminExtraDelete = document.querySelector('#extra-delete')
-const adminExtraAction = document.querySelector('#extra-action')
-const adminCategorySelect = document.querySelector('#admin-item-category')
+const adminPopupChangeBttn = document.querySelector('.admin-item-popup>.image>.change');
+const adminPopupImgSVG = document.querySelector(".admin-item-popup>.image>.add");
+const adminExtraDelete = document.querySelector('#extra-delete');
+const adminExtraAction = document.querySelector('#extra-action');
+const adminCategorySelect = document.querySelector('#admin-item-category');
+const adminForm = document.querySelector('#admin-form')
 
 let adminPopupImage = adminItemPopup.querySelector('.admin-item-popup>.image>img');
 let adminPopupName = adminItemPopup.querySelector('#admin-item-name');
@@ -81,7 +82,7 @@ addItemButton.addEventListener('click', () =>
                     </g>
                     <defs>
                         <clipPath id="clip0_298_2425">
-                            <rect width="24" height="24.7705" fill="white" transform="translate(0 0.614258)" />
+                            <rect width="24" height="24.7705" fill="var(--day-white01)" transform="translate(0 0.614258)" />
                         </clipPath>
                     </defs>
                 </svg>`
@@ -109,8 +110,9 @@ adminExtraDelete.addEventListener('click', () =>
     filterAndRender();
     closeAdminPopup();
 })
-adminExtraAction.addEventListener('click', () =>
+adminForm.addEventListener('submit', (e) =>
 {
+    e.preventDefault();
     if (!addItemBool)
     {
         const currentItem = itemQuantityMap.get(currentID);
@@ -841,7 +843,7 @@ class MenuItem extends HTMLElement
                 adminPopupTextarea.nextElementSibling.classList.add('move')
 
                 adminExtraAction.innerHTML = `<svg xmlns = "http://www.w3.org/2000/svg" width = "32" height = "32" viewBox = "0 0 32 32" fill = "none">
-            <path d="M5.3335 16.8146L11.8976 23.3332L26.6668 8.6665" stroke="#0C0C0C" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M5.3335 16.8146L11.8976 23.3332L26.6668 8.6665" stroke="var(--day-dark01)" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
 </ >`
             }
             else

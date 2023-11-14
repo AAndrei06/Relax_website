@@ -1037,7 +1037,7 @@
 
 .admin-item-extra-buttons {
     position: fixed;
-    bottom: 64px;
+    bottom: -96px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1091,7 +1091,7 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 32px;
     transition: all 0.1s ease-in-out;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .admin-item-popup.show {

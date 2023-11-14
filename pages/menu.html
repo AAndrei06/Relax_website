@@ -328,31 +328,6 @@
             </svg>
         </button>
 
-        <div class="admin-item-extra-buttons">
-            <button class="admin-extra-bttn" id="extra-delete">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                    <path
-                        d="M24.0002 8L22.9323 24.0172C22.8388 25.42 22.792 26.1215 22.4891 26.6533C22.2223 27.1216 21.8199 27.498 21.335 27.7331C20.7842 28 20.0811 28 18.6751 28H13.3252C11.9192 28 11.2162 28 10.6653 27.7331C10.1804 27.498 9.77802 27.1216 9.51126 26.6533C9.20826 26.1215 9.1615 25.42 9.06798 24.0172L8.00016 8M5.3335 8H26.6668M21.3335 8L20.9727 6.91743C20.623 5.86833 20.448 5.34379 20.1238 4.95597C19.8374 4.61351 19.4696 4.34843 19.0542 4.18504C18.5836 4 18.0308 4 16.925 4H15.0754C13.9695 4 13.4167 4 12.9462 4.18504C12.5307 4.34843 12.1629 4.61351 11.8766 4.95597C11.5522 5.34379 11.3774 5.86833 11.0277 6.91743L10.6668 8M18.6668 13.3333V22.6667M13.3335 13.3333V22.6667"
-                        stroke="#0C0C0C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </button>
-            <button class="admin-extra-bttn" id="extra-action">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26" fill="none">
-                    <g clip-path="url(#clip0_298_2425)">
-                        <path d="M11.9995 1.61084V24.3896" stroke="var(--day-dark01)" stroke-width="2.99998"
-                            stroke-linecap="round" />
-                        <path d="M23.0039 13.0005L0.99564 13.0005" stroke="var(--day-dark01)" stroke-width="2.99998"
-                            stroke-linecap="round" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_298_2425">
-                            <rect width="24" height="24.7705" fill="white" transform="translate(0 0.614258)" />
-                        </clipPath>
-                    </defs>
-                </svg>
-            </button>
-        </div>
-
         <div class="overlay" id="admin-item-overlay"></div>
         <div class="admin-item-popup">
             <div class="image">
@@ -366,23 +341,22 @@
                     </svg>
                 </button>
             </div>
-            <div class="inputs">
+            <form class="inputs" id="admin-form">
                 <div class="input">
-                    <input type="text" id="admin-item-name">
+                    <input type="text" id="admin-item-name" required>
                     <label for="admin-item-name">Nume</label>
                 </div>
                 <div class="input">
-
-                    <input type="text" id="admin-item-price">
+                    <input type="text" id="admin-item-price" required>
                     <label for="admin-item-price">Preț</label>
                 </div>
                 <div class="input">
 
-                    <input type="text" id="admin-item-masa">
+                    <input type="text" id="admin-item-masa" required>
                     <label for="admin-item-masa">Masa</label>
                 </div>
                 <div class="input" id="category-input">
-                    <select name="" id="admin-item-category">
+                    <select name="" id="admin-item-category" required>
                         <option value="pizza-section">Pizza</option>
                         <option value="gustari-section">Gustări Reci</option>
                         <option value="garnituri-section">Garnituri</option>
@@ -396,12 +370,36 @@
                     </select>
                 </div>
                 <div class="input">
-                    <textarea name="" id="admin-item-description" cols="30" rows="10"></textarea>
+                    <textarea name="" id="admin-item-description" cols="30" rows="10" required></textarea>
                     <label for="admin-item-description">Descriere</label>
                 </div>
-            </div>
 
-
+                <div class="admin-item-extra-buttons">
+                    <button type="button" class="admin-extra-bttn" id="extra-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path
+                                d="M24.0002 8L22.9323 24.0172C22.8388 25.42 22.792 26.1215 22.4891 26.6533C22.2223 27.1216 21.8199 27.498 21.335 27.7331C20.7842 28 20.0811 28 18.6751 28H13.3252C11.9192 28 11.2162 28 10.6653 27.7331C10.1804 27.498 9.77802 27.1216 9.51126 26.6533C9.20826 26.1215 9.1615 25.42 9.06798 24.0172L8.00016 8M5.3335 8H26.6668M21.3335 8L20.9727 6.91743C20.623 5.86833 20.448 5.34379 20.1238 4.95597C19.8374 4.61351 19.4696 4.34843 19.0542 4.18504C18.5836 4 18.0308 4 16.925 4H15.0754C13.9695 4 13.4167 4 12.9462 4.18504C12.5307 4.34843 12.1629 4.61351 11.8766 4.95597C11.5522 5.34379 11.3774 5.86833 11.0277 6.91743L10.6668 8M18.6668 13.3333V22.6667M13.3335 13.3333V22.6667"
+                                stroke="#0C0C0C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <button type="submit" class="admin-extra-bttn" id="extra-action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26" fill="none">
+                            <g clip-path="url(#clip0_298_2425)">
+                                <path d="M11.9995 1.61084V24.3896" stroke="var(--day-dark01)" stroke-width="2.99998"
+                                    stroke-linecap="round" />
+                                <path d="M23.0039 13.0005L0.99564 13.0005" stroke="var(--day-dark01)"
+                                    stroke-width="2.99998" stroke-linecap="round" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_298_2425">
+                                    <rect width="24" height="24.7705" fill="var(--day-white01)"
+                                        transform="translate(0 0.614258)" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                    </button>
+                </div>
+            </form>
 
         </div>
 
