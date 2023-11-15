@@ -5,6 +5,30 @@ const categoryProduct = document.getElementById("admin-item-category");
 const descriptionProduct = document.getElementById("admin-item-description");
 const submitProduct = document.getElementById("extra-action");
 
+const pizzaItems = document.getElementById("pizza-section").querySelector(".items")
+const gustariItems = document.getElementById("gustari-section").querySelector(".items");
+const garnituriItems = document.getElementById("garnituri-section").querySelector(".items");
+const ciorbeItems = document.getElementById("ciorbe-section").querySelector(".items");
+const micDejunItems = document.getElementById("micdejun-section").querySelector(".items");
+const sushiItems = document.getElementById("sushi-section").querySelector(".items");
+const pesteItems = document.getElementById("peste-section").querySelector(".items");
+const salateItems = document.getElementById("salate-section").querySelector(".items");
+const bereItems = document.getElementById("bere-section").querySelector(".items");
+const carneItems = document.getElementById("carne-section").querySelector(".items");
+
+
+productsDB.onSnapshot((snapshot) => {
+    let products = snapshot.docs;
+
+    for (let i = 0;i < products.length;i++){
+        if (products[i].data().category == "pizza-section"){
+            pizzaItems += `
+            
+            `;
+        }
+    }
+});
+
 submitProduct.addEventListener("click",() => {
 
     if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != ""){
