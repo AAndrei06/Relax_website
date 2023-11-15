@@ -23,6 +23,9 @@ let TwitterProvider = new firebase.auth.TwitterAuthProvider();;
 // User Collection
 const usersDB = firebase.firestore().collection("users");
 
+//Product Collection
+const productsDB = firebase.firestore().collection("products");
+
 function formatDate(stamp){
     let date = new Date(stamp);
     let year = date.getFullYear();
