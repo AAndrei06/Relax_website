@@ -1,4 +1,4 @@
-# Website pentru Relax 
+# Website pentru restaurantul Relax 
 ❕ Acest proiect a fost dezvoltat de Arseni Andrei și Gisca Artur, 2 elevi pasionați de fullstack development, în cadrul Tekwill Junior Ambassadors ediția IV, categoria de proiectare si dezvoltare web.
 
 Scopul nostru a fost să creăm un website interactiv, plin de diferite functii pentru restaurantul Relax, un restaurant din or.Leova care oferă cea mai bună mâncare din oraș și cele mai distractive petreceri.
@@ -29,9 +29,10 @@ Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
 - Idei originale 
 - Doar content/functii necesare 
 - Animatii simple 
-- Contribuitori 
-- Arseni Andrei: https://github.com/AAndrei06 
-- Gisca Artur: https://github.com/Arsitur
+
+### Contribuitori 
+Arseni Andrei: https://github.com/AAndrei06 <br>
+Gisca Artur: https://github.com/Arsitur
 
 ### Mulțumiri 
 ❤️ Dorim să le mulțumim instructorului nostru de dezvoltare web și colegilor noștri pentru sprijinul și feedback-ul acordat pe parcursul acestui proiect. De asemenea, dorim să mulțumim restaurantului Relax pentru că ne-a oferit oportunitatea de a crea acest website.
