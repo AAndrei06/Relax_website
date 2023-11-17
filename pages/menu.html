@@ -11,6 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <script defer src="../scripts/firebase/main.js"></script>
+    <script defer src="../scripts/firebase/menu.js"></script>
     <script defer src="../scripts/general.js"></script>
     <script defer type="module" src="../scripts/menu.js"></script>
     <script defer type="module" src="../scripts/components/menuItem.js"></script>
@@ -331,6 +332,7 @@
         <div class="overlay" id="admin-item-overlay"></div>
         <div class="admin-item-popup">
             <div class="image">
+                <input type="file" id = "admin-item-photo" accept="image/*" />
                 <img src="" alt="">
                 <button class="change">Schimbă</button>
                 <button class="add">
@@ -629,7 +631,9 @@
             <section class="menu-section" id="pizza-section">
                 <div class="content">
                     <h2>Pizza</h2>
-                    <div class="items"></div>
+                    <div class="items">
+                        
+                    </div>
                 </div>
             </section>
             <section class="menu-section" id="gustari-section">
