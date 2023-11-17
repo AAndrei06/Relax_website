@@ -4,7 +4,8 @@ const settingsEdit = document.querySelector('#edit');
 const settingsSave = document.querySelector('#save');
 const settingsCancel = document.querySelector('#cancel');
 
-const settingsFileInput = document.querySelector(".block.actual>.content>.avatar>div>input");
+const settingsFileInput = document.querySelector(".block.actual>.content>.avatar>div>label>input");
+const settingsFileLabel = document.querySelector(".block.actual>.content>.avatar>div>label");
 const settingsProfileImage = document.querySelector(".block.actual>.content>.avatar>div>img");
 const settingsDivs = document.querySelectorAll(".block.actual>.content>.settings>.setting>div")
 
@@ -13,7 +14,8 @@ settingsEdit.addEventListener('click', () =>
     settingsEdit.classList.remove('show');
     settingsSave.classList.add('show');
     settingsCancel.classList.add('show');
-    settingsFileInput.classList.add('show')
+    settingsFileLabel.classList.add('show')
+    // settingsFileInput.classList.add('show')
     settingsProfileImage.classList.remove('show')
     settingsDivs.forEach(div =>
     {
@@ -25,7 +27,8 @@ settingsCancel.addEventListener('click', () =>
     settingsEdit.classList.add('show');
     settingsSave.classList.remove('show');
     settingsCancel.classList.remove('show');
-    settingsFileInput.classList.remove('show')
+    settingsFileLabel.classList.remove('show')
+    // settingsFileInput.classList.remove('show')
     settingsProfileImage.classList.add('show')
     settingsDivs.forEach(div =>
     {
