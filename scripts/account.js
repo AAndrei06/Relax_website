@@ -15,7 +15,6 @@ settingsEdit.addEventListener('click', () =>
     settingsSave.classList.add('show');
     settingsCancel.classList.add('show');
     settingsFileLabel.classList.add('show')
-    // settingsFileInput.classList.add('show')
     settingsProfileImage.classList.remove('show')
     settingsDivs.forEach(div =>
     {
@@ -28,7 +27,6 @@ settingsCancel.addEventListener('click', () =>
     settingsSave.classList.remove('show');
     settingsCancel.classList.remove('show');
     settingsFileLabel.classList.remove('show')
-    // settingsFileInput.classList.remove('show')
     settingsProfileImage.classList.add('show')
     settingsDivs.forEach(div =>
     {
@@ -56,9 +54,11 @@ if (!isLightMode && !isDarkMode)
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
     {
         document.body.classList.add('dark-theme');
+        document.documentElement.style.colorScheme = 'dark';
     } else
     {
         document.body.classList.remove('dark-theme');
+        document.documentElement.style.colorScheme = 'light';
     }
 }
 
@@ -71,9 +71,12 @@ themeRadios.forEach(radio =>
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
             {
                 document.body.classList.add('dark-theme');
+                document.documentElement.style.colorScheme = 'dark';
             } else
             {
                 document.body.classList.remove('dark-theme');
+                document.documentElement.style.colorScheme = 'light';
+
             }
             localStorage.setItem('darkMode', false);
             localStorage.setItem('lightMode', false);
@@ -81,12 +84,14 @@ themeRadios.forEach(radio =>
         if (radio.value == 'light')
         {
             document.body.classList.remove('dark-theme');
+            document.documentElement.style.colorScheme = 'light';
             localStorage.setItem('darkMode', false);
             localStorage.setItem('lightMode', true);
         }
         if (radio.value == 'dark')
         {
             document.body.classList.add('dark-theme');
+            document.documentElement.style.colorScheme = 'dark';
             localStorage.setItem('darkMode', true);
             localStorage.setItem('lightMode', false);
         }

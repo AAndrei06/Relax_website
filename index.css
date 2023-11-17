@@ -35,6 +35,8 @@
     --night-brown: rgba(34, 34, 34, 1);
     --night-m-shadow01: rgba(27, 27, 27, 1);
     --night-m-shadow02: rgba(43, 43, 43, 1);
+
+    /* color-scheme: dark; */
 }
 
 .dark-theme {
@@ -56,8 +58,26 @@
     --day-brown: rgba(34, 34, 34, 1);
     --day-m-shadow01: rgba(27, 27, 27, 1);
     --day-m-shadow02: rgba(43, 43, 43, 1);
+
+    color-scheme: dark;
 }
 
+/* .dark-theme::-webkit-scrollbar {
+    width: 16px;
+} */
+
+/* .dark-theme::-webkit-scrollbar-track {
+    background: #424242;
+}
+
+.dark-theme::-webkit-scrollbar-thumb {
+    background-color: #706c6c;
+}
+
+.dark-theme::-webkit-scrollbar-button {
+    display: initial;
+    background: #424242;
+} */
 
 * {
     padding: 0;
