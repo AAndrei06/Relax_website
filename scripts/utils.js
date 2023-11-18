@@ -168,3 +168,12 @@ export function displayImage(file, img)
     // Read the image file as a data URL
     reader.readAsDataURL(file);
 }
+export function focusItem(div)
+{
+    const range = document.createRange();
+    range.selectNodeContents(div);
+    const selection = window.getSelection();
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
