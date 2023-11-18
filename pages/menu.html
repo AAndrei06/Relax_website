@@ -57,7 +57,7 @@
             <div class="content">
                 <div class="stars">
                     <span>Stele:</span>
-                    <div>
+                    <div class = "stars-container-svg">
                         <svg width="28" height="28" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="60" height="60" fill="var(--day-white01)" />
                             <path
@@ -113,7 +113,7 @@
                 <div class="price">
                     <span>Pret:</span>
                     <div class="slider">
-                        <input type="range" min="0" max="500" value="500" id="slider">
+                        <input class = "slider-price-input" type="range" min="0" max="500" value="500" id="slider">
                         <div class="progress"></div>
                         <div class="value">500</div>
                     </div>
@@ -307,7 +307,7 @@
                         </span>
 
                     </div>
-                    <input type="text">
+                    <input id = "text-search-field-products" type="text">
                 </div>
             </div>
             <div class="separator"></div>
@@ -349,7 +349,7 @@
                     <label for="admin-item-name">Nume</label>
                 </div>
                 <div class="input">
-                    <input type="text" id="admin-item-price" required>
+                    <input type="number" id="admin-item-price" required>
                     <label for="admin-item-price">Preț</label>
                 </div>
                 <div class="input">
@@ -421,7 +421,7 @@
         <div class="overlay" id="menu-overlay"></div>
         <div class="menu-side">
             <div class="wrap">
-                <div class="empty show">
+                <div class="empty">
                     <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
                         <path
                             d="M90.6667 90.6667C84.7755 90.6667 80 95.4421 80 101.333C80 107.225 84.7755 112 90.6667 112C96.5579 112 101.333 107.225 101.333 101.333C101.333 95.4421 96.5579 90.6667 90.6667 90.6667ZM90.6667 90.6667H49.5677C47.1087 90.6667 45.877 90.6667 44.8646 90.2293C43.9715 89.8432 43.1967 89.2219 42.6322 88.4293C41.9995 87.5413 41.745 86.3536 41.2413 84.0027L28.1146 22.7448C27.5991 20.3394 27.338 19.138 26.6979 18.2396C26.1334 17.4472 25.3588 16.8235 24.4657 16.4376C23.4531 16 22.2282 16 19.7682 16H16M32 32H100.657C104.507 32 106.429 32 107.722 32.8019C108.853 33.5043 109.682 34.606 110.043 35.888C110.455 37.3516 109.925 39.1998 108.859 42.8985L101.474 68.4987C100.836 70.7099 100.517 71.8133 99.8699 72.6341C99.2987 73.3584 98.5451 73.9253 97.6907 74.2736C96.7259 74.6667 95.5792 74.6667 93.2912 74.6667H41.2292M42.6667 112C36.7756 112 32 107.225 32 101.333C32 95.4421 36.7756 90.6667 42.6667 90.6667C48.5577 90.6667 53.3333 95.4421 53.3333 101.333C53.3333 107.225 48.5577 112 42.6667 112Z"
@@ -433,45 +433,12 @@
                 </div>
                 <div class="logo">RELAX</div>
                 <div class="orders">
-                    <div class="side-menu-item">
-                        <div class="img">
-                            <div class="quantity">1</div>
-                            <img src="../assets/Account/pizza.png" alt="Imagine cu Nume" draggable="false">
-                        </div>
-                        <div class="text">
-                            <div class="name">
-                                <span>Nume</span>
-                                <button class="delete">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
-                                        fill="none">
-                                        <g clip-path="url(#clip0_41_1430)">
+                    
 
-                                            <path
-                                                d="M9.87523 7.93264L15.4608 13.547C15.968 14.0558 15.968 14.883 15.4608 15.3918C14.9536 15.9022 14.1312 15.9022 13.624 15.3918L8.03843 9.77904L2.39683 15.4494C1.88483 15.9646 1.05603 15.9646 0.544034 15.4494C0.0320342 14.9358 0.0320342 14.1006 0.544034 13.587L6.18563 7.91504L0.771234 2.47344C0.264034 1.96304 0.264034 1.13744 0.771234 0.627039C1.27843 0.116639 2.10083 0.116639 2.60643 0.627039L8.02083 6.07024L13.5136 0.550239C14.0256 0.0366391 14.8544 0.0366391 15.3664 0.550239C15.8784 1.06544 15.8784 1.89904 15.3664 2.41264L9.87523 7.93264Z"
-                                                fill="var(--day-dark01)" />
-
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_41_1430">
-
-                                                <rect width="16" height="16" fill="white" />
-
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                            </div>
-                            <span class="stars">
-                                ★ ★ ★ ★ ★
-                            </span>
-                            <span class="price">000 MDL</span>
-
-                        </div>
-                    </div>
                 </div>
                 <div class="separator"></div>
                 <div class="checkout">
-                    <span>Total: <span class="price">0</span> MDL</span>
+                    <span>Total: <span id = "price-of-checkout" class="price">0</span> MDL</span>
                     <button>
                         Cumpără
                     </button>
@@ -668,6 +635,7 @@
                 <div class="content">
                     <h2>Pizza</h2>
                     <div class="items">
+                        <!--
                         <div class="menu-item">
                             <img src="../assets/Account/pizza.png" alt="Imagine cu TEST" draggable="false"
                                 loading="lazy">
@@ -691,7 +659,7 @@
                                 </button>
                             </div>
                         </div>
-
+                    -->
                     </div>
                 </div>
             </section>
