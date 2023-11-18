@@ -26,6 +26,9 @@ const usersDB = firebase.firestore().collection("users");
 //Product Collection
 const productsDB = firebase.firestore().collection("products");
 
+// Carts Collection
+const cartsDB = firebase.firestore().collection("carts")
+
 function formatDate(stamp){
     let date = new Date(stamp);
     let year = date.getFullYear();

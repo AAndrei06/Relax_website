@@ -98,16 +98,20 @@ GoogleBTN.addEventListener("click", () => {
                         created: date.getTime(),
                         photoURL: startImage,
                     }).then(() => {
-
-                        loadingAnim()
-
-                        setTimeout(() => {
-                            responseAnim(false, "Succes")
+                        cartsDB.add({
+                            ID: user.uid,
+                            products: [],
+                        }).then(() => {
+                            loadingAnim()
                             setTimeout(() => {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
-                        }, 1000)
+                                responseAnim(false, "Succes")
+                                setTimeout(() => {
+                                    endAnim()
+                                    window.location.href = '/';
+                                }, 2000)
+                            }, 1000)
+                        });
+
 
                     });
                 }
@@ -154,16 +158,21 @@ FacebookBTN.addEventListener("click", () => {
                         created: date.getTime(),
                         photoURL: startImage,
                     }).then(() => {
+                        cartsDB.add({
+                            ID: user.uid,
+                            products: [], 
+                        }).then(() => {
+                            loadingAnim()
 
-                        loadingAnim()
-
-                        setTimeout(() => {
-                            responseAnim(false, "Succes")
                             setTimeout(() => {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
-                        }, 1000)
+                                responseAnim(false, "Succes")
+                                setTimeout(() => {
+                                    endAnim()
+                                    window.location.href = '/';
+                                }, 2000)
+                            }, 1000)
+                        });
+
 
                     });
                 }
@@ -210,16 +219,21 @@ TwitterBTN.addEventListener("click", () => {
                         created: date.getTime(),
                         photoURL: startImage,
                     }).then(() => {
+                        cartsDB.add({
+                            ID: user.uid,
+                            products: [],      
+                        }).then(() => {
+                            loadingAnim()
 
-                        loadingAnim()
-
-                        setTimeout(() => {
-                            responseAnim(false, "Succes")
                             setTimeout(() => {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
-                        }, 1000)
+                                responseAnim(false, "Succes")
+                                setTimeout(() => {
+                                    endAnim()
+                                    window.location.href = '/';
+                                }, 2000)
+                            }, 1000)
+                        });
+
 
                     });
                 }
@@ -248,27 +262,32 @@ submitBtn.onclick = () => {
             .then((userCredential) => {
                 var user = userCredential.user;
                 let date = new Date();
-                usersDB.add({
-                    name: userInitialName,
-                    PASS: password,
-                    EMAIL: email,
-                    admin: false,
+                cartsDB.add({
                     ID: user.uid,
-                    created: date.getTime(),
-                    photoURL: startImage,
+                    products: [],
                 }).then(() => {
-
-                    loadingAnim()
-
-                    setTimeout(() => {
-                        responseAnim(false, "Succes")
+                    usersDB.add({
+                        name: userInitialName,
+                        PASS: password,
+                        EMAIL: email,
+                        admin: false,
+                        ID: user.uid,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
+    
+                        loadingAnim()
+    
                         setTimeout(() => {
-                            endAnim()
-                            window.location.href = '/';
-                        }, 2000)
-                    }, 1000)
-
-                });
+                            responseAnim(false, "Succes")
+                            setTimeout(() => {
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+                        }, 1000)
+                    });
+                })
+                
             })
             .catch((error) => {
                 loadingAnim()
