@@ -66,6 +66,7 @@
     z-index: 3;
     color: var(--day-dark02);
     font-family: Poppins, Arial, Helvetica, sans-serif;
+    /* outline: 1px solid #000; */
 }
 
 body {
