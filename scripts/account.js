@@ -4,7 +4,8 @@ const settingsEdit = document.querySelector('#edit');
 const settingsSave = document.querySelector('#save');
 const settingsCancel = document.querySelector('#cancel');
 
-const settingsFileInput = document.querySelector(".block.actual>.content>.avatar>div>input");
+const settingsFileInput = document.querySelector(".block.actual>.content>.avatar>div>label>input");
+const settingsFileLabel = document.querySelector(".block.actual>.content>.avatar>div>label");
 const settingsProfileImage = document.querySelector(".block.actual>.content>.avatar>div>img");
 const settingsDivs = document.querySelectorAll(".block.actual>.content>.settings>.setting>div")
 
@@ -13,7 +14,7 @@ settingsEdit.addEventListener('click', () =>
     settingsEdit.classList.remove('show');
     settingsSave.classList.add('show');
     settingsCancel.classList.add('show');
-    settingsFileInput.classList.add('show')
+    settingsFileLabel.classList.add('show')
     settingsProfileImage.classList.remove('show')
     settingsDivs.forEach(div =>
     {
@@ -25,7 +26,7 @@ settingsCancel.addEventListener('click', () =>
     settingsEdit.classList.add('show');
     settingsSave.classList.remove('show');
     settingsCancel.classList.remove('show');
-    settingsFileInput.classList.remove('show')
+    settingsFileLabel.classList.remove('show')
     settingsProfileImage.classList.add('show')
     settingsDivs.forEach(div =>
     {
@@ -53,9 +54,11 @@ if (!isLightMode && !isDarkMode)
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
     {
         document.body.classList.add('dark-theme');
+        document.documentElement.style.colorScheme = 'dark';
     } else
     {
         document.body.classList.remove('dark-theme');
+        document.documentElement.style.colorScheme = 'light';
     }
 }
 
@@ -68,9 +71,12 @@ themeRadios.forEach(radio =>
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
             {
                 document.body.classList.add('dark-theme');
+                document.documentElement.style.colorScheme = 'dark';
             } else
             {
                 document.body.classList.remove('dark-theme');
+                document.documentElement.style.colorScheme = 'light';
+
             }
             localStorage.setItem('darkMode', false);
             localStorage.setItem('lightMode', false);
@@ -78,12 +84,14 @@ themeRadios.forEach(radio =>
         if (radio.value == 'light')
         {
             document.body.classList.remove('dark-theme');
+            document.documentElement.style.colorScheme = 'light';
             localStorage.setItem('darkMode', false);
             localStorage.setItem('lightMode', true);
         }
         if (radio.value == 'dark')
         {
             document.body.classList.add('dark-theme');
+            document.documentElement.style.colorScheme = 'dark';
             localStorage.setItem('darkMode', true);
             localStorage.setItem('lightMode', false);
         }

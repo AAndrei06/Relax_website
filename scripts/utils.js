@@ -155,3 +155,16 @@ export function formatDate(date)
 
     return romanianDate;
 }
+
+export function displayImage(file, img)
+{
+    var reader = new FileReader();
+
+    reader.onload = function (e)
+    {
+        img.src = e.target.result;
+    };
+
+    // Read the image file as a data URL
+    reader.readAsDataURL(file);
+}

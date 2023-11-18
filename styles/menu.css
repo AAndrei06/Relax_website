@@ -1268,7 +1268,7 @@
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2
+    -webkit-line-clamp: 2;
 }
 
 .menu-item>.stars {
@@ -1388,11 +1388,10 @@
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 700;
-    white-space: nowrap;
     padding-right: 4px;
     width: 180px;
     text-overflow: ellipsis;
-    white-space: now-wrap;
+    white-space: nowrap;
     overflow: hidden;
 }
 

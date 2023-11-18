@@ -138,13 +138,10 @@
     font-weight: 500;
 }
 
-.block.actual>.content>.avatar>div {
+.block.actual>.content>.avatar>div>img {
     width: 40px;
     height: 40px;
     border-radius: 100px;
-}
-
-.block.actual>.content>.avatar>div>img {
     display: none;
 }
 
@@ -152,12 +149,25 @@
     display: initial;
 }
 
-.block.actual>.content>.avatar>div>input {
+.block.actual>.content>.avatar>div>label {
     display: none;
+    padding: 4px 16px;
+    background-color: var(--day-dark01);
+    color: var(--day-white01);
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
 }
 
-.block.actual>.content>.avatar>div>input.show {
+.block.actual>.content>.avatar>div>label.show {
     display: initial;
+}
+
+.block.actual>.content>.avatar>div>label>input {
+    display: none;
+
 }
 
 .block.actual>.content>.settings {
