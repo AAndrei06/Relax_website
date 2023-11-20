@@ -24,6 +24,8 @@ firebase.auth().onAuthStateChanged((user) => {
     const adminExtraButtons = document.querySelector('.admin-item-extra-buttons');
     const adminExtraBtn = document.querySelector(".admin-extra-bttn");
     const adminPhotoProduct = document.querySelector(".image-full-product");
+    const adminMasaProduct = document.getElementById("admin-item-masa");
+    let currentEditID = "";
 
     let pizzaItems = document.getElementById("pizza-section").querySelector(".items")
     let gustariItems = document.getElementById("gustari-section").querySelector(".items");
@@ -104,6 +106,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }
         let totalPrice = 0;
         for (const [key, value] of Object.entries(hashMap)) {
+            try{
             productsDB.doc(key).get().then((doc) => {
                 let stars = "";
                 for (let i = 0; i < doc.data().stars; i++) {
@@ -160,7 +163,10 @@ firebase.auth().onAuthStateChanged((user) => {
                 //console.log(btnDeleteX);
 
             });
+        }catch{
+            console.log("Error");
         }
+    }
     }
 
 
@@ -183,7 +189,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }
         let isAnItem = false;
         productItemsData.forEach((product) => {
-            console.log(categories);
+           // console.log(categories);
             if (product.data().stars == nrOfStars
                 && product.data().price <= priceAmount
                 && categories.includes(product.data().category)
@@ -269,10 +275,11 @@ firebase.auth().onAuthStateChanged((user) => {
         allImagesRest.forEach((image) => {
             image.addEventListener("click", () => {
                 operation = "editing";
-                console.log(operation);
+                currentEditID = image.id;
+                console.log(operation, " ", currentEditID);
                 adminItemPopup.classList.add('show');
                 adminItemOverlay.classList.add('show');
-                adminExtraButtons.classList.add('show'); 
+                adminExtraButtons.classList.add('show');
                 adminExtraBtn.classList.add("show");
                 console.log(image.id);
                 productsDB.doc(image.id).get().then((object) => {
@@ -283,10 +290,10 @@ firebase.auth().onAuthStateChanged((user) => {
                     categoryProduct.value = object.data().category;
                     descriptionProduct.focus()
                     descriptionProduct.value = object.data().description;
-                    
+
                 })
-                
-                
+
+
 
             })
         })
@@ -461,32 +468,73 @@ firebase.auth().onAuthStateChanged((user) => {
 
     document.querySelector(".add-item-bttn").onclick = () => {
         operation = "adding";
-        console.log(operation);
+        currentEditID = "";
+        console.log(operation, " ", currentEditID);
+        adminPhotoProduct.style.display = "none";
+        adminPhotoProduct.src = "";
     }
 
-    submitProduct.addEventListener("click", () => {
+    adminExtraBtn.addEventListener("click",() => {
+        if (operation == "editing" && currentEditID != ""){
+            productsDB.doc(currentEditID).delete();
+        }
+    });
 
-        if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "") {
-            productsDB.add({
-                stars: 5,
-                name: nameProduct.value,
-                description: descriptionProduct.value,
-                category: categoryProduct.value,
-                price: Number(priceProduct.value),
-                photoURL: "",
-            }).then((object) => {
-                let file = photoProduct.files[0];
-                firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
-                    snapshot.ref.getDownloadURL().then((urlfile) => {
-                        downloadURLFile = urlfile;
-                        productsDB.doc(object.id).update({
-                            photoURL: downloadURLFile,
+    submitProduct.addEventListener("click", () => {
+        if (operation == "adding") {
+            if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "" && adminMasaProduct.value != "") {
+                productsDB.add({
+                    stars: 5,
+                    name: nameProduct.value,
+                    description: descriptionProduct.value,
+                    category: categoryProduct.value,
+                    price: Number(priceProduct.value),
+                    masa: Number(adminMasaProduct.value),
+                    photoURL: "",
+                }).then((object) => {
+                    let file = photoProduct.files[0];
+                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
+                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                            downloadURLFile = urlfile;
+                            productsDB.doc(object.id).update({
+                                photoURL: downloadURLFile,
+                            })
                         })
-                    })
+                    });
                 });
-            });
-        } else {
-            window.alert("Umpleți toate casetele");
+            } else {
+                window.alert("Umpleți toate casetele");
+            }
+        } else if (operation == "editing") {
+            if (photoProduct.files[0] != null) {
+
+                productsDB.doc(currentEditID).update({
+                    name: nameProduct.value,
+                    description: descriptionProduct.value,
+                    category: categoryProduct.value,
+                    price: Number(priceProduct.value),
+                    masa: Number(adminMasaProduct.value),
+                    photoURL: "",
+                }).then((object2) => {
+                    let file2 = photoProduct.files[0];
+                    firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) => {
+                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                            downloadUrlfile = urlfile;
+                            productsDB.doc(currentEditID).update({
+                                photoURL: downloadUrlfile,
+                            })
+                        })
+                    });
+                });
+            } else {
+                productsDB.doc(currentEditID).update({
+                    name: nameProduct.value,
+                    description: descriptionProduct.value,
+                    category: categoryProduct.value,
+                    price: Number(priceProduct.value),
+                    masa: Number(adminMasaProduct.value),
+                })
+            }
         }
     });
 })
