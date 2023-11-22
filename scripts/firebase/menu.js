@@ -80,6 +80,7 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 
 
+
     function deleteCartItem(ItemID) {
         cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
             querySnapshot.forEach((object) => {
@@ -130,6 +131,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 for (let i = 0; i < doc.data().stars; i++) {
                     stars += " ★";
                 }
+
                 totalPrice += doc.data().price * value;
                 checkOut.innerHTML = totalPrice;
 
@@ -170,6 +172,7 @@ firebase.auth().onAuthStateChanged((user) => {
                             </div>
                         </div>
                         `;
+
                 btnDeleteX = document.querySelectorAll("#del-btn-x");
                 btnDeleteX.forEach((btn) => {
                     btn.addEventListener("click", () => {
@@ -183,6 +186,7 @@ firebase.auth().onAuthStateChanged((user) => {
             });
 
         }
+
 
     }
 
@@ -245,49 +249,57 @@ firebase.auth().onAuthStateChanged((user) => {
                     </div>
                 </div>`;
 
-                if (product.data().category == "pizza-section") {
+                if (product.data().category == "pizza-section")
+                {
                     pizzaItems.innerHTML += component;
                     allMenuSections[0].style.display = "block";
                 }
-                
+
                 else if (product.data().category == "gustari-section") {
                     gustariItems.innerHTML += component;
                     allMenuSections[1].style.display = "block";
                 }
-                else if (product.data().category == "garnituri-section") {
+                else if (product.data().category == "garnituri-section")
+                {
                     garnituriItems.innerHTML += component;
                     allMenuSections[2].style.display = "block";
                 }
-                else if (product.data().category == "ciorbe-section") {
+                else if (product.data().category == "ciorbe-section")
+                {
                     ciorbeItems.innerHTML += component;
                     allMenuSections[3].style.display = "block";
                 }
-                else if (product.data().category == "micdejun-section") {
+                else if (product.data().category == "micdejun-section")
+                {
                     micDejunItems.innerHTML += component;
                     
                     allMenuSections[4].style.display = "block";
                 }
-                else if (product.data().category == "sushi-section") {
+                else if (product.data().category == "sushi-section")
+                {
                     sushiItems.innerHTML += component;
                     allMenuSections[5].style.display = "block";
                 }
-                else if (product.data().category == "peste-section") {
+                else if (product.data().category == "peste-section")
+                {
                     pesteItems.innerHTML += component;
                     allMenuSections[6].style.display = "block";
                 }
-                else if (product.data().category == "salate-section") {
+                else if (product.data().category == "salate-section")
+                {
                     salateItems.innerHTML += component;
                     allMenuSections[7].style.display = "block";
                 }
-                else if (product.data().category == "bere-section") {
+                else if (product.data().category == "bere-section")
+                {
                     bereItems.innerHTML += component;
                     allMenuSections[8].style.display = "block";
                 }
-                else if (product.data().category == "carne-section") {
+                else if (product.data().category == "carne-section")
+                {
                     carneItems.innerHTML += component;
                     allMenuSections[9].style.display = "block";
                 }
-
             }
         });
         
@@ -295,7 +307,6 @@ firebase.auth().onAuthStateChanged((user) => {
             nothingFound.classList.remove("show");
         } else {
             nothingFound.classList.add("show");
-
         }
 
         let allImagesRest = document.querySelectorAll(".to-click");
@@ -353,7 +364,6 @@ firebase.auth().onAuthStateChanged((user) => {
             })
         })
     }
-
     productsDB.get().then((querySnapshot) => {
 
         querySnapshot.forEach((product) => {
@@ -364,7 +374,6 @@ firebase.auth().onAuthStateChanged((user) => {
             categoryFilter.children[i].classList.remove("selected");
         }
         selectedCategories = [];
-
     })
 
 
@@ -531,10 +540,13 @@ firebase.auth().onAuthStateChanged((user) => {
                     price: Number(priceProduct.value),
                     masa: Number(adminMasaProduct.value),
                     photoURL: "",
-                }).then((object) => {
+                }).then((object) =>
+                {
                     let file = photoProduct.files[0];
-                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
-                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
                             downloadURLFile = urlfile;
                             productsDB.doc(object.id).update({
                                 photoURL: downloadURLFile,
