@@ -31,7 +31,7 @@ function closeArticlePopup()
 {
     articlePopupOverlay.classList.remove('show');
     articlePopup.classList.remove('show');
-    articlePopup.reset();
+   // articlePopup.reset();
 
     setTimeout(() =>
     {
@@ -48,6 +48,7 @@ function closeArticlePopup()
     articleFileInputLabel.children[0].innerHTML = 'Adaugă imaginea'
 
 }
+
 addArticleBttn.addEventListener('click', () =>
 {
     deleteArticleBttn.classList.remove('active')

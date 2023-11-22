@@ -10,9 +10,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <link rel="stylesheet" href="../styles/articole.css">
-    <script src="../scripts/firebase/main.js"></script>
-    <script defer src="../scripts/navbar.js"></script>
+    <script defer src="../scripts/firebase/main.js"></script>
     <script defer type="module" src="../scripts/articole.js"></script>
+    <script defer src="../scripts/firebase/articole.js"></script>
+    <script defer src="../scripts/navbar.js"></script>
     <script defer src="../scripts/general.js"></script>
 
     <title>Relax | Articole</title>
@@ -53,8 +54,8 @@
         </header>
 
         <div class="overlay" id="article-overlay"></div>
-        <form class="article-popup">
-            <div class="img">
+        <div class="article-popup">
+            <div id = "unique-img-div" class="img">
                 <img class="preview-img" src="../assets/Account/pizza.png" alt="Adaugă imaginea">
                 <label for="article-img-add" class="img-add-label show">
                     <span>Adaugă imaginea</span>
@@ -63,10 +64,10 @@
             </div>
             <input type="text" id="article-name" placeholder="Nume" required autocomplete="false">
             <div class="buttons">
-                <button class="add">Adauga</button>
-                <button type="button" class="delete">Sterge</button>
+                <button class="add" id="btn-form-add">Adauga</button>
+                <button type="button" class="delete" id="btn-form-delete">Șterge</button>
             </div>
-        </form>
+        </div>
 
         <button class="add-article show">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26" fill="none">
