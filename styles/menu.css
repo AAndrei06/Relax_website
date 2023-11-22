@@ -1333,8 +1333,12 @@
     transform: rotate(-15deg);
 }
 
-
 .menu-item>.bottom>button>span {
+    display: none;
+    color: var(--day-white01);
+}
+
+.menu-item>.bottom>button.shake>span {
     display: initial;
 }
 

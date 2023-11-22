@@ -5,14 +5,19 @@ let is_current_user_admin = false;
 const adminPhotoProduct = document.querySelector(".image-full-product");
 adminPhotoProduct.style.display = "none";
 let operation = "none";
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
+firebase.auth().onAuthStateChanged((user) =>
+{
+    if (user)
+    {
         loggedUser = user;
         console.log("is_user");
-        usersDB.where("admin", "==", true).get().then((querySnapshot) => {
-            querySnapshot.forEach((obj) => {
+        usersDB.where("admin", "==", true).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((obj) =>
+            {
                 console.log("enter");
-                if (obj.data().ID == loggedUser.uid) {
+                if (obj.data().ID == loggedUser.uid)
+                {
                     is_current_user_admin = true;
                     adminPhotoProduct.style.display = "block";
                     console.log("ok", is_current_user_admin);
@@ -30,7 +35,7 @@ firebase.auth().onAuthStateChanged((user) => {
     const adminItemOverlay = document.querySelector('#admin-item-overlay');
     const adminExtraButtons = document.querySelector('.admin-item-extra-buttons');
     const adminExtraBtn = document.querySelector(".admin-extra-bttn");
-    const ItemPopup = document.querySelector(".item-popup");
+    const itemPopup = document.querySelector(".item-popup");
     const adminMasaProduct = document.getElementById("admin-item-masa");
     const itemOverlay = document.querySelector("#item-overlay");
     let currentEditID = "";
@@ -66,14 +71,17 @@ firebase.auth().onAuthStateChanged((user) => {
     let categoryFilter = document.querySelector(".filter-section").querySelector(".content").querySelector(".categories").querySelector(".popup").querySelector(".content");
 
 
-    function deleteItem(arr, item) {
+    function deleteItem(arr, item)
+    {
         var index = arr.indexOf(item);
-        if (index !== -1) {
+        if (index !== -1)
+        {
             arr.splice(index, 1);
         }
     }
 
-    function lockScroll() {
+    function lockScroll()
+    {
         let xPos = window.scrollX;
         let yPos = window.scrollY;
         window.onscroll = () => window.scroll(xPos, yPos);
@@ -81,9 +89,12 @@ firebase.auth().onAuthStateChanged((user) => {
 
 
 
-    function deleteCartItem(ItemID) {
-        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((object) => {
+    function deleteCartItem(ItemID)
+    {
+        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((object) =>
+            {
                 let productsAll = object.data().products;
                 deleteItem(productsAll, ItemID);
                 cartsDB.doc(object.id).update({
@@ -101,34 +112,43 @@ firebase.auth().onAuthStateChanged((user) => {
     }
     */
 
-    function handleCartItems(object) {
+    function handleCartItems(object)
+    {
 
         orders.innerHTML = "";
         let productsAll = object.data().products;
-        if (productsAll.length > 0) {
+        if (productsAll.length > 0)
+        {
             showRedIcon.classList.add("show");
             toggleEmpty.classList.remove("show");
-        } else {
+        } else
+        {
             showRedIcon.classList.remove("show");
             toggleEmpty.classList.add("show");
             checkOut.innerHTML = "0";
         }
         let hashMap = {};
-        for (let i = 0; i < productsAll.length; i++) {
-            if (hashMap.hasOwnProperty(productsAll[i])) {
+        for (let i = 0; i < productsAll.length; i++)
+        {
+            if (hashMap.hasOwnProperty(productsAll[i]))
+            {
                 hashMap[productsAll[i]] += 1;
-            } else {
+            } else
+            {
                 hashMap[productsAll[i]] = 1;
             }
             //  let cartProduct = productsDB.doc(productsAll[i]);
 
         }
         let totalPrice = 0;
-        for (const [key, value] of Object.entries(hashMap)) {
+        for (const [key, value] of Object.entries(hashMap))
+        {
 
-            productsDB.doc(key).get().then((doc) => {
+            productsDB.doc(key).get().then((doc) =>
+            {
                 let stars = "";
-                for (let i = 0; i < doc.data().stars; i++) {
+                for (let i = 0; i < doc.data().stars; i++)
+                {
                     stars += " ★";
                 }
 
@@ -174,8 +194,10 @@ firebase.auth().onAuthStateChanged((user) => {
                         `;
 
                 btnDeleteX = document.querySelectorAll("#del-btn-x");
-                btnDeleteX.forEach((btn) => {
-                    btn.addEventListener("click", () => {
+                btnDeleteX.forEach((btn) =>
+                {
+                    btn.addEventListener("click", () =>
+                    {
                         console.log(btn.value);
                         deleteCartItem(btn.value);
                         //handleCartItems(object);
@@ -190,9 +212,12 @@ firebase.auth().onAuthStateChanged((user) => {
 
     }
 
-    cartsDB.onSnapshot((snapshot) => {
-        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((object) => {
+    cartsDB.onSnapshot((snapshot) =>
+    {
+        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((object) =>
+            {
                 handleCartItems(object);
 
             })
@@ -201,25 +226,31 @@ firebase.auth().onAuthStateChanged((user) => {
     //console.log(allMenuSections[2].id);
 
 
-    function displayFiltered(nrOfStars, priceAmount, categories, searchResult) {
-        
-        for (let i = 0; i < allMenuSections.length; i++) {
+    function displayFiltered(nrOfStars, priceAmount, categories, searchResult)
+    {
+
+        for (let i = 0; i < allMenuSections.length; i++)
+        {
             allMenuSections[i].style.display = "none";
         }
-        
-        for (let i = 0; i < allItemsBoxes.length; i++) {
+
+        for (let i = 0; i < allItemsBoxes.length; i++)
+        {
             allItemsBoxes[i].innerHTML = "";
         }
         let isAnItem = false;
-        productItemsData.forEach((product) => {
+        productItemsData.forEach((product) =>
+        {
             // console.log(categories);
             if (product.data().stars == nrOfStars
                 && product.data().price <= priceAmount
                 && categories.includes(product.data().category)
-                && product.data().name.toLowerCase().includes(searchResult.toLowerCase())) {
+                && product.data().name.toLowerCase().includes(searchResult.toLowerCase()))
+            {
                 let stars = "";
                 isAnItem = true;
-                for (let i = 0; i < product.data().stars; i++) {
+                for (let i = 0; i < product.data().stars; i++)
+                {
                     stars += " ★";
                 }
                 let component = `
@@ -255,7 +286,8 @@ firebase.auth().onAuthStateChanged((user) => {
                     allMenuSections[0].style.display = "block";
                 }
 
-                else if (product.data().category == "gustari-section") {
+                else if (product.data().category == "gustari-section")
+                {
                     gustariItems.innerHTML += component;
                     allMenuSections[1].style.display = "block";
                 }
@@ -272,7 +304,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 else if (product.data().category == "micdejun-section")
                 {
                     micDejunItems.innerHTML += component;
-                    
+
                     allMenuSections[4].style.display = "block";
                 }
                 else if (product.data().category == "sushi-section")
@@ -302,18 +334,23 @@ firebase.auth().onAuthStateChanged((user) => {
                 }
             }
         });
-        
-        if (isAnItem == true) {
+
+        if (isAnItem == true)
+        {
             nothingFound.classList.remove("show");
-        } else {
+        } else
+        {
             nothingFound.classList.add("show");
         }
 
         let allImagesRest = document.querySelectorAll(".to-click");
-        allImagesRest.forEach((image) => {
-            image.addEventListener("click", () => {
+        allImagesRest.forEach((image) =>
+        {
+            image.addEventListener("click", () =>
+            {
                 console.log(is_current_user_admin);
-                if (is_current_user_admin) {
+                if (is_current_user_admin)
+                {
                     lockScroll();
                     operation = "editing";
                     currentEditID = image.id;
@@ -323,7 +360,8 @@ firebase.auth().onAuthStateChanged((user) => {
                     adminExtraButtons.classList.add('show');
                     adminExtraBtn.classList.add("show");
                     console.log(image.id);
-                    productsDB.doc(image.id).get().then((object) => {
+                    productsDB.doc(image.id).get().then((object) =>
+                    {
                         nameProduct.focus();
                         nameProduct.value = object.data().name;
                         adminPhotoProduct.style.display = "block";
@@ -338,39 +376,64 @@ firebase.auth().onAuthStateChanged((user) => {
 
                     })
                 }
-
+                else
+                {
+                    itemPopup.classList.add('show');
+                    itemOverlay.classList.add('show');
+                    lockScroll();
+                }
 
             })
         })
         let allCartButtons = document.querySelectorAll("#btn-add-cart");
         console.log("Result");
-        allCartButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                if (loggedUser != null) {
-                    cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-                        querySnapshot.forEach((object) => {
+        allCartButtons.forEach((button) =>
+        {
+            button.addEventListener("click", (e) =>
+            {
+                e.stopPropagation();
+                const numSpan = button.querySelector('.num');
+                let tempStorage = numSpan.innerText;
+                let numberPart = tempStorage.match(/\d+/)[0];
+                numSpan.innerHTML = `x ${Number(numberPart) + 1}`;
+                // numSpan.style.display = 'initial';
+
+                // popupButton.classList.add('shake')
+                button.classList.add('shake');
+
+                if (loggedUser != null)
+                {
+                    cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+                    {
+                        querySnapshot.forEach((object) =>
+                        {
                             let productsAll = object.data().products;
                             productsAll.push(button.value);
                             cartsDB.doc(object.id).update({
                                 products: productsAll,
-                            }).then(() => {
+                            }).then(() =>
+                            {
                                 console.log(button.value);
                             });
                         })
                     })
-                } else {
+                } else
+                {
                     window.location = "inregistrare.html";
                 }
             })
         })
     }
-    productsDB.get().then((querySnapshot) => {
+    productsDB.get().then((querySnapshot) =>
+    {
 
-        querySnapshot.forEach((product) => {
+        querySnapshot.forEach((product) =>
+        {
             productItemsData.push(product);
         })
         displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
-        for (let i = 1;i < categoryFilter.children.length;i++){
+        for (let i = 1; i < categoryFilter.children.length; i++)
+        {
             categoryFilter.children[i].classList.remove("selected");
         }
         selectedCategories = [];
@@ -475,44 +538,54 @@ firebase.auth().onAuthStateChanged((user) => {
         "ciorbe-section", "micdejun-section", "sushi-section",
         "peste-section", "salate-section", "bere-section", "carne-section"];
 
-    
 
-    for (let i = 1; i < categoryFilter.children.length; i++) {
+
+    for (let i = 1; i < categoryFilter.children.length; i++)
+    {
         categoryFilter.children[i].classList.add("selected");
     }
 
 
     //console.log(selectedCategories);
 
-    for (let i = 1; i < categoryFilter.children.length; i++) {
-        categoryFilter.children[i].addEventListener("click", () => {
-            if (!categoryFilter.children[i].classList.contains("selected")) {
+    for (let i = 1; i < categoryFilter.children.length; i++)
+    {
+        categoryFilter.children[i].addEventListener("click", () =>
+        {
+            if (!categoryFilter.children[i].classList.contains("selected"))
+            {
 
                 deleteItem(selectedCategories, categoriesRelax[i - 1])
-            } else {
+            } else
+            {
                 selectedCategories.push(categoriesRelax[i - 1]);
             }
             displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
         })
     }
 
-    for (let i = 0; i < starsContainer.children.length; i++) {
-        starsContainer.children[i].addEventListener("click", () => {
+    for (let i = 0; i < starsContainer.children.length; i++)
+    {
+        starsContainer.children[i].addEventListener("click", () =>
+        {
             starsCount = i + 1;
             displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
         })
     }
 
-    searchField.addEventListener("input", () => {
+    searchField.addEventListener("input", () =>
+    {
         console.log(searchField.value);
         displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
     })
 
-    slider.addEventListener("input", () => {
+    slider.addEventListener("input", () =>
+    {
         displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
     })
 
-    document.querySelector(".add-item-bttn").onclick = () => {
+    document.querySelector(".add-item-bttn").onclick = () =>
+    {
         operation = "adding";
         currentEditID = "";
         console.log(operation, " ", currentEditID);
@@ -520,18 +593,24 @@ firebase.auth().onAuthStateChanged((user) => {
         adminPhotoProduct.src = "";
     }
 
-    adminExtraBtn.addEventListener("click", () => {
-        if (operation == "editing" && currentEditID != "") {
-            
-            productsDB.doc(currentEditID).delete().then(() => {
+    adminExtraBtn.addEventListener("click", () =>
+    {
+        if (operation == "editing" && currentEditID != "")
+        {
+
+            productsDB.doc(currentEditID).delete().then(() =>
+            {
                 adminItemOverlay.click();
             });
         }
     });
 
-    submitProduct.addEventListener("click", () => {
-        if (operation == "adding" && is_current_user_admin) {
-            if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "" && adminMasaProduct.value != "") {
+    submitProduct.addEventListener("click", () =>
+    {
+        if (operation == "adding" && is_current_user_admin)
+        {
+            if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "" && adminMasaProduct.value != "")
+            {
                 productsDB.add({
                     stars: 5,
                     name: nameProduct.value,
@@ -551,16 +630,20 @@ firebase.auth().onAuthStateChanged((user) => {
                             productsDB.doc(object.id).update({
                                 photoURL: downloadURLFile,
                             })
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             location.reload();
                         });
                     })
                 })
-            } else {
+            } else
+            {
                 window.alert("Umpleți toate casetele");
             }
-        } else if (operation == "editing" && is_current_user_admin) {
-            if (photoProduct.files[0] != null) {
+        } else if (operation == "editing" && is_current_user_admin)
+        {
+            if (photoProduct.files[0] != null)
+            {
 
                 productsDB.doc(currentEditID).update({
                     name: nameProduct.value,
@@ -569,27 +652,33 @@ firebase.auth().onAuthStateChanged((user) => {
                     price: Number(priceProduct.value),
                     masa: Number(adminMasaProduct.value),
                     photoURL: "",
-                }).then((object2) => {
+                }).then((object2) =>
+                {
                     let file2 = photoProduct.files[0];
-                    firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) => {
-                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                    firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
                             downloadUrlfile = urlfile;
                             productsDB.doc(currentEditID).update({
                                 photoURL: downloadUrlfile,
                             })
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             location.reload();
                         });
                     })
                 })
-            } else {
+            } else
+            {
                 productsDB.doc(currentEditID).update({
                     name: nameProduct.value,
                     description: descriptionProduct.value,
                     category: categoryProduct.value,
                     price: Number(priceProduct.value),
                     masa: Number(adminMasaProduct.value),
-                }).then(() => {
+                }).then(() =>
+                {
                     location.reload();
                 })
             }
