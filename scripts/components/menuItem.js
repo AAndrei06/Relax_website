@@ -95,6 +95,7 @@ adminItemOverlay.addEventListener('click', () =>
 {
     closeAdminPopup()
 })
+/*
 adminExtraDelete.addEventListener('click', () =>
 {
     for (const section in menuItems)
@@ -109,7 +110,7 @@ adminExtraDelete.addEventListener('click', () =>
     }
     // filterAndRender();
     closeAdminPopup();
-})
+})*/
 adminForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();

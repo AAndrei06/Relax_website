@@ -1333,8 +1333,9 @@
     transform: rotate(-15deg);
 }
 
+
 .menu-item>.bottom>button>span {
-    display: none;
+    display: initial;
 }
 
 .side-menu-item {
