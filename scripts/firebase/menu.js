@@ -1,6 +1,8 @@
 let loggedUser = null;
-firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
+firebase.auth().onAuthStateChanged((user) =>
+{
+    if (user)
+    {
         loggedUser = user;
 
         const nameProduct = document.getElementById("admin-item-name");
@@ -35,27 +37,36 @@ firebase.auth().onAuthStateChanged((user) => {
 
         let starsCount = 5;
 
-        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((object) => {
+        cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((object) =>
+            {
                 let productsAll = object.data().products;
                 let hashMap = {};
-                for (let i = 0; i < productsAll.length; i++) {
-                    if (hashMap.hasOwnProperty(productsAll[i])) {
+                for (let i = 0; i < productsAll.length; i++)
+                {
+                    if (hashMap.hasOwnProperty(productsAll[i]))
+                    {
                         hashMap[productsAll[i]] += 1;
-                    } else {
+                    } else
+                    {
                         hashMap[productsAll[i]] = 1;
                     }
                     let cartProduct = productsDB.doc(productsAll[i]);
 
                 }
-                if (hashMap.length == 0){
+                if (hashMap.length == 0)
+                {
                     toggleEmpty.classList.add("show");
                 }
                 let totalPrice = 0;
-                for (const [key, value] of Object.entries(hashMap)) {
-                    console.log(productsDB.doc(key).get().then((doc) => {
+                for (const [key, value] of Object.entries(hashMap))
+                {
+                    console.log(productsDB.doc(key).get().then((doc) =>
+                    {
                         let stars = "";
-                        for (let i = 0; i < doc.data().stars; i++) {
+                        for (let i = 0; i < doc.data().stars; i++)
+                        {
                             stars += " ★";
                         }
                         totalPrice += doc.data().price;
@@ -104,17 +115,22 @@ firebase.auth().onAuthStateChanged((user) => {
             })
         })
 
-        function displayFiltered(nrOfStars, priceAmount, categories, searchResult) {
-            for (let i = 0; i < allItemsBoxes.length; i++) {
+        function displayFiltered(nrOfStars, priceAmount, categories, searchResult)
+        {
+            for (let i = 0; i < allItemsBoxes.length; i++)
+            {
                 allItemsBoxes[i].innerHTML = "";
             }
-            productItemsData.forEach((product) => {
+            productItemsData.forEach((product) =>
+            {
                 if (product.data().stars == nrOfStars
                     && product.data().price <= priceAmount
                     && categories.includes(product.data().category)
-                    && product.data().name.toLowerCase().includes(searchResult.toLowerCase())) {
+                    && product.data().name.toLowerCase().includes(searchResult.toLowerCase()))
+                {
                     let stars = "";
-                    for (let i = 0; i < product.data().stars; i++) {
+                    for (let i = 0; i < product.data().stars; i++)
+                    {
                         stars += " ★";
                     }
                     let component = `
@@ -142,54 +158,71 @@ firebase.auth().onAuthStateChanged((user) => {
                 </div>
             </div>`;
 
-                    if (product.data().category == "pizza-section") {
+                    if (product.data().category == "pizza-section")
+                    {
                         pizzaItems.innerHTML += component;
                     }
-                    else if (product.data().category == "gustari-section") {
+                    else if (product.data().category == "gustari-section")
+                    {
                         gustariItems.innerHTML += component;
                     }
-                    else if (product.data().category == "garnituri-section") {
+                    else if (product.data().category == "garnituri-section")
+                    {
                         garnituriItems.innerHTML += component;
                     }
-                    else if (product.data().category == "ciorbe-section") {
+                    else if (product.data().category == "ciorbe-section")
+                    {
                         ciorbeItems.innerHTML += component;
                     }
-                    else if (product.data().category == "micdejun-section") {
+                    else if (product.data().category == "micdejun-section")
+                    {
                         micDejunItems.innerHTML += component;
                     }
-                    else if (product.data().category == "sushi-section") {
+                    else if (product.data().category == "sushi-section")
+                    {
                         sushiItems.innerHTML += component;
                     }
-                    else if (product.data().category == "peste-section") {
+                    else if (product.data().category == "peste-section")
+                    {
                         pesteItems.innerHTML += component;
                     }
-                    else if (product.data().category == "salate-section") {
+                    else if (product.data().category == "salate-section")
+                    {
                         salateItems.innerHTML += component;
                     }
-                    else if (product.data().category == "bere-section") {
+                    else if (product.data().category == "bere-section")
+                    {
                         bereItems.innerHTML += component;
                     }
-                    else if (product.data().category == "carne-section") {
+                    else if (product.data().category == "carne-section")
+                    {
                         carneItems.innerHTML += component;
                     }
 
                     let allCartButtons = document.querySelectorAll("#btn-add-cart");
                     console.log("Result");
-                    allCartButtons.forEach((button) => {
-                        button.addEventListener("click", () => {
-                            if (loggedUser != null) {
-                                cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-                                    querySnapshot.forEach((object) => {
+                    allCartButtons.forEach((button) =>
+                    {
+                        button.addEventListener("click", () =>
+                        {
+                            if (loggedUser != null)
+                            {
+                                cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+                                {
+                                    querySnapshot.forEach((object) =>
+                                    {
                                         let productsAll = object.data().products;
                                         productsAll.push(button.value);
                                         cartsDB.doc(object.id).update({
                                             products: productsAll,
-                                        }).then(() => {
+                                        }).then(() =>
+                                        {
                                             console.log(button.value);
                                         });
                                     })
                                 })
-                            } else {
+                            } else
+                            {
                                 window.location = "inregistrare.html";
                             }
                         })
@@ -198,16 +231,19 @@ firebase.auth().onAuthStateChanged((user) => {
             });
         }
 
-
-
-        productsDB.get().then((querySnapshot) => {
-            querySnapshot.forEach((product) => {
+        productsDB.get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((product) =>
+            {
                 productItemsData.push(product);
             })
-        }).then(() => {
-            productItemsData.forEach((product) => {
+        }).then(() =>
+        {
+            productItemsData.forEach((product) =>
+            {
                 let stars = "";
-                for (let i = 0; i < product.data().stars; i++) {
+                for (let i = 0; i < product.data().stars; i++)
+                {
                     stars += " ★";
                 }
                 let component = `
@@ -235,55 +271,72 @@ firebase.auth().onAuthStateChanged((user) => {
             </div>
         </div>`;
 
-                if (product.data().category == "pizza-section") {
+                if (product.data().category == "pizza-section")
+                {
                     pizzaItems.innerHTML += component;
                 }
-                else if (product.data().category == "gustari-section") {
+                else if (product.data().category == "gustari-section")
+                {
                     gustariItems.innerHTML += component;
                 }
-                else if (product.data().category == "garnituri-section") {
+                else if (product.data().category == "garnituri-section")
+                {
                     garnituriItems.innerHTML += component;
                 }
-                else if (product.data().category == "ciorbe-section") {
+                else if (product.data().category == "ciorbe-section")
+                {
                     ciorbeItems.innerHTML += component;
                 }
-                else if (product.data().category == "micdejun-section") {
+                else if (product.data().category == "micdejun-section")
+                {
                     micDejunItems.innerHTML += component;
                 }
-                else if (product.data().category == "sushi-section") {
+                else if (product.data().category == "sushi-section")
+                {
                     sushiItems.innerHTML += component;
                 }
-                else if (product.data().category == "peste-section") {
+                else if (product.data().category == "peste-section")
+                {
                     pesteItems.innerHTML += component;
                 }
-                else if (product.data().category == "salate-section") {
+                else if (product.data().category == "salate-section")
+                {
                     salateItems.innerHTML += component;
                 }
-                else if (product.data().category == "bere-section") {
+                else if (product.data().category == "bere-section")
+                {
                     bereItems.innerHTML += component;
                 }
-                else if (product.data().category == "carne-section") {
+                else if (product.data().category == "carne-section")
+                {
                     carneItems.innerHTML += component;
                 }
 
                 let allCartButtons = document.querySelectorAll("#btn-add-cart");
                 console.log("Result");
-                allCartButtons.forEach((button) => {
-                    button.addEventListener("click", () => {
-                        if (loggedUser != null) {
-                            cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) => {
-                                querySnapshot.forEach((object) => {
+                allCartButtons.forEach((button) =>
+                {
+                    button.addEventListener("click", () =>
+                    {
+                        if (loggedUser != null)
+                        {
+                            cartsDB.where("ID", "==", loggedUser.uid).get().then((querySnapshot) =>
+                            {
+                                querySnapshot.forEach((object) =>
+                                {
                                     let productsAll = object.data().products;
 
                                     productsAll.push(button.value);
                                     cartsDB.doc(object.id).update({
                                         products: productsAll,
-                                    }).then(() => {
+                                    }).then(() =>
+                                    {
                                         console.log(button.value);
                                     });
                                 })
                             })
-                        } else {
+                        } else
+                        {
                             window.location = "inregistrare.html";
                         }
                     })
@@ -298,50 +351,63 @@ firebase.auth().onAuthStateChanged((user) => {
 
         let categoryFilter = document.querySelector(".filter-section").querySelector(".content").querySelector(".categories").querySelector(".popup").querySelector(".content");
 
-        for (let i = 1; i < categoryFilter.children.length; i++) {
+        for (let i = 1; i < categoryFilter.children.length; i++)
+        {
             categoryFilter.children[i].classList.add("selected");
         }
 
-        function deleteItem(arr, item) {
+        function deleteItem(arr, item)
+        {
             var index = arr.indexOf(item);
-            if (index !== -1) {
+            if (index !== -1)
+            {
                 arr.splice(index, 1);
             }
         }
         console.log(selectedCategories);
 
-        for (let i = 1; i < categoryFilter.children.length; i++) {
-            categoryFilter.children[i].addEventListener("click", () => {
-                if (!categoryFilter.children[i].classList.contains("selected")) {
+        for (let i = 1; i < categoryFilter.children.length; i++)
+        {
+            categoryFilter.children[i].addEventListener("click", () =>
+            {
+                if (!categoryFilter.children[i].classList.contains("selected"))
+                {
                     selectedCategories.push(categoriesRelax[i - 1]);
-                } else {
+                } else
+                {
                     deleteItem(selectedCategories, categoriesRelax[i - 1])
                 }
                 displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
             })
         }
 
-        for (let i = 0; i < starsContainer.children.length; i++) {
-            starsContainer.children[i].addEventListener("click", () => {
+        for (let i = 0; i < starsContainer.children.length; i++)
+        {
+            starsContainer.children[i].addEventListener("click", () =>
+            {
                 starsCount = i + 1;
                 displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
             })
         }
 
-        searchField.addEventListener("input", () => {
+        searchField.addEventListener("input", () =>
+        {
             console.log(searchField.value);
             displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
         })
 
-        slider.addEventListener("input", () => {
+        slider.addEventListener("input", () =>
+        {
             displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
         })
 
 
 
-        submitProduct.addEventListener("click", () => {
+        submitProduct.addEventListener("click", () =>
+        {
 
-            if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "") {
+            if (photoProduct.files[0] != null && nameProduct.value != "" && priceProduct.value != "" && descriptionProduct.value != "")
+            {
                 productsDB.add({
                     stars: 5,
                     name: nameProduct.value,
@@ -349,10 +415,13 @@ firebase.auth().onAuthStateChanged((user) => {
                     category: categoryProduct.value,
                     price: Number(priceProduct.value),
                     photoURL: "",
-                }).then((object) => {
+                }).then((object) =>
+                {
                     let file = photoProduct.files[0];
-                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
-                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
                             downloadURLFile = urlfile;
                             productsDB.doc(object.id).update({
                                 photoURL: downloadURLFile,
@@ -360,7 +429,8 @@ firebase.auth().onAuthStateChanged((user) => {
                         })
                     });
                 });
-            } else {
+            } else
+            {
                 window.alert("Umpleți toate casetele");
             }
         });
