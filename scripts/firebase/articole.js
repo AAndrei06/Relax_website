@@ -134,6 +134,7 @@ firebase.auth().onAuthStateChanged((fuser) => {
                     datePosted: date.getTime(),
                     name: name,
                     photoURL: "",
+                    textTypes:[],
                     likes: [],
                 }).then((object) => {
                     firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {

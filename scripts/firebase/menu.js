@@ -2,6 +2,7 @@
 
 let loggedUser = null;
 let is_current_user_admin = false;
+let first = true;
 const adminPhotoProduct = document.querySelector(".image-full-product");
 adminPhotoProduct.style.display = "none";
 let operation = "none";
@@ -343,7 +344,7 @@ firebase.auth().onAuthStateChanged((user) => {
             })
         })
         let allCartButtons = document.querySelectorAll("#btn-add-cart");
-        console.log("Result");
+        //console.log("Result");
         allCartButtons.forEach((button) => {
             button.addEventListener("click", () => {
                 if (loggedUser != null) {
@@ -370,10 +371,7 @@ firebase.auth().onAuthStateChanged((user) => {
             productItemsData.push(product);
         })
         displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
-        for (let i = 1;i < categoryFilter.children.length;i++){
-            categoryFilter.children[i].classList.remove("selected");
-        }
-        selectedCategories = [];
+        
     })
 
 
@@ -476,16 +474,24 @@ firebase.auth().onAuthStateChanged((user) => {
         "peste-section", "salate-section", "bere-section", "carne-section"];
 
     
-
+/*
     for (let i = 1; i < categoryFilter.children.length; i++) {
         categoryFilter.children[i].classList.add("selected");
-    }
+    }*/
 
 
     //console.log(selectedCategories);
 
     for (let i = 1; i < categoryFilter.children.length; i++) {
         categoryFilter.children[i].addEventListener("click", () => {
+            if (first){
+                /*
+                for (let i = 1;i < categoryFilter.children.length;i++){
+                    categoryFilter.children[i].classList.remove("selected");
+                }*/
+                selectedCategories = [];
+                first = false;
+            }
             if (!categoryFilter.children[i].classList.contains("selected")) {
 
                 deleteItem(selectedCategories, categoriesRelax[i - 1])
@@ -493,6 +499,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 selectedCategories.push(categoriesRelax[i - 1]);
             }
             displayFiltered(starsCount, slider.value, selectedCategories, searchField.value);
+
         })
     }
 
@@ -573,7 +580,7 @@ firebase.auth().onAuthStateChanged((user) => {
                     let file2 = photoProduct.files[0];
                     firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) => {
                         snapshot.ref.getDownloadURL().then((urlfile) => {
-                            downloadUrlfile = urlfile;
+                            let downloadUrlfile = urlfile;
                             productsDB.doc(currentEditID).update({
                                 photoURL: downloadUrlfile,
                             })
