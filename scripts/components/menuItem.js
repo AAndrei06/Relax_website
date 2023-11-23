@@ -1,4 +1,4 @@
-import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate } from "../utils.js";
+import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate, displayImage } from "../utils.js";
 
 let currentID = '';
 const itemQuantityMap = new Map();
@@ -19,6 +19,7 @@ const adminExtraDelete = document.querySelector('#extra-delete');
 const adminExtraAction = document.querySelector('#extra-action');
 const adminCategorySelect = document.querySelector('#admin-item-category');
 const adminForm = document.querySelector('#admin-form')
+const adminAddImage = document.querySelector('#admin-item-photo')
 
 let adminPopupImage = adminItemPopup.querySelector('.admin-item-popup>.image>img');
 let adminPopupName = adminItemPopup.querySelector('#admin-item-name');
@@ -62,6 +63,33 @@ function closeAdminPopup()
     }, 100)
 
 }
+
+adminAddImage.addEventListener('change', (e) =>
+{
+    let selectedFile = e.target.files[0];
+    let label = e.target.parentElement
+    let previewImg = label.nextElementSibling
+    console.log(previewImg)
+
+    if (selectedFile)
+    {
+        label.classList.add('img')
+        displayImage(selectedFile, previewImg);
+        previewImg.classList.add('show');
+        console.log(label.children[1])
+        label.children[1].innerHTML = 'Schimbă'
+    }
+    else
+    {
+        label.classList.remove('img')
+        previewImg.classList.remove('show');
+        label.children[1].innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none">
+                        <path
+                            d="M57.0556 63.75L50.3832 57.1336C47.1636 53.9404 45.5536 52.344 43.7064 51.7604C42.0816 51.2472 40.3352 51.266 38.7219 51.8144C36.8875 52.438 35.3126 54.0688 32.1627 57.3304L16.1764 73.1204M57.0556 63.75L58.4212 62.396C61.6448 59.1992 63.2564 57.6008 65.106 57.0172C66.7324 56.504 68.48 56.5244 70.0944 57.0748C71.9296 57.7004 73.5044 59.3356 76.6536 62.6056L80 65.9736M57.0556 63.75L73.1 79.826M16.1764 73.1204C16.3005 74.1284 16.5118 74.9252 16.872 75.632C17.6389 77.1372 18.8628 78.3612 20.3681 79.128C22.0794 80 24.3196 80 28.8 80H67.2C69.8172 80 71.6704 80 73.1 79.826M16.1764 73.1204C16 71.6884 16 69.83 16 67.2V28.8C16 24.3196 16 22.0794 16.872 20.3681C17.6389 18.8628 18.8628 17.6389 20.3681 16.872C22.0794 16 24.3196 16 28.8 16H67.2C71.6804 16 73.9208 16 75.632 16.872C77.1372 17.6389 78.3612 18.8628 79.128 20.3681C80 22.0794 80 24.3196 80 28.8V65.9736M80 65.9736V67.2C80 71.6804 80 73.9208 79.128 75.632C78.3612 77.1372 77.1372 78.3612 75.632 79.128C74.9204 79.4908 74.1172 79.7024 73.1 79.826M68 35.9996C68 40.418 64.4184 43.9996 60 43.9996C55.5816 43.9996 52 40.418 52 35.9996C52 31.5813 55.5816 27.9996 60 27.9996C64.4184 27.9996 68 31.5813 68 35.9996Z"
+                            stroke="white" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>`
+    }
+});
 
 addItemButton.addEventListener('click', () =>
 {
@@ -554,7 +582,7 @@ function filterAndRender(querySnapshot)
             items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
                             reviews='${JSON.stringify([])}'
                             description="${item.description}"
-                            masa="${item.masa}" uid="${index}"></menu-item>`;
+                            masa="${item.masa}" category="${item.category}" uid="${index}"></menu-item>`;
         }
 
     })
@@ -821,15 +849,7 @@ class MenuItem extends HTMLElement
             if (accountAdmin)
             {
                 openAdminPopup()
-
-                for (const section in menuItems)
-                {
-                    if (menuItems[section].some(item => item.uid === itemId))
-                    {
-                        adminCategorySelect.value = section;
-                    }
-                }
-
+                adminCategorySelect.value = this.getAttribute('category')
 
                 adminPopupImage.classList.add('show')
                 adminPopupChangeBttn.classList.add('show');
@@ -1100,7 +1120,7 @@ class SideMenuItem extends HTMLElement
             font-weight: 700;
             white-space: nowrap;
             padding-right: 4px;
-            width: 180px;
+            width: 215px;
             text-overflow: ellipsis;
             white-space: now-wrap;
             overflow: hidden;
@@ -1199,8 +1219,6 @@ class SideMenuItem extends HTMLElement
 
             updateMenuSidebar()
         })
-
-
     }
 }
 
