@@ -138,7 +138,6 @@ adminItemOverlay.addEventListener('click', () =>
 
 adminExtraDelete.addEventListener('click', () =>
 {
-    // Scoate din firebase item-ul current si da refresh la pagina | ADNREI
     if (addItemBool = true && currentEditID != "")
     {
         productsDB.doc(currentEditID).delete().then(() =>
@@ -153,7 +152,6 @@ adminForm.addEventListener('submit', (e) =>
     e.preventDefault();
     if (!addItemBool)
     {
-
         // Update current item
     }
     else
@@ -170,15 +168,12 @@ adminForm.addEventListener('submit', (e) =>
                 reviews: [],
             }).then((object) =>
             {
-                // ADNREI REZOLVA
                 let file = adminAddImage.files[0];
                 console.log(file)
                 firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
                 {
                     snapshot.ref.getDownloadURL().then((urlfile) =>
                     {
-                        console.log(urlfile)
-                        // downloadURLFile = urlfile;
                         productsDB.doc(object.id).update({
                             photoURL: urlfile,
                         })
@@ -564,6 +559,12 @@ function filterAndRender(querySnapshot)
         const section = allSections.querySelector(`#${item.category}`);
         const items = section.querySelector('.items');
 
+        let reviews = []
+        if (item.reviews)
+        {
+            reviews = item.reviews
+        }
+
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
@@ -572,7 +573,7 @@ function filterAndRender(querySnapshot)
         {
             section.style.display = 'initial';
             items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
-                            reviews='${JSON.stringify([])}'
+                            reviews='${JSON.stringify(reviews)}'
                             description="${item.description}"
                             masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
         }
@@ -647,12 +648,14 @@ function updateMenuSidebar()
     {
         const item = itemQuantityMap.get(itemId);
 
+        console.log(item)
+
         ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
         if (item && item.numValue > 0)
         {
             ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
-                        quantity="${item.numValue}" uid="${item.getAttribute('uid')}"></side-menu-item>`;
+                        quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
         }
     });
     if (ordersString == '')
@@ -817,7 +820,7 @@ class MenuItem extends HTMLElement
       </div>
 
     `;
-        const itemId = this.getAttribute('uid');
+        const itemId = this.getAttribute('id');
         itemQuantityMap.set(itemId, this);
 
         const button = this.shadowRoot.querySelector('.bttn');
@@ -839,8 +842,6 @@ class MenuItem extends HTMLElement
         {
             // console.log(currentEditID = image.id)
             addItemBool = false;
-
-            currentEditID = this.getAttribute('id')
 
             if (accountAdmin)
             {
@@ -907,7 +908,8 @@ class MenuItem extends HTMLElement
                 }
 
             }
-            currentID = `${this.getAttribute('uid')}`
+            currentID = this.getAttribute('id')
+            currentEditID = this.getAttribute('id')
 
         });
 
@@ -1030,6 +1032,8 @@ window.customElements.define("menu-item", MenuItem)
 popupButton.addEventListener('click', () =>
 {
     const currentItem = itemQuantityMap.get(currentID);
+
+
     currentItem.addNumValue();
     if (currentItem.numValue > 0)
     {
@@ -1041,9 +1045,9 @@ popupButton.addEventListener('click', () =>
         popupItemQuantity.style.display = 'none'
     }
 
-    if (!sideMenuIDs.includes(currentItem.getAttribute('uid')))
+    if (!sideMenuIDs.includes(currentItem.getAttribute('id')))
     {
-        sideMenuIDs.push(currentItem.getAttribute('uid'))
+        sideMenuIDs.push(currentItem.getAttribute('id'))
     }
     updateMenuSidebar()
 })
