@@ -141,11 +141,10 @@ adminExtraDelete.addEventListener('click', () =>
     // Scoate din firebase item-ul current si da refresh la pagina | ADNREI
     if (addItemBool = true && currentEditID != "")
     {
-        // ADNREI REZOLVA
-        // productsDB.doc(currentEditID).delete().then(() =>
-        // {
-        //     adminItemOverlay.click();
-        // });
+        productsDB.doc(currentEditID).delete().then(() =>
+        {
+            location.reload()
+        });
     }
     closeAdminPopup();
 })
@@ -536,10 +535,17 @@ function filterAndRender(querySnapshot)
     ];
 
     let menuItems = [];
+    let menuIDs = []
 
-    querySnapshot.forEach((product) =>
+    querySnapshot.forEach((product, index) =>
     {
         menuItems.push(product.data());
+        menuIDs.push(product.id)
+
+    })
+    menuItems.forEach((item, index) =>
+    {
+        item.id = menuIDs[index]
     })
 
     let filteredItems = filterMenuItems(menuItems, criteria);
@@ -558,20 +564,17 @@ function filterAndRender(querySnapshot)
         const section = allSections.querySelector(`#${item.category}`);
         const items = section.querySelector('.items');
 
-        console.log(item)
-
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
         }
         else
         {
-
             section.style.display = 'initial';
             items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
                             reviews='${JSON.stringify([])}'
                             description="${item.description}"
-                            masa="${item.masa}" category="${item.category}" uid="${index}"></menu-item>`;
+                            masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
         }
 
     })
@@ -836,6 +839,9 @@ class MenuItem extends HTMLElement
         {
             // console.log(currentEditID = image.id)
             addItemBool = false;
+
+            currentEditID = this.getAttribute('id')
+
             if (accountAdmin)
             {
                 openAdminPopup()
