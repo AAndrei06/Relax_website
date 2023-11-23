@@ -4,6 +4,7 @@ let currentID = '';
 const itemQuantityMap = new Map();
 let sideMenuIDs = [];
 let addItemBool = false;
+let currentEditID = "";
 
 const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img");
 const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name");
@@ -57,10 +58,22 @@ function closeAdminPopup()
         adminPopupMasa.value = '';
 
         adminPopupImage.classList.remove('show')
-        adminPopupChangeBttn.classList.remove('show');
-        adminPopupImgSVG.classList.add('show')
+
+        adminAddImage
+        let label = adminAddImage.parentElement
+        let previewImg = label.nextElementSibling
+
+        label.classList.remove('img')
+        previewImg.classList.remove('show');
+        label.children[1].innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none">
+                        <path
+                            d="M57.0556 63.75L50.3832 57.1336C47.1636 53.9404 45.5536 52.344 43.7064 51.7604C42.0816 51.2472 40.3352 51.266 38.7219 51.8144C36.8875 52.438 35.3126 54.0688 32.1627 57.3304L16.1764 73.1204M57.0556 63.75L58.4212 62.396C61.6448 59.1992 63.2564 57.6008 65.106 57.0172C66.7324 56.504 68.48 56.5244 70.0944 57.0748C71.9296 57.7004 73.5044 59.3356 76.6536 62.6056L80 65.9736M57.0556 63.75L73.1 79.826M16.1764 73.1204C16.3005 74.1284 16.5118 74.9252 16.872 75.632C17.6389 77.1372 18.8628 78.3612 20.3681 79.128C22.0794 80 24.3196 80 28.8 80H67.2C69.8172 80 71.6704 80 73.1 79.826M16.1764 73.1204C16 71.6884 16 69.83 16 67.2V28.8C16 24.3196 16 22.0794 16.872 20.3681C17.6389 18.8628 18.8628 17.6389 20.3681 16.872C22.0794 16 24.3196 16 28.8 16H67.2C71.6804 16 73.9208 16 75.632 16.872C77.1372 17.6389 78.3612 18.8628 79.128 20.3681C80 22.0794 80 24.3196 80 28.8V65.9736M80 65.9736V67.2C80 71.6804 80 73.9208 79.128 75.632C78.3612 77.1372 77.1372 78.3612 75.632 79.128C74.9204 79.4908 74.1172 79.7024 73.1 79.826M68 35.9996C68 40.418 64.4184 43.9996 60 43.9996C55.5816 43.9996 52 40.418 52 35.9996C52 31.5813 55.5816 27.9996 60 27.9996C64.4184 27.9996 68 31.5813 68 35.9996Z"
+                            stroke="white" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>`
 
     }, 100)
+
+
 
 }
 
@@ -69,14 +82,12 @@ adminAddImage.addEventListener('change', (e) =>
     let selectedFile = e.target.files[0];
     let label = e.target.parentElement
     let previewImg = label.nextElementSibling
-    console.log(previewImg)
 
     if (selectedFile)
     {
         label.classList.add('img')
         displayImage(selectedFile, previewImg);
         previewImg.classList.add('show');
-        console.log(label.children[1])
         label.children[1].innerHTML = 'Schimbă'
     }
     else
@@ -94,6 +105,7 @@ adminAddImage.addEventListener('change', (e) =>
 addItemButton.addEventListener('click', () =>
 {
     addItemBool = true;
+    currentEditID = "";
     adminPopupInputs.forEach(input =>
     {
         input.nextElementSibling.classList.remove('move')
@@ -126,18 +138,15 @@ adminItemOverlay.addEventListener('click', () =>
 
 adminExtraDelete.addEventListener('click', () =>
 {
-    console.log('vasea')
-    // for (const section in menuItems)
-    // {
-    //     const items = menuItems[section];
-    //     const index = items.findIndex(item => item.uid === currentID);
-    //     if (index !== -1)
-    //     {
-    //         items.splice(index, 1);
-    //         break; // assuming each uid is unique, you can remove this if uids are not unique
-    //     }
-    // }
-    filterAndRender();
+    // Scoate din firebase item-ul current si da refresh la pagina | ADNREI
+    if (addItemBool = true && currentEditID != "")
+    {
+        // ADNREI REZOLVA
+        // productsDB.doc(currentEditID).delete().then(() =>
+        // {
+        //     adminItemOverlay.click();
+        // });
+    }
     closeAdminPopup();
 })
 adminForm.addEventListener('submit', (e) =>
@@ -145,68 +154,48 @@ adminForm.addEventListener('submit', (e) =>
     e.preventDefault();
     if (!addItemBool)
     {
-        const currentItem = itemQuantityMap.get(currentID);
-        let previousSection;
 
-        for (const section in menuItems)
-        {
-            if (menuItems[section].some(item => item.uid === currentID))
-            {
-                previousSection = section;
-            }
-        }
-
-        if (previousSection !== adminCategorySelect.value)
-        {
-            const sourceItems = menuItems[previousSection];
-            const targetItems = menuItems[adminCategorySelect.value];
-
-            const index = sourceItems.findIndex(item => item.uid === currentID);
-
-            if (index !== -1)
-            {
-                const itemToMove = sourceItems.splice(index, 1)[0];
-                targetItems.push(itemToMove);
-            }
-            filterAndRender();
-        }
-
-        currentItem.setAttribute('name', adminPopupName.value);
-        let nameField = currentItem.shadowRoot.querySelector('.name')
-        nameField.innerText = currentItem.getAttribute('name');
-        currentItem.setAttribute('price', adminPopupPrice.value);
-        let priceField = currentItem.shadowRoot.querySelector('.price')
-        priceField.innerText = `${currentItem.getAttribute('price')} MDL`;
-        currentItem.setAttribute('description', adminPopupDescription.value);
-        currentItem.setAttribute('masa', adminPopupMasa.value);
-
-        console.log(menuItems)
+        // Update current item
     }
     else
     {
-        const ID = generateMongoLikeID();
-        const section = allSections.querySelector(`#${adminCategorySelect.value}`);
-        const items = section.querySelector('.items');
-        items.innerHTML += `<menu-item name="${adminPopupName.value}" price="${adminPopupPrice.value}" img="" stars=""
-                            reviews='[]'
-                            description="${adminPopupDescription.value}"
-                            masa="${adminPopupMasa.value}" uid="${ID}"></menu-item>`;
+        if (addItemBool && accountAdmin)
+        {
+            productsDB.add({
+                name: adminPopupName.value,
+                description: adminPopupDescription.value,
+                category: adminCategorySelect.value,
+                price: Number(adminPopupPrice.value),
+                masa: Number(adminPopupMasa.value),
+                photoURL: "",
+                reviews: [],
+            }).then((object) =>
+            {
+                // ADNREI REZOLVA
+                let file = adminAddImage.files[0];
+                console.log(file)
+                firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                {
+                    snapshot.ref.getDownloadURL().then((urlfile) =>
+                    {
+                        console.log(urlfile)
+                        // downloadURLFile = urlfile;
+                        productsDB.doc(object.id).update({
+                            photoURL: urlfile,
+                        })
+                    }).then(() =>
+                    {
+                        location.reload();
+                    });
+                })
+            })
+        }
 
 
-        menuItems[adminCategorySelect.value].push({
-            name: adminPopupName.value,
-            price: adminPopupPrice.value,
-            img: "",
-            reviews: [],
-            description: adminPopupDescription.value,
-            masa: adminPopupMasa.value,
-            uid: ID,
-        })
-
-        // filterAndRender()
     }
 
-    closeAdminPopup();
+
+    closeAdminPopup()
 })
 
 // Admin Inputs
@@ -503,6 +492,7 @@ function filterMenuItems(menuItems, criteria)
 
     return menuItems.filter(item =>
     {
+        let stars = 5;
         if (item.reviews)
         {
             const reviews = item.reviews;
@@ -513,11 +503,8 @@ function filterMenuItems(menuItems, criteria)
                 totalStars += Number(review.stars);
             });
 
-            const stars = Math.round(totalStars / reviews.length);
+            stars = Math.round(totalStars / reviews.length);
         }
-
-        let stars = 5;
-
 
         return criteria.every(criterion =>
         {
@@ -570,6 +557,8 @@ function filterAndRender(querySnapshot)
     {
         const section = allSections.querySelector(`#${item.category}`);
         const items = section.querySelector('.items');
+
+        console.log(item)
 
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
@@ -845,6 +834,7 @@ class MenuItem extends HTMLElement
 
         this.addEventListener('click', () =>
         {
+            // console.log(currentEditID = image.id)
             addItemBool = false;
             if (accountAdmin)
             {
@@ -852,8 +842,14 @@ class MenuItem extends HTMLElement
                 adminCategorySelect.value = this.getAttribute('category')
 
                 adminPopupImage.classList.add('show')
-                adminPopupChangeBttn.classList.add('show');
-                adminPopupImgSVG.classList.remove('show')
+
+                let label = adminAddImage.parentElement
+                let previewImg = label.nextElementSibling
+
+                label.classList.add('img')
+                previewImg.classList.add('show');
+                label.children[1].innerHTML = 'Schimbă'
+
                 adminExtraDelete.classList.add('show')
 
                 adminPopupImage.src = `${this.getAttribute('img')}`;

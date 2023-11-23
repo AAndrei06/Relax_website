@@ -441,10 +441,10 @@
 
 
 
-//     //.then(() => {
-//     //   productItemsData.forEach((product) => {
+    //.then(() => {
+    //   productItemsData.forEach((product) => {
 
-//     /*
+//     
 //     let stars = "";
 //     for (let i = 0; i < product.data().stars; i++) {
 //         stars += " ★";
@@ -527,9 +527,9 @@
 //             }
 //         })
 //     })
-// */
-//     // });
-//     // })
+// 
+    // });
+    // })
 
 
 

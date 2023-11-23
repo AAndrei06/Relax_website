@@ -102,6 +102,18 @@ input {
     outline: transparent;
 }
 
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Removes the inner padding in Chrome/Opera */
+}
+
 textarea {
     border: none;
     outline: transparent;
