@@ -62,10 +62,10 @@
         </div>
         <section class="contents">
             <div class="initial">
-                <span class="article-date">15.04.2022</span>
-                <h1 class="article-name">Night Party</h1>
+                <span class="article-date"></span>
+                <h1 class="article-name"></h1>
                 <div class="article-img">
-                    <img src="../assets/Account/pizza.png" alt="Imagine cu ..">
+                    <img src="" alt="">
                 </div>
             </div>
             <div class="added">
@@ -73,7 +73,7 @@
             <div class="end">
                 <div class="separator"></div>
                 <div class="wrap">
-                    <div class="comments"> <span>25</span> Comentarii</div>
+                    <div class="comments"> <span id = "nr-of-comments">0</span> Comentarii</div>
                     <div class="likes">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -83,16 +83,16 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" class="fill"
                                 d="M30 7H6V21H10V25H14V26H15V29H21V26H22V25H26V21H30V7Z" fill="var(--day-heart)" />
                         </svg>
-                        <span>24</span>
+                        <span id = "likes-number-count">0</span>
                     </div>
                 </div>
                 <form id="add-comment">
                     <div class="textarea">
-                        <textarea name="" id="" cols="30" rows="10" placeholder="Scrie un comentariu"></textarea>
+                        <textarea id = "text-area-comment" maxlength="500" name="" id="" cols="30" rows="10" placeholder="Scrie un comentariu"></textarea>
                         <div class="max">0/500</div>
                     </div>
 
-                    <button type="submit">
+                    <button id = "comment-post-btn">
                         Postează
                     </button>
                 </form>
