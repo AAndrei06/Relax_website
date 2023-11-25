@@ -254,6 +254,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.1s ease-in-out;
+}
+
+.menu-bttn:hover {
+    transform: rotate(-15deg);
 }
 
 .menu-bttn>.wrap {
@@ -762,6 +767,11 @@
     font-size: 16px;
     font-weight: 600;
     transition: all 0.15s ease-in-out;
+}
+
+.item-popup>.reviews-side>.content>.header>button.disabled {
+    opacity: 0.7;
+    pointer-events: none;
 }
 
 .item-popup>.reviews-side>.content>.header>button.active {
