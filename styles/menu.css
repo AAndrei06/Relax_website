@@ -1133,6 +1133,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
+    background-color: rgba(12, 12, 12, 0.9);
 }
 
 .admin-item-popup>.image>label.img {
@@ -1141,7 +1142,6 @@
     bottom: 0;
     width: 100%;
     height: 48px;
-    background-color: rgba(12, 12, 12, 0.9);
 
 }
 

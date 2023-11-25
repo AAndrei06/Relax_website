@@ -17,8 +17,8 @@ const adminPopupTextarea = document.querySelector('.admin-item-popup>.inputs>.in
 const adminExtraDelete = document.querySelector('#extra-delete');
 const adminExtraAction = document.querySelector('#extra-action');
 const adminCategorySelect = document.querySelector('#admin-item-category');
-const adminForm = document.querySelector('#admin-form')
-const adminAddImage = document.querySelector('#admin-item-photo')
+const adminForm = document.querySelector('#admin-form');
+const adminAddImage = document.querySelector('#admin-item-photo');
 
 let adminPopupImage = adminItemPopup.querySelector('.admin-item-popup>.image>img');
 let adminPopupName = adminItemPopup.querySelector('#admin-item-name');
@@ -26,8 +26,8 @@ let adminPopupPrice = adminItemPopup.querySelector('#admin-item-price');
 let adminPopupDescription = adminItemPopup.querySelector('#admin-item-description');
 let adminPopupMasa = adminItemPopup.querySelector('#admin-item-masa');
 
-let accountAdmin = false
-let accountName = ''
+let accountAdmin = false;
+let accountName = '';
 let accountImage;
 
 function openAdminPopup()
@@ -151,8 +151,6 @@ adminForm.addEventListener('submit', (e) =>
     if (!addItemBool && accountAdmin)
     {
         // Update current item
-
-        // Pret erroare [Andrei]
 
         if (adminAddImage.files[0] != null)
         {
@@ -694,10 +692,6 @@ function updateMenuSidebar()
     });
 
     localStorage.setItem('orders', JSON.stringify(orders));
-
-    // let ordersString = localStorage.getItem('orders');
-
-    // let orders = JSON.parse(ordersString);
 
     if (ordersString == '')
     {

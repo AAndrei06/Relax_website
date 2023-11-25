@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../index.css">
+    <script defer src="../scripts/firebase/main.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <link rel="stylesheet" href="../styles/checkout.css">
     <script defer type="module" src="../scripts/checkout.js"></script>
+    <script type="module" src="../scripts/components/CheckoutOrder.js"></script>
     <title>Relax | Checkout</title>
-    <script defer src="../scripts/firebase/main.js"></script>
+
 </head>
 
 <body>
@@ -20,16 +22,16 @@
         <a href="../index.html">RELAX</a>
     </nav>
     <main>
-        <div class="information">
+        <form class="information">
             <div class="method">
                 <span class="header">
                     Plată Rapidă
                 </span>
                 <div class="services">
-                    <button class="service"></button>
-                    <button class="service"></button>
-                    <button class="service"></button>
-                    <button class="service"></button>
+                    <button type="button" class="service">shopPay</button>
+                    <button type="button" class="service">Amazon</button>
+                    <button type="button" class="service">PayPal</button>
+                    <button type="button" class="service">Google Pay</button>
                 </div>
                 <div class="or">
                     <div></div>
@@ -44,22 +46,22 @@
                 </div>
                 <div class="inputs">
                     <div class="input">
-                        <input type="text" placeholder="Adresa" required autocomplete="false">
+                        <input id="adress-input" type="text" placeholder="Adresa" required autocomplete="off">
                     </div>
                     <div class="input">
-                        <input type="text" placeholder="Apartament (optional)" autocomplete="false">
+                        <input id="apartament-input" type="text" placeholder="Apartament (optional)" autocomplete="off">
                     </div>
                     <div class="input">
-                        <input type="number" placeholder="Telefon (optional)" autocomplete="false">
+                        <input id="phone-input" type="number" placeholder="Telefon (optional)" autocomplete="off">
                         <div class="info">
                             <div class="content">
-                                <div class="popup show">
+                                <div class="popup">
                                     <div class="content">
                                         In caz că avem nevoie să te contactăm despre comandă
                                         <div class="pointer"></div>
                                     </div>
                                 </div>
-                                <button>
+                                <button type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                                         fill="none">
                                         <path
@@ -94,35 +96,18 @@
                     </a>
 
                 </button>
-                <button>
-                    <a href="">
-                        Continuă
-                    </a>
-
-                </button>
+                <button class="disabled" type="submit" id="continue-button">Continuă</button>
             </div>
-        </div>
+        </form>
 
         <div class="orders-div">
             <div class="content">
-                <div class="orders">
-                    <div class="order">
-                        <div class="wrap">
-                            <div class="img">
-                                <div class="quantity"></div>
-                                <img src="../assets/Account/pizza.png" alt="Imaginea cu [Nume]">
-                            </div>
-                            <span class="name">BBQ Pizza</span>
-                        </div>
-
-                        <span class="price">220.00 MDL</span>
-                    </div>
-                </div>
+                <div class="orders"></div>
                 <div class="separator"></div>
                 <div class="totals">
                     <div>
                         <span class="header">Subtotal:</span>
-                        <span class="price">220.00 MDL</span>
+                        <span class="price" id="subtotal">0.00 MDL</span>
                     </div>
                     <div>
                         <span class="header">Livrare:</span>
@@ -135,10 +120,12 @@
                         Total
                     </span>
                     <span class="total-price">
-                        255.00 MDL
+                        35.00 MDL
                     </span>
                 </div>
             </div>
+
+        </div>
         </div>
     </main>
 </body>
