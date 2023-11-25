@@ -10,6 +10,8 @@ Site-ul web va oferi restaurantului Relax o prezență online, unde clienții po
 - Pagina Principală: o multitudine de informatii legate de Relax dar și o doză mică din serviciile restaurantului.
 - Contact: un formular pentru clienți să ia legătura cu magazinul pentru întrebări sau feedback.
 - Articole: Pagina unde clienții și proprietarul pot vorbi între ei.
+- Articol: Pagina unde clienții pot discuta despre un eveniment și pentru a vizualiza toate detaliile acestuia.
+- Checkout: Pagina unde clienții pot cumpăra produsele dorite.
 
 ## Tehnologii utilizate
 Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
