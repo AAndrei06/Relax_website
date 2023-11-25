@@ -88,10 +88,14 @@ firebase.auth().onAuthStateChanged((user) => {
     })
 
     commentsDB.onSnapshot((snapshot) => {
+
         commentsArea.innerHTML = "";
         commentsCount.innerHTML = 0;
-        commentsDB.where("ID", "==", DocumentID).get().then((querySnapshot) => {
-            querySnapshot.forEach((object) => {
+        let commentsList = snapshot.docs;
+        commentsList.sort(compar);
+
+        for (let object of commentsList) {
+            if (object.data().ID == DocumentID) {
                 usersDB.where("ID", "==", object.data().author).get().then((querySnapshot) => {
                     querySnapshot.forEach((auth) => {
                         commentsArea.innerHTML += `
@@ -108,11 +112,12 @@ firebase.auth().onAuthStateChanged((user) => {
                                 <p>${object.data().text}</p>
                             </div>
                             `;
-                            commentsCount.innerHTML = Number(commentsCount.innerHTML)+1;
+                        commentsCount.innerHTML = Number(commentsCount.innerHTML) + 1;
                     })
                 })
-            })
-        })
+            }
+        }
+
     })
 
 

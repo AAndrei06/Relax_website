@@ -22,6 +22,7 @@ function openArticlePopup() {
 
 articlesDB.onSnapshot((snapshot) => {
     let docs = snapshot.docs;
+    docs.sort(compar);
     articlesSection.innerHTML = "";
     for (let i = 0; i < docs.length; i++) {
         articlesSection.innerHTML += `

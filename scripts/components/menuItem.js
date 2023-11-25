@@ -201,6 +201,8 @@ adminForm.addEventListener('submit', (e) =>
             price: Number(adminPopupPrice.value),
             masa: Number(adminPopupMasa.value),
             photoURL: "",
+            nrReviews:1,
+            stars:5,
             reviews: [],
         }).then((object) =>
         {
@@ -1014,9 +1016,18 @@ class MenuItem extends HTMLElement
         currentReviews.push(review)
         this.setAttribute('reviews', JSON.stringify(currentReviews));
         this.renderReviews();
-
+        review = JSON.stringify(review)
+        review = JSON.parse(review);
         // Salvare reviews in baza de date [Andrei]
-
+        productsDB.doc(currentID).get().then((product) => {
+            let reviews2 = product.data().reviews;
+            let nrOfRev = product.data().nrReviews;
+            reviews2.push(review);
+            productsDB.doc(currentEditID).update({
+                reviews:reviews2,
+                nrReviews:nrOfRev+1,
+            });
+        })
         // {AICI}
 
         const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
