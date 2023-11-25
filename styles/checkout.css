@@ -51,6 +51,7 @@ main>.information>.method>.services>.service {
     height: 100%;
     background-color: black;
     border-radius: 4px;
+    color: white;
 }
 
 main>.information>.method>.or {
@@ -136,6 +137,8 @@ main>.information>.method>.inputs>.input>.info>.content>.popup {
     background: var(--day-dark01);
     opacity: 0;
     pointer-events: none;
+    cursor: default;
+    transition: all 0.1s ease-in-out;
 }
 
 main>.information>.method>.inputs>.input>.info>.content>.popup>.content {
@@ -185,6 +188,12 @@ main>.information>.next>button {
     transition: opacity 0.1s linear;
 }
 
+#continue-button.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 main>.information>.next>button>a {
     width: 100%;
     height: 100%;
@@ -227,6 +236,7 @@ main>.orders-div>.content {
     position: relative;
     display: flex;
     flex-direction: column;
+    display: none;
 }
 
 main>.orders-div>.content>.orders {
@@ -258,12 +268,14 @@ main>.orders-div>.content>.orders>.order>.wrap>.name {
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 main>.orders-div>.content>.orders>.order>.price {
     color: var(--day-dark3);
     font-size: 18px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 main>.orders-div>.content>.separator {
@@ -290,12 +302,14 @@ main>.orders-div>.content>.totals>div>.header {
     color: var(--day-dark03);
     font-size: 20px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 main>.orders-div>.content>.totals>div>.price {
     color: var(--day-dark03);
     font-size: 18px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 main>.orders-div>.content>.total {
@@ -309,10 +323,12 @@ main>.orders-div>.content>.total>.header {
     color: var(--day-dark02);
     font-size: 20px;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 main>.orders-div>.content>.total>.total-price {
     color: var(--day-dark02);
     font-size: 22px;
     font-weight: 600;
+    white-space: nowrap;
 }
