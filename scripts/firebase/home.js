@@ -1,6 +1,6 @@
 const articlesSection = document.querySelector(".articles");
 articlesSection.innerHTML = "";
-
+document.getElementsByTagName("body")[0].style.display = "block";
 articlesDB.get().then((querySnapshot) => {
     let articles = [];
     querySnapshot.forEach((object) => {

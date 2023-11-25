@@ -20,56 +20,81 @@ firebase.auth().onAuthStateChanged((user) => {
         fuser = user;
     }
 
-    usersDB.where("ID", "==", fuser.uid).get().then((querySnapshot) => {
-        querySnapshot.forEach((obj) => {
-            console.log("enter");
-            if (obj.data().admin == true) {
-                is_current_user_admin = true;
-                console.log("ok", is_current_user_admin);
+    try {
+        usersDB.where("ID", "==", fuser.uid).get().then((querySnapshot) => {
+            querySnapshot.forEach((obj) => {
+                console.log("enter");
+                if (obj.data().admin == true) {
+                    is_current_user_admin = true;
+                    console.log("ok", is_current_user_admin);
+                }
+            })
+        }).then(() => {
+            if (is_current_user_admin == false) {
+                adminBtnsEdit.style.display = "none";
+                articlesDB.doc(DocumentID).get().then((object) => {
+                    articleImg.src = object.data().photoURL;
+                    likesCount.innerHTML = object.data().likes.length;
+                    if (object.data().likes.includes(fuser.uid)) {
+                        likeFill.classList.add("show");
+                    }
+                    articleName.textContent = object.data().name;
+                    articleDate.textContent = formatDate(object.data().datePosted);
+                    for (let i = 0; i < object.data().textTypes.length; i++) {
+                        if (object.data().textTypes[i].startsWith("BIGTXT2023CODE")) {
+                            addedText.innerHTML += `<div contenteditable="false" class="header">${object.data().textTypes[i].slice(14)}</div>`;
+                        } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE")) {
+                            addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
+                        }
+                    }
+                    document.getElementsByTagName("body")[0].style.display = "block";
+                })
+            } else {
+                articlesDB.doc(DocumentID).get().then((object) => {
+                    articleImg.src = object.data().photoURL;
+                    likesCount.innerHTML = object.data().likes.length;
+                    if (object.data().likes.includes(fuser.uid)) {
+                        likeFill.classList.add("show");
+                    }
+                    articleName.textContent = object.data().name;
+                    articleDate.textContent = formatDate(object.data().datePosted);
+                    for (let i = 0; i < object.data().textTypes.length; i++) {
+                        if (object.data().textTypes[i].startsWith("BIGTXT2023CODE")) {
+                            addedText.innerHTML += `<div contenteditable="true" class="header">${object.data().textTypes[i].slice(14)}</div>`;
+                        } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE")) {
+                            addedText.innerHTML += `<div contenteditable="true" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
+                        }
+                    }
+                })
+                document.getElementsByTagName("body")[0].style.display = "block";
             }
+        });
+    } catch (err) {
+
+
+        adminBtnsEdit.style.display = "none";
+        articlesDB.doc(DocumentID).get().then((object) => {
+            articleImg.src = object.data().photoURL;
+            likesCount.innerHTML = object.data().likes.length;
+            articleName.textContent = object.data().name;
+            articleDate.textContent = formatDate(object.data().datePosted);
+            for (let i = 0; i < object.data().textTypes.length; i++) {
+                if (object.data().textTypes[i].startsWith("BIGTXT2023CODE")) {
+                    addedText.innerHTML += `<div contenteditable="false" class="header">${object.data().textTypes[i].slice(14)}</div>`;
+                } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE")) {
+                    addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
+                }
+            }
+            document.getElementsByTagName("body")[0].style.display = "block";
         })
-    }).then(() => {
-        if (is_current_user_admin == false) {
-            adminBtnsEdit.style.display = "none";
-            articlesDB.doc(DocumentID).get().then((object) => {
-                articleImg.src = object.data().photoURL;
-                likesCount.innerHTML = object.data().likes.length;
-                if (object.data().likes.includes(fuser.uid)) {
-                    likeFill.classList.add("show");
-                }
-                articleName.textContent = object.data().name;
-                articleDate.textContent = formatDate(object.data().datePosted);
-                for (let i = 0; i < object.data().textTypes.length; i++) {
-                    if (object.data().textTypes[i].startsWith("BIGTXT2023CODE")) {
-                        addedText.innerHTML += `<div contenteditable="false" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-                    } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE")) {
-                        addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-                    }
-                }
-            })
-        } else {
-            articlesDB.doc(DocumentID).get().then((object) => {
-                articleImg.src = object.data().photoURL;
-                likesCount.innerHTML = object.data().likes.length;
-                if (object.data().likes.includes(fuser.uid)) {
-                    likeFill.classList.add("show");
-                }
-                articleName.textContent = object.data().name;
-                articleDate.textContent = formatDate(object.data().datePosted);
-                for (let i = 0; i < object.data().textTypes.length; i++) {
-                    if (object.data().textTypes[i].startsWith("BIGTXT2023CODE")) {
-                        addedText.innerHTML += `<div contenteditable="true" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-                    } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE")) {
-                        addedText.innerHTML += `<div contenteditable="true" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-                    }
-                }
-            })
-        }
 
 
-    });
+    }
 
     postComment.addEventListener("click", (event) => {
+        if (fuser == null) {
+            window.location.href = "autentificare.html";
+        }
         event.preventDefault();
         let textValue = textAreaComment.value;
         let date = new Date();
@@ -121,8 +146,6 @@ firebase.auth().onAuthStateChanged((user) => {
     })
 
 
-
-
     function deleteItem(arr, item) {
         var index = arr.indexOf(item);
         if (index !== -1) {
@@ -131,6 +154,9 @@ firebase.auth().onAuthStateChanged((user) => {
     }
 
     likeBTN.onclick = function () {
+        if (fuser == null) {
+            window.location.href = "autentificare.html";
+        }
         articlesDB.doc(DocumentID).get().then((object) => {
             let likesList = object.data().likes;
             if (likesList.includes(fuser.uid)) {

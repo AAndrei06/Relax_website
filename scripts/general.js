@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged((user) =>
                 navAcc.style.display = 'initial'
             });
         })
-        document.getElementsByTagName("body")[0].style.display = "block";
+        
 
     } else
     {
@@ -29,7 +29,6 @@ firebase.auth().onAuthStateChanged((user) =>
         })
 
         navAcc.style.display = 'none'
-        document.getElementsByTagName("body")[0].style.display = "block";
     }
 });
 
