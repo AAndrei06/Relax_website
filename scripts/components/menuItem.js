@@ -14,8 +14,6 @@ const adminItemOverlay = document.querySelector('#admin-item-overlay');
 const adminExtraButtons = document.querySelector('.admin-item-extra-buttons');
 const adminPopupInputs = document.querySelectorAll('.admin-item-popup>.inputs>.input>input');
 const adminPopupTextarea = document.querySelector('.admin-item-popup>.inputs>.input>textarea');
-const adminPopupChangeBttn = document.querySelector('.admin-item-popup>.image>.change');
-const adminPopupImgSVG = document.querySelector(".admin-item-popup>.image>.add");
 const adminExtraDelete = document.querySelector('#extra-delete');
 const adminExtraAction = document.querySelector('#extra-action');
 const adminCategorySelect = document.querySelector('#admin-item-category');
@@ -150,31 +148,29 @@ adminExtraDelete.addEventListener('click', () =>
 adminForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();
-    if (!addItemBool)
+    if (!addItemBool && accountAdmin)
     {
         // Update current item
-    }
-    else
-    {
-        if (addItemBool && accountAdmin)
+
+        // Pret erroare [Andrei]
+
+        if (adminAddImage.files[0] != null)
         {
-            productsDB.add({
+            productsDB.doc(currentEditID).update({
                 name: adminPopupName.value,
                 description: adminPopupDescription.value,
                 category: adminCategorySelect.value,
                 price: Number(adminPopupPrice.value),
                 masa: Number(adminPopupMasa.value),
                 photoURL: "",
-                reviews: [],
-            }).then((object) =>
+            }).then((object2) =>
             {
-                let file = adminAddImage.files[0];
-                console.log(file)
-                firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                let file2 = adminAddImage.files[0];
+                firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) =>
                 {
                     snapshot.ref.getDownloadURL().then((urlfile) =>
                     {
-                        productsDB.doc(object.id).update({
+                        productsDB.doc(currentEditID).update({
                             photoURL: urlfile,
                         })
                     }).then(() =>
@@ -183,11 +179,48 @@ adminForm.addEventListener('submit', (e) =>
                     });
                 })
             })
+        } else
+        {
+            productsDB.doc(currentEditID).update({
+                name: adminPopupName.value,
+                description: adminPopupDescription.value,
+                category: adminCategorySelect.value,
+                price: Number(adminPopupPrice.value),
+                masa: Number(adminPopupMasa.value),
+            }).then(() =>
+            {
+                location.reload();
+            })
         }
-
-
     }
-
+    if (addItemBool && accountAdmin)
+    {
+        productsDB.add({
+            name: adminPopupName.value,
+            description: adminPopupDescription.value,
+            category: adminCategorySelect.value,
+            price: Number(adminPopupPrice.value),
+            masa: Number(adminPopupMasa.value),
+            photoURL: "",
+            reviews: [],
+        }).then((object) =>
+        {
+            let file = adminAddImage.files[0];
+            console.log(file)
+            firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+            {
+                snapshot.ref.getDownloadURL().then((urlfile) =>
+                {
+                    productsDB.doc(object.id).update({
+                        photoURL: urlfile,
+                    })
+                }).then(() =>
+                {
+                    location.reload();
+                });
+            })
+        })
+    }
 
     closeAdminPopup()
 })
@@ -229,14 +262,14 @@ firebase.auth().onAuthStateChanged((user) =>
         {
             querySnapshot.forEach((doc) =>
             {
-                createReviewImg.src = doc.data().photoURL
-                createReviewName.innerHTML = doc.data().name
-                accountName = doc.data().name
-                accountImage = doc.data().photoURL
+                createReviewImg.src = doc.data().photoURL;
+                createReviewName.innerText = doc.data().name;
+                accountName = doc.data().name;
+                accountImage = doc.data().photoURL;
                 if (doc.data().admin)
                 {
-                    addItemButton.style.display = 'flex'
-                    accountAdmin = true;
+                    addItemButton.style.display = 'flex';
+                    accountAdmin = true;;
                 }
             });
         })
@@ -638,17 +671,18 @@ checkoutButton.addEventListener('click', () =>
         window.location.href = '/pages/checkout.html'
     }
 })
-
 function updateMenuSidebar()
 {
     let ordersString = '';
     let ordersPrice = 0;
 
+    let orders = {}
+
     sideMenuIDs.forEach(itemId =>
     {
         const item = itemQuantityMap.get(itemId);
 
-        console.log(item)
+        orders[item.id] = item.numValue
 
         ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
@@ -658,6 +692,13 @@ function updateMenuSidebar()
                         quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
         }
     });
+
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    // let ordersString = localStorage.getItem('orders');
+
+    // let orders = JSON.parse(ordersString);
+
     if (ordersString == '')
     {
         ordersEmpty.classList.add('show')
@@ -840,7 +881,6 @@ class MenuItem extends HTMLElement
 
         this.addEventListener('click', () =>
         {
-            // console.log(currentEditID = image.id)
             addItemBool = false;
 
             if (accountAdmin)
@@ -852,7 +892,6 @@ class MenuItem extends HTMLElement
 
                 let label = adminAddImage.parentElement
                 let previewImg = label.nextElementSibling
-
                 label.classList.add('img')
                 previewImg.classList.add('show');
                 label.children[1].innerHTML = 'Schimbă'
@@ -908,8 +947,8 @@ class MenuItem extends HTMLElement
                 }
 
             }
-            currentID = this.getAttribute('id')
-            currentEditID = this.getAttribute('id')
+            currentID = this.getAttribute('id');
+            currentEditID = this.getAttribute('id');
 
         });
 
@@ -980,22 +1019,9 @@ class MenuItem extends HTMLElement
         this.setAttribute('reviews', JSON.stringify(currentReviews));
         this.renderReviews();
 
-        // Salvare in main
-        for (const sectionName in menuItems)
-        {
-            const section = menuItems[sectionName];
-            if (section)
-            {
-                const foundItem = section.find(item => item.uid === currentID);
+        // Salvare reviews in baza de date [Andrei]
 
-                if (foundItem)
-                {
-                    // Item found, you can access it as foundItem
-                    foundItem.reviews.push(review)
-                    break; // Exit the loop since you found the item
-                }
-            }
-        }
+        // {AICI}
 
         const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
         deleteTextAnim(reviewTextarea)
@@ -1275,18 +1301,18 @@ createReviewForm.addEventListener('submit', (e) =>
 
     if (starsAreSelected && reviewTextarea.value !== '')
     {
-        // const currentItem = itemQuantityMap.get(currentID);
-        const uid = generateMongoLikeID();
+        // Local add
+        const currentItem = itemQuantityMap.get(currentID);
         const date = formatDate(new Date());
 
-        // currentItem.addReview({
-        //     name: accountName,
-        //     date: date,
-        //     stars: `${createReviewStarsFilled}`,
-        //     description: `${reviewTextarea.value}`,
-        //     img: accountImage,
-        //     uid: uid
-        // })
+        currentItem.addReview({
+            name: accountName,
+            date: date,
+            stars: `${createReviewStarsFilled}`,
+            description: `${reviewTextarea.value}`,
+            img: accountImage,
+        })
+
         resetReviewSlide()
     }
     if (!starsAreSelected)
