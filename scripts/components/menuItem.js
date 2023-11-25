@@ -29,6 +29,7 @@ let adminPopupMasa = adminItemPopup.querySelector('#admin-item-masa');
 let accountAdmin = false;
 let accountName = '';
 let accountImage;
+let accountID;
 
 function openAdminPopup()
 {
@@ -269,6 +270,7 @@ firebase.auth().onAuthStateChanged((user) =>
                     addItemButton.style.display = 'flex';
                     accountAdmin = true;;
                 }
+                accountID = doc.id
             });
         })
         productsDB.get().then((querySnapshot) =>
@@ -1305,6 +1307,8 @@ createReviewForm.addEventListener('submit', (e) =>
             stars: `${createReviewStarsFilled}`,
             description: `${reviewTextarea.value}`,
             img: accountImage,
+            userID: accountID,
+            itemID: currentID,
         })
 
         resetReviewSlide()
