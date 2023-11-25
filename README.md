@@ -19,6 +19,7 @@ Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
 - JavaScript - pentru interactivitate și conținut dinamic.
 - Git și GitHub - pentru controlul versiunilor și colaborare.
 - Firebase - pentru funcțiile backend (CRUD).
+- EmailJS - pentru trimiterea email-urilor.
 
 ## Scopuri
 
