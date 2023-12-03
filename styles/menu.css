@@ -587,6 +587,7 @@
     font-size: 20px;
     font-weight: 600;
     margin-left: 8px;
+    white-space: nowrap;
 }
 
 .item-popup>.text>.reviews {
