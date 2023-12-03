@@ -6,6 +6,8 @@ let sideMenuIDs = [];
 let addItemBool = false;
 let currentEditID = "";
 
+const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
+
 const createReviewImg = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.img>img");
 const createReviewName = document.querySelector(".item-popup>.reviews-side>.content>.create-review>.front>.name");
 const addItemButton = document.querySelector(".add-item-bttn");
@@ -28,6 +30,7 @@ let adminPopupMasa = adminItemPopup.querySelector('#admin-item-masa');
 
 let accountAdmin = false;
 let accountName = '';
+let isAccount = false;
 let accountImage;
 let accountID;
 
@@ -234,6 +237,7 @@ firebase.auth().onAuthStateChanged((user) => {
                     addItemButton.style.display = 'flex';
                     accountAdmin = true;;
                 }
+                isAccount = true;
                 accountID = doc.id
             });
         })
@@ -241,8 +245,13 @@ firebase.auth().onAuthStateChanged((user) => {
         productsDB.get().then((querySnapshot) => {
             filterAndRender(querySnapshot);
 
-            categories.forEach(category => {
-                category.addEventListener('click', (e) => {
+            createReviewBttn.classList.remove('disabled')
+
+            categories.forEach(category =>
+            {
+                category.addEventListener('click', (e) =>
+                {
+
                     e.target.classList.toggle('selected');
                     updateMainCategories();
                     filterAndRender(querySnapshot);
@@ -934,6 +943,8 @@ class MenuItem extends HTMLElement {
         })
         // {AICI}
 
+        // reviewsDB.add(review);
+
         const reviewTextarea = document.querySelector('.item-popup>.reviews-side>.content>.create-review>.textarea>textarea')
         deleteTextAnim(reviewTextarea)
         this.starScore = this.calculateStars();
@@ -1161,7 +1172,6 @@ const reviewWordsSpan = document.querySelector('.item-popup>.reviews-side>.conte
 const createReviewStars = document.querySelectorAll(".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg")
 const createReviewForm = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
 
-const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
 const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>button>svg')
 
 const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")

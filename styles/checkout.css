@@ -64,7 +64,7 @@ main>.information>.method>.or {
 
 main>.information>.method>.or>div {
     height: 1px;
-    background: var(--day-dark-5, rgba(12, 12, 12, 0.25));
+    background: var(--day-dark05);
 }
 
 main>.information>.method>.or>span {
@@ -234,99 +234,127 @@ main>.orders-div>.content {
     width: 100%;
     height: 100%;
     position: relative;
-    display: flex;
+    flex-direction: column;
+}
+
+main>.orders-div>.content>.wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
     flex-direction: column;
     display: none;
 }
 
-main>.orders-div>.content>.orders {
+.loading {
+    position: absolute;
+    top: 128px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: opacity 0.1s ease-in-out;
+}
+
+.loading>.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading>.content>.spinner>.path {
+    stroke: var(--day-dark06);
+}
+
+main>.orders-div>.content>.wrap>.orders {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-main>.orders-div>.content>.orders>.order {
+main>.orders-div>.content>.wrap>.orders>.order {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main>.orders-div>.content>.orders>.order>.wrap {
+main>.orders-div>.content>.wrap>.orders>.order>.wrap {
     display: flex;
     gap: 16px;
     align-items: center;
 }
 
-main>.orders-div>.content>.orders>.order>.wrap>.img {
+main>.orders-div>.content>.wrap>.orders>.order>.wrap>.img {
     width: 80px;
     height: 80px;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.10);
 }
 
-main>.orders-div>.content>.orders>.order>.wrap>.name {
+main>.orders-div>.content>.wrap>.orders>.order>.wrap>.name {
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 700;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.orders>.order>.price {
+main>.orders-div>.content>.wrap>.orders>.order>.price {
     color: var(--day-dark3);
     font-size: 18px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.separator {
+main>.orders-div>.content>.wrap>.separator {
     margin-top: 24px;
     width: 100%;
     height: 1px;
     background: var(--day-separator);
 }
 
-main>.orders-div>.content>.totals {
+main>.orders-div>.content>.wrap>.totals {
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-top: 24px;
 }
 
-main>.orders-div>.content>.totals>div {
+main>.orders-div>.content>.wrap>.totals>div {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main>.orders-div>.content>.totals>div>.header {
+main>.orders-div>.content>.wrap>.totals>div>.header {
     color: var(--day-dark03);
     font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.totals>div>.price {
+main>.orders-div>.content>.wrap>.totals>div>.price {
     color: var(--day-dark03);
     font-size: 18px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.total {
+main>.orders-div>.content>.wrap>.total {
     margin-top: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main>.orders-div>.content>.total>.header {
+main>.orders-div>.content>.wrap>.total>.header {
     color: var(--day-dark02);
     font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.total>.total-price {
+main>.orders-div>.content>.wrap>.total>.total-price {
     color: var(--day-dark02);
     font-size: 22px;
     font-weight: 600;

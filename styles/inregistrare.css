@@ -58,7 +58,7 @@ header>.social-media>button {
     width: 64px;
     height: 64px;
     border-radius: 100%;
-    background-color: #F9F9F9;
+    background-color: var(--day-background);
 }
 
 

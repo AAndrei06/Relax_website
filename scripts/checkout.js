@@ -1,9 +1,11 @@
 let ordersString = localStorage.getItem('orders');
 let orders = JSON.parse(ordersString);
 
-const ordersDiv = document.querySelector("main>.orders-div>.content>.orders");
+const ordersDiv = document.querySelector("main>.orders-div>.content>.wrap>.orders");
 const allOrdersSection = document.querySelector('.orders-div>.content');
-const totalPriceDiv = document.querySelector("main>.orders-div>.content>.total>.total-price");
+const ordersContent = document.querySelector('main>.orders-div>.content>.wrap')
+const totalPriceDiv = document.querySelector("main>.orders-div>.content>.wrap>.total>.total-price");
+const loadingAnim = document.querySelector("main>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
 
@@ -11,13 +13,6 @@ firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
-        // usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-        // {
-        //     querySnapshot.forEach((doc) =>
-        //     {
-        //         console.log(doc.data().name)
-        //     });
-        // })
         productsDB.get().then((querySnapshot) =>
         {
             let keysArray = []
@@ -44,7 +39,8 @@ firebase.auth().onAuthStateChanged((user) =>
             })
             totalPriceDiv.innerText = `${totalPrice + 35}.00 MDL`;
             subTotal.innerText = `${totalPrice}.00 MDL`;
-            allOrdersSection.style.display = 'flex';
+            ordersContent.style.display = 'flex';
+            loadingAnim.style.display = 'none'
             continueButton.classList.remove('disabled');
         })
     }
