@@ -26,6 +26,7 @@
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .filter-section>.content>.stars>div {
@@ -85,6 +86,7 @@
     font-size: 18px;
     font-weight: 600;
     bottom: -36px;
+    white-space: nowrap;
 }
 
 .filter-section>.content>.price>.slider>.progress {
@@ -110,6 +112,7 @@
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .filter-section>.content>.categories>svg {
@@ -205,6 +208,7 @@
 
 .filter-section>.content>.search {
     position: relative;
+    min-width: 105px;
 }
 
 .filter-section>.content>.search>.placeholder {
@@ -388,20 +392,33 @@
     width: calc(100% - 64px);
 }
 
-.menu-side>.wrap>.checkout>span {
+.menu-side>.wrap>.checkout>.total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-side>.wrap>.checkout>.total>.main {
     opacity: 0.5;
     transition: all 0.20s ease-in-out;
 }
 
-.menu-side>.wrap>.checkout>span.active {
+.menu-side>.wrap>.checkout>.total>.main.active {
     opacity: 1;
 }
 
-.menu-side>.wrap>.checkout>span,
-.menu-side>.wrap>.checkout>span>.price {
+.menu-side>.wrap>.checkout>.total>.main,
+.menu-side>.wrap>.checkout>.total>.main>.price {
     color: var(--day-dark01);
     font-size: 20px;
     font-weight: 600;
+}
+
+.menu-side>.wrap>.checkout>.total>.delete-all {
+    color: var(--day-dark04);
+    font-size: 20px;
+    font-weight: 600;
+    background: none;
 }
 
 .menu-side>.wrap>.checkout>button {
