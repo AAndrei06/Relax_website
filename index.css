@@ -127,6 +127,10 @@ div[contenteditable="true"] {
     outline: transparent;
 }
 
+div {
+    word-break: break-all;
+}
+
 .loading>.content>.spinner {
     -webkit-animation: rotator 1.4s linear infinite;
     animation: rotator 1.4s linear infinite;
@@ -456,6 +460,7 @@ footer>.logo {
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 6.36px;
+    white-space: nowrap;
 }
 
 footer>.copyright {
@@ -467,6 +472,7 @@ footer>.copyright {
     font-weight: 600;
     background: none;
     border: none;
+    white-space: nowrap;
 }
 
 .disclaimer-all {
