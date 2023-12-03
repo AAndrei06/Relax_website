@@ -1,7 +1,7 @@
 import { deleteTextAnim, loadingAnim, responseAnim, endAnim } from "./utils.js";
 
 // Copy Function
-
+document.getElementsByTagName("body")[0].style.display = "block";
 const infoDivs = document.querySelectorAll('.form-section>.content>.form-content>.column1>.info>div');
 
 let copyTimeout;

@@ -34,22 +34,19 @@ let isAccount = false;
 let accountImage;
 let accountID;
 
-function openAdminPopup()
-{
+function openAdminPopup() {
     lockScroll();
     adminItemPopup.classList.add('show');
     adminItemOverlay.classList.add('show');
     adminExtraButtons.classList.add('show');
 }
-function closeAdminPopup()
-{
+function closeAdminPopup() {
     unlockScroll()
     adminItemPopup.classList.remove('show');
     adminItemOverlay.classList.remove('show');
     adminExtraButtons.classList.remove('show');
 
-    setTimeout(() =>
-    {
+    setTimeout(() => {
 
         adminExtraDelete.classList.remove('show');
 
@@ -79,21 +76,18 @@ function closeAdminPopup()
 
 }
 
-adminAddImage.addEventListener('change', (e) =>
-{
+adminAddImage.addEventListener('change', (e) => {
     let selectedFile = e.target.files[0];
     let label = e.target.parentElement
     let previewImg = label.nextElementSibling
 
-    if (selectedFile)
-    {
+    if (selectedFile) {
         label.classList.add('img')
         displayImage(selectedFile, previewImg);
         previewImg.classList.add('show');
         label.children[1].innerHTML = 'Schimbă'
     }
-    else
-    {
+    else {
         label.classList.remove('img')
         previewImg.classList.remove('show');
         label.children[1].innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" fill="none">
@@ -104,12 +98,10 @@ adminAddImage.addEventListener('change', (e) =>
     }
 });
 
-addItemButton.addEventListener('click', () =>
-{
+addItemButton.addEventListener('click', () => {
     addItemBool = true;
     currentEditID = "";
-    adminPopupInputs.forEach(input =>
-    {
+    adminPopupInputs.forEach(input => {
         input.nextElementSibling.classList.remove('move')
 
     })
@@ -133,31 +125,24 @@ addItemButton.addEventListener('click', () =>
     adminCategorySelect.value = 'pizza-section'
     openAdminPopup()
 })
-adminItemOverlay.addEventListener('click', () =>
-{
+adminItemOverlay.addEventListener('click', () => {
     closeAdminPopup()
 })
 
-adminExtraDelete.addEventListener('click', () =>
-{
-    if (addItemBool = true && currentEditID != "")
-    {
-        productsDB.doc(currentEditID).delete().then(() =>
-        {
+adminExtraDelete.addEventListener('click', () => {
+    if (addItemBool = true && currentEditID != "") {
+        productsDB.doc(currentEditID).delete().then(() => {
             location.reload()
         });
     }
     closeAdminPopup();
 })
-adminForm.addEventListener('submit', (e) =>
-{
+adminForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!addItemBool && accountAdmin)
-    {
+    if (!addItemBool && accountAdmin) {
         // Update current item
 
-        if (adminAddImage.files[0] != null)
-        {
+        if (adminAddImage.files[0] != null) {
             productsDB.doc(currentEditID).update({
                 name: adminPopupName.value,
                 description: adminPopupDescription.value,
@@ -165,38 +150,31 @@ adminForm.addEventListener('submit', (e) =>
                 price: Number(adminPopupPrice.value),
                 masa: Number(adminPopupMasa.value),
                 photoURL: "",
-            }).then((object2) =>
-            {
+            }).then((object2) => {
                 let file2 = adminAddImage.files[0];
-                firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) =>
-                {
-                    snapshot.ref.getDownloadURL().then((urlfile) =>
-                    {
+                firebase.storage().ref().child('/' + currentEditID + ".png").put(file2).then((snapshot) => {
+                    snapshot.ref.getDownloadURL().then((urlfile) => {
                         productsDB.doc(currentEditID).update({
                             photoURL: urlfile,
                         })
-                    }).then(() =>
-                    {
+                    }).then(() => {
                         location.reload();
                     });
                 })
             })
-        } else
-        {
+        } else {
             productsDB.doc(currentEditID).update({
                 name: adminPopupName.value,
                 description: adminPopupDescription.value,
                 category: adminCategorySelect.value,
                 price: Number(adminPopupPrice.value),
                 masa: Number(adminPopupMasa.value),
-            }).then(() =>
-            {
+            }).then(() => {
                 location.reload();
             })
         }
     }
-    if (addItemBool && accountAdmin)
-    {
+    if (addItemBool && accountAdmin) {
         productsDB.add({
             name: adminPopupName.value,
             description: adminPopupDescription.value,
@@ -204,20 +182,18 @@ adminForm.addEventListener('submit', (e) =>
             price: Number(adminPopupPrice.value),
             masa: Number(adminPopupMasa.value),
             photoURL: "",
+            nrReviews: 1,
+            stars: 5,
             reviews: [],
-        }).then((object) =>
-        {
+        }).then((object) => {
             let file = adminAddImage.files[0];
             console.log(file)
-            firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
-            {
-                snapshot.ref.getDownloadURL().then((urlfile) =>
-                {
+            firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
+                snapshot.ref.getDownloadURL().then((urlfile) => {
                     productsDB.doc(object.id).update({
                         photoURL: urlfile,
                     })
-                }).then(() =>
-                {
+                }).then(() => {
                     location.reload();
                 });
             })
@@ -229,47 +205,35 @@ adminForm.addEventListener('submit', (e) =>
 
 // Admin Inputs
 
-adminPopupInputs.forEach(input =>
-{
-    input.addEventListener('focus', (e) =>
-    {
+adminPopupInputs.forEach(input => {
+    input.addEventListener('focus', (e) => {
         e.target.nextElementSibling.classList.add('move')
     })
-    input.addEventListener('blur', (e) =>
-    {
-        if (e.target.value == '')
-        {
+    input.addEventListener('blur', (e) => {
+        if (e.target.value == '') {
             e.target.nextElementSibling.classList.remove('move')
         }
     })
 })
 
-adminPopupTextarea.addEventListener('focus', (e) =>
-{
+adminPopupTextarea.addEventListener('focus', (e) => {
     e.target.nextElementSibling.classList.add('move')
 })
-adminPopupTextarea.addEventListener('blur', (e) =>
-{
-    if (e.target.value == '')
-    {
+adminPopupTextarea.addEventListener('blur', (e) => {
+    if (e.target.value == '') {
         e.target.nextElementSibling.classList.remove('move')
     }
 })
 
-firebase.auth().onAuthStateChanged((user) =>
-{
-    if (user)
-    {
-        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-        {
-            querySnapshot.forEach((doc) =>
-            {
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
                 createReviewImg.src = doc.data().photoURL;
                 createReviewName.innerText = doc.data().name;
                 accountName = doc.data().name;
                 accountImage = doc.data().photoURL;
-                if (doc.data().admin)
-                {
+                if (doc.data().admin) {
                     addItemButton.style.display = 'flex';
                     accountAdmin = true;;
                 }
@@ -277,8 +241,8 @@ firebase.auth().onAuthStateChanged((user) =>
                 accountID = doc.id
             });
         })
-        productsDB.get().then((querySnapshot) =>
-        {
+    }
+        productsDB.get().then((querySnapshot) => {
             filterAndRender(querySnapshot);
 
             createReviewBttn.classList.remove('disabled')
@@ -287,6 +251,7 @@ firebase.auth().onAuthStateChanged((user) =>
             {
                 category.addEventListener('click', (e) =>
                 {
+
                     e.target.classList.toggle('selected');
                     updateMainCategories();
                     filterAndRender(querySnapshot);
@@ -294,8 +259,7 @@ firebase.auth().onAuthStateChanged((user) =>
             })
 
 
-            slider.addEventListener('input', () =>
-            {
+            slider.addEventListener('input', () => {
                 const progressValue = (slider.value / slider.max) * 100;
                 sliderProgress.style.width = `${progressValue}%`
 
@@ -306,12 +270,12 @@ firebase.auth().onAuthStateChanged((user) =>
                 filterAndRender(querySnapshot)
             });
 
-            mainSearch.addEventListener('input', () =>
-            {
+            mainSearch.addEventListener('input', () => {
                 filterAndRender(querySnapshot)
             })
+            document.getElementsByTagName("body")[0].style.display = "block";
         })
-    }
+    
 });
 
 const itemOverlay = document.querySelector('#item-overlay');
@@ -511,48 +475,38 @@ updateMainCategories();
 
 const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
 
-stars.forEach(star =>
-{
-    star.addEventListener('click', (e) =>
-    {
+stars.forEach(star => {
+    star.addEventListener('click', (e) => {
         mainStarsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
     })
 })
 
 
-function filterMenuItems(menuItems, criteria)
-{
+function filterMenuItems(menuItems, criteria) {
 
-    return menuItems.filter(item =>
-    {
+    return menuItems.filter(item => {
         let stars = 5;
-        if (item.reviews)
-        {
+        if (item.reviews) {
             const reviews = item.reviews;
             let totalStars = 0;
 
-            reviews.forEach(review =>
-            {
+            reviews.forEach(review => {
                 totalStars += Number(review.stars);
             });
 
             stars = Math.round(totalStars / reviews.length);
         }
 
-        return criteria.every(criterion =>
-        {
+        return criteria.every(criterion => {
             const [field, value] = criterion;
 
-            if (field === 'stars' && stars > value)
-            {
+            if (field === 'stars' && stars > value) {
                 return false;
             }
-            if (field === 'search' && !item.name.toLowerCase().includes(value.toLowerCase()))
-            {
+            if (field === 'search' && !item.name.toLowerCase().includes(value.toLowerCase())) {
                 return false;
             }
-            if (field === 'price' && Number(item.price) > value)
-            {
+            if (field === 'price' && Number(item.price) > value) {
                 return false;
             }
             return true;
@@ -560,8 +514,7 @@ function filterMenuItems(menuItems, criteria)
     });
 }
 
-function filterAndRender(querySnapshot)
-{
+function filterAndRender(querySnapshot) {
     const criteria = [
         ['stars', mainStarsFilled],
         ['search', mainSearch.value],
@@ -571,14 +524,12 @@ function filterAndRender(querySnapshot)
     let menuItems = [];
     let menuIDs = []
 
-    querySnapshot.forEach((product, index) =>
-    {
+    querySnapshot.forEach((product, index) => {
         menuItems.push(product.data());
         menuIDs.push(product.id)
 
     })
-    menuItems.forEach((item, index) =>
-    {
+    menuItems.forEach((item, index) => {
         item.id = menuIDs[index]
     })
 
@@ -587,29 +538,24 @@ function filterAndRender(querySnapshot)
     filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
     const sections = allSections.querySelectorAll(`.menu-section`);
-    sections.forEach(section =>
-    {
+    sections.forEach(section => {
         const items = section.querySelector('.items');
         items.innerHTML = '';
     })
 
-    filteredItems.forEach((item, index) =>
-    {
+    filteredItems.forEach((item, index) => {
         const section = allSections.querySelector(`#${item.category}`);
         const items = section.querySelector('.items');
 
         let reviews = []
-        if (item.reviews)
-        {
+        if (item.reviews) {
             reviews = item.reviews
         }
 
-        if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
-        {
+        if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10) {
             section.style.display = 'none'
         }
-        else
-        {
+        else {
             section.style.display = 'initial';
             items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
                             reviews='${JSON.stringify(reviews)}'
@@ -620,37 +566,29 @@ function filterAndRender(querySnapshot)
     })
 
     let emptySections = 0;
-    allSections.querySelectorAll('section').forEach(section =>
-    {
+    allSections.querySelectorAll('section').forEach(section => {
         const items = section.querySelector('.items');
 
-        if (items && items.innerHTML == '')
-        {
+        if (items && items.innerHTML == '') {
             section.style.display = 'none';
         }
-        if (section.style.display == 'none')
-        {
+        if (section.style.display == 'none') {
             emptySections += 1;
         }
     })
-    if (emptySections == 10)
-    {
+    if (emptySections == 10) {
         allSections.querySelector('.empty-section').classList.add('show')
     }
-    else
-    {
+    else {
         allSections.querySelector('.empty-section').classList.remove('show')
     }
 
 }
 
-function updateMainCategories()
-{
+function updateMainCategories() {
     categoriesIndexesArray = [];
-    categories.forEach((category, index) =>
-    {
-        if (!category.classList.contains('selected'))
-        {
+    categories.forEach((category, index) => {
+        if (!category.classList.contains('selected')) {
             categoriesIndexesArray.push(category.getAttribute('data-value'))
         }
     })
@@ -658,8 +596,7 @@ function updateMainCategories()
 
 // Exit Popup
 
-itemOverlay.addEventListener('click', () =>
-{
+itemOverlay.addEventListener('click', () => {
     itemPopup.classList.remove('show');
     itemOverlay.classList.remove('show');
     unlockScroll();
@@ -670,30 +607,25 @@ itemOverlay.addEventListener('click', () =>
 
 // Checkout Page
 
-checkoutButton.addEventListener('click', () =>
-{
-    if (sideMenuIDs.length > 0)
-    {
+checkoutButton.addEventListener('click', () => {
+    if (sideMenuIDs.length > 0) {
         window.location.href = '/pages/checkout.html'
     }
 })
-function updateMenuSidebar()
-{
+function updateMenuSidebar() {
     let ordersString = '';
     let ordersPrice = 0;
 
     let orders = {}
 
-    sideMenuIDs.forEach(itemId =>
-    {
+    sideMenuIDs.forEach(itemId => {
         const item = itemQuantityMap.get(itemId);
 
         orders[item.id] = item.numValue
 
         ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
-        if (item && item.numValue > 0)
-        {
+        if (item && item.numValue > 0) {
             ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
                         quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
         }
@@ -701,15 +633,13 @@ function updateMenuSidebar()
 
     localStorage.setItem('orders', JSON.stringify(orders));
 
-    if (ordersString == '')
-    {
+    if (ordersString == '') {
         ordersEmpty.classList.add('show')
         newPoint.classList.remove('show')
         checkoutButton.classList.remove("active")
         checkoutTotalSpan.classList.remove("active")
     }
-    else
-    {
+    else {
         ordersEmpty.classList.remove('show')
         newPoint.classList.add('show')
         checkoutButton.classList.add("active")
@@ -719,24 +649,20 @@ function updateMenuSidebar()
     ordersPriceDiv.innerText = ordersPrice;
 }
 
-function assignReviewNum(div, num)
-{
+function assignReviewNum(div, num) {
     const pluralText = num === 1 ? 'recenzie' : 'recenzii';
     div.innerText = `${num} ${pluralText}`;
 }
 
-class MenuItem extends HTMLElement
-{
-    constructor()
-    {
+class MenuItem extends HTMLElement {
+    constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.numValue = 0;
         this.starScore = this.calculateStars();
     }
 
-    connectedCallback()
-    {
+    connectedCallback() {
         this.shadowRoot.innerHTML = `
       <style>
         *
@@ -868,12 +794,10 @@ class MenuItem extends HTMLElement
 
         const button = this.shadowRoot.querySelector('.bttn');
 
-        button.addEventListener('click', (e) =>
-        {
+        button.addEventListener('click', (e) => {
             e.stopPropagation();
             this.addNumValue();
-            if (!sideMenuIDs.includes(itemId))
-            {
+            if (!sideMenuIDs.includes(itemId)) {
                 sideMenuIDs.push(itemId)
             }
             button.classList.add('shake');
@@ -881,12 +805,10 @@ class MenuItem extends HTMLElement
             updateMenuSidebar()
         });
 
-        this.addEventListener('click', () =>
-        {
+        this.addEventListener('click', () => {
             addItemBool = false;
 
-            if (accountAdmin)
-            {
+            if (accountAdmin) {
                 openAdminPopup()
                 adminCategorySelect.value = this.getAttribute('category')
 
@@ -907,8 +829,7 @@ class MenuItem extends HTMLElement
                 adminPopupDescription.value = `${this.getAttribute('description')}`
                 adminPopupMasa.value = `${this.getAttribute('masa')}`
 
-                adminPopupInputs.forEach(input =>
-                {
+                adminPopupInputs.forEach(input => {
                     input.nextElementSibling.classList.add('move')
 
                 })
@@ -919,8 +840,7 @@ class MenuItem extends HTMLElement
             <path d="M5.3335 16.8146L11.8976 23.3332L26.6668 8.6665" stroke="var(--day-dark01)" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
 </ >`
             }
-            else
-            {
+            else {
                 itemPopup.classList.add('show');
                 itemOverlay.classList.add('show');
                 lockScroll();
@@ -936,14 +856,12 @@ class MenuItem extends HTMLElement
 
                 this.renderReviews()
 
-                if (this.numValue > 0)
-                {
+                if (this.numValue > 0) {
                     popupItemQuantity.style.display = 'initial'
                     popupItemQuantity.innerText = `x ${this.numValue} `
                     popupButton.classList.add('shake')
                 }
-                else
-                {
+                else {
                     popupItemQuantity.style.display = 'none'
                     popupButton.classList.remove('shake')
                 }
@@ -956,8 +874,7 @@ class MenuItem extends HTMLElement
 
     }
 
-    addNumValue()
-    {
+    addNumValue() {
         const numSpan = this.shadowRoot.querySelector('.num');
         this.numValue++;
         numSpan.textContent = `x ${this.numValue} `;
@@ -967,31 +884,25 @@ class MenuItem extends HTMLElement
         this.shadowRoot.querySelector('.bttn').classList.add('shake');
     };
 
-    updateNumValue()
-    {
+    updateNumValue() {
         const numSpan = this.shadowRoot.querySelector('.num');
-        if (this.numValue > 0)
-        {
+        if (this.numValue > 0) {
             numSpan.textContent = `x ${this.numValue} `;
             numSpan.style.display = 'initial';
         }
-        else
-        {
+        else {
             numSpan.style.display = 'none';
             this.shadowRoot.querySelector('.bttn').classList.remove('shake');
         }
 
     }
 
-    renderReviews()
-    {
+    renderReviews() {
         const reviews = JSON.parse(this.getAttribute('reviews'));
-        if (reviews.length > 0)
-        {
+        if (reviews.length > 0) {
             popupReviewsDiv.classList.remove('none');
             let tempReviewsString = ''
-            reviews.forEach(review =>
-            {
+            reviews.forEach(review => {
                 tempReviewsString += `<item-review name="${review.name}" stars="${review.stars}"
                             description="${review.description}" date="${review.date}"
                             img="${review.img}"></item-review>`;
@@ -999,8 +910,7 @@ class MenuItem extends HTMLElement
 
             popupReviewsDiv.innerHTML = tempReviewsString;
         }
-        else
-        {
+        else {
             popupReviewsDiv.innerHTML = `
             <div class="none-div">
                 <svg xmlns="http://www.w3.org/2000/svg" width="77" height="78" viewBox="0 0 77 78" fill="none">
@@ -1014,15 +924,23 @@ class MenuItem extends HTMLElement
         assignReviewNum(popupReviewsNum, reviews.length)
         assignReviewNum(reviewReviewsNum, reviews.length)
     }
-    addReview(review)
-    {
+    addReview(review) {
         const currentReviews = JSON.parse(this.getAttribute('reviews'));
         currentReviews.push(review)
         this.setAttribute('reviews', JSON.stringify(currentReviews));
         this.renderReviews();
-
+        review = JSON.stringify(review)
+        review = JSON.parse(review);
         // Salvare reviews in baza de date [Andrei]
-
+        productsDB.doc(currentID).get().then((product) => {
+            let reviews2 = product.data().reviews;
+            let nrOfRev = product.data().nrReviews;
+            reviews2.push(review);
+            productsDB.doc(currentEditID).update({
+                reviews: reviews2,
+                nrReviews: nrOfRev + 1,
+            });
+        })
         // {AICI}
 
         // reviewsDB.add(review);
@@ -1036,20 +954,17 @@ class MenuItem extends HTMLElement
         // Sa se updateze stelele daca pui 0 si schimbi la 3 sa se schimbe si la meniu
         updateMenuSidebar()
     }
-    calculateStars()
-    {
+    calculateStars() {
         const reviews = JSON.parse(this.getAttribute('reviews'));
         let totalStars = 0;
 
-        reviews.forEach(review =>
-        {
+        reviews.forEach(review => {
             totalStars += Number(review.stars);
         });
 
         return Math.round(totalStars / reviews.length);
     }
-    updateStars()
-    {
+    updateStars() {
         popupStars.innerText = `${assignStars(this.starScore)}`
         reviewStars.innerText = `${assignStars(this.starScore)}`
         this.shadowRoot.querySelector(':host>.stars').innerText = `${assignStars(this.starScore)}`
@@ -1059,39 +974,32 @@ class MenuItem extends HTMLElement
 
 window.customElements.define("menu-item", MenuItem)
 
-popupButton.addEventListener('click', () =>
-{
+popupButton.addEventListener('click', () => {
     const currentItem = itemQuantityMap.get(currentID);
 
 
     currentItem.addNumValue();
-    if (currentItem.numValue > 0)
-    {
+    if (currentItem.numValue > 0) {
         popupItemQuantity.style.display = 'initial'
         popupItemQuantity.textContent = `x ${currentItem.numValue} `
     }
-    else
-    {
+    else {
         popupItemQuantity.style.display = 'none'
     }
 
-    if (!sideMenuIDs.includes(currentItem.getAttribute('id')))
-    {
+    if (!sideMenuIDs.includes(currentItem.getAttribute('id'))) {
         sideMenuIDs.push(currentItem.getAttribute('id'))
     }
     updateMenuSidebar()
 })
 
-class SideMenuItem extends HTMLElement
-{
-    constructor()
-    {
+class SideMenuItem extends HTMLElement {
+    constructor() {
         super();
         this.attachShadow({ mode: 'open' });
     }
 
-    connectedCallback()
-    {
+    connectedCallback() {
         this.shadowRoot.innerHTML = `
     <style>
         *
@@ -1242,12 +1150,10 @@ class SideMenuItem extends HTMLElement
         const deleteBttn = this.shadowRoot.querySelector(".delete")
         const ID = this.getAttribute('uid')
 
-        deleteBttn.addEventListener('click', () =>
-        {
+        deleteBttn.addEventListener('click', () => {
             const item = itemQuantityMap.get(ID);
             item.numValue = item.numValue - 1
-            if (item.numValue <= 0)
-            {
+            if (item.numValue <= 0) {
                 sideMenuIDs = sideMenuIDs.filter(id => id !== ID)
             }
 
@@ -1276,34 +1182,27 @@ let pastTextareaValue = '';
 let createReviewStarsFilled = 0;
 let starsAreSelected = false;
 
-reviewTextarea.addEventListener('input', (e) =>
-{
-    if (e.target.value.length <= 500)
-    {
+reviewTextarea.addEventListener('input', (e) => {
+    if (e.target.value.length <= 500) {
         reviewWordsSpan.innerText = `${e.target.value.length}`;
         pastTextareaValue = e.target.value
     }
-    else
-    {
+    else {
         e.target.value = pastTextareaValue;
     }
 })
 
-createReviewStars.forEach(star =>
-{
-    star.addEventListener('click', (e) =>
-    {
+createReviewStars.forEach(star => {
+    star.addEventListener('click', (e) => {
         starsAreSelected = true;
         createReviewStarsFilled = starsAnim(createReviewStars, e.target, ".item-popup>.reviews-side>.content>.create-review>.front>.stars>svg>.fill")
     })
 })
 
-createReviewForm.addEventListener('submit', (e) =>
-{
+createReviewForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if (starsAreSelected && reviewTextarea.value !== '')
-    {
+    if (starsAreSelected && reviewTextarea.value !== '') {
         // Local add
         const currentItem = itemQuantityMap.get(currentID);
         const date = formatDate(new Date());
@@ -1320,27 +1219,22 @@ createReviewForm.addEventListener('submit', (e) =>
 
         resetReviewSlide()
     }
-    if (!starsAreSelected)
-    {
+    if (!starsAreSelected) {
         createStarsDiv.classList.add('anim')
-        setTimeout(() =>
-        {
+        setTimeout(() => {
             createStarsDiv.classList.remove('anim')
         }, 350)
     }
-    if (reviewTextarea.value == '')
-    {
+    if (reviewTextarea.value == '') {
         reviewTextarea.classList.add('anim')
-        setTimeout(() =>
-        {
+        setTimeout(() => {
             reviewTextarea.classList.remove('anim')
         }, 350)
     }
 
 })
 
-function resetReviewSlide()
-{
+function resetReviewSlide() {
     reviewWordsSpan.innerText = "0";
 
     createReviewBttn.classList.remove('active')
@@ -1348,8 +1242,7 @@ function resetReviewSlide()
     createReviewDiv.classList.remove('active');
     xSVG.classList.remove('active')
 
-    createReviewStars.forEach(star =>
-    {
+    createReviewStars.forEach(star => {
         star.querySelector('path.fill').classList.add('not')
     })
     starsAreSelected = false;
