@@ -86,6 +86,7 @@ class ItemReview extends HTMLElement
             color: var(--day-dark03);
             font-size: 16px;
             font-weight: 500;
+            word-break: break-all;
         }
       </style>
 

@@ -111,7 +111,6 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-    /* Removes the inner padding in Chrome/Opera */
 }
 
 textarea {
@@ -125,10 +124,6 @@ div[contenteditable="true"] {
     word-break: break-all;
     border: none;
     outline: transparent;
-}
-
-div {
-    word-break: break-all;
 }
 
 .loading>.content>.spinner {
