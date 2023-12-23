@@ -41,9 +41,9 @@
     width: 800px;
 }
 
-.contents>.added>.header:hover {
+/* .contents>.added>.header:hover {
     outline: 2px solid var(--day-heart);
-}
+} */
 
 .contents>.added>.paragraph {
     color: var(--day-dark02);
@@ -52,11 +52,16 @@
     line-height: 175%;
     margin-top: 24px;
     width: 800px;
+    word-break: break-all;
 }
 
-.contents>.added>.paragraph:hover {
+.contents>.added>.paragraph.hover {
     outline: 2px solid var(--day-heart);
 }
+
+/* .contents>.added>.paragraph:hover {
+    outline: 2px solid var(--day-heart);
+} */
 
 .contents>.end {
     display: flex;
@@ -219,6 +224,7 @@
     font-size: 20px;
     font-weight: 500;
     line-height: 175%;
+    word-break: break-all;
 }
 
 .admin-buttons {
@@ -226,7 +232,7 @@
     left: 32px;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 16px;
 }

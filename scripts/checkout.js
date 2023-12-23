@@ -33,7 +33,6 @@ firebase.auth().onAuthStateChanged((user) =>
                 {
                     ordersDiv.innerHTML += `<checkout-order name="${product.data().name}" price="${product.data().price}" img="${product.data().photoURL}"
                         quantity="${orders[product.id]}"></checkout-order>`;
-                    console.log('includes: ' + product.id);
                     totalPrice += product.data().price * orders[product.id];
                 }
             })
