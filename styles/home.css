@@ -277,6 +277,23 @@ section {
     line-height: 103.523%;
 }
 
+.stats>.content>.stat>span>svg {
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+@keyframes descend {
+    0% {
+        transform: translateY(-50%);
+        opacity: 0.0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
 .stats>.content>.stat>p {
     color: rgba(255, 255, 255, 0.90);
     text-align: center;

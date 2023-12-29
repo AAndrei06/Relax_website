@@ -145,3 +145,25 @@ const servicesObserver = new IntersectionObserver((entries) =>
 });
 
 servicesObserver.observe(services[0]);
+
+// Stats animation
+
+const statsSection = document.querySelector('.stats')
+const statSVGs = document.querySelectorAll('.stats>.content>.stat>span>svg')
+
+const statsObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            statSVGs.forEach((div, index) =>
+            {
+                div.style.animation = `descend 0.35s ease-in-out forwards ${index * 0.10}s`;
+            })
+
+        }
+    });
+});
+
+statsObserver.observe(statsSection);
