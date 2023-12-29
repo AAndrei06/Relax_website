@@ -133,3 +133,25 @@ const formObserver = new IntersectionObserver((entries) =>
 
 
 formObserver.observe(underlineAnim);
+
+// Dark mode for map
+
+const isDarkMode = localStorage.getItem('darkMode') === 'true';
+const isLightMode = localStorage.getItem('lightMode') === 'true';
+
+const googleMap = document.querySelector('.map');
+
+if (isDarkMode)
+{
+    googleMap.style.filter = 'invert(100%)';
+}
+if (!isLightMode && !isDarkMode)
+{
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    {
+        googleMap.style.filter = 'invert(100%)';
+    } else
+    {
+        googleMap.style.filter = 'invert(0%)';
+    }
+}

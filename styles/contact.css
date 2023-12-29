@@ -421,7 +421,7 @@ header>.content>.images>.image:nth-child(2) {
 }
 
 .faq-section>.content>.faqs>.faq>.icon.anim>svg {
-    animation: grow 0.75s ease-in-out;
+    animation: rotate 0.75s ease-in-out;
 }
 
 .faq-section>.content>.faqs>.faq:nth-child(2)>.icon.anim>svg {
@@ -444,22 +444,15 @@ header>.content>.images>.image:nth-child(2) {
     animation-delay: 0.5s;
 }
 
+@keyframes rotate {
 
+    0% {
+        transform: rotate(0deg);
+    }
 
-
-
-
-@keyframes grow {
-
-    0%,
     100% {
-        transform: scale(1);
+        transform: rotate(360deg);
     }
-
-    50% {
-        transform: scale(1.35);
-    }
-
 }
 
 .faq-section>.content>.faqs>.faq>.text {
