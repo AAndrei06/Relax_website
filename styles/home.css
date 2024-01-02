@@ -200,8 +200,12 @@ section {
     align-items: center;
 }
 
-.type2>.content>.main>button>a>svg.anim {
+.type2>.content>.main>button>a>#phone-svg.anim {
     animation: shake 0.35s ease-in-out 2;
+}
+
+.type2>.content>.main>button>a>#arrow-svg.anim {
+    animation: arrow 1.35s ease-in-out 2;
 }
 
 @keyframes shake {
@@ -218,6 +222,19 @@ section {
     75% {
         transform: rotate(-15deg);
     }
+}
+
+@keyframes arrow {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(20%);
+    }
+
 }
 
 .stats {
@@ -266,18 +283,21 @@ section {
     width: 260px;
 }
 
-.stats>.content>.stat>span {
+.stats>.content>.stat>div {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 16px;
+}
+
+.stats>.content>.stat>div>span {
     color: #FFF;
     font-size: 72px;
     font-weight: 700;
     line-height: 103.523%;
 }
 
-.stats>.content>.stat>span>svg {
+.stats>.content>.stat>div>svg {
     transform: translateY(-50%);
     opacity: 0;
 }
@@ -504,8 +524,9 @@ section {
 }
 
 .articles-section>.content>.articles {
-    display: flex;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 24px;
 }
 
 
@@ -573,9 +594,19 @@ section {
     object-fit: cover;
     border-radius: 8px;
     transition: all 0.25s ease-in-out;
+    min-width: 100%;
 }
-
 
 .articles-section>.content>.articles>a>.article:hover>img {
     transform: scale(1.10);
+}
+
+.articles-section>.content>.articles>a>.article>.shadow {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.35) 100%)
 }

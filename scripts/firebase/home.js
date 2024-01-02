@@ -1,31 +1,30 @@
-const articlesSection = document.querySelector(".articles");
-articlesSection.innerHTML = "";
-document.getElementsByTagName("body")[0].style.display = "block";
-articlesDB.get().then((querySnapshot) => {
+let article1 = document.querySelector('#article1');
+let article2 = document.querySelector('#article2');
+let article3 = document.querySelector('#article3');
+
+let articleHTML = [article1, article2, article3];
+
+articlesDB.get().then((querySnapshot) =>
+{
     let articles = [];
-    querySnapshot.forEach((object) => {
+    querySnapshot.forEach((object) =>
+    {
         articles.push(object);
     })
 
     articles.sort(compar);
-    for (let object of articles) {
-        articlesSection.innerHTML += `
-            <a id="article1">
-                <div class="article">
 
-                    <div class="data">
-                        <p class="date">${formatDate(object.data().datePosted)}</p>
-                        <h3>${object.data().name}</h3>
-                    </div>
+    articleHTML.forEach((art, index) =>
+    {
+        art.href = `/pages/articol.html?id=${articles[index].id}`
 
-                    <img src="${object.data().photoURL}" alt="Imagine cu un DJ" loading="lazy">
+        let artData = art.querySelector('.article>.data>.date');
+        artData.innerHTML = `${formatDate(articles[index].data().datePosted)}`;
 
-                </div>
-            </a>
-        `;
-    }
-}).then(() => {
-    while (articlesSection.children.length > 3) {
-        articlesSection.children[articlesSection.children.length - 1].remove();
-    }
-});
+        let artName = art.querySelector('.article>.data>h3');
+        artName.innerHTML = `${articles[index].data().name}`;
+
+        artImage = art.querySelector('.article>img');
+        artImage.src = `${articles[index].data().photoURL}`;
+    })
+})
