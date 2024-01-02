@@ -1,6 +1,6 @@
 const navAcc = document.querySelector('nav>.account>.acc-img')
 const navButtons = document.querySelectorAll('nav>.account>button')
-document.getElementsByTagName("body")[0].style.display = "none";
+// document.getElementsByTagName("body")[0].style.display = "none";
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged((user) =>
                 navAcc.style.display = 'initial'
             });
         })
-        
+
 
     } else
     {

@@ -1,7 +1,6 @@
 is_current_user_admin = false;
 const addArticelBtn = document.querySelector(".add-article");
 const articlesSection = document.querySelector(".articles");
-//const allArticlesLinks = articlesSection.querySelectorAll(".articol");
 let allArticlesEditBtns = null;
 let allImgsSendUser = null;
 const ArticlePopup = document.getElementsByClassName("article-popup")[0];
@@ -14,21 +13,24 @@ const articlePopupOverlay = document.getElementById("article-overlay");
 let operation = "";
 let currentID = "";
 
-function openArticlePopup() {
+function openArticlePopup()
+{
     articlePopupOverlay.classList.add('show');
     ArticlePopup.classList.add('show');
 }
 
 
-articlesDB.onSnapshot((snapshot) => {
+articlesDB.onSnapshot((snapshot) =>
+{
     let docs = snapshot.docs;
     docs.sort(compar);
     articlesSection.innerHTML = "";
-    for (let i = 0; i < docs.length; i++) {
+    for (let i = 0; i < docs.length; i++)
+    {
         articlesSection.innerHTML += `
         
-        <a class="articol">
-            <div class="img unique-img-div" id="${docs[i].id}">
+        <a class="articol" href="articol.html?id=${docs[i].id}">
+            <div class="img" id="${docs[i].id}">
                 <img src="${docs[i].data().photoURL}" class = "img-send-user" alt="Imagine cu Night Party">
                 <button value = "${docs[i].id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
@@ -52,24 +54,20 @@ articlesDB.onSnapshot((snapshot) => {
         `;
     }
 
-    allImgsSendUser = document.querySelectorAll(".unique-img-div");
-    allImgsSendUser.forEach((image) => {
-        image.addEventListener("click", () => {
-            console.log(image.id);
-            window.location.href = `articol.html?id=${image.id}`;
-        })
-    })
-
     allArticlesEditBtns = document.querySelectorAll(".articles>.articol>.img>button");
-    allArticlesEditBtns.forEach((button) => {
-        button.addEventListener("click", (event) => {
+    allArticlesEditBtns.forEach((button) =>
+    {
+        button.addEventListener("click", (event) =>
+        {
             operation = "editingArticle";
             currentID = button.value;
-            if (operation == "editingArticle") {
+            if (operation == "editingArticle")
+            {
                 document.querySelector(".delete").style.display = "block";
                 document.querySelector(".delete").classList.add("active");
                 btnFormAdd.innerText = "Editează";
-                articlesDB.doc(button.value).get().then((object) => {
+                articlesDB.doc(button.value).get().then((object) =>
+                {
                     articleNameForm.value = object.data().name;
                     articleImgForm.src = object.data().photoURL;
                 })
@@ -83,24 +81,32 @@ articlesDB.onSnapshot((snapshot) => {
 
 });
 
-firebase.auth().onAuthStateChanged((fuser) => {
+firebase.auth().onAuthStateChanged((fuser) =>
+{
 
     console.log(allArticlesEditBtns);
-    if (fuser) {
+    if (fuser)
+    {
         loggedUser = fuser;
         console.log("is_user");
-        usersDB.where("admin", "==", true).get().then((querySnapshot) => {
-            querySnapshot.forEach((obj) => {
+        usersDB.where("admin", "==", true).get().then((querySnapshot) =>
+        {
+            querySnapshot.forEach((obj) =>
+            {
                 console.log("enter");
-                if (obj.data().ID == loggedUser.uid) {
+                if (obj.data().ID == loggedUser.uid)
+                {
                     is_current_user_admin = true;
                     console.log("ok", is_current_user_admin);
                 }
             })
-        }).then(() => {
-            if (!is_current_user_admin) {
+        }).then(() =>
+        {
+            if (!is_current_user_admin)
+            {
                 addArticelBtn.classList.remove("show");
-                allArticlesEditBtns.forEach((btn) => {
+                allArticlesEditBtns.forEach((btn) =>
+                {
                     btn.style.display = "none";
                 })
             }
@@ -108,7 +114,8 @@ firebase.auth().onAuthStateChanged((fuser) => {
     }
 
 
-    addArticelBtn.onclick = function () {
+    addArticelBtn.onclick = function ()
+    {
         articleNameForm.value = "";
         articleImgForm.files[0] = null;
         operation = "addingArticle";
@@ -117,58 +124,75 @@ firebase.auth().onAuthStateChanged((fuser) => {
         console.log(operation);
     }
 
-    btnFormDelete.onclick = function(){
-        if (operation == "editingArticle" && currentID != ""){
-            articlesDB.doc(currentID).delete().then(() => {
+    btnFormDelete.onclick = function ()
+    {
+        if (operation == "editingArticle" && currentID != "")
+        {
+            articlesDB.doc(currentID).delete().then(() =>
+            {
                 articlePopupOverlay.click();
             });
         }
     }
 
-    btnFormAdd.onclick = function () {
-        if (operation == "addingArticle") {
+    btnFormAdd.onclick = function ()
+    {
+        if (operation == "addingArticle")
+        {
             let file = articleImgForm.files[0];
             let name = articleNameForm.value;
             let date = new Date();
 
-            if (file != null && name != "") {
+            if (file != null && name != "")
+            {
                 articlesDB.add({
                     datePosted: date.getTime(),
                     name: name,
                     photoURL: "",
-                    textTypes:[],
+                    textTypes: [],
                     likes: [],
-                }).then((object) => {
-                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) => {
-                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                }).then((object) =>
+                {
+                    firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
                             downloadURLFile = urlfile;
                             articlesDB.doc(object.id).update({
                                 photoURL: downloadURLFile,
                             })
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             document.getElementById("article-overlay").click();
                         });
                     })
                 });
-            } else {
+            } else
+            {
                 document.getElementById("article-overlay").click();
                 window.alert("Introduce-ți toate informațiile");
             }
-        }else if (operation == "editingArticle"){
+        } else if (operation == "editingArticle")
+        {
             let file = articleImgForm.files[0];
             let name = articleNameForm.value;
-            if (file != null && name != ""){
+            if (file != null && name != "")
+            {
                 articlesDB.doc(currentID).update({
-                    name:name,
-                    photoURL:"",
-                }).then((object) => {
-                    firebase.storage().ref().child('/' + currentID + ".png").put(file).then((snapshot) => {
-                        snapshot.ref.getDownloadURL().then((urlfile) => {
+                    name: name,
+                    photoURL: "",
+                }).then((object) =>
+                {
+                    firebase.storage().ref().child('/' + currentID + ".png").put(file).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
                             downloadURLFile = urlfile;
                             articlesDB.doc(currentID).update({
                                 photoURL: downloadURLFile,
                             })
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             document.getElementById("article-overlay").click();
                         });
                     })

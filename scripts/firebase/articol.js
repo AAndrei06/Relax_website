@@ -60,7 +60,6 @@ firebase.auth().onAuthStateChanged((user) =>
                             addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
                         }
                     }
-                    document.getElementsByTagName("body")[0].style.display = "block";
                 })
             } else
             {
@@ -86,7 +85,6 @@ firebase.auth().onAuthStateChanged((user) =>
                         }
                     }
                 })
-                document.getElementsByTagName("body")[0].style.display = "block";
 
                 // Paragraph red hover
 
@@ -127,7 +125,6 @@ firebase.auth().onAuthStateChanged((user) =>
                     addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
                 }
             }
-            document.getElementsByTagName("body")[0].style.display = "block";
         })
 
 

@@ -60,7 +60,7 @@ window.addEventListener('scroll', () =>
 
 // Animations
 
-const phoneSVG = document.querySelector(".type2>.content>.main>button>a>svg")
+const phoneSVG = document.querySelector("#phone-svg")
 
 const phoneObserver = new IntersectionObserver((entries) =>
 {
@@ -76,6 +76,22 @@ const phoneObserver = new IntersectionObserver((entries) =>
 });
 
 phoneObserver.observe(phoneSVG);
+
+const arrowSVG = document.querySelector("#arrow-svg")
+
+const arrowObserver = new IntersectionObserver((entries) =>
+{
+    entries.forEach((entry) =>
+    {
+        if (entry.isIntersecting)
+        {
+            arrowSVG.classList.add("anim")
+        }
+
+    });
+});
+
+arrowObserver.observe(arrowSVG);
 
 const articles = document.querySelector(".articles-section>.content>.articles")
 
@@ -148,8 +164,21 @@ servicesObserver.observe(services[0]);
 
 // Stats animation
 
-const statsSection = document.querySelector('.stats')
-const statSVGs = document.querySelectorAll('.stats>.content>.stat>span>svg')
+const statsSection = document.querySelector('.stats');
+const statSVGs = document.querySelectorAll('.stats>.content>.stat>div>svg');
+
+const starStatSpan = document.querySelector("#star-stat-span"); // 4.1
+const timeStatSpan = document.querySelector("#time-stat-span"); // 22:00
+const menuStatSpan = document.querySelector("#menu-stat-span"); // +50
+
+let starStatSpanInterval;
+let starStatNr = 0.0;
+
+let timeStatSpanInterval;
+let timeStatNr = 0;
+
+let menuStatSpanInterval;
+let menuStatNr = 0;
 
 const statsObserver = new IntersectionObserver((entries) =>
 {
@@ -161,6 +190,52 @@ const statsObserver = new IntersectionObserver((entries) =>
             {
                 div.style.animation = `descend 0.35s ease-in-out forwards ${index * 0.10}s`;
             })
+
+            starStatSpanInterval = setInterval(() =>
+            {
+
+                if (starStatNr <= 4.1)
+                {
+                    starStatNr += 0.1;
+                    starStatSpan.innerText = `${starStatNr.toFixed(1)}`;
+                }
+                else
+                {
+                    clearInterval(starStatSpanInterval)
+                }
+
+            }, 25);
+
+            timeStatSpanInterval = setInterval(() =>
+            {
+
+                if (timeStatNr < 22)
+                {
+                    timeStatNr += 1;
+                    timeStatSpan.innerText = `${timeStatNr}:00`;
+                }
+                else
+                {
+                    clearInterval(timeStatSpanInterval)
+                }
+
+            }, 50);
+
+            menuStatSpanInterval = setInterval(() =>
+            {
+
+                if (menuStatNr < 50)
+                {
+                    menuStatNr += 1;
+                    console.log(menuStatNr)
+                    menuStatSpan.innerText = `+${menuStatNr}`;
+                }
+                else
+                {
+                    clearInterval(menuStatSpanInterval)
+                }
+
+            }, 20);
 
         }
     });
