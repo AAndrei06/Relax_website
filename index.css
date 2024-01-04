@@ -139,7 +139,7 @@ div[contenteditable="true"] {
     transform-origin: center;
     -webkit-animation: dash 1.4s ease-in-out infinite;
     animation: dash 1.4s ease-in-out infinite;
-    stroke: white;
+    stroke: var(--day-white01);
 }
 
 #submit-bttn {

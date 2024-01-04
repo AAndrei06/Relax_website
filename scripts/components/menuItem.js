@@ -1141,7 +1141,7 @@ class SideMenuItem extends HTMLElement
 
         :host>.text>.price {
             color: var(--day-dark03);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             margin-top: 2px;
             white-space: nowrap;

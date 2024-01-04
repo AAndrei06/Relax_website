@@ -127,11 +127,11 @@ main>.information>.method>.inputs>.input>.info>.content>button {
 
 main>.information>.method>.inputs>.input>.info>.content>.popup {
     position: absolute;
-    top: calc(-200% - 6px);
-    left: -355%;
+    top: calc(-200% - 16px);
+    right: -87px;
     transform: scale(0);
-    width: 154px;
-    height: 40px;
+    width: 200px;
+    height: 48px;
     padding: 6px 10px;
     border-radius: 4px;
     background: var(--day-dark01);
@@ -145,7 +145,7 @@ main>.information>.method>.inputs>.input>.info>.content>.popup>.content {
     width: 100%;
     height: 100%;
     color: var(--day-white01);
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 500;
     position: relative;
 }
@@ -273,39 +273,6 @@ main>.orders-div>.content>.wrap>.orders {
     gap: 12px;
 }
 
-main>.orders-div>.content>.wrap>.orders>.order {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-main>.orders-div>.content>.wrap>.orders>.order>.wrap {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-}
-
-main>.orders-div>.content>.wrap>.orders>.order>.wrap>.img {
-    width: 80px;
-    height: 80px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-}
-
-main>.orders-div>.content>.wrap>.orders>.order>.wrap>.name {
-    color: var(--day-dark01);
-    font-size: 20px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-main>.orders-div>.content>.wrap>.orders>.order>.price {
-    color: var(--day-dark3);
-    font-size: 18px;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
 main>.orders-div>.content>.wrap>.separator {
     margin-top: 24px;
     width: 100%;
@@ -345,6 +312,7 @@ main>.orders-div>.content>.wrap>.total {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 64px;
 }
 
 main>.orders-div>.content>.wrap>.total>.header {
