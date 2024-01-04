@@ -65,7 +65,11 @@ class CheckoutOrder extends HTMLElement
             color: var(--day-dark01);
             font-size: 20px;
             font-weight: 700;
-            white-space: nowrap;
+            display: -webkit-box;
+            width: 165px;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2
         }
 
         :host>.price {

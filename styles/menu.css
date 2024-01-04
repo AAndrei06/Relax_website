@@ -469,11 +469,48 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.categories-sections>.empty-section>.no-results {
+    display: none;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 32px;
     color: var(--day-dark03);
     font-size: 40px;
     font-weight: 500;
+}
+
+.categories-sections>.empty-section>.no-results.show {
+    display: flex;
+}
+
+.categories-sections>.empty-section>.loading {
+    position: absolute;
+    top: 248px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: opacity 0.1s ease-in-out;
+    display: none;
+}
+
+.categories-sections>.empty-section>.loading.show {
+    display: flex;
+}
+
+.categories-sections>.empty-section>.loading>.content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories-sections>.empty-section>.loading>.content>.spinner>.path {
+    stroke: var(--day-dark03);
 }
 
 .menu-section {
