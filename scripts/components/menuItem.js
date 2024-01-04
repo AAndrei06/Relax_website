@@ -294,9 +294,25 @@ firebase.auth().onAuthStateChanged((user) =>
     }
 });
 
+let menuItems = [];
+let menuIDs = [];
+
 productsDB.get().then((querySnapshot) =>
 {
-    filterAndRender(querySnapshot);
+
+    // Work
+
+    querySnapshot.forEach((product, index) =>
+    {
+        menuItems.push(product.data());
+        menuIDs.push(product.id)
+
+    })
+    menuItems.forEach((item, index) =>
+    {
+        item.id = menuIDs[index]
+    })
+    renderMenuItems(menuItems)
 
     itemQuantityMap.forEach(item =>
     {
@@ -316,7 +332,7 @@ productsDB.get().then((querySnapshot) =>
 
             e.target.classList.toggle('selected');
             updateMainCategories();
-            filterAndRender(querySnapshot);
+            filterAndRender(menuItems);
         })
     })
 
@@ -330,16 +346,17 @@ productsDB.get().then((querySnapshot) =>
         sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
         sliderValue.textContent = slider.value
         price = slider.value;
-        filterAndRender(querySnapshot)
+        filterAndRender(menuItems)
     });
 
     mainSearch.addEventListener('input', () =>
     {
-        filterAndRender(querySnapshot)
+        filterAndRender(menuItems)
     })
-    document.getElementsByTagName("body")[0].style.display = "block";
 
-    createReviewBttn.classList.remove('disabled')
+    createReviewBttn.classList.remove('disabled');
+    document.querySelector('.categories-sections>.empty-section>.loading').classList.remove('show');
+    document.querySelector('.empty-section>.no-results').classList.add('show');
 })
 
 const itemOverlay = document.querySelector('#item-overlay');
@@ -394,6 +411,80 @@ stars.forEach(star =>
     })
 })
 
+function renderMenuItems(menuItems)
+{
+    const criteria = [
+        ['stars', mainStarsFilled],
+        ['search', mainSearch.value],
+        ['price', price],
+    ];
+
+    let filteredItems = filterMenuItems(menuItems, criteria);
+
+    filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+
+    filteredItems.forEach((item) =>
+    {
+        const section = allSections.querySelector(`#${item.category}`);
+        const items = section.querySelector('.items');
+
+        const reviews = item.reviews || [];
+
+        if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
+        {
+            section.style.display = 'none'
+        }
+        else
+        {
+            section.style.display = 'initial';
+            items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
+                            reviews='${JSON.stringify(reviews)}'
+                            description="${item.description}"
+                            masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
+        }
+
+    })
+
+    allSections.querySelector('.empty-section').classList.remove('show')
+}
+
+function summonEmptySection()
+{
+    let emptySections = 0;
+    allSections.querySelectorAll('.menu-section').forEach(section =>
+    {
+        const items = section.querySelector('.items');
+        const menuItems = Array.from(items.children);
+
+        let hiddenItems = 0;
+
+        menuItems.forEach(item =>
+        {
+            if (item.style.display == 'none')
+            {
+                hiddenItems += 1;
+            }
+        })
+
+        if (hiddenItems == menuItems.length || (categoriesIndexesArray.includes(section.id) && categoriesIndexesArray.length !== 10))
+        {
+            emptySections += 1;
+            section.style.display = 'none';
+        }
+        else
+        {
+            section.style.display = 'flex';
+        }
+    })
+    if (emptySections == 10)
+    {
+        allSections.querySelector('.empty-section').classList.add('show');
+    }
+    else
+    {
+        allSections.querySelector('.empty-section').classList.remove('show');
+    }
+}
 
 function filterMenuItems(menuItems, criteria)
 {
@@ -435,7 +526,7 @@ function filterMenuItems(menuItems, criteria)
     });
 }
 
-function filterAndRender(querySnapshot)
+function filterAndRender(menuItems)
 {
     const criteria = [
         ['stars', mainStarsFilled],
@@ -443,79 +534,39 @@ function filterAndRender(querySnapshot)
         ['price', price],
     ];
 
-    let menuItems = [];
-    let menuIDs = []
-
-    querySnapshot.forEach((product, index) =>
-    {
-        menuItems.push(product.data());
-        menuIDs.push(product.id)
-
-    })
-    menuItems.forEach((item, index) =>
-    {
-        item.id = menuIDs[index]
-    })
-
     let filteredItems = filterMenuItems(menuItems, criteria);
 
     filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+
+    let filteredIDs = [];
+
+    filteredItems.forEach(item =>
+    {
+        filteredIDs.push(item.id)
+    })
 
     const sections = allSections.querySelectorAll(`.menu-section`);
     sections.forEach(section =>
     {
         const items = section.querySelector('.items');
-        items.innerHTML = '';
+        Array.from(items.children).forEach(item =>
+        {
+            item.hide()
+        })
+
+        let itemNodes = Array.from(items.children);
+
+        itemNodes.forEach(item =>
+        {
+
+            if (filteredIDs.includes(item.id))
+            {
+                item.style.display = 'flex';
+            }
+        })
     })
 
-    filteredItems.forEach((item, index) =>
-    {
-        const section = allSections.querySelector(`#${item.category}`);
-        const items = section.querySelector('.items');
-
-        let reviews = []
-        if (item.reviews)
-        {
-            reviews = item.reviews
-        }
-
-        if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
-        {
-            section.style.display = 'none'
-        }
-        else
-        {
-            section.style.display = 'initial';
-            items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
-                            reviews='${JSON.stringify(reviews)}'
-                            description="${item.description}"
-                            masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
-        }
-
-    })
-
-    let emptySections = 0;
-    allSections.querySelectorAll('section').forEach(section =>
-    {
-        const items = section.querySelector('.items');
-
-        if (items && items.innerHTML == '')
-        {
-            section.style.display = 'none';
-        }
-        if (section.style.display == 'none')
-        {
-            emptySections += 1;
-        }
-    })
-    if (emptySections == 10)
-    {
-        allSections.querySelector('.empty-section').classList.add('show')
-    }
-    else
-    {
-        allSections.querySelector('.empty-section').classList.remove('show')
-    }
+    summonEmptySection()
 
 }
 
@@ -552,6 +603,7 @@ checkoutButton.addEventListener('click', () =>
         window.location.href = '/pages/checkout.html'
     }
 })
+
 function updateMenuSidebar()
 {
 
@@ -632,11 +684,11 @@ class MenuItem extends HTMLElement
             height: 518px; 
             position: relative;
         }
-
         :host img {
             width: 100%;
             height: 300px;
             border-radius: 4px;
+            object-fit: cover;
         }
 
         :host>.name {
@@ -683,7 +735,7 @@ class MenuItem extends HTMLElement
             width: 100%;
             height: 40px;
             border-radius: 4px;
-            background: var(--day-dark01);
+            background: var(--day-concealed-black);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -708,6 +760,7 @@ class MenuItem extends HTMLElement
             transform: rotate(0deg);
             transition: all 0.1s ease-in-out;
             pointer-events:none;
+            stroke: var(--day-white01);
         }
         :host>.bottom>button.shake>svg
         {
@@ -716,6 +769,7 @@ class MenuItem extends HTMLElement
         :host>.bottom>button>span
         {
             display: none;
+            color: rgba(255, 255, 255, 0.75);
         }
       </style>
 
@@ -731,7 +785,7 @@ class MenuItem extends HTMLElement
                 fill="none">
                 <path
                     d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
-                    stroke="var(--day-white01)" stroke-width="2" stroke-linecap="round"
+                    stroke="rgba(255, 255, 255, 0.75)" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg>
             <span class="num"></span>
@@ -748,12 +802,12 @@ class MenuItem extends HTMLElement
         {
             e.stopPropagation();
             this.addNumValue();
+            console.log(this.numValue)
             if (!sideMenuIDs.includes(itemId))
             {
                 sideMenuIDs.push(itemId)
             }
             button.classList.add('shake');
-
             updateMenuSidebar()
         });
 
@@ -937,11 +991,14 @@ class MenuItem extends HTMLElement
     }
     updateStars()
     {
-        popupStars.innerText = `${assignStars(this.starScore)}`
-        reviewStars.innerText = `${assignStars(this.starScore)}`
-        this.shadowRoot.querySelector(':host>.stars').innerText = `${assignStars(this.starScore)}`
+        popupStars.innerText = `${assignStars(this.starScore)}`;
+        reviewStars.innerText = `${assignStars(this.starScore)}`;
+        this.shadowRoot.querySelector(':host>.stars').innerText = `${assignStars(this.starScore)}`;
     }
-
+    hide()
+    {
+        this.style.display = 'none'
+    }
 }
 
 window.customElements.define("menu-item", MenuItem)
@@ -1043,7 +1100,7 @@ class SideMenuItem extends HTMLElement
             font-weight: 700;
             white-space: nowrap;
             padding-right: 4px;
-            width: 215px;
+            width: 200px;
             text-overflow: ellipsis;
             white-space: now-wrap;
             overflow: hidden;
