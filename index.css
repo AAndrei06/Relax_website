@@ -289,39 +289,39 @@ nav.fixed.abs {
     padding: 32px 64px;
 }
 
-nav.fixed>.content>.logo {
+nav>.content>.logo>a {
     color: var(--day-dark01);
 }
 
-nav.fixed>.content>.links-list>.link {
+nav>.content>.links-list>.link>a {
     color: var(--day-dark03);
 }
 
-nav.fixed>.content>.links-list>.link:hover {
+nav>.content>.links-list>.link:hover>a {
     color: var(--day-dark02);
 }
 
-nav.fixed>.content>.links-list>.link.current {
+nav>.content>.links-list>.link.current>a {
     color: var(--day-dark01);
 }
 
-nav.fixed>.account>.transparent-bttn {
+nav>.account>.transparent-bttn {
     color: var(--day-dark01);
     transition: color 0.1s linear;
 }
 
-nav.fixed>.account>.transparent-bttn:hover {
+nav>.account>.transparent-bttn:hover {
     color: var(--day-dark03);
 }
 
-nav.fixed>.account>.outline-buttn {
+nav>.account>.outline-buttn {
     border: none;
     background: var(--day-dark01);
     transition: background 0.1s linear;
     color: var(--day-white01);
 }
 
-nav.fixed>.account>.outline-buttn:hover {
+nav>.account>.outline-buttn:hover {
     background: var(--day-dark03);
 }
 
@@ -332,10 +332,13 @@ nav>.content {
 }
 
 nav>.content>.logo {
-    color: #fff;
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 6.36px;
+}
+
+nav.home>.content>.logo>a {
+    color: #fff;
 }
 
 nav>.content>.links-list {
@@ -344,18 +347,21 @@ nav>.content>.links-list {
     gap: 40px;
 }
 
-nav>.content>.links-list>.link {
-    color: rgba(255, 255, 255, 0.75);
+nav>.content>.links-list>.link>a {
     font-size: 20px;
     font-weight: 600;
     transition: color 0.1s linear;
 }
 
-nav>.content>.links-list>.link:hover {
+nav.home>.content>.links-list>.link>a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+nav.home>.content>.links-list>.link:hover>a {
     color: rgba(255, 255, 255, 0.90);
 }
 
-nav>.content>.links-list>.link.current {
+nav.home>.content>.links-list>.link.current>a {
     color: #fff;
 }
 
@@ -373,7 +379,6 @@ nav>.account>.transparent-bttn {
     align-items: center;
     gap: 10px;
     border-radius: 4px;
-    color: #fff;
     font-size: 20px;
     font-weight: 600;
     background: none;
@@ -382,7 +387,11 @@ nav>.account>.transparent-bttn {
     display: none;
 }
 
-nav>.account>.transparent-bttn:hover {
+nav.home>.account>.transparent-bttn {
+    color: #fff;
+}
+
+nav.home>.account>.transparent-bttn:hover {
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -393,9 +402,6 @@ nav>.account>.outline-buttn {
     align-items: center;
     gap: 10px;
     border-radius: 4px;
-    border: 2px solid #FFF;
-    background: rgba(12, 12, 12, 0.25);
-    color: #fff;
     font-size: 20px;
     font-weight: 600;
     background: none;
@@ -404,7 +410,13 @@ nav>.account>.outline-buttn {
     display: none;
 }
 
-nav>.account>.outline-buttn:hover {
+nav.home>.account>.outline-buttn {
+    border: 2px solid #FFF;
+    background: rgba(12, 12, 12, 0.25);
+    color: #fff;
+}
+
+nav.home>.account>.outline-buttn:hover {
     border-color: rgba(255, 255, 255, 0.9);
     color: rgba(255, 255, 255, 0.9);
 }
