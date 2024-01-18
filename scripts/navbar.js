@@ -22,7 +22,6 @@ window.addEventListener('scroll', () =>
         else if (navbar.classList.contains('fixed'))
         {
             navbar.style.transform = 'translateY(-100%)';
-            // navbar.style.transition = 'transform 0.15s';
         }
     }
     if (currentScrollPosition == 0)

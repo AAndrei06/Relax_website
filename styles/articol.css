@@ -1,7 +1,5 @@
 .contents {
-    margin-top: 128px;
-    margin-bottom: 128px;
-    padding: 0 256px;
+    padding: 128px 256px;
     display: flex;
     flex-direction: column;
     gap: 16px;
