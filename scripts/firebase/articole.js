@@ -10,6 +10,11 @@ const previewImg = document.querySelector(".preview-img");
 const btnFormAdd = document.getElementById("btn-form-add");
 const btnFormDelete = document.getElementById("btn-form-delete");
 const articlePopupOverlay = document.getElementById("article-overlay");
+
+const deleteArticleBttn = document.querySelector('.article-popup>.buttons>button.delete')
+const articleFileInputLabel = document.querySelector('.img-add-label');
+
+
 let operation = "";
 let currentID = "";
 
@@ -17,6 +22,26 @@ function openArticlePopup()
 {
     articlePopupOverlay.classList.add('show');
     ArticlePopup.classList.add('show');
+}
+
+function closeArticlePopup()
+{
+    articlePopupOverlay.classList.remove('show');
+    ArticlePopup.classList.remove('show');
+    // articlePopup.reset();
+
+    setTimeout(() =>
+    {
+        deleteArticleBttn.classList.add('active')
+    }, 100)
+
+    articleImgForm.value = ''
+    previewImg.src = ''
+
+    previewImg.classList.remove('show');
+    articleFileInputLabel.classList.add('show');
+    articleFileInputLabel.children[0].innerHTML = 'Adaugă imaginea'
+
 }
 
 
@@ -31,7 +56,7 @@ articlesDB.onSnapshot((snapshot) =>
         
         <a class="articol" href="articol.html?id=${docs[i].id}">
             <div class="img" id="${docs[i].id}">
-                <img src="${docs[i].data().photoURL}" class = "img-send-user" alt="Imagine cu Night Party">
+                <img src="${docs[i].data().photoURL}" class = "img-send-user" alt="Imagine cu ${docs[i].data().name}">
                 <button value = "${docs[i].id}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                         fill="none">
@@ -59,6 +84,8 @@ articlesDB.onSnapshot((snapshot) =>
     {
         button.addEventListener("click", (event) =>
         {
+            event.stopPropagation();
+            event.preventDefault();
             operation = "editingArticle";
             currentID = button.value;
             if (operation == "editingArticle")
@@ -72,12 +99,11 @@ articlesDB.onSnapshot((snapshot) =>
                     articleImgForm.src = object.data().photoURL;
                 })
             }
-            event.stopPropagation();
+
             openArticlePopup();
 
         })
     });
-    document.getElementsByTagName("body")[0].style.display = "block";
 
 });
 
@@ -130,7 +156,7 @@ firebase.auth().onAuthStateChanged((fuser) =>
         {
             articlesDB.doc(currentID).delete().then(() =>
             {
-                articlePopupOverlay.click();
+                closeArticlePopup()
             });
         }
     }
@@ -163,19 +189,20 @@ firebase.auth().onAuthStateChanged((fuser) =>
                             })
                         }).then(() =>
                         {
-                            document.getElementById("article-overlay").click();
+                            closeArticlePopup()
                         });
                     })
                 });
             } else
             {
-                document.getElementById("article-overlay").click();
+                closeArticlePopup()
                 window.alert("Introduce-ți toate informațiile");
             }
         } else if (operation == "editingArticle")
         {
             let file = articleImgForm.files[0];
             let name = articleNameForm.value;
+            console.log(name)
             if (file != null && name != "")
             {
                 articlesDB.doc(currentID).update({
@@ -193,10 +220,14 @@ firebase.auth().onAuthStateChanged((fuser) =>
                             })
                         }).then(() =>
                         {
-                            document.getElementById("article-overlay").click();
+                            closeArticlePopup();
                         });
                     })
                 });
+            }
+            else
+            {
+                closeArticlePopup()
             }
         }
     }

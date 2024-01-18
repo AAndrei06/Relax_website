@@ -11,15 +11,16 @@ const addArticleBttn = document.querySelector('.add-article');
 const deleteArticleBttn = document.querySelector('.article-popup>.buttons>button.delete')
 
 
-allArticles.forEach(article =>
-{
-    article.children[0].children[1].addEventListener('click', (e) =>
-    {
-        e.stopPropagation();
-        e.preventDefault()
-        openArticlePopup();
-    })
-})
+// allArticles.forEach(article =>
+// {
+//     article.querySelector('.settings').addEventListener('click', (e) =>
+//     {
+//         e.stopPropagation();
+//         e.preventDefault();
+//         openArticlePopup();
+//     })
+
+// })
 
 function openArticlePopup()
 {
@@ -31,7 +32,7 @@ function closeArticlePopup()
 {
     articlePopupOverlay.classList.remove('show');
     articlePopup.classList.remove('show');
-   // articlePopup.reset();
+    // articlePopup.reset();
 
     setTimeout(() =>
     {
