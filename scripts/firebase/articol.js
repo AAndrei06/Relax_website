@@ -39,7 +39,6 @@ firebase.auth().onAuthStateChanged((user) =>
             if (is_current_user_admin == false)
             {
 
-
                 articlesDB.doc(DocumentID).get().then((object) =>
                 {
                     articleImg.src = object.data().photoURL;

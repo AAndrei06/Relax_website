@@ -14,6 +14,7 @@ const observer = new IntersectionObserver((entries) =>
         {
             navbar.style.transition = 'initial'
             navbar.classList.add("fixed");
+            navbar.classList.remove('home');
             clearTimeout(navbarTransitionTimeout)
             navbarTransitionTimeout = setTimeout(() =>
             {
@@ -28,6 +29,7 @@ const observer = new IntersectionObserver((entries) =>
             navbarFixedTimeout = setTimeout(() =>
             {
                 navbar.classList.remove("fixed");
+                navbar.classList.add('home');
                 navbar.style.transition = 'initial'
                 navbar.style.transform = 'translateY(0%)'
 

@@ -2,6 +2,7 @@ const navbar = document.querySelector('.nav-bar')
 
 let previousScrollPosition = window.scrollY;
 
+
 window.addEventListener('scroll', () =>
 {
     const currentScrollPosition = window.scrollY;
@@ -10,14 +11,16 @@ window.addEventListener('scroll', () =>
 
     if (currentScrollPosition > rect.height)
     {
+        navbar.style.transition = 'initial'
+        navbar.classList.add('fixed');
+
         if (currentScrollPosition < previousScrollPosition)
         {
-            navbar.classList.add('fixed');
             navbar.style.transform = 'translateY(0%)'
+            navbar.style.transition = 'transform 0.15s'
         }
-        else
+        else if (navbar.classList.contains('fixed'))
         {
-            navbar.classList.remove('fixed');
             navbar.style.transform = 'translateY(-100%)';
         }
     }
