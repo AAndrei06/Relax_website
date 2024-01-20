@@ -162,10 +162,10 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    color: var(--day-white01);
+    color: var(--day-dark02);
     font-size: 16px;
     font-weight: 700;
-    background-color: var(--day-dark01);
+    background-color: var(--day-concealed-black);
     border-radius: 4px;
     margin-top: 16px;
     height: 36px;

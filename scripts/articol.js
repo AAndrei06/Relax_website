@@ -1,9 +1,10 @@
 import { focusItem } from "./utils.js";
 
-const commentTextarea = document.querySelector('.contents>.end>#add-comment>.textarea>textarea')
-const commentWordsSpan = document.querySelector('.contents>.end>#add-comment>.textarea>.max')
+const commentTextarea = document.querySelector('.contents>.end>#add-comment>.textarea>textarea');
+const commentWordsSpan = document.querySelector('.contents>.end>#add-comment>.textarea>.max');
 
-const navbar = document.querySelector('.nav-bar')
+const navbar = document.querySelector('.nav-bar');
+navbar.style.transition = 'initial';
 navbar.style.transform = 'translateY(0%)'
 
 let pastTextareaValue = 0;

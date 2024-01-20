@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged((user) =>
         {
             firebase.auth().signOut().then(() =>
             {
-                window.location = "autentificare.html";
+                window.location = "../index.html";
             }).catch((error) =>
             {
                 console.log(error);
@@ -78,6 +78,6 @@ firebase.auth().onAuthStateChanged((user) =>
             });
     } else
     {
-        window.location = "autentificare.html";
+        window.location = "../index.html";
     }
 });

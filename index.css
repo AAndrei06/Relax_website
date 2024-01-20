@@ -19,6 +19,8 @@
     --day-m-shadow02: rgba(46, 46, 46, 1);
     --day-concealed-black: rgba(12, 12, 12, 1);
 
+    --day-placeholder: #F3F3F3;
+
     /* --night-dark01: rgba(255, 255, 255, 1);
     --night-dark02: rgba(255, 255, 255, 0.9);
     --night-dark03: rgba(255, 255, 255, 0.75);
@@ -58,6 +60,7 @@
     --day-m-shadow01: rgba(27, 27, 27, 1);
     --day-m-shadow02: rgba(43, 43, 43, 1);
     --day-concealed-black: rgba(34, 34, 34, 1);
+    --day-placeholder: rgba(34, 34, 34, 1);
 }
 
 * {
@@ -269,7 +272,7 @@ nav {
     padding: 32px 64px;
     position: absolute;
     top: 0px;
-    z-index: 100;
+    z-index: 4;
     transition: transform 0.15s;
 }
 
@@ -409,6 +412,18 @@ nav>.account>.outline-buttn {
     display: none;
 }
 
+nav>.account>.outline-buttn {
+    border: 2px solid var(--day-dark01);
+    color: var(--day-dark01);
+}
+
+nav>.account>.outline-buttn:hover {
+    border-color: var(--day-dark01);
+    color: var(--day-dark01);
+    background-color: var(--day-dark01);
+    color: var(--day-white01);
+}
+
 nav.home>.account>.outline-buttn {
     border: 2px solid #FFF;
     background: rgba(12, 12, 12, 0.25);
@@ -417,7 +432,8 @@ nav.home>.account>.outline-buttn {
 
 nav.home>.account>.outline-buttn:hover {
     border-color: rgba(255, 255, 255, 0.9);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--day-dark01);
+    background-color: white;
 }
 
 nav>.account>.acc-img {

@@ -3,7 +3,7 @@ nav {
 }
 
 nav>a {
-    color: var(--day-black01);
+    color: var(--day-dark01);
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 6.36px;

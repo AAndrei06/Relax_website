@@ -18,61 +18,37 @@ header>h1 {
     margin-top: 32px;
     padding: 0 64px;
     margin-bottom: 128px;
+    min-height: 60vh;
 }
 
-.articles>.articol {
+.articles>.article-placeholder {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    cursor: pointer;
 }
 
-.articles>.articol>.img {
+.articles>.article-placeholder>.img {
     height: 215px;
     width: 100%;
     border-radius: 8px;
-    position: relative;
+    background-color: var(--day-placeholder);
 }
 
-.articles>.articol>.img:hover>button {
-    opacity: 1;
-    pointer-events: initial;
-    transform: scale(1);
+.articles>.article-placeholder>.name {
+    margin-top: 12px;
+    height: 24px;
+    border-radius: 2px;
+    background-color: var(--day-placeholder);
+    width: 90%;
 }
 
-.articles>.articol>.img>button {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    opacity: 0;
-    pointer-events: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 100px;
-    background: var(--day-white01);
-    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.15), 0px 2px 2px 0px rgba(0, 0, 0, 0.13), 0px 5px 3px 0px rgba(0, 0, 0, 0.08), 0px 9px 4px 0px rgba(0, 0, 0, 0.02), 0px 15px 4px 0px rgba(0, 0, 0, 0.00);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: scale(0);
-    transition: all 0.1s ease-in-out;
-}
-
-.articles>.articol>.name {
-    color: var(--day-dark01);
-    font-size: 32px;
-    font-weight: 700;
-    margin-top: 4px;
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-}
-
-.articles>.articol>.date {
-    color: var(--day-dark03);
-    font-size: 18px;
-    font-weight: 600;
+.articles>.article-placeholder>.date {
+    margin-top: 12px;
+    height: 24px;
+    border-radius: 2px;
+    width: 50%;
+    background-color: var(--day-placeholder);
 }
 
 .article-popup {
@@ -106,7 +82,7 @@ header>h1 {
 
 .article-popup>.img>img {
     display: none;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .article-popup>.img>img.show {
@@ -125,7 +101,6 @@ header>h1 {
     background-color: var(--day-dark02);
     width: 100%;
     height: 40px;
-
 }
 
 .article-popup>.img>label>span {
@@ -210,10 +185,12 @@ header>h1 {
     background: var(--day-white01);
     z-index: 4;
     display: none;
+    pointer-events: none;
     align-items: center;
     justify-content: center;
 }
 
 .add-article.show {
     display: flex;
+    pointer-events: initial;
 }
