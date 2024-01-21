@@ -8,10 +8,12 @@ const previewImg = document.querySelector('.preview-img');
 const articlesSection = document.querySelector('.articles')
 const articleName = document.querySelector('#article-name')
 const articleAddBttn = document.querySelector("#article-form-add");
+const articleDeleteBttn = document.querySelector("#article-form-delete");
 
 const addArticleBttn = document.querySelector('.add-article');
-const deleteArticleBttn = document.querySelector('.article-popup>.buttons>button.delete')
 
+let adminOperation = '';
+let currentID;
 
 function openArticlePopup()
 {
@@ -26,7 +28,7 @@ function closeArticlePopup()
 
     setTimeout(() =>
     {
-        deleteArticleBttn.classList.add('active')
+        articleDeleteBttn.classList.add('active')
         articleFileInput.value = ''
         previewImg.src = ''
         previewImg.classList.remove('show');
@@ -39,8 +41,9 @@ function closeArticlePopup()
 
 addArticleBttn.addEventListener('click', () =>
 {
-    deleteArticleBttn.classList.remove('active')
-    openArticlePopup()
+    articleDeleteBttn.classList.remove('active');
+    openArticlePopup();
+    adminOperation = 'add';
 })
 
 articlePopupOverlay.addEventListener('click', () =>
@@ -197,12 +200,16 @@ class ArticleItem extends HTMLElement
 
                 openArticlePopup();
 
-                articleFileInputLabel.classList.remove('show')
-                previewImg.classList.add('show')
+                articleFileInputLabel.classList.remove('show');
+                previewImg.classList.add('show');
                 previewImg.src = this.getAttribute('img');
-                articleFileInputLabel.children[0].innerHTML = 'Schimbă imaginea'
+                articleFileInputLabel.children[0].innerHTML = 'Schimbă imaginea';
                 articleName.value = this.getAttribute('name');
                 articleAddBttn.innerHTML = 'Editează';
+
+                adminOperation = 'edit';
+
+                currentID = this.getAttribute('id');
 
             })
         }
@@ -219,7 +226,7 @@ function renderArticles()
     {
         let docs = snapshot.docs;
         docs.sort(compar);
-
+        articlesSection.innerHTML = '';
         for (let i = 0; i < docs.length; i++)
         {
             articlesSection.innerHTML += `<article-item img="${docs[i].data().photoURL}" name="${docs[i].data().name}" date="${formatDate(docs[i].data().datePosted)}"
@@ -230,8 +237,6 @@ function renderArticles()
 
 firebase.auth().onAuthStateChanged((fuser) =>
 {
-    articlesSection.innerHTML = ''
-
     if (fuser)
     {
         usersDB.where("admin", "==", true).where("ID", "==", fuser.uid).get().then((querySnapshot) =>
@@ -252,4 +257,94 @@ firebase.auth().onAuthStateChanged((fuser) =>
     }
 });
 
+articleDeleteBttn.addEventListener('click', () =>
+{
+    if (adminOperation == "edit" && currentID != "" && isAdmin)
+    {
+        articlesDB.doc(currentID).delete().then(() =>
+        {
+            closeArticlePopup();
+        });
+    }
+})
+
+articleAddBttn.addEventListener('click', () =>
+{
+    if (adminOperation == "add" && isAdmin)
+    {
+        let file = articleFileInput.files[0];
+        let name = articleName.value;
+        let date = new Date();
+
+        if (file != null && name != "")
+        {
+            articlesDB.add({
+                datePosted: date.getTime(),
+                name: name,
+                photoURL: "",
+                textTypes: [],
+                likes: [],
+            }).then((object) =>
+            {
+                firebase.storage().ref().child('/' + object.id + ".png").put(file).then((snapshot) =>
+                {
+                    snapshot.ref.getDownloadURL().then((urlfile) =>
+                    {
+                        articlesDB.doc(object.id).update({
+                            photoURL: urlfile,
+                        })
+                    }).then(() =>
+                    {
+                        closeArticlePopup()
+                    });
+                })
+            });
+        } else
+        {
+            closeArticlePopup()
+            window.alert("Introduce-ți toate informațiile");
+        }
+    } else if (adminOperation == "edit" && isAdmin)
+    {
+        let file = articleFileInput.files[0];
+        let name = articleName.value;
+
+        if (name != "")
+        {
+            articlesDB.doc(currentID).update({
+                name: name,
+            })
+
+            if (file != null)
+            {
+                articlesDB.doc(currentID).update({
+                    photoURL: "",
+                }).then((object) =>
+                {
+                    firebase.storage().ref().child('/' + currentID + ".png").put(file).then((snapshot) =>
+                    {
+                        snapshot.ref.getDownloadURL().then((urlfile) =>
+                        {
+                            articlesDB.doc(currentID).update({
+                                photoURL: urlfile,
+                            })
+                        }).then(() =>
+                        {
+                            closeArticlePopup()
+                        });
+                    })
+                });
+            }
+            else
+            {
+                closeArticlePopup()
+            }
+
+        }
+        else
+        {
+            closeArticlePopup()
+        }
+    }
+})
 
