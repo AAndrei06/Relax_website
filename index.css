@@ -321,6 +321,7 @@ nav>.account>.outline-buttn {
     background: var(--day-dark01);
     transition: background 0.1s linear;
     color: var(--day-white01);
+    white-space: nowrap;
 }
 
 nav>.account>.outline-buttn:hover {
