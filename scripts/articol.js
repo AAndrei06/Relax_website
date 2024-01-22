@@ -44,7 +44,7 @@ const adminBigText = document.querySelector('.admin-buttons>.big-text');
 
 adminBigText.addEventListener('click', () =>
 {
-    addedContent.innerHTML += `<div contenteditable="true" class="header">Test</div>`
+    addedContent.innerHTML += `<div contenteditable="true" class="header" >Test</div>`
     focusItem(addedContent.children[addedContent.children.length - 1])
 })
 
@@ -52,7 +52,7 @@ const adminSmallText = document.querySelector('.admin-buttons>.small-text');
 
 adminSmallText.addEventListener('click', () =>
 {
-    addedContent.innerHTML += `<div contenteditable="true" class="paragraph">Test</div>`
+    addedContent.innerHTML += `<div contenteditable="true" class="paragraph" >Test</div>`
     focusItem(addedContent.children[addedContent.children.length - 1])
 })
 
