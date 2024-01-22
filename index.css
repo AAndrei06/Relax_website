@@ -129,6 +129,7 @@ div[contenteditable="true"] {
     word-break: break-all;
     border: none;
     outline: transparent;
+    -webkit-user-modify: read-write-plaintext-only;
 }
 
 .loading>.content>.spinner {
@@ -467,6 +468,12 @@ footer {
     justify-content: space-between;
     z-index: 4;
     position: relative;
+}
+
+footer.abs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 footer>.social-media {

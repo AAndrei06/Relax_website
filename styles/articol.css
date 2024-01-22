@@ -162,7 +162,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    color: var(--day-dark02);
+    color: rgba(255, 255, 255, 1);
     font-size: 16px;
     font-weight: 700;
     background-color: var(--day-concealed-black);
