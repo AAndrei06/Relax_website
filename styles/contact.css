@@ -133,7 +133,7 @@ header>.content>.images>.image:nth-child(2) {
     width: 10%;
     height: 100%;
     position: relative;
-    background-color: var(--day-dark01);
+    background-color: var(--day-gold);
     border-radius: 12px;
     transform: translateX(-100%);
 }
