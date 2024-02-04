@@ -15,6 +15,7 @@ const observer = new IntersectionObserver((entries) =>
             navbar.style.transition = 'initial'
             navbar.classList.add("fixed");
             navbar.classList.remove('home');
+            navbar.style.backgroundColor = 'var(--day-white01)'
             clearTimeout(navbarTransitionTimeout)
             navbarTransitionTimeout = setTimeout(() =>
             {
@@ -30,6 +31,7 @@ const observer = new IntersectionObserver((entries) =>
             {
                 navbar.classList.remove("fixed");
                 navbar.classList.add('home');
+                navbar.style.background = 'none';
                 navbar.style.transition = 'initial'
                 navbar.style.transform = 'translateY(0%)'
 
@@ -55,6 +57,7 @@ window.addEventListener('scroll', () =>
     else if (navbar.classList.contains('fixed'))
     {
         navbar.style.transform = 'translateY(-100%)'
+        // navbar.style.background = 'none';
     }
 
     previousScrollPosition = currentScrollPosition;
@@ -134,16 +137,20 @@ articlesDB.get().then((querySnapshot) =>
 
     articleHTML.forEach((art, index) =>
     {
-        art.href = `/pages/articol.html?id=${articles[index].id}`
+        if (articles[index] !== undefined)
+        {
+            art.href = `/pages/articol.html?id=${articles[index].id}`
 
-        let artData = art.querySelector('.article>.data>.date');
-        artData.innerHTML = `${formatDate(articles[index].data().datePosted)}`;
+            let artData = art.querySelector('.article>.data>.date');
+            artData.innerHTML = `${formatDate(articles[index].data().datePosted)}`;
 
-        let artName = art.querySelector('.article>.data>h3');
-        artName.innerHTML = `${articles[index].data().name}`;
+            let artName = art.querySelector('.article>.data>h3');
+            artName.innerHTML = `${articles[index].data().name}`;
 
-        artImage = art.querySelector('.article>img');
-        artImage.src = `${articles[index].data().photoURL}`;
+            artImage = art.querySelector('.article>img');
+            artImage.src = `${articles[index].data().photoURL}`;
+        }
+
     })
 })
 
