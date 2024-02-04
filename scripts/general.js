@@ -1,6 +1,11 @@
+import { lockScroll, unlockScroll } from "./utils.js";
+
 const navAcc = document.querySelector('nav>.account>.acc-img')
 const navButtons = document.querySelectorAll('nav>.account>button')
-// document.getElementsByTagName("body")[0].style.display = "none";
+
+const moreMenuAcc = document.querySelector(".more-menu>.content>.acc-img");
+const moreMenuAccButtons = document.querySelector(".more-menu>.content>.account");
+
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
@@ -9,13 +14,15 @@ firebase.auth().onAuthStateChanged((user) =>
         {
             button.style.display = "none"
         })
+        moreMenuAccButtons.style.display = 'none'
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
             {
-                navAcc.querySelector('img').src = doc.data().photoURL
-                console.log(doc.data().admin)
-                navAcc.style.display = 'initial'
+                navAcc.querySelector('img').src = doc.data().photoURL;
+                navAcc.style.display = 'initial';
+                moreMenuAcc.style.display = 'initial';
+                moreMenuAcc.querySelector('img').src = doc.data().photoURL;
             });
         })
 
@@ -27,7 +34,8 @@ firebase.auth().onAuthStateChanged((user) =>
             button.style.display = "initial"
             button.style.pointerEvents = "initial"
         })
-
+        moreMenuAcc.style.display = 'none';
+        moreMenuAccButtons.style.display = 'flex'
         navAcc.style.display = 'none'
     }
 });
@@ -56,4 +64,33 @@ disclaimerOverlay.addEventListener('click', () =>
     disclaimer.classList.remove('show');
     disclaimerContent.classList.remove('show');
     disclaimerOverlay.classList.remove('show');
+})
+
+// More Menu
+
+const moreMenuButton = document.querySelector('nav>.more');
+const moreMenu = document.querySelector('.more-menu');
+const navBar = document.querySelector("nav");
+
+moreMenuButton.addEventListener('click', () =>
+{
+    moreMenu.classList.toggle('show');
+    if (moreMenu.classList.contains('show'))
+    {
+        lockScroll();
+        if (navBar.classList.contains('fixed') && !navBar.classList.contains('home'))
+        {
+            navBar.style.background = 'none';
+        }
+
+    }
+    else
+    {
+        unlockScroll();
+        if (!navBar.classList.contains('home'))
+        {
+            navBar.style.backgroundColor = 'var(--day-white01)'
+        }
+
+    }
 })
