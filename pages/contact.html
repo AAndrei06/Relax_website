@@ -21,7 +21,7 @@
     </script>
 
     <script defer src="../scripts/navbar.js"></script>
-    <script defer src="../scripts/general.js"></script>
+    <script defer type="module" src="../scripts/general.js"></script>
     <script defer type="module" src="../scripts/contact.js"></script>
     <script defer type="module" src="../scripts/darkTheme.js"></script>
 
@@ -32,23 +32,26 @@
     <nav class="nav-bar">
         <div class="content">
             <div class="logo">
-                <a href="../index.html">RELAX</a>
+                <a href="../index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
-                <li class="link"><a href="../index.html">Acasă</a></li>
-                <li class="link"><a href="../pages/menu.html">Meniu</a></li>
-                <li class="link current"><a href="./contact.html">Contacte</a></li>
-                <li class="link"><a href="./articole.html">Articole</a></li>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                </li>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                </li>
             </ul>
+
         </div>
         <div class="account">
-            <button class="transparent-bttn">
-                <a href="./autentificare.html">Autentificare</a>
-            </button>
-            <button class="outline-buttn">
-                <a href="./inregistrare.html">
-                    Înregistrează-te
+            <button class="transparent-bttn" aria-label="Autentifica-te">
+                <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
+                    Autentificare
                 </a>
+            </button>
+            <button class="outline-buttn" aria-label="Înregistrează-te">
+                <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
             </button>
             <button class="acc-img" aria-label="Account">
                 <a href="./account.html">
@@ -56,20 +59,55 @@
                 </a>
             </button>
         </div>
+        <button class="more">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                    d="M1.99805 3.99998C1.99805 3.73477 2.1034 3.48041 2.29094 3.29288C2.47848 3.10534 2.73283 2.99998 2.99805 2.99998H20.998C21.2633 2.99998 21.5176 3.10534 21.7052 3.29288C21.8927 3.48041 21.998 3.73477 21.998 3.99998C21.998 4.2652 21.8927 4.51955 21.7052 4.70709C21.5176 4.89463 21.2633 4.99998 20.998 4.99998H2.99805C2.73283 4.99998 2.47848 4.89463 2.29094 4.70709C2.1034 4.51955 1.99805 4.2652 1.99805 3.99998ZM2.99805 13H20.998C21.2633 13 21.5176 12.8946 21.7052 12.7071C21.8927 12.5196 21.998 12.2652 21.998 12C21.998 11.7348 21.8927 11.4804 21.7052 11.2929C21.5176 11.1053 21.2633 11 20.998 11H2.99805C2.73283 11 2.47848 11.1053 2.29094 11.2929C2.1034 11.4804 1.99805 11.7348 1.99805 12C1.99805 12.2652 2.1034 12.5196 2.29094 12.7071C2.47848 12.8946 2.73283 13 2.99805 13ZM2.99805 21H20.998C21.2633 21 21.5176 20.8946 21.7052 20.7071C21.8927 20.5196 21.998 20.2652 21.998 20C21.998 19.7348 21.8927 19.4804 21.7052 19.2929C21.5176 19.1053 21.2633 19 20.998 19H2.99805C2.73283 19 2.47848 19.1053 2.29094 19.2929C2.1034 19.4804 1.99805 19.7348 1.99805 20C1.99805 20.2652 2.1034 20.5196 2.29094 20.7071C2.47848 20.8946 2.73283 21 2.99805 21Z"
+                    fill="white" />
+            </svg>
+        </button>
     </nav>
+    <div class="more-menu overlay">
+        <div class="content">
+            <ul class="links-list">
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                </li>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                </li>
+            </ul>
+            <div class="account">
+                <button class="transparent-bttn" aria-label="Autentifica-te">
+                    <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
+                        Autentificare
+                    </a>
+                </button>
+                <button class="outline-buttn" aria-label="Înregistrează-te">
+                    <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
+                </button>
+            </div>
+            <a class="acc-img" href="./account.html">
+                <img src="" alt="Imaginea ta de profil">
+            </a>
+        </div>
+
+    </div>
     <main>
         <header>
             <div class="content">
                 <div class="text">
-                    <h1 class="header">Contactează-ne</h1>
+                    <h1 class="header">Contacte</h1>
                     <p class="paragraph">Indiferent dacă dorești să ne contactezi în legătură cu o solicitare sau doar
                         să obții indicații, poți găsi
                         toate informațiile de care ai nevoie mai jos.</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-                        <path d="M16.0007 8V24M16.0007 24L9.33398 17.3333M16.0007 24L22.6673 17.3333"
-                            stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="2.66667"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
+                    <div class="arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16.0007 8V24M16.0007 24L9.33398 17.3333M16.0007 24L22.6673 17.3333"
+                                stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+
                 </div>
                 <div class="images">
 
@@ -82,7 +120,9 @@
 
 
                 </div>
-
+                <div class="shadow"></div>
+                <div class="gradient fr"></div>
+                <div class="gradient sc"></div>
             </div>
         </header>
         <section class="form-section">
@@ -238,10 +278,10 @@
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10990.157926638973!2d28.2538091!3d46.4776291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c9fec47611fe05%3A0xadd21194240e6729!2sRelax!5e0!3m2!1sfr!2s!4v1698505701690!5m2!1sfr!2s"
                         width="600" height="450" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    <div id="shadow1"></div>
-                    <div id="shadow2"></div>
-                    <div id="shadow3"></div>
-                    <div id="shadow4"></div>
+                    <div class="shadow" id="shadow1"></div>
+                    <div class="shadow" id="shadow2"></div>
+                    <div class="shadow" id="shadow3"></div>
+                    <div class="shadow" id="shadow4"></div>
                 </div>
 
             </div>
@@ -249,7 +289,7 @@
         <section class="faq-section">
             <div class="content">
                 <div class="text">
-                    <h2 class="header">Întrebari Frecvente</h2>
+                    <h2 class="header">Întrebări Frecvente</h2>
                     <p class="paragraph">Blocat? Suntem aici să te ajutăm cu toate întrebările tale într-un singur loc.
                     </p>
                 </div>

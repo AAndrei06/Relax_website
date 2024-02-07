@@ -236,7 +236,7 @@ div[contenteditable="true"] {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 5;
+    z-index: 6;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.15s ease-in-out;
@@ -306,10 +306,6 @@ nav>.account>.outline-buttn {
     transition: background 0.1s linear;
     color: var(--day-white01);
     white-space: nowrap;
-}
-
-nav>.account>.outline-buttn:hover {
-    background: var(--day-dark03);
 }
 
 nav>.content {
@@ -402,23 +398,10 @@ nav>.account>.outline-buttn {
     color: var(--day-dark01);
 }
 
-nav>.account>.outline-buttn:hover {
-    border-color: var(--day-dark01);
-    color: var(--day-dark01);
-    background-color: var(--day-dark01);
-    color: var(--day-white01);
-}
-
 nav.home>.account>.outline-buttn {
     border: 2px solid #FFF;
     background: rgba(12, 12, 12, 0.25);
     color: #fff;
-}
-
-nav.home>.account>.outline-buttn:hover {
-    border-color: rgba(255, 255, 255, 0.9);
-    color: var(--day-dark01);
-    background-color: white;
 }
 
 nav>.account>.acc-img {
@@ -472,7 +455,7 @@ nav>.more {
 
 .more-menu>.content>.links-list>.link {
     color: rgba(255, 255, 255, 0.75);
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 400;
 }
 
@@ -514,8 +497,8 @@ nav>.more {
 
 .more-menu>.content>.acc-img {
     position: absolute;
-    left: 24px;
-    bottom: 40px;
+    left: 48px;
+    bottom: 48px;
     width: 96px;
     height: 96px;
     border-radius: 100px;
@@ -523,7 +506,7 @@ nav>.more {
     display: none;
 }
 
-.more-menu>.content>.acc-img>a>img {
+.more-menu>.content>.acc-img>img {
     border-radius: 100%;
 }
 
@@ -585,7 +568,7 @@ footer>.copyright {
     transform: translate(-50%, -50%);
     opacity: 0;
     pointer-events: none;
-    transition: all 0.1s;
+    transition: all 0.15s;
     z-index: 10;
 }
 
@@ -655,7 +638,7 @@ footer>.copyright {
     }
 
     nav {
-        padding: 32px 48px;
+        padding: 32px 48px !important;
     }
 }
 
@@ -687,9 +670,14 @@ footer>.copyright {
 
 }
 
-@media(max-width: 394px) {
+@media(max-width: 400px) {
     nav {
-        padding: 32px 24px;
+        padding: 32px 24px !important;
+    }
+
+    .more-menu>.content>.acc-img {
+        left: 24px;
+        bottom: 40px;
     }
 
     .more-menu>.content>.links-list {

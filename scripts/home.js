@@ -267,7 +267,6 @@ const statsObserver = new IntersectionObserver((entries) =>
                 if (menuStatNr < 50)
                 {
                     menuStatNr += 1;
-                    console.log(menuStatNr)
                     menuStatSpan.innerText = `+${menuStatNr}`;
                 }
                 else
