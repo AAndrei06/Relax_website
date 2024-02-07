@@ -48,8 +48,8 @@ const disclaimerBttn = document.querySelector(".close-disclaimer");
 
 copyright.addEventListener('click', () =>
 {
-    disclaimer.classList.add('show')
-    disclaimerContent.classList.add('show')
+    disclaimer.classList.add('show');
+    disclaimerContent.classList.add('show');
     disclaimerOverlay.classList.add('show');
 })
 

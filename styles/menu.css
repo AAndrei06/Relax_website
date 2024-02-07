@@ -312,7 +312,7 @@
     width: 384px;
     border-radius: 8px 0px 0px 8px;
     background: var(--day-white01);
-    z-index: 5;
+    z-index: 7;
     opacity: 0;
     pointer-events: none;
     transform: translateX(100%);
@@ -554,7 +554,7 @@
     opacity: 0;
     pointer-events: none;
     border: none;
-    z-index: 5;
+    z-index: 6;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 32px;
@@ -1155,7 +1155,7 @@
     opacity: 0;
     pointer-events: none;
     border: none;
-    z-index: 5;
+    z-index: 6;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 32px;

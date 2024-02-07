@@ -53,7 +53,7 @@ header>h1 {
 
 .article-popup {
     position: fixed;
-    z-index: 5;
+    z-index: 6;
     width: 350px;
     height: 532px;
     background-color: var(--day-white01);
@@ -193,4 +193,37 @@ header>h1 {
 .add-article.show {
     display: flex;
     pointer-events: initial;
+}
+
+@media(max-width: 1100px) {
+    header {
+        padding-left: 48px;
+    }
+
+    .articles {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .articles {
+        row-gap: 24px;
+        margin-top: 24px;
+        padding: 0 48px;
+        margin-bottom: 128px;
+    }
+}
+
+@media(max-width: 550px) {
+    .articles {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding-left: 24px;
+    }
+
+    .articles {
+        margin-top: 24px;
+        padding: 0 24px;
+        margin-bottom: 56px;
+    }
 }
