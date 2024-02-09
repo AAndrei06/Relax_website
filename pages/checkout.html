@@ -25,123 +25,128 @@
         <a href="../index.html">RELAX</a>
     </nav>
     <main>
-        <form class="information">
-            <div class="method">
-                <span class="header">
-                    Plată Rapidă
-                </span>
-                <div class="services">
-                    <button type="button" class="service">shopPay</button>
-                    <button type="button" class="service">Amazon</button>
-                    <button type="button" class="service">PayPal</button>
-                    <button type="button" class="service">Google Pay</button>
-                </div>
-                <div class="or">
-                    <div></div>
-                    <span>sau</span>
-                    <div></div>
-                </div>
-            </div>
-            <div class="method">
-                <div class="header">
-                    <span>Adresa de Livrare</span>
-                    <span class="extra">* Livrăam doar in Leova | Moldova</span>
-                </div>
-                <div class="inputs">
-                    <div class="input">
-                        <input id="adress-input" type="text" placeholder="Adresa" required autocomplete="off">
+        <div class="all">
+            <form class="information">
+                <div class="method">
+                    <span class="header">
+                        Plată Rapidă
+                    </span>
+                    <div class="services">
+                        <button type="button" class="service">shopPay</button>
+                        <button type="button" class="service">Amazon</button>
+                        <button type="button" class="service">PayPal</button>
+                        <button type="button" class="service">Google Pay</button>
                     </div>
-                    <div class="input">
-                        <input id="apartament-input" type="text" placeholder="Apartament (optional)" autocomplete="off">
+                    <div class="or">
+                        <div></div>
+                        <span>sau</span>
+                        <div></div>
                     </div>
-                    <div class="input">
-                        <input id="phone-input" type="number" placeholder="Telefon (optional)" autocomplete="off">
-                        <div class="info">
-                            <div class="content">
-                                <div class="popup">
-                                    <div class="content">
-                                        In caz că avem nevoie să te contactăm despre comandă
-                                        <div class="pointer"></div>
+                </div>
+                <div class="method">
+                    <div class="header">
+                        <span>Adresa de Livrare</span>
+                        <span class="extra">* Livrăam doar in Leova | Moldova</span>
+                    </div>
+                    <div class="inputs">
+                        <div class="input">
+                            <input id="adress-input" type="text" placeholder="Adresa" required autocomplete="off">
+                        </div>
+                        <div class="input">
+                            <input id="apartament-input" type="text" placeholder="Apartament (optional)"
+                                autocomplete="off">
+                        </div>
+                        <div class="input">
+                            <input id="phone-input" type="number" placeholder="Telefon (optional)" autocomplete="off">
+                            <div class="info">
+                                <div class="content">
+                                    <div class="popup">
+                                        <div class="content">
+                                            In caz că avem nevoie să te contactăm despre comandă
+                                            <div class="pointer"></div>
+                                        </div>
                                     </div>
+                                    <button type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 20 20" fill="none">
+                                            <path
+                                                d="M10 18.3337C14.6024 18.3337 18.3333 14.6027 18.3333 10.0003C18.3333 5.39795 14.6024 1.66699 10 1.66699C5.39762 1.66699 1.66666 5.39795 1.66666 10.0003C1.66666 14.6027 5.39762 18.3337 10 18.3337Z"
+                                                stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="1.25" />
+                                            <path
+                                                d="M8.4375 7.39551C8.4375 6.53257 9.13708 5.83301 10 5.83301C10.8629 5.83301 11.5625 6.53257 11.5625 7.39551C11.5625 7.96838 11.2542 8.46926 10.7945 8.74126C10.3983 8.97559 10 9.33109 10 9.79134V10.833"
+                                                stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="1.25"
+                                                stroke-linecap="round" />
+                                            <path
+                                                d="M10 14.1667C10.4602 14.1667 10.8333 13.7936 10.8333 13.3333C10.8333 12.8731 10.4602 12.5 10 12.5C9.53976 12.5 9.16666 12.8731 9.16666 13.3333C9.16666 13.7936 9.53976 14.1667 10 14.1667Z"
+                                                fill="var(--day-dark01)" fill-opacity="0.75" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path
-                                            d="M10 18.3337C14.6024 18.3337 18.3333 14.6027 18.3333 10.0003C18.3333 5.39795 14.6024 1.66699 10 1.66699C5.39762 1.66699 1.66666 5.39795 1.66666 10.0003C1.66666 14.6027 5.39762 18.3337 10 18.3337Z"
-                                            stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="1.25" />
-                                        <path
-                                            d="M8.4375 7.39551C8.4375 6.53257 9.13708 5.83301 10 5.83301C10.8629 5.83301 11.5625 6.53257 11.5625 7.39551C11.5625 7.96838 11.2542 8.46926 10.7945 8.74126C10.3983 8.97559 10 9.33109 10 9.79134V10.833"
-                                            stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="1.25"
-                                            stroke-linecap="round" />
-                                        <path
-                                            d="M10 14.1667C10.4602 14.1667 10.8333 13.7936 10.8333 13.3333C10.8333 12.8731 10.4602 12.5 10 12.5C9.53976 12.5 9.16666 12.8731 9.16666 13.3333C9.16666 13.7936 9.53976 14.1667 10 14.1667Z"
-                                            fill="var(--day-dark01)" fill-opacity="0.75" />
-                                    </svg>
-                                </button>
+
                             </div>
 
-                        </div>
 
-
-                    </div>
-                </div>
-            </div>
-            <div class="next">
-                <button class="accent-off">
-                    <a href="../pages/menu.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path
-                                d="M9.47627 3.83133C9.15009 3.53539 8.62119 3.53539 8.29501 3.83133L4.21267 7.53862C3.56082 8.13061 3.56107 9.08983 4.21317 9.68152L8.29802 13.3874C8.6242 13.6834 9.15309 13.6834 9.47929 13.3874C9.80549 13.0915 9.80549 12.6116 9.47929 12.3157L5.98313 9.14386C5.65687 8.84794 5.65695 8.36811 5.98313 8.07219L9.47627 4.90302C9.80247 4.60708 9.80247 4.12727 9.47627 3.83133Z"
-                                fill="var(--day-dark01)" fill-opacity="0.5" />
-                        </svg>
-                        Înapoi la Cart
-                    </a>
-
-                </button>
-                <button class="disabled" type="submit" id="continue-button">Continuă</button>
-            </div>
-        </form>
-
-        <div class="orders-div">
-            <div class="content">
-                <div class="loading">
-                    <div class="content">
-                        <svg class="spinner" width="128px" height="128px" viewBox="0 0 66 66"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="33" cy="33"
-                                r="30"></circle>
-                        </svg>
-                    </div>
-
-                </div>
-                <div class="wrap">
-                    <div class="orders"></div>
-                    <div class="separator"></div>
-                    <div class="totals">
-                        <div>
-                            <span class="header">Subtotal:</span>
-                            <span class="price" id="subtotal">0.00 MDL</span>
-                        </div>
-                        <div>
-                            <span class="header">Livrare:</span>
-                            <span class="price">35.00 MDL</span>
                         </div>
                     </div>
-                    <div class="separator"></div>
-                    <div class="total">
-                        <span class="header">
-                            Total
-                        </span>
-                        <span class="total-price">
-                            35.00 MDL
-                        </span>
+                </div>
+                <div class="next">
+                    <button class="accent-off">
+                        <a href="../pages/menu.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+                                <path
+                                    d="M9.47627 3.83133C9.15009 3.53539 8.62119 3.53539 8.29501 3.83133L4.21267 7.53862C3.56082 8.13061 3.56107 9.08983 4.21317 9.68152L8.29802 13.3874C8.6242 13.6834 9.15309 13.6834 9.47929 13.3874C9.80549 13.0915 9.80549 12.6116 9.47929 12.3157L5.98313 9.14386C5.65687 8.84794 5.65695 8.36811 5.98313 8.07219L9.47627 4.90302C9.80247 4.60708 9.80247 4.12727 9.47627 3.83133Z"
+                                    fill="var(--day-dark01)" fill-opacity="0.5" />
+                            </svg>
+                            Înapoi la Cart
+                        </a>
+
+                    </button>
+                    <button class="disabled" type="submit" id="continue-button">Continuă</button>
+                </div>
+            </form>
+
+            <div class="orders-div">
+                <div class="content">
+                    <div class="loading">
+                        <div class="content">
+                            <svg class="spinner" width="128px" height="128px" viewBox="0 0 66 66"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="33" cy="33"
+                                    r="30">
+                                </circle>
+                            </svg>
+                        </div>
+
                     </div>
+                    <div class="wrap">
+                        <div class="orders"></div>
+                        <div class="separator"></div>
+                        <div class="totals">
+                            <div>
+                                <span class="header">Subtotal:</span>
+                                <span class="price" id="subtotal">0.00 MDL</span>
+                            </div>
+                            <div>
+                                <span class="header">Livrare:</span>
+                                <span class="price">35.00 MDL</span>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="total">
+                            <span class="header">
+                                Total
+                            </span>
+                            <span class="total-price">
+                                35.00 MDL
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
-        </div>
+
+
     </main>
 </body>
