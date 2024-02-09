@@ -1,11 +1,11 @@
 let ordersString = localStorage.getItem('orders');
 let orders = JSON.parse(ordersString);
 
-const ordersDiv = document.querySelector("main>.orders-div>.content>.wrap>.orders");
+const ordersDiv = document.querySelector(".all>.orders-div>.content>.wrap>.orders");
 const allOrdersSection = document.querySelector('.orders-div>.content');
-const ordersContent = document.querySelector('main>.orders-div>.content>.wrap')
-const totalPriceDiv = document.querySelector("main>.orders-div>.content>.wrap>.total>.total-price");
-const loadingAnim = document.querySelector("main>.orders-div>.content>.loading")
+const ordersContent = document.querySelector('.all>.orders-div>.content>.wrap')
+const totalPriceDiv = document.querySelector(".all>.orders-div>.content>.wrap>.total>.total-price");
+const loadingAnim = document.querySelector(".all>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
 
@@ -48,7 +48,7 @@ firebase.auth().onAuthStateChanged((user) =>
 const adressInput = document.querySelector("#adress-input");
 const apartamentInput = document.querySelector("#apartament-input");
 const phoneInput = document.querySelector("#phone-input");
-const checkoutForm = document.querySelector("main>.information")
+const checkoutForm = document.querySelector(".all>.information")
 
 
 checkoutForm.addEventListener('submit', (e) =>
@@ -57,8 +57,8 @@ checkoutForm.addEventListener('submit', (e) =>
 
 })
 
-const infoButton = document.querySelector('main>.information>.method>.inputs>.input>.info>.content>button');
-const infoPopup = document.querySelector('main>.information>.method>.inputs>.input>.info>.content>.popup');
+const infoButton = document.querySelector('.all>.information>.method>.inputs>.input>.info>.content>button');
+const infoPopup = document.querySelector('.all>.information>.method>.inputs>.input>.info>.content>.popup');
 
 infoButton.addEventListener('click', (e) =>
 {

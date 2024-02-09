@@ -13,22 +13,30 @@ main {
     width: 100%;
     height: 100vh;
     position: relative;
-    padding: 140px 0 0 64px;
+    /* padding: 140px 0 0 64px; */
 }
 
-main>.information {
+.all {
+    display: grid;
+    grid-template-columns: 500px 33.33%;
+    justify-content: space-between;
+    padding: 0px 0 0 64px;
+}
+
+.all>.information {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    padding: 140px 0 0 0;
 }
 
-main>.information>.method {
+.all>.information>.method {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-main>.information>.method>.header {
+.all>.information>.method>.header {
     color: var(--day-dark01);
     font-size: 24px;
     font-weight: 600;
@@ -37,7 +45,7 @@ main>.information>.method>.header {
     gap: 8px;
 }
 
-main>.information>.method>.services {
+.all>.information>.method>.services {
     display: grid;
     width: 500px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -46,7 +54,7 @@ main>.information>.method>.services {
     height: 40px;
 }
 
-main>.information>.method>.services>.service {
+.all>.information>.method>.services>.service {
     width: 100%;
     height: 100%;
     background-color: black;
@@ -54,7 +62,7 @@ main>.information>.method>.services>.service {
     color: white;
 }
 
-main>.information>.method>.or {
+.all>.information>.method>.or {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     width: 500px;
@@ -62,31 +70,31 @@ main>.information>.method>.or {
     align-items: center;
 }
 
-main>.information>.method>.or>div {
+.all>.information>.method>.or>div {
     height: 1px;
     background: var(--day-dark05);
 }
 
-main>.information>.method>.or>span {
+.all>.information>.method>.or>span {
     color: var(--day-dark04);
     text-align: center;
     font-size: 16px;
     font-weight: 600;
 }
 
-main>.information>.method>.header>.extra {
+.all>.information>.method>.header>.extra {
     color: var(--day-dark04);
     font-size: 12px;
     font-weight: 500;
 }
 
-main>.information>.method>.inputs {
+.all>.information>.method>.inputs {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-main>.information>.method>.inputs>.input {
+.all>.information>.method>.inputs>.input {
     width: 500px;
     height: 40px;
     border-radius: 4px;
@@ -94,7 +102,7 @@ main>.information>.method>.inputs>.input {
     position: relative;
 }
 
-main>.information>.method>.inputs>.input>input {
+.all>.information>.method>.inputs>.input>input {
     color: var(--day-dark04);
     width: 100%;
     height: 100%;
@@ -104,7 +112,7 @@ main>.information>.method>.inputs>.input>input {
     border-radius: 4px;
 }
 
-main>.information>.method>.inputs>.input>.info {
+.all>.information>.method>.inputs>.input>.info {
     position: absolute;
     top: 50%;
     right: 12px;
@@ -112,20 +120,20 @@ main>.information>.method>.inputs>.input>.info {
 
 }
 
-main>.information>.method>.inputs>.input>.info>.content {
+.all>.information>.method>.inputs>.input>.info>.content {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-main>.information>.method>.inputs>.input>.info>.content>button {
+.all>.information>.method>.inputs>.input>.info>.content>button {
     background: none;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-main>.information>.method>.inputs>.input>.info>.content>.popup {
+.all>.information>.method>.inputs>.input>.info>.content>.popup {
     position: absolute;
     top: calc(-200% - 16px);
     right: -87px;
@@ -141,7 +149,7 @@ main>.information>.method>.inputs>.input>.info>.content>.popup {
     transition: all 0.1s ease-in-out;
 }
 
-main>.information>.method>.inputs>.input>.info>.content>.popup>.content {
+.all>.information>.method>.inputs>.input>.info>.content>.popup>.content {
     width: 100%;
     height: 100%;
     color: var(--day-white01);
@@ -150,7 +158,7 @@ main>.information>.method>.inputs>.input>.info>.content>.popup>.content {
     position: relative;
 }
 
-main>.information>.method>.inputs>.input>.info>.content>.popup>.content>.pointer {
+.all>.information>.method>.inputs>.input>.info>.content>.popup>.content>.pointer {
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -161,12 +169,12 @@ main>.information>.method>.inputs>.input>.info>.content>.popup>.content>.pointer
     background: var(--day-dark01);
 }
 
-main>.information>.method>.inputs>.input>.info>.content>.popup.show {
+.all>.information>.method>.inputs>.input>.info>.content>.popup.show {
     transform: scale(1);
     opacity: 1;
 }
 
-main>.information>.next {
+.all>.information>.next {
     margin-top: 20px;
     width: 500px;
     display: flex;
@@ -174,9 +182,10 @@ main>.information>.next {
     justify-content: space-between;
 }
 
-main>.information>.next>button {
-    width: 128px;
-    height: 40px;
+.all>.information>.next>button {
+    /* width: 128px; */
+    /* height: 40px; */
+    padding: 8px 24px;
     border-radius: 4px;
     background: var(--day-dark01);
     color: var(--day-white01);
@@ -194,7 +203,7 @@ main>.information>.next>button {
     pointer-events: none;
 }
 
-main>.information>.next>button>a {
+.all>.information>.next>button>a {
     width: 100%;
     height: 100%;
     display: flex;
@@ -204,24 +213,30 @@ main>.information>.next>button>a {
 }
 
 
-main>.information>.next>button:hover {
+.all>.information>.next>button:hover {
     opacity: 0.9;
 }
 
-main>.information>.next>button:active {
+.all>.information>.next>button:active {
     opacity: 1;
 }
 
-main>.information>.next>button.accent-off {
+.all>.information>.next>button.accent-off {
     background: none;
     color: var(--day-dark04);
     font-size: 14px;
     font-weight: 500;
+    height: 40px;
+    padding: 0;
 }
 
-main>.orders-div {
-    position: absolute;
-    width: 33.33%;
+.all>.information>.next>button.accent-off>a>svg {
+    width: 16px;
+    height: 16px;
+}
+
+.all>.orders-div {
+    width: 100%;
     height: 100vh;
     background: var(--day-background);
     right: 0;
@@ -230,14 +245,14 @@ main>.orders-div {
     padding: 64px 64px 0 64px;
 }
 
-main>.orders-div>.content {
+.all>.orders-div>.content {
     width: 100%;
     height: 100%;
     position: relative;
     flex-direction: column;
 }
 
-main>.orders-div>.content>.wrap {
+.all>.orders-div>.content>.wrap {
     width: 100%;
     height: 100%;
     position: relative;
@@ -267,47 +282,47 @@ main>.orders-div>.content>.wrap {
     stroke: var(--day-dark06);
 }
 
-main>.orders-div>.content>.wrap>.orders {
+.all>.orders-div>.content>.wrap>.orders {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-main>.orders-div>.content>.wrap>.separator {
+.all>.orders-div>.content>.wrap>.separator {
     margin-top: 24px;
     width: 100%;
     height: 1px;
     background: var(--day-separator);
 }
 
-main>.orders-div>.content>.wrap>.totals {
+.all>.orders-div>.content>.wrap>.totals {
     display: flex;
     flex-direction: column;
     gap: 12px;
     margin-top: 24px;
 }
 
-main>.orders-div>.content>.wrap>.totals>div {
+.all>.orders-div>.content>.wrap>.totals>div {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-main>.orders-div>.content>.wrap>.totals>div>.header {
+.all>.orders-div>.content>.wrap>.totals>div>.header {
     color: var(--day-dark03);
     font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.wrap>.totals>div>.price {
+.all>.orders-div>.content>.wrap>.totals>div>.price {
     color: var(--day-dark03);
     font-size: 18px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.wrap>.total {
+.all>.orders-div>.content>.wrap>.total {
     margin-top: 16px;
     display: flex;
     align-items: center;
@@ -315,16 +330,160 @@ main>.orders-div>.content>.wrap>.total {
     padding-bottom: 64px;
 }
 
-main>.orders-div>.content>.wrap>.total>.header {
+.all>.orders-div>.content>.wrap>.total>.header {
     color: var(--day-dark02);
     font-size: 20px;
     font-weight: 600;
     white-space: nowrap;
 }
 
-main>.orders-div>.content>.wrap>.total>.total-price {
+.all>.orders-div>.content>.wrap>.total>.total-price {
     color: var(--day-dark02);
     font-size: 22px;
     font-weight: 600;
     white-space: nowrap;
+}
+
+@media(max-width: 1100px) {
+    .all {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+        justify-content: initial;
+        padding: 0px 0 0 48px;
+    }
+
+    .all>.information,
+    .orders-div {
+        width: calc(100% - 48px) !important;
+    }
+
+    .all>.information {
+        grid-row: 2;
+        padding: 0;
+    }
+
+
+    .all>.orders-div {
+        background: none;
+        padding: 0;
+        padding-top: 8px;
+        height: auto;
+        padding: 140px 0 0;
+    }
+
+    .all>.information>.method>.services,
+    .all>.information>.method>.or,
+    .all>.information>.method>.inputs>.input,
+    .all>.information>.next {
+        width: 100%;
+    }
+
+    .all>.orders-div>.content>.wrap>.total {
+        padding: 0;
+    }
+
+    .all>.orders-div>.content>.wrap>.totals>div>.price,
+    .all>.orders-div>.content>.wrap>.totals>div>.header {
+        font-size: 20px;
+    }
+
+    .all>.information>.method>.header>.extra {
+        font-size: 14px;
+    }
+
+    .all>.information>.method>.inputs>.input>input {
+        font-size: 20px;
+    }
+
+    .all>.information>.next>button {
+        font-size: 20px;
+    }
+
+    .all>.information>.next>button.accent-off {
+        font-size: 18px;
+
+    }
+
+    .all>.information>.next>button.accent-off>a>svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .all>.information>.method>.inputs>.input>.info>.content>button {
+        display: none;
+    }
+
+    .all>.orders-div>.content>.wrap>.total>.total-price {
+        font-size: 24px;
+    }
+}
+
+@media(max-width: 600px) {
+    .all>.information>.method>.header {
+        flex-direction: column;
+        gap: 0;
+        width: auto;
+        align-items: start;
+    }
+}
+
+@media(max-width: 550px) {
+    .all>.information>.next {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .all>.information>.next>button {
+        width: 100%;
+    }
+
+    .all>.orders-div>.content>.wrap>.totals>div>.price {
+        font-size: 18px;
+    }
+
+    .all>.information>.method>.inputs>.input>input {
+        font-size: 16px;
+    }
+
+    .all>.information>.next>button {
+        font-size: 16px;
+    }
+
+    .all>.information>.next>button.accent-off {
+        font-size: 14px;
+
+    }
+
+    .all>.information>.next>button.accent-off>a>svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .all>.orders-div>.content>.wrap>.total>.total-price {
+        font-size: 20px;
+    }
+
+    .all>.information>.method>.services {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 8px;
+        height: 80px;
+    }
+
+    .all {
+        padding: 0px 0 56px 48px;
+    }
+
+
+}
+
+@media(max-width: 400px) {
+    .all {
+        padding: 0 0 56px 24px;
+    }
+
+    .all>.information,
+    .orders-div {
+        width: calc(100% - 24px) !important;
+    }
 }

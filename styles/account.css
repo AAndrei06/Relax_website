@@ -10,7 +10,6 @@ body {
     margin-top: 110px;
     padding: 0 64px;
     height: 100%;
-    /* min-height: 60vh; */
 }
 
 .settings-flex>.settings-column {
@@ -268,4 +267,57 @@ body {
 
 .block.actual>.content>.buttons>.delete:active {
     opacity: 1;
+}
+
+@media(max-width: 1100px) {
+    .settings-flex {
+        grid-template-columns: 1fr;
+        margin-bottom: 64px;
+        padding: 0 48px;
+        row-gap: 24px;
+    }
+
+
+    footer.abs {
+        position: initial;
+    }
+}
+
+@media(max-width: 550px) {
+    .settings-flex>.settings-column>.block>.content {
+        grid-template-columns: 1fr;
+    }
+
+    .block.actual>.content>.buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .block.actual>.content>.buttons>.main-buttons {
+        width: 100%;
+    }
+
+    .block.actual>.content>.buttons>button {
+        width: 100%;
+    }
+
+    .block.actual>.content>.buttons>.main-buttons>#edit,
+    .block.actual>.content>.buttons>.main-buttons>#save,
+    .block.actual>.content>.buttons>.main-buttons>#cancel {
+        width: 100%;
+    }
+
+
+
+    .settings-flex>.settings-column>.block>.content>.image-div {
+        display: none;
+    }
+}
+
+@media(max-width: 400px) {
+    .settings-flex {
+        padding: 0 24px;
+    }
+
+
 }
