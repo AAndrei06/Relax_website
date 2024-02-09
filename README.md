@@ -33,6 +33,9 @@ Am folosit următoarele tehnologii pentru a dezvolta site-ul web:
 - Doar content/functii necesare 
 - Animatii simple 
 
+## Link Netlify
+[https://relaxbar.netlify.app/](https://relaxbar.netlify.app/)
+
 ### Contribuitori 
 Arseni Andrei: https://github.com/AAndrei06 <br>
 Gisca Artur: https://github.com/Arsitur
