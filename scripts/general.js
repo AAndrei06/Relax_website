@@ -70,10 +70,30 @@ disclaimerOverlay.addEventListener('click', () =>
 
 const moreMenuButton = document.querySelector('nav>.more');
 const moreMenu = document.querySelector('.more-menu');
+const moreMenuAccImage = document.querySelector('.more-menu>.content>.acc-img');
+const moreMenuAccBttns = document.querySelector('.more-menu>.content>.account');
 const navBar = document.querySelector("nav");
+const moreMenuLinks = document.querySelector('.more-menu>.content>.links-list');
 
-moreMenuButton.addEventListener('click', () =>
+moreMenu.addEventListener('click', (e) =>
 {
+    if (!moreMenuLinks.contains(e.target) || !moreMenuAccImage.contains(e.target) || !moreMenuAccBttns.contains(e.target))
+    {
+        moreMenu.classList.remove('show');
+    }
+
+
+})
+
+moreMenuLinks.addEventListener('click', (event) =>
+{
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+});
+
+moreMenuButton.addEventListener('click', (e) =>
+{
+    e.stopPropagation();
     moreMenu.classList.toggle('show');
     if (moreMenu.classList.contains('show'))
     {
@@ -94,3 +114,4 @@ moreMenuButton.addEventListener('click', () =>
 
     }
 })
+

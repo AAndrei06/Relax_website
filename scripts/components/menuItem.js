@@ -325,29 +325,83 @@ productsDB.get().then((querySnapshot) =>
 
     updateMenuSidebar();
 
-    categories.forEach(category =>
+    let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    if (windowWidth < 850)
     {
-        category.addEventListener('click', (e) =>
+        moreCategories.forEach(category =>
         {
+            category.addEventListener('click', (e) =>
+            {
 
-            e.target.classList.toggle('selected');
-            updateMainCategories();
-            filterAndRender(menuItems);
+                e.target.classList.toggle('selected');
+                updateMainCategories();
+                filterAndRender(menuItems);
+            })
         })
-    })
+        moreSlider.addEventListener('input', () =>
+        {
+            const progressValue = (moreSlider.value / moreSlider.max) * 100;
+            moreSliderProgress.style.width = `${progressValue}%`
 
+            const valueRect = moreSliderValue.getBoundingClientRect();
+            if (progressValue < 95)
+            {
+                moreSliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px)`;
+            }
 
-    slider.addEventListener('input', () =>
+            moreSliderValue.textContent = moreSlider.value
+            price = moreSlider.value;
+            filterAndRender(menuItems)
+        });
+
+        const moreStars = document.querySelectorAll(".more-filter>.content>.options>.stars>.stars-container-svg>svg")
+
+        moreStars.forEach(star =>
+        {
+            star.addEventListener('click', (e) =>
+            {
+                mainStarsFilled = starsAnim(moreStars, e.target, '.more-filter>.content>.options>.stars>.stars-container-svg>svg>.fill')
+                filterAndRender(menuItems);
+            })
+        })
+    }
+    else
     {
-        const progressValue = (slider.value / slider.max) * 100;
-        sliderProgress.style.width = `${progressValue}%`
+        categories.forEach(category =>
+        {
+            category.addEventListener('click', (e) =>
+            {
 
-        const valueRect = sliderValue.getBoundingClientRect();
-        sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
-        sliderValue.textContent = slider.value
-        price = slider.value;
-        filterAndRender(menuItems)
-    });
+                e.target.classList.toggle('selected');
+                updateMainCategories();
+                filterAndRender(menuItems);
+            })
+        })
+
+        slider.addEventListener('input', () =>
+        {
+            const progressValue = (slider.value / slider.max) * 100;
+            sliderProgress.style.width = `${progressValue}%`
+
+            const valueRect = sliderValue.getBoundingClientRect();
+            sliderValue.style.left = `calc(${progressValue}% - ${valueRect.width / 2}px + 4px) `
+            sliderValue.textContent = slider.value
+            price = slider.value;
+            filterAndRender(menuItems)
+        });
+
+        const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
+
+        stars.forEach(star =>
+        {
+            star.addEventListener('click', (e) =>
+            {
+                mainStarsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
+                filterAndRender(menuItems)
+            })
+        })
+    }
 
     mainSearch.addEventListener('input', () =>
     {
@@ -388,28 +442,24 @@ const checkoutTotalSpan = document.querySelector('.menu-side>.wrap>.checkout>.to
 const allSections = document.querySelector('.categories-sections')
 
 const slider = document.querySelector('#slider');
+const moreSlider = document.querySelector('#more-slider');
+
 const sliderValue = document.querySelector('.slider>.value');
+const moreSliderValue = document.querySelector('.more-slider>.value');
+
 const sliderProgress = document.querySelector('.slider>.progress');
+const moreSliderProgress = document.querySelector('.more-slider>.progress');
+
 const mainSearch = document.querySelector('.filter-section>.content>.search>input')
 
 const categories = document.querySelectorAll('.filter-section>.content>.categories>.popup>.content>.category')
+const moreCategories = document.querySelectorAll('.more-filter>.content>.options>.categories>.category')
+
 
 let price = 500;
 let mainStarsFilled = 5;
 let categoriesIndexesArray;
 updateMainCategories();
-
-// Stars
-
-const stars = document.querySelectorAll(".filter-section>.content>.stars>div>svg")
-
-stars.forEach(star =>
-{
-    star.addEventListener('click', (e) =>
-    {
-        mainStarsFilled = starsAnim(stars, e.target, '.filter-section>.content>.stars>div>svg>.fill')
-    })
-})
 
 function renderMenuItems(menuItems)
 {
@@ -492,8 +542,9 @@ function filterMenuItems(menuItems, criteria)
     return menuItems.filter(item =>
     {
         let stars = 5;
-        if (item.reviews)
+        if (item.reviews.length !== 0)
         {
+            console.log(item.reviews)
             const reviews = item.reviews;
             let totalStars = 0;
 
@@ -503,6 +554,7 @@ function filterMenuItems(menuItems, criteria)
             });
 
             stars = Math.round(totalStars / reviews.length);
+            console.log("NEW STARS: " + stars)
         }
 
         return criteria.every(criterion =>
@@ -572,14 +624,33 @@ function filterAndRender(menuItems)
 
 function updateMainCategories()
 {
+
     categoriesIndexesArray = [];
-    categories.forEach((category, index) =>
+    let windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+    if (windowWidth < 1100)
     {
-        if (!category.classList.contains('selected'))
+        moreCategories.forEach((category, index) =>
         {
-            categoriesIndexesArray.push(category.getAttribute('data-value'))
-        }
-    })
+            if (!category.classList.contains('selected'))
+            {
+                categoriesIndexesArray.push(category.getAttribute('data-value'))
+            }
+        })
+    }
+    else
+    {
+        categories.forEach((category, index) =>
+        {
+            if (!category.classList.contains('selected'))
+            {
+                categoriesIndexesArray.push(category.getAttribute('data-value'))
+            }
+        })
+    }
+
+
+
 }
 
 // Exit Popup
@@ -683,12 +754,15 @@ class MenuItem extends HTMLElement
             cursor: pointer;
             height: 518px; 
             position: relative;
+            box-sizing: border-box;
+            overflow: visible;
         }
         :host img {
             width: 100%;
             height: 300px;
             border-radius: 4px;
             object-fit: cover;
+            
         }
 
         :host>.name {
@@ -771,6 +845,30 @@ class MenuItem extends HTMLElement
             display: none;
             color: rgba(255, 255, 255, 0.75);
         }
+        @media(max-width: 650px)
+        {
+            :host img
+            {
+                height: 200px;
+            }   
+            :host
+            {
+                
+                width: 100%;
+                height: 418px;
+            }
+
+        }
+        @media(max-width: 475px)
+        {
+            :host
+            {
+                min-width: 0;
+            }
+        }   
+        
+        
+        
       </style>
 
       <img src="${this.getAttribute('img')}" alt="Imagine cu ${this.getAttribute('name')}" draggable="false" loading="lazy">
@@ -1088,7 +1186,9 @@ class SideMenuItem extends HTMLElement
         :host>.text {
             display: flex;
             flex-direction: column;
-            width: 100 %;
+            width: 100%;
+            overflow: hidden;
+            justify-content: center;
         }
 
         :host>.text>.name {
@@ -1100,17 +1200,18 @@ class SideMenuItem extends HTMLElement
             font-weight: 700;
             white-space: nowrap;
             padding-right: 4px;
-            width: 200px;
+            width: calc(100% - 24px);
             text-overflow: ellipsis;
-            white-space: now-wrap;
+            white-space: nowwrap;
             overflow: hidden;
+            position: relative;
         }
         :host>.text>.name>span
         {
+            width: calc(100% - 48px);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            width: 100%;
         }
 
         :host>.text>.name>.delete {
@@ -1119,6 +1220,10 @@ class SideMenuItem extends HTMLElement
             height: 16px;
             border: none;
             cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0px;
         }
         :host>.text>.name>.delete>svg
         {
@@ -1146,6 +1251,82 @@ class SideMenuItem extends HTMLElement
             margin-top: 2px;
             white-space: nowrap;
         }
+        @media(max-width: 1100px)
+        {
+            :host>.text>.name>span
+            {
+                font-size: 30px;
+            }
+            :host>.text>.stars
+            {
+                font-size: 30px;
+                height: 28px;
+            }
+            :host>.img
+            {
+                width: 128px;
+                height: 128px;
+            }
+            :host {
+                grid-template-columns: 128px 1fr;
+                column-gap: 12px;
+                height: 128px;
+            }
+            :host>.text>.price
+            {
+                font-size: 26px;
+            }
+            :host>.text
+            {
+                justify-content: center;
+            }
+            :host>.img>.quantity
+            {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+        }
+        @media(max-width: 550px)
+        {
+            :host>.text>.name {
+                width: calc(100% - 24px);
+            }
+            :host>.text>.name>span
+            {
+                width: calc(100% - 48px);
+                font-size: 20px;
+            }
+            :host>.text>.stars
+            {
+                font-size: 21px;
+                height: 22px;
+            }
+            :host>.img
+            {
+                width: 80px;
+                height: 80px;
+            }
+            :host {
+                grid-template-columns: 80px 1fr;
+                height: 80px;
+            }
+            :host>.text>.price
+            {
+                font-size: 18px;
+            }
+            :host>.text
+            {
+                
+            }
+            :host>.img>.quantity
+            {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+            
+        }
 
       </style>
 
@@ -1158,7 +1339,7 @@ class SideMenuItem extends HTMLElement
                 <span>${this.getAttribute('name')}</span>
 
                 <button class="delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
                         fill="none">
                         <g clip-path="url(#clip0_41_1430)">
                             <path

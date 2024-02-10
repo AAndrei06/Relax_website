@@ -58,14 +58,14 @@ export function starsAnim(stars, star, path)
         {
             for (let i = indexClicked + 1; i < stars.length; i++)
             {
-                stars[i].children[2].classList.add('not');
+                stars[i].children[1].classList.add('not');
             }
         }
         else
         {
             for (let i = 0; i < indexClicked + 1; i++)
             {
-                stars[i].children[2].classList.remove('not');
+                stars[i].children[1].classList.remove('not');
             }
         }
     }
