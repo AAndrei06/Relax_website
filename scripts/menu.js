@@ -169,3 +169,18 @@ createReviewBttn.addEventListener('click', () =>
 
 // Admin popup
 
+// More filter
+
+const moreFilter = document.querySelector(".more-filter")
+const exitMoreFilter = document.querySelector(".more-filter>.content>.exit");
+const moreFilterButton = document.querySelector('.filter-section>.content>.more');
+
+moreFilterButton.addEventListener('click', () =>
+{
+    moreFilter.classList.add('show');
+})
+
+exitMoreFilter.addEventListener('click', () =>
+{
+    moreFilter.classList.remove('show');
+})
