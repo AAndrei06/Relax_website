@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,8 @@
     <script defer src="../scripts/firebase/settings.js"></script>
     <script defer type="module" src="../scripts/darkTheme.js"></script>
 
+    <meta name="robots" content="noindex, nofollow">
+
     <title>Relax | Setări</title>
 </head>
 
@@ -29,7 +31,7 @@
             <ul class="links-list">
                 <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
                 <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
                 <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
@@ -64,7 +66,7 @@
             <ul class="links-list">
                 <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
                 <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
                 <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
@@ -88,19 +90,23 @@
     <main>
         <div class="settings-flex">
             <div class="settings-column">
-                <div class="block">
+                <div class="placeholder block"></div>
+                <div class="placeholder block"></div>
+
+                <div class="block initial">
                     <div class="content">
                         <div class="text">
                             <p class="header">Setările utilizatorului</p>
-                            <p class="email" id="email-space-util">arsitur4@gmail.com</p>
-                            <p class="date" id="register-space-util">Înregistrat pe 3 Mai (3 luni in urmă)</p>
+                            <p class="email" id="email-space-util">unknown@gmail.com</p>
+                            <p class="date" id="register-space-util">Înregistrat la unknown</p>
                         </div>
-                        <div class="image-div"><img id="avatar-place-first" src="" alt="Imagine cu poza ta de account">
+                        <div class="image-div">
+                            <img id="avatar-place-first" src="" alt="Imagine cu poza ta de account">
                         </div>
                     </div>
                 </div>
 
-                <div class="block actual" id="settings">
+                <div class="block actual initial" id="settings">
                     <div class="content">
                         <div class="header">
                             <p>Informatie Personala</p>
@@ -120,7 +126,7 @@
                         <div class="settings">
                             <div class="setting">
                                 <span>Nume:</span>
-                                <div contenteditable="true" id="name-id-change">Arsitur</div>
+                                <div contenteditable="true" id="name-id-change">Unknown</div>
                             </div>
                         </div>
                         <div class="buttons">
@@ -139,14 +145,16 @@
 
             </div>
             <div class="settings-column">
-                <div class="block actual" id="theme">
+                <div class="placeholder block"></div>
+                <div class="placeholder block"></div>
+                <div class="block actual initial" id="theme">
                     <div class="content">
                         <div class="header">
                             <p>Aparență</p>
                             <div class="separator"></div>
                         </div>
                         <div class="themes">
-                            <div class="theme">
+                            <div class="theme theme">
                                 <input type="radio" name="theme" id="system-theme" value="system" checked>
                                 <div class="extended">
                                     <label for="system-theme">Folosește sistemul implicit.</label>
@@ -156,11 +164,11 @@
                                 </div>
 
                             </div>
-                            <div class="theme">
+                            <div class="theme theme">
                                 <input type="radio" name="theme" id="light-theme" value="light">
                                 <label for="light-theme">Luminoasă</label>
                             </div>
-                            <div class="theme">
+                            <div class="theme theme">
                                 <input type="radio" name="theme" id="dark-theme" value="dark">
                                 <label for="dark-theme">Intunecată</label>
                             </div>
@@ -169,25 +177,25 @@
 
                     </div>
                 </div>
-                <div class="block actual" id="language">
+                <div class="block actual initial" id="language">
                     <div class="content">
                         <div class="header">
                             <p>Limbă</p>
                             <div class="separator"></div>
                         </div>
                         <div class="themes">
-                            <div class="theme">
-                                <input type="radio" name="language" id="ro-lang" value="Română" checked>
-                                <label for="ro-lang">Română</label>
+                            <div class="theme lang">
+                                <input type="radio" name="language" id="ro" value="ro" checked>
+                                <label for="ro">Română</label>
 
                             </div>
-                            <div class="theme">
-                                <input type="radio" name="language" id="ru-lang" value="Русский">
-                                <label for="ru-lang">Русский</label>
+                            <div class="theme lang">
+                                <input type="radio" name="language" id="ru" value="ru">
+                                <label for="ru">Русский</label>
                             </div>
-                            <div class="theme">
-                                <input type="radio" name="language" id="en-lang" value="English">
-                                <label for="en-lang">English</label>
+                            <div class="theme lang">
+                                <input type="radio" name="language" id="en" value="en">
+                                <label for="en">English</label>
                             </div>
 
                         </div>

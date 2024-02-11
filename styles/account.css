@@ -63,6 +63,14 @@ body {
     border-radius: 100px;
 }
 
+.placeholder.block {
+    height: 30vh;
+}
+
+.block.initial {
+    display: none;
+}
+
 .block.actual>.content {
     display: flex !important;
     flex-direction: column !important;
@@ -122,6 +130,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    width: fit-content;
 }
 
 

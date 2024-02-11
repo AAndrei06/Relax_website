@@ -1,3 +1,5 @@
+import { niceDateFormatting } from "../utils.js";
+
 const adminBtnsEdit = document.querySelector(".admin-buttons");
 const articleImg = document.querySelector(".contents>.initial>.article-img>img");
 const articleImgDiv = document.querySelector(".contents>.initial>.article-img");
@@ -12,157 +14,109 @@ const postComment = document.getElementById("comment-post-btn");
 const textAreaComment = document.getElementById("text-area-comment");
 const commentsArea = document.getElementsByClassName("comments")[1];
 const commentsCount = document.getElementById("nr-of-comments");
-let is_current_user_admin = false;
+const maxWords = document.querySelector('.contents>.end>#add-comment>.textarea>.max')
+
+const addComment = document.querySelector('.contents>.end>#add-comment');
+
+let isAdmin = false;
 let fuser = null;
+
 const url = new URL(document.location);
 let DocumentID = url.searchParams.get("id");
 firebase.auth().onAuthStateChanged((user) =>
 {
+
     if (user)
     {
         fuser = user;
+        const addCommentLikes = document.querySelector('.contents>.end>.wrap>.likes');
+        addCommentLikes.classList.remove('disabled')
+        addComment.classList.remove('disabled')
     }
+
+    const initialPlaceholder = document.querySelector('.contents>.initial>.placeholder');
+    initialPlaceholder.style.display = 'none';
+    articleImgDiv.style.display = 'initial';
+    articleName.style.display = 'initial';
+    articleDate.style.display = 'initial';
+
+    const contentPlaceholder = document.querySelector(".contents>.added>.placeholder");
+    contentPlaceholder.style.display = 'none'
+
+    const addCommentWrap = document.querySelector('.contents>.end>.wrap');
+    const addCommentPlaceholder = document.querySelector('.contents>.end>.placeholder');
+
+    addCommentPlaceholder.style.display = 'none';
+
+    addCommentWrap.style.display = 'flex';
+    addComment.style.display = 'initial';
 
     try
     {
-        usersDB.where("ID", "==", fuser.uid).get().then((querySnapshot) =>
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((obj) =>
             {
-                console.log("enter");
                 if (obj.data().admin == true)
                 {
-                    is_current_user_admin = true;
+                    isAdmin = true;
+                    adminBtnsEdit.style.display = "flex";
                 }
             })
-        }).then(() =>
-        {
-            const initialPlaceholder = document.querySelector('.contents>.initial>.placeholder');
-            initialPlaceholder.style.display = 'none';
-            articleImgDiv.style.display = 'initial';
-            articleName.style.display = 'initial';
-            articleDate.style.display = 'initial';
-
-            const contentPlaceholder = document.querySelector(".contents>.added>.placeholder");
-            contentPlaceholder.style.display = 'none'
-
-            const addCommentWrap = document.querySelector('.contents>.end>.wrap');
-            const addComment = document.querySelector('.contents>.end>#add-comment');
-            const addCommentPlaceholder = document.querySelector('.contents>.end>.placeholder');
-
-            addCommentPlaceholder.style.display = 'none';
-
-            addCommentWrap.style.display = 'flex';
-            addComment.style.display = 'initial';
-
-
-
-
-            if (is_current_user_admin == false)
-            {
-
-                articlesDB.doc(DocumentID).get().then((object) =>
-                {
-                    articleImg.src = object.data().photoURL;
-                    likesCount.innerHTML = object.data().likes.length;
-                    if (object.data().likes.includes(fuser.uid))
-                    {
-                        likeFill.classList.add("show");
-                    }
-                    articleName.textContent = object.data().name;
-                    articleDate.textContent = formatDate(object.data().datePosted);
-                    for (let i = 0; i < object.data().textTypes.length; i++)
-                    {
-                        if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
-                        {
-                            addedText.innerHTML += `<div contenteditable="false" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-                        } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
-                        {
-                            addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-                        }
-                    }
-                })
-            } else
-            {
-                adminBtnsEdit.style.display = "flex";
-                articlesDB.doc(DocumentID).get().then((object) =>
-                {
-                    articleImg.src = object.data().photoURL;
-                    likesCount.innerHTML = object.data().likes.length;
-                    if (object.data().likes.includes(fuser.uid))
-                    {
-                        likeFill.classList.add("show");
-                    }
-                    articleName.textContent = object.data().name;
-                    articleDate.textContent = formatDate(object.data().datePosted);
-                    for (let i = 0; i < object.data().textTypes.length; i++)
-                    {
-                        if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
-                        {
-                            addedText.innerHTML += `<div contenteditable="true" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-                        } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
-                        {
-                            addedText.innerHTML += `<div contenteditable="true" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-                        }
-                    }
-                })
-
-                // Paragraph red hover
-
-                // const allParagraphs = document.querySelectorAll('.contents>.added>.paragraph')
-
-                // allParagraphs.forEach(paragraph =>
-                // {
-                //     paragraph.addEventListener('onmouseenter', () =>
-                //     {
-                //         console.log('vasea')
-                //         paragraph.classList.add('hover')
-                //     })
-                //     paragraph.addEventListener('onmouseleave', () =>
-                //     {
-                //         paragraph.classList.remove('hover')
-                //     })
-                // })
-            }
-        });
+        })
     } catch (err)
     {
-
-
         adminBtnsEdit.style.display = "none";
-        articlesDB.doc(DocumentID).get().then((object) =>
-        {
-            articleImg.src = object.data().photoURL;
-            likesCount.innerHTML = object.data().likes.length;
-            articleName.textContent = object.data().name;
-            articleDate.textContent = formatDate(object.data().datePosted);
-            for (let i = 0; i < object.data().textTypes.length; i++)
-            {
-                if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
-                {
-                    addedText.innerHTML += `<div contenteditable="false" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-                } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
-                {
-                    addedText.innerHTML += `<div contenteditable="false" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-                }
-            }
-        })
-
-
     }
+
+    articlesDB.doc(DocumentID).get().then((object) =>
+    {
+        articleImg.src = object.data().photoURL;
+        likesCount.innerHTML = object.data().likes.length;
+        if (user)
+        {
+            if (object.data().likes.includes(fuser.uid))
+            {
+                likeFill.classList.add("show");
+            }
+        }
+
+        articleName.textContent = object.data().name;
+        articleDate.textContent = niceDateFormatting(object.data().datePosted);
+        for (let i = 0; i < object.data().textTypes.length; i++)
+        {
+            if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
+            {
+                addedText.innerHTML += `<div contenteditable="true" class="header">${object.data().textTypes[i].slice(14)}</div>`;
+            } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
+            {
+                addedText.innerHTML += `<div contenteditable="true" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
+            }
+        }
+    })
+
+    let canPostComment = true;
+    let errorTimeout;
 
     postComment.addEventListener("click", (event) =>
     {
         event.preventDefault();
-        if (fuser == null)
+
+        if (!fuser)
         {
-            window.alert('Nu esti conectat in account');
-        }
-        else if (textAreaComment.value == '')
+            window.alert('Nu ești conectat în cont.');
+        } else if (textAreaComment.value === '')
         {
-            window.alert('scrie ceva')
-        }
-        else
+            clearTimeout(errorTimeout)
+            textAreaComment.classList.add('error')
+            maxWords.classList.add('error')
+
+            errorTimeout = setTimeout(() =>
+            {
+                textAreaComment.classList.remove('error')
+                maxWords.classList.remove('error')
+            }, 2500);
+        } else if (canPostComment)
         {
             let textValue = textAreaComment.value;
             let date = new Date();
@@ -175,10 +129,18 @@ firebase.auth().onAuthStateChanged((user) =>
             }).then(() =>
             {
                 textAreaComment.value = "";
-            });
-        }
+                canPostComment = false;
 
-    })
+                setTimeout(() =>
+                {
+                    canPostComment = true;
+                }, 10000);
+            });
+        } else
+        {
+            window.alert('Vă rog așteptați 10 secunde înainte să postați un alt comentariu.');
+        }
+    });
 
     commentsDB.onSnapshot((snapshot) =>
     {
@@ -204,7 +166,7 @@ firebase.auth().onAuthStateChanged((user) =>
                                     </div>
                                     <div class="text">
                                         <div class="name">${auth.data().name}</div>
-                                        <div class="date">${formatDate(object.data().datePosted)}</div>
+                                        <div class="date">${niceDateFormatting(object.data().datePosted)}</div>
                                     </div>
                                 </div>
                                 <p>${object.data().text}</p>
@@ -271,28 +233,20 @@ firebase.auth().onAuthStateChanged((user) =>
     })
 
 
-
-
-
-    function removeUnnecesaryThings()
+    addedText.addEventListener("focusout", () =>
     {
-        addedText.addEventListener("focusout", () =>
+        for (let i = 0; i < addedText.children.length; i++)
         {
-            for (let i = 0; i < addedText.children.length; i++)
+            if (addedText.children[i].innerHTML == "")
             {
-                if (addedText.children[i].innerHTML == "")
-                {
-                    addedText.children[i].remove();
-                }
+                addedText.children[i].remove();
             }
-        })
-    }
-    removeUnnecesaryThings();
+        }
+    })
 
 
-    adminSave.onclick = function ()
+    adminSave.addEventListener('click', () =>
     {
-        console.log("updating");
         let allTexts = [];
         for (let i = 0; i < addedText.children.length; i++)
         {
@@ -308,6 +262,8 @@ firebase.auth().onAuthStateChanged((user) =>
             textTypes: allTexts,
         });
     }
+    )
+
 
 });
 

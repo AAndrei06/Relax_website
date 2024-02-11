@@ -1,3 +1,8 @@
+.disabled {
+    opacity: 0.5 !important;
+    pointer-events: none !important
+}
+
 .contents {
     padding: 128px 256px;
     display: flex;
@@ -257,6 +262,17 @@
     font-weight: 500;
 }
 
+.contents>.end>#add-comment>.textarea>textarea.error {
+    border: 1px solid var(--day-heart);
+    color: var(--day-heart);
+    animation: mini-shake 0.35s ease-in-out;
+}
+
+.contents>.end>#add-comment>.textarea>textarea.error::placeholder {
+    color: var(--day-heart);
+    animation: mini-shake 0.35s ease-in-out;
+}
+
 .contents>.end>#add-comment>.textarea>.max {
     position: absolute;
     bottom: 12px;
@@ -264,6 +280,27 @@
     color: var(--day-dark04);
     font-size: 12px;
     font-weight: 600;
+}
+
+.contents>.end>#add-comment>.textarea>.max.error {
+    color: var(--day-heart);
+    animation: mini-shake 0.35s ease-in-out;
+}
+
+@keyframes mini-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(1%);
+    }
+
+    75% {
+        transform: translateX(-1%);
+    }
 }
 
 .contents>.end>#add-comment>button {

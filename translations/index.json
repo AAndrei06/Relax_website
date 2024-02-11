@@ -1,0 +1,28 @@
+{
+  "ro": {
+    "meta": {
+      "title": "Relax | Acasă",
+      "description": "Bun venit la Relax! Descoperă o varietate de preparate delicioase,  de la specialități culinare unice, până la băuturi răcoritoare și deserturi savuroase. Avem totul pentru a-ți satisface papilele gustative. Vizitează-ne astăzi și savurează bucatele tale preferate la Relax!"
+    },
+    "welcome": "Relaxant și Aromat",
+    "welcomeP": "Vă invităm să experimentați o adevărată odisee culinară într-un mediu de relaxare minunat."
+  },
+
+  "ru": {
+    "meta": {
+      "title": "Relax | Дом",
+      "description": "Добро пожаловать в Релакс! Откройте для себя разнообразие вкусных блюд: от уникальных кулинарных изысков до освежающих напитков и пикантных десертов. У нас есть все, чтобы удовлетворить ваши вкусовые рецепторы. Посетите нас сегодня и насладитесь любимыми блюдами в Relax!"
+    },
+    "welcome": "Расслабляющий и ароматный",
+    "welcomeP": "Приглашаем вас пережить настоящую кулинарную одиссею в прекрасной расслабляющей обстановке."
+  },
+
+  "en": {
+    "meta": {
+      "title": "Relax | Home",
+      "description": "Welcome to Relax! Discover a variety of delicious dishes, from unique culinary specialties, to soft drinks and savory deserts. We have everything to satisfy your taste buds. Visit us today and enjoy your favorite dishes at Relax!"
+    },
+    "welcome": "Relaxing and Aromatic",
+    "welcomeP": "We invite you to experience a real culinary odyssey in a wonderful relaxing environment."
+  }
+}

@@ -1,7 +1,9 @@
-// document.getElementsByTagName("body")[0].style.display = "none";
+const placeholders = document.querySelectorAll('.settings-flex>.settings-column>.placeholder');
+const initialBlocks = document.querySelectorAll('.settings-flex>.settings-column>.initial');
 
 firebase.auth().onAuthStateChanged((user) =>
 {
+
     if (user)
     {
 
@@ -71,6 +73,17 @@ firebase.auth().onAuthStateChanged((user) =>
                     }
                 }
             });
+
+            // Placeholder
+
+            placeholders.forEach(placeholder =>
+            {
+                placeholder.style.display = 'none'
+            })
+            initialBlocks.forEach(placeholder =>
+            {
+                placeholder.style.display = 'initial';
+            })
         })
             .catch((error) =>
             {
