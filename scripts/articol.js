@@ -64,3 +64,28 @@ heart.addEventListener('click', (e) =>
 {
     e.target.querySelector('.fill').classList.toggle('show')
 })
+
+// Progress Bar
+
+const endSection = document.querySelector('.end');
+const endSectionRect = endSection.getBoundingClientRect();
+var endSectionStyles = window.getComputedStyle(endSection);
+var endSectionMarginTop = endSectionStyles.getPropertyValue('margin-top');
+const progressBar = document.querySelector('.progress-bar')
+
+function assignProgress()
+{
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+
+    let scrollPercentage = (scrollTop / (scrollHeight - endSectionRect.height - parseFloat(endSectionMarginTop) - 100)) * 100;
+    progressBar.style.width = `${scrollPercentage}%`;
+}
+
+assignProgress()
+
+document.addEventListener('scroll', () =>
+{
+    assignProgress()
+
+});

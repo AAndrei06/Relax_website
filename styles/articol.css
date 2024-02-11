@@ -11,7 +11,7 @@
 }
 
 .placeholder>.date {
-    width: 85px;
+    width: 20%;
     height: 30px;
     border-radius: 8px;
     background-color: var(--day-placeholder);
@@ -19,7 +19,7 @@
 
 .placeholder>.header {
     margin-top: 16px;
-    width: 900px;
+    width: 65%;
     height: 72px;
     border-radius: 8px;
     background-color: var(--day-placeholder);
@@ -70,20 +70,20 @@
 .contents>.added>.placeholder {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
 }
 
 .contents>.added>.placeholder>.h {
-    margin-top: 32px;
-    width: 100%;
-    height: 56px;
+    margin-top: 40px;
+    width: 50%;
+    height: 44px;
     background-color: var(--day-placeholder);
 }
 
 .contents>.added>.placeholder>.p {
-    margin-top: 24px;
+    margin-top: 32px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -96,7 +96,7 @@
     background-color: var(--day-placeholder);
 }
 
-.contents>.added>.placeholder>.p div:nth-child(8) {
+.contents>.added>.placeholder>.p div:nth-child(5) {
     width: 55%;
 }
 
@@ -109,10 +109,6 @@
     width: 800px;
 }
 
-/* .contents>.added>.header:hover {
-    outline: 2px solid var(--day-heart);
-} */
-
 .contents>.added>.paragraph {
     color: var(--day-dark02);
     font-size: 20px;
@@ -122,14 +118,6 @@
     width: 800px;
     word-break: break-all;
 }
-
-.contents>.added>.paragraph.hover {
-    outline: 2px solid var(--day-heart);
-}
-
-/* .contents>.added>.paragraph:hover {
-    outline: 2px solid var(--day-heart);
-} */
 
 .contents>.end {
     display: flex;
@@ -151,6 +139,7 @@
     justify-content: space-between;
     margin-top: 24px;
     width: 800px;
+    display: none;
 }
 
 .contents>.end>.wrap>.comments,
@@ -163,7 +152,7 @@
 .contents>.end>.comments>.placeholder {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 36px;
 }
 
 .contents>.end>.comments>.placeholder>.comment {
@@ -250,6 +239,7 @@
 .contents>.end>#add-comment {
     width: 800px;
     margin-top: 24px;
+    display: none;
 }
 
 .contents>.end>#add-comment>.textarea {
@@ -289,6 +279,51 @@
     border-radius: 4px;
     margin-top: 16px;
     height: 36px;
+}
+
+.contents>.end>.placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+.contents>.end>.placeholder>.wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.contents>.end>.placeholder>.wrap>div {
+    width: 6%;
+    background-color: var(--day-placeholder);
+    height: 36px;
+}
+
+.contents>.end>.placeholder>.wrap>div:nth-child(1) {
+    width: 20%;
+}
+
+.contents>.end>.placeholder>.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contents>.end>.placeholder>.form>.big {
+    width: 100%;
+    height: 150px;
+    background-color: var(--day-placeholder);
+    border-radius: 4px;
+}
+
+.contents>.end>.placeholder>.form>.small {
+    width: 100%;
+    height: 36px;
+    background-color: var(--day-placeholder);
+    border-radius: 4px;
 }
 
 .contents>.end>.comments {
@@ -381,6 +416,16 @@
     line-height: 175%;
 }
 
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 0%;
+    background-color: var(--day-gold);
+    z-index: 10;
+}
+
 @media(max-width: 1300px) {
     .contents {
         padding: 128px 128px;
@@ -414,16 +459,6 @@
 
     .contents>.initial>.article-img {
         margin-top: 32px;
-    }
-
-    .placeholder>.date {
-        width: 100%;
-
-    }
-
-    .placeholder>.header {
-        width: 100%;
-
     }
 }
 

@@ -46,7 +46,15 @@ firebase.auth().onAuthStateChanged((user) =>
             const contentPlaceholder = document.querySelector(".contents>.added>.placeholder");
             contentPlaceholder.style.display = 'none'
 
-            const commentsPlaceholder = document.querySelector('.contents>.end>.comments');
+            const addCommentWrap = document.querySelector('.contents>.end>.wrap');
+            const addComment = document.querySelector('.contents>.end>#add-comment');
+            const addCommentPlaceholder = document.querySelector('.contents>.end>.placeholder');
+
+            addCommentPlaceholder.style.display = 'none';
+
+            addCommentWrap.style.display = 'flex';
+            addComment.style.display = 'initial';
+
 
 
 
