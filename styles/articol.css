@@ -95,6 +95,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    pointer-events: none;
 }
 
 .contents>.end>.wrap>.likes>svg {
