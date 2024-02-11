@@ -1,5 +1,6 @@
 const adminBtnsEdit = document.querySelector(".admin-buttons");
 const articleImg = document.querySelector(".contents>.initial>.article-img>img");
+const articleImgDiv = document.querySelector(".contents>.initial>.article-img");
 const articleName = document.querySelector(".contents>.initial>.article-name");
 const articleDate = document.querySelector(".contents>.initial>.article-date");
 const addedText = document.querySelector(".added");
@@ -36,6 +37,19 @@ firebase.auth().onAuthStateChanged((user) =>
             })
         }).then(() =>
         {
+            const initialPlaceholder = document.querySelector('.contents>.initial>.placeholder');
+            initialPlaceholder.style.display = 'none';
+            articleImgDiv.style.display = 'initial';
+            articleName.style.display = 'initial';
+            articleDate.style.display = 'initial';
+
+            const contentPlaceholder = document.querySelector(".contents>.added>.placeholder");
+            contentPlaceholder.style.display = 'none'
+
+            const commentsPlaceholder = document.querySelector('.contents>.end>.comments');
+
+
+
             if (is_current_user_admin == false)
             {
 
@@ -222,8 +236,6 @@ firebase.auth().onAuthStateChanged((user) =>
             }
             else
             {
-                console.log('talent')
-
                 if (likesList.includes(fuser.uid))
                 {
                     likeFill.classList.remove("show");
