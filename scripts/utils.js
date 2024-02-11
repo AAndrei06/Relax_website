@@ -156,9 +156,25 @@ export function formatDate(date)
     return romanianDate;
 }
 
+export function niceDateFormatting(timestamp)
+{
+    let date = new Date(timestamp);
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    day = (day < 10) ? '0' + day : day;
+    month = (month < 10) ? '0' + month : month;
+
+    let formattedDate = day + '.' + month + '.' + year;
+
+    return `${formattedDate}`
+}
+
 export function displayImage(file, img)
 {
-    var reader = new FileReader();
+    let reader = new FileReader();
 
     reader.onload = function (e)
     {

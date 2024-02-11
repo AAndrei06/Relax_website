@@ -223,6 +223,32 @@ header>form>div>.see-password {
     header>form>div>input::placeholder {
         color: var(--day-dark02);
     }
+
+    header>h1 {
+        color: rgba(255, 255, 255, 1);
+    }
+
+    header>p {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    header>form>input,
+    header>form>div>input {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    header>form>input::placeholder,
+    header>form>div>input::placeholder {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    nav>a {
+        color: white;
+    }
+
+    #twitter-login-btn>svg>path {
+        fill: white;
+    }
 }
 
 @media(max-width: 800px) {}

@@ -80,6 +80,11 @@ moreMenu.addEventListener('click', (e) =>
     if (!moreMenuLinks.contains(e.target) || !moreMenuAccImage.contains(e.target) || !moreMenuAccBttns.contains(e.target))
     {
         moreMenu.classList.remove('show');
+        unlockScroll();
+        if (!navBar.classList.contains('home'))
+        {
+            navBar.style.backgroundColor = 'var(--day-white01)'
+        }
     }
 
 

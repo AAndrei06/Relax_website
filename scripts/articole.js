@@ -1,4 +1,4 @@
-import { displayImage } from "./utils.js"
+import { displayImage, niceDateFormatting } from "./utils.js"
 
 const articlePopupOverlay = document.querySelector('#article-overlay');
 const articlePopup = document.querySelector('.article-popup');
@@ -229,7 +229,7 @@ function renderArticles()
         articlesSection.innerHTML = '';
         for (let i = 0; i < docs.length; i++)
         {
-            articlesSection.innerHTML += `<article-item img="${docs[i].data().photoURL}" name="${docs[i].data().name}" date="${formatDate(docs[i].data().datePosted)}"
+            articlesSection.innerHTML += `<article-item img="${docs[i].data().photoURL}" name="${docs[i].data().name}" date="${niceDateFormatting(docs[i].data().datePosted)}"
                         link="articol.html?id=${docs[i].id}" id="${docs[i].id}"></article-item>`;
         }
     });
