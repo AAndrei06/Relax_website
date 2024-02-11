@@ -1,5 +1,6 @@
 const adminBtnsEdit = document.querySelector(".admin-buttons");
 const articleImg = document.querySelector(".contents>.initial>.article-img>img");
+const articleImgDiv = document.querySelector(".contents>.initial>.article-img");
 const articleName = document.querySelector(".contents>.initial>.article-name");
 const articleDate = document.querySelector(".contents>.initial>.article-date");
 const addedText = document.querySelector(".added");
@@ -36,6 +37,27 @@ firebase.auth().onAuthStateChanged((user) =>
             })
         }).then(() =>
         {
+            const initialPlaceholder = document.querySelector('.contents>.initial>.placeholder');
+            initialPlaceholder.style.display = 'none';
+            articleImgDiv.style.display = 'initial';
+            articleName.style.display = 'initial';
+            articleDate.style.display = 'initial';
+
+            const contentPlaceholder = document.querySelector(".contents>.added>.placeholder");
+            contentPlaceholder.style.display = 'none'
+
+            const addCommentWrap = document.querySelector('.contents>.end>.wrap');
+            const addComment = document.querySelector('.contents>.end>#add-comment');
+            const addCommentPlaceholder = document.querySelector('.contents>.end>.placeholder');
+
+            addCommentPlaceholder.style.display = 'none';
+
+            addCommentWrap.style.display = 'flex';
+            addComment.style.display = 'initial';
+
+
+
+
             if (is_current_user_admin == false)
             {
 
@@ -87,20 +109,20 @@ firebase.auth().onAuthStateChanged((user) =>
 
                 // Paragraph red hover
 
-                const allParagraphs = document.querySelectorAll('.contents>.added>.paragraph')
+                // const allParagraphs = document.querySelectorAll('.contents>.added>.paragraph')
 
-                allParagraphs.forEach(paragraph =>
-                {
-                    paragraph.addEventListener('onmouseenter', () =>
-                    {
-                        console.log('vasea')
-                        paragraph.classList.add('hover')
-                    })
-                    paragraph.addEventListener('onmouseleave', () =>
-                    {
-                        paragraph.classList.remove('hover')
-                    })
-                })
+                // allParagraphs.forEach(paragraph =>
+                // {
+                //     paragraph.addEventListener('onmouseenter', () =>
+                //     {
+                //         console.log('vasea')
+                //         paragraph.classList.add('hover')
+                //     })
+                //     paragraph.addEventListener('onmouseleave', () =>
+                //     {
+                //         paragraph.classList.remove('hover')
+                //     })
+                // })
             }
         });
     } catch (err)
@@ -131,26 +153,31 @@ firebase.auth().onAuthStateChanged((user) =>
 
     postComment.addEventListener("click", (event) =>
     {
+        event.preventDefault();
         if (fuser == null)
         {
-            window.location.href = "autentificare.html";
+            window.alert('Nu esti conectat in account');
         }
-        event.preventDefault();
-        let textValue = textAreaComment.value;
-        let date = new Date();
-        console.log(textValue);
-        console.log(fuser.uid);
-        console.log(date.getTime());
-        console.log(DocumentID);
-        commentsDB.add({
-            author: fuser.uid,
-            ID: DocumentID,
-            text: textValue,
-            datePosted: Number(date.getTime()),
-        }).then(() =>
+        else if (textAreaComment.value == '')
         {
-            textAreaComment.value = "";
-        });
+            window.alert('scrie ceva')
+        }
+        else
+        {
+            let textValue = textAreaComment.value;
+            let date = new Date();
+
+            commentsDB.add({
+                author: fuser.uid,
+                ID: DocumentID,
+                text: textValue,
+                datePosted: Number(date.getTime()),
+            }).then(() =>
+            {
+                textAreaComment.value = "";
+            });
+        }
+
     })
 
     commentsDB.onSnapshot((snapshot) =>
@@ -201,35 +228,50 @@ firebase.auth().onAuthStateChanged((user) =>
         }
     }
 
-    likeBTN.onclick = function ()
-    {
-        if (fuser == null)
-        {
-            window.location.href = "autentificare.html";
-        }
-        articlesDB.doc(DocumentID).get().then((object) =>
-        {
-            let likesList = object.data().likes;
-            if (likesList.includes(fuser.uid))
-            {
-                likeFill.classList.remove("show");
-                likesCount.innerHTML = Number(likesCount.innerHTML) - 1;
-                deleteItem(likesList, fuser.uid);
-                articlesDB.doc(DocumentID).update({
-                    likes: likesList,
-                });
-            } else
-            {
-                likeFill.classList.add("show");
-                likesCount.innerHTML = Number(likesCount.innerHTML) + 1;
-                likesList.push(fuser.uid);
-                articlesDB.doc(DocumentID).update({
-                    likes: likesList,
-                });
-            }
-        })
+    let likeTimeout;
+    let likesList;
+    const likesDiv = document.querySelector(".contents>.end>.wrap>.likes");
 
-    }
+    articlesDB.doc(DocumentID).get().then((object) =>
+    {
+        likesDiv.style.pointerEvents = 'initial';
+        likesList = object.data().likes;
+        likeBTN.addEventListener('click', () =>
+        {
+            if (fuser == null)
+            {
+                window.alert('Nu esti conectat in account');
+            }
+            else
+            {
+                if (likesList.includes(fuser.uid))
+                {
+                    likeFill.classList.remove("show");
+                    likesCount.innerText = Number(likesCount.innerText) - 1;
+                    deleteItem(likesList, fuser.uid);
+
+                } else
+                {
+                    likeFill.classList.add("show");
+                    likesCount.innerText = Number(likesCount.innerText) + 1;
+                    likesList.push(fuser.uid);
+
+                }
+                clearTimeout(likeTimeout);
+                likeTimeout = setTimeout(() =>
+                {
+                    articlesDB.doc(DocumentID).update({
+                        likes: likesList,
+                    }, 50);
+                })
+            }
+
+
+        })
+    })
+
+
+
 
 
     function removeUnnecesaryThings()
