@@ -80,11 +80,8 @@ moreMenu.addEventListener('click', (e) =>
     if (!moreMenuLinks.contains(e.target) || !moreMenuAccImage.contains(e.target) || !moreMenuAccBttns.contains(e.target))
     {
         moreMenu.classList.remove('show');
+        navBar.classList.remove('more')
         unlockScroll();
-        if (!navBar.classList.contains('home'))
-        {
-            navBar.style.backgroundColor = 'var(--day-white01)'
-        }
     }
 
 
@@ -102,21 +99,12 @@ moreMenuButton.addEventListener('click', (e) =>
     moreMenu.classList.toggle('show');
     if (moreMenu.classList.contains('show'))
     {
-        lockScroll();
-        if (navBar.classList.contains('fixed') && !navBar.classList.contains('home'))
-        {
-            navBar.style.background = 'none';
-        }
-
+        navBar.classList.add('more')
     }
     else
     {
-        unlockScroll();
-        if (!navBar.classList.contains('home'))
-        {
-            navBar.style.backgroundColor = 'var(--day-white01)'
-        }
-
+        navBar.classList.remove('more')
     }
+
 })
 

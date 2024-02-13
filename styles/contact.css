@@ -613,6 +613,14 @@ header>.content>.images>.image:nth-child(2) {
         width: 100%;
     }
 
+    header>.content>.text>.header {
+        color: white;
+    }
+
+    header>.content>.text>.paragraph {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
 }
 
 @media(max-width: 800px) {

@@ -57,7 +57,7 @@ window.addEventListener('scroll', () =>
     else if (navbar.classList.contains('fixed'))
     {
         navbar.style.transform = 'translateY(-100%)'
-        // navbar.style.background = 'none';
+        navbar.classList.remove('more')
     }
 
     previousScrollPosition = currentScrollPosition;

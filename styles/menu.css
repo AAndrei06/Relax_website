@@ -475,60 +475,7 @@
     padding: 0 64px 128px 64px;
 }
 
-.categories-sections>.empty-section {
-    width: 100%;
-    height: 65vh;
-    display: none;
-}
 
-.categories-sections>.empty-section.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.categories-sections>.empty-section>.no-results {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 32px;
-    color: var(--day-dark03);
-    font-size: 40px;
-    font-weight: 500;
-    text-align: center;
-}
-
-.categories-sections>.empty-section>.no-results.show {
-    display: flex;
-}
-
-.categories-sections>.empty-section>.loading {
-    position: absolute;
-    top: 248px;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
-    transition: opacity 0.1s ease-in-out;
-    display: none;
-}
-
-.categories-sections>.empty-section>.loading.show {
-    display: flex;
-}
-
-.categories-sections>.empty-section>.loading>.content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.categories-sections>.empty-section>.loading>.content>.spinner>.path {
-    stroke: var(--day-dark03);
-}
 
 .menu-section {
     display: none;
@@ -841,10 +788,6 @@
     transition: all 0.15s ease-in-out;
 }
 
-.item-popup>.reviews-side>.content>.header>button.disabled {
-    opacity: 0.7;
-    pointer-events: none;
-}
 
 .item-popup>.reviews-side>.content>.header>button.active {
     background-color: var(--day-white01);
@@ -1104,6 +1047,131 @@
 
 .item-popup>.reviews-side>.content>.create-review>button:active {
     opacity: 1;
+}
+
+.categories-sections>.empty-section {
+    width: 100%;
+    position: relative;
+    display: none;
+}
+
+.categories-sections>.empty-section.fixed {
+    height: 65vh;
+}
+
+.categories-sections>.empty-section.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories-sections>.empty-section>.no-results {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    color: var(--day-dark03);
+    font-size: 40px;
+    font-weight: 500;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.categories-sections>.empty-section>.no-results.show {
+    display: flex;
+}
+
+.categories-sections>.empty-section>.placeholder {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.categories-sections>.empty-section>.placeholder.show {
+    display: initial;
+}
+
+.categories-sections>.empty-section>.placeholder>.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.header {
+    width: 30%;
+    background-color: var(--day-placeholder);
+    height: 42px;
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 24px;
+    width: 100%;
+    height: 100%;
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item {
+    width: 100%;
+    height: 518px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.img {
+    height: 300px;
+    border-radius: 4px;
+    width: 100%;
+    background-color: var(--day-placeholder);
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.name {
+    width: 90%;
+    margin-top: 12px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: var(--day-placeholder);
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.name2 {
+    width: 80%;
+    margin-top: 12px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: var(--day-placeholder);
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.stars {
+    width: 50%;
+    margin-top: 8px;
+    height: 24px;
+    border-radius: 4px;
+    background-color: var(--day-placeholder);
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.price {
+    position: absolute;
+    bottom: 48px;
+    left: 0;
+    border-radius: 4px;
+    width: 40%;
+    background-color: var(--day-placeholder);
+    height: 28px;
+}
+
+.categories-sections>.empty-section>.placeholder>.content>.items>.item>.button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--day-placeholder);
+    height: 40px;
+    border-radius: 4px;
 }
 
 .add-item-bttn {
@@ -1736,11 +1804,21 @@
     .menu-section>.content>.items {
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
+
+    .categories-sections>.empty-section>.placeholder>.content>.items {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
 }
 
 @media(max-width: 1100px) {
     .menu-section>.content>.items {
         grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 16px;
+    }
+
+    .categories-sections>.empty-section>.placeholder>.content>.items {
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 16px;
     }
 
     .filter-section>.content {
@@ -1761,10 +1839,6 @@
 
     .categories-sections {
         margin-top: 24px;
-    }
-
-    .menu-section>.content>.items {
-        column-gap: 16px;
     }
 
     .menu-side {
@@ -1803,6 +1877,10 @@
     }
 
     .menu-section>.content>.items {
+        column-gap: 12px;
+    }
+
+    .categories-sections>.empty-section>.placeholder>.content>.items {
         column-gap: 12px;
     }
 
@@ -1911,10 +1989,21 @@
     .menu-section>.content>.items {
         column-gap: 8px;
         row-gap: 16px;
+        grid-template-columns: 1fr 1fr;
     }
 
-    .menu-section>.content>.items {
+    .categories-sections>.empty-section>.placeholder>.content>.items {
+        column-gap: 8px;
+        row-gap: 16px;
         grid-template-columns: 1fr 1fr;
+    }
+
+    .categories-sections>.empty-section>.placeholder>.content>.items>.item {
+        height: 418px;
+    }
+
+    .categories-sections>.empty-section>.placeholder>.content>.items>.item>.img {
+        height: 200px;
     }
 
     .menu-side {

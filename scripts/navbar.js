@@ -2,6 +2,7 @@ const navbar = document.querySelector('.nav-bar')
 
 let previousScrollPosition = window.scrollY;
 
+let firstScroll = false;
 
 window.addEventListener('scroll', () =>
 {
@@ -11,7 +12,12 @@ window.addEventListener('scroll', () =>
 
     if (currentScrollPosition > rect.height)
     {
-        navbar.style.transition = 'initial'
+        if (!firstScroll)
+        {
+            navbar.style.transition = 'initial'
+            firstScroll = true;
+        }
+
         navbar.classList.add('fixed');
 
         if (currentScrollPosition < previousScrollPosition)
@@ -27,6 +33,7 @@ window.addEventListener('scroll', () =>
     if (currentScrollPosition == 0)
     {
         navbar.classList.remove('fixed');
+        firstScroll = false;
     }
 
     previousScrollPosition = currentScrollPosition;

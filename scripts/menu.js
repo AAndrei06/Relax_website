@@ -153,19 +153,7 @@ window.addEventListener('mouseup', (e) =>
 
 // Create Review
 
-const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
-const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>button>svg')
 
-const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
-const createReviewDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
-
-createReviewBttn.addEventListener('click', () =>
-{
-    createReviewBttn.classList.toggle('active')
-    reviewsDiv.classList.toggle('active');
-    createReviewDiv.classList.toggle('active');
-    xSVG.classList.toggle('active')
-})
 
 // Admin popup
 

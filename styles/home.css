@@ -558,7 +558,7 @@ section {
 
 
 .articles-section>.content>.articles>a {
-    transform: translateX(250%);
+    transform: translateX(100%);
     opacity: 0;
 }
 
@@ -714,6 +714,11 @@ section {
     .services-section>.content>.services>.service>p {
         font-size: 20px;
     }
+
+    .articles-section>.content>.articles>a {
+        transform: translateX(0%);
+        opacity: 1;
+    }
 }
 
 @media(max-width: 1100px) {
@@ -778,13 +783,6 @@ section {
 }
 
 @media(max-width: 750px) {
-
-    .articles-section>.content>.articles>a {
-        transform: translateX(0%);
-        opacity: 1;
-    }
-
-
     .type2>.content>.image {
         width: 100%;
         height: 55vw;

@@ -136,6 +136,11 @@ div[contenteditable="true"] {
     stroke: var(--day-white01);
 }
 
+.disabled {
+    opacity: 0.5 !important;
+    pointer-events: none !important
+}
+
 #submit-bttn {
     position: relative;
     overflow: hidden;
@@ -332,6 +337,10 @@ nav.home>.content>.logo>a {
     color: #fff;
 }
 
+nav.home>.more>svg {
+    stroke: white;
+}
+
 nav>.content>.links-list {
     display: flex;
     align-items: center;
@@ -438,6 +447,19 @@ nav>.more {
     width: 24px;
     height: 24px;
     z-index: 6;
+}
+
+nav.more {
+    z-index: 10;
+    background: none !important;
+}
+
+nav.more>.content>.logo>a {
+    color: white;
+}
+
+nav.more>.more>svg {
+    stroke: white;
 }
 
 .more-menu {
