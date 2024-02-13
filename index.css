@@ -458,8 +458,13 @@ nav.more>.content>.logo>a {
     color: white;
 }
 
+nav>.more>svg {
+    fill: var(--day-dark01);
+}
+
 nav.more>.more>svg {
     stroke: white;
+    fill: white;
 }
 
 .more-menu {
