@@ -1,23 +1,3 @@
-// firebase.auth().onAuthStateChanged((user) => {
-//     if (user) {
-//         console.log(user);
-//         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
-//             querySnapshot.forEach((doc) => {
-//                 console.log(doc.data().photoURL);
-//                 //Ce am facut?
-//                 /*
-//                 In baza de date am salvat o copie al fiecarui user,un fel de profil,si acolo am salvat si
-//                 poza de profil,acum am extras acest element din baza de date si am afisat linkul pozei din storage
-//                 tu iei linkul acesta si il pui in src la img,asta e tot,am afisat si obiectul json la user,dar nu iti va trebui precis.
-//                 */
-//             });
-//         })
-//     } else {
-//         console.log("user nu este logat");
-//     }
-// });
-
-
 let submitBtn = document.querySelector(".submit-btn-form-register");
 let passworField = document.querySelector(".pass-field-input");
 let emailField = document.querySelector(".email-field-input-sign");
@@ -26,8 +6,6 @@ let FacebookBTN = document.getElementById("facebook-signin-provider");
 let TwitterBTN = document.getElementById("twitter-login-btn");
 
 // Google SignIn
-
-
 
 const form = document.querySelector("#form")
 const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
@@ -79,15 +57,74 @@ function endAnim()
 form.addEventListener('submit', (e) =>
 {
     e.preventDefault();
+    email = emailField.value;
+    password = passworField.value;
+    if (email.value != "" && password.value != "")
+    {
+        loadingAnim()
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) =>
+            {
+                let user = userCredential.user;
+                let date = new Date();
+                cartsDB.add({
+                    ID: user.uid,
+                    products: [],
+                }).then(() =>
+                {
+                    usersDB.add({
+                        name: userInitialName,
+                        PASS: password,
+                        EMAIL: email,
+                        admin: false,
+                        ID: user.uid,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() =>
+                    {
+                        responseAnim(false, "Succes")
+                        setTimeout(() =>
+                        {
+                            endAnim()
+                            window.location.href = '/';
+                        }, 2000)
+                    });
+                })
+
+            })
+            .catch((error) =>
+            {
+                let message = "";
+                if (error.code == "auth/invalid-email")
+                {
+                    message = "Email Nevalid";
+                } else if (error.code == "auth/weak-password")
+                {
+                    message = "Parolă Slabă";
+                } else if (error.code == "auth/email-already-in-use")
+                {
+                    message = "Email Folosit";
+                } else
+                {
+                    message = "Eroare";
+                }
+
+
+                responseAnim(true, message)
+
+                setTimeout(() =>
+                {
+                    endAnim()
+                }, 2000)
+
+            });
+    }
 })
-
-
-
-
 
 GoogleBTN.addEventListener("click", () =>
 {
-    console.log("hello");
+    loadingAnim()
+
     firebase.auth()
         .signInWithPopup(GoogleProvider)
         .then((result) =>
@@ -118,16 +155,15 @@ GoogleBTN.addEventListener("click", () =>
                             products: [],
                         }).then(() =>
                         {
-                            loadingAnim()
+
+
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+
                         });
 
 
@@ -139,17 +175,14 @@ GoogleBTN.addEventListener("click", () =>
 
         }).catch((error) =>
         {
-            loadingAnim()
+
+            responseAnim(true, "Eroare")
 
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
             console.log(error);
         });
 });
@@ -158,7 +191,7 @@ GoogleBTN.addEventListener("click", () =>
 
 FacebookBTN.addEventListener("click", () =>
 {
-
+    loadingAnim()
     firebase
         .auth()
         .signInWithPopup(FacebookProvider)
@@ -191,17 +224,12 @@ FacebookBTN.addEventListener("click", () =>
                             products: [],
                         }).then(() =>
                         {
-                            loadingAnim()
-
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
                         });
 
 
@@ -212,17 +240,14 @@ FacebookBTN.addEventListener("click", () =>
         })
         .catch((error) =>
         {
-            loadingAnim()
+
+            responseAnim(true, "Eroare")
 
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
             console.log(error);
         });
 
@@ -232,7 +257,7 @@ FacebookBTN.addEventListener("click", () =>
 
 TwitterBTN.addEventListener("click", () =>
 {
-
+    loadingAnim()
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
@@ -265,17 +290,13 @@ TwitterBTN.addEventListener("click", () =>
                             products: [],
                         }).then(() =>
                         {
-                            loadingAnim()
-
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+
                         });
 
 
@@ -286,90 +307,13 @@ TwitterBTN.addEventListener("click", () =>
         })
         .catch((error) =>
         {
-            loadingAnim()
+
+            responseAnim(true, "Eroare")
 
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
-            console.log(error);
         });
 });
-
-submitBtn.onclick = () =>
-{
-    email = emailField.value;
-    password = passworField.value;
-    if (email.value != "" && password.value != "")
-    {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) =>
-            {
-                var user = userCredential.user;
-                let date = new Date();
-                cartsDB.add({
-                    ID: user.uid,
-                    products: [],
-                }).then(() =>
-                {
-                    usersDB.add({
-                        name: userInitialName,
-                        PASS: password,
-                        EMAIL: email,
-                        admin: false,
-                        ID: user.uid,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() =>
-                    {
-
-                        loadingAnim()
-
-                        setTimeout(() =>
-                        {
-                            responseAnim(false, "Succes")
-                            setTimeout(() =>
-                            {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
-                        }, 1000)
-                    });
-                })
-
-            })
-            .catch((error) =>
-            {
-                loadingAnim()
-                let message = "";
-                if (error.code == "auth/invalid-email")
-                {
-                    message = "Email Nevalid";
-                } else if (error.code == "auth/weak-password")
-                {
-                    message = "Parolă Prea Slabă";
-                } else if (error.code == "auth/email-already-in-use")
-                {
-                    message = "Email Folosit";
-                } else
-                {
-                    message = "Eroare";
-                }
-
-                setTimeout(() =>
-                {
-                    responseAnim(true, message)
-
-                    setTimeout(() =>
-                    {
-                        endAnim()
-                    }, 2000)
-                }, 1000)
-            });
-    }
-}
