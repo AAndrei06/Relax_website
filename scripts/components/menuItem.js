@@ -290,11 +290,6 @@ firebase.auth().onAuthStateChanged((user) =>
                 isAccount = true;
                 accountID = doc.id
 
-                // const createReviewBttn = document.querySelector(".item-popup>.reviews-side>.content>.header>button")
-                // const xSVG = document.querySelector('.item-popup>.reviews-side>.content>.header>button>svg')
-
-                // const reviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
-                // const createReviewDiv = document.querySelector('.item-popup>.reviews-side>.content>.create-review')
                 createReviewBttn.classList.remove('disabled')
                 createReviewBttn.addEventListener('click', () =>
                 {
@@ -1436,13 +1431,36 @@ createReviewStars.forEach(star =>
     })
 })
 
+let canPostComment = true;
+let reviewErrorTimeout;
+
 createReviewForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();
 
-    if (starsAreSelected && reviewTextarea.value !== '')
+    if (reviewTextarea.value == '' || !starsAreSelected)
     {
-        // Local add
+        clearTimeout(reviewErrorTimeout)
+
+        if (reviewTextarea.value == '')
+        {
+            reviewTextarea.classList.add('anim')
+            reviewErrorTimeout = setTimeout(() =>
+            {
+                reviewTextarea.classList.remove('anim')
+            }, 350)
+        }
+        if (!starsAreSelected)
+        {
+            createStarsDiv.classList.add('anim')
+            reviewErrorTimeout = setTimeout(() =>
+            {
+                createStarsDiv.classList.remove('anim')
+            }, 350)
+        }
+    }
+    else if (canPostComment)
+    {
         const currentItem = itemQuantityMap.get(currentID);
         const date = formatDate(new Date());
 
@@ -1455,26 +1473,18 @@ createReviewForm.addEventListener('submit', (e) =>
             userID: accountID,
             itemID: currentID,
         })
+        canPostComment = false;
+        setTimeout(() =>
+        {
+            canPostComment = true;
+        }, 10000);
 
         resetReviewSlide()
     }
-    if (!starsAreSelected)
+    else
     {
-        createStarsDiv.classList.add('anim')
-        setTimeout(() =>
-        {
-            createStarsDiv.classList.remove('anim')
-        }, 350)
+        window.alert('Vă rog așteptați 10 secunde înainte să postați un alt comentariu.');
     }
-    if (reviewTextarea.value == '')
-    {
-        reviewTextarea.classList.add('anim')
-        setTimeout(() =>
-        {
-            reviewTextarea.classList.remove('anim')
-        }, 350)
-    }
-
 })
 
 function resetReviewSlide()

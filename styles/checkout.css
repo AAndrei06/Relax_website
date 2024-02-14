@@ -13,12 +13,11 @@ main {
     width: 100%;
     height: 100vh;
     position: relative;
-    /* padding: 140px 0 0 64px; */
 }
 
 .all {
     display: grid;
-    grid-template-columns: 500px 33.33%;
+    grid-template-columns: 500px 500px;
     justify-content: space-between;
     padding: 0px 0 0 64px;
 }
@@ -242,7 +241,7 @@ main {
     right: 0;
     top: 0;
     overflow-y: auto;
-    padding: 64px 64px 0 64px;
+    padding: 56px 56px 0 56px;
 }
 
 .all>.orders-div>.content {
@@ -286,6 +285,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 8px;
 }
 
 .all>.orders-div>.content>.wrap>.separator {

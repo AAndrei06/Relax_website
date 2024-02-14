@@ -120,6 +120,7 @@ class CheckoutOrder extends HTMLElement
             }
             :host>.wrap>.name
             {
+                width: 100%;
                 font-size: 20px;
             }
             :host>.wrap>.img
