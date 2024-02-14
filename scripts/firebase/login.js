@@ -1,22 +1,3 @@
-// firebase.auth().onAuthStateChanged((user) => {
-//     if (user) {
-//         console.log(user);
-//         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
-//             querySnapshot.forEach((doc) => {
-//                 console.log(doc.data().photoURL);
-//                 //Ce am facut?
-//                 /*
-//                 In baza de date am salvat o copie al fiecarui user,un fel de profil,si acolo am salvat si
-//                 poza de profil,acum am extras acest element din baza de date si am afisat linkul pozei din storage
-//                 tu iei linkul acesta si il pui in src la img,asta e tot,am afisat si obiectul json la user,dar nu iti va trebui precis.
-//                 */
-//             });
-//         })
-//     } else {
-//         console.log("user nu este logat");
-//     }
-// });
-
 const form = document.querySelector("#form")
 
 const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
@@ -68,20 +49,32 @@ function endAnim()
 form.addEventListener('submit', (e) =>
 {
     e.preventDefault();
-})
-
-
-firebase.auth().onAuthStateChanged((user) =>
-{
-    if (user)
+    if (EmailInput.value != "" && PasswordInput.value != "")
     {
-        var uid = user.uid;
-        console.log("logat");
-    } else
-    {
-        console.log("Nelogat");
+        loadingAnim()
+        firebase.auth().signInWithEmailAndPassword(EmailInput.value, PasswordInput.value)
+            .then((userCredential) =>
+            {
+                responseAnim(false, "Succes")
+                setTimeout(() =>
+                {
+                    endAnim();
+                    window.location.href = '/';
+                }, 2000)
+
+            })
+            .catch((error) =>
+            {
+                responseAnim(true, "Credențiale Nevalide")
+
+                setTimeout(() =>
+                {
+                    endAnim()
+                }, 2000)
+
+            });
     }
-});
+})
 
 let GoogleBtn = document.getElementById("google-login-btn");
 let FacebookBtn = document.getElementById("facebook-login-btn");
@@ -91,54 +84,17 @@ let PasswordInput = document.querySelector(".password-login-page-input");
 let SubmitForm = document.querySelector(".submit-btn-form-pass");
 
 
-SubmitForm.addEventListener("click", () =>
-{
-    if (EmailInput.value != "" && PasswordInput.value != "")
-    {
-        firebase.auth().signInWithEmailAndPassword(EmailInput.value, PasswordInput.value)
-            .then((userCredential) =>
-            {
-                var user = userCredential.user;
-                loadingAnim()
-
-                setTimeout(() =>
-                {
-                    responseAnim(false, "Succes")
-                    setTimeout(() =>
-                    {
-                        endAnim();
-                        window.location.href = '/';
-                    }, 2000)
-                }, 1000)
-            })
-            .catch((error) =>
-            {
-                loadingAnim()
-                setTimeout(() =>
-                {
-                    responseAnim(true, "Credențiale Nevalide")
-
-                    setTimeout(() =>
-                    {
-                        endAnim()
-                    }, 2000)
-                }, 1000)
-                console.log(error);
-            });
-    }
-});
-
 // Google SignIn
 
 GoogleBtn.addEventListener("click", () =>
 {
-    console.log("hello");
+    loadingAnim()
     firebase.auth()
         .signInWithPopup(GoogleProvider)
         .then((result) =>
         {
 
-            var user = result.user;
+            let user = result.user;
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
             {
@@ -165,33 +121,28 @@ GoogleBtn.addEventListener("click", () =>
 
                         }).then(() =>
                         {
-                            loadingAnim()
 
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+
                         })
                     });
                 }
             });
         }).catch((error) =>
         {
-            loadingAnim()
+
+            responseAnim(true, "Eroare")
+
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
         });
 });
 
@@ -199,7 +150,7 @@ GoogleBtn.addEventListener("click", () =>
 
 FacebookBtn.addEventListener("click", () =>
 {
-
+    loadingAnim()
     firebase
         .auth()
         .signInWithPopup(FacebookProvider)
@@ -233,17 +184,12 @@ FacebookBtn.addEventListener("click", () =>
 
                         }).then(() =>
                         {
-                            loadingAnim()
-
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
                         })
                     });
                 }
@@ -251,16 +197,14 @@ FacebookBtn.addEventListener("click", () =>
         })
         .catch((error) =>
         {
-            loadingAnim()
+
+            responseAnim(true, "Eroare")
+
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
         });
 
 });
@@ -269,7 +213,7 @@ FacebookBtn.addEventListener("click", () =>
 
 TwitterBtn.addEventListener("click", () =>
 {
-
+    loadingAnim();
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
@@ -303,17 +247,13 @@ TwitterBtn.addEventListener("click", () =>
 
                         }).then(() =>
                         {
-                            loadingAnim()
-
+                            responseAnim(false, "Succes")
                             setTimeout(() =>
                             {
-                                responseAnim(false, "Succes")
-                                setTimeout(() =>
-                                {
-                                    endAnim()
-                                    window.location.href = '/';
-                                }, 2000)
-                            }, 1000)
+                                endAnim()
+                                window.location.href = '/';
+                            }, 2000)
+
                         })
                     });
                 }
@@ -321,16 +261,13 @@ TwitterBtn.addEventListener("click", () =>
         })
         .catch((error) =>
         {
-            loadingAnim()
+            responseAnim(true, "Eroare")
+
             setTimeout(() =>
             {
-                responseAnim(true, "Eroare")
+                endAnim()
+            }, 2000)
 
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-            }, 1000)
         });
 });
 

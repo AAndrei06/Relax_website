@@ -81,7 +81,6 @@ moreMenu.addEventListener('click', (e) =>
     {
         moreMenu.classList.remove('show');
         navBar.classList.remove('more')
-        unlockScroll();
     }
 
 
