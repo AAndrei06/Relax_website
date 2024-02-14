@@ -3,6 +3,8 @@
 const isDarkMode = localStorage.getItem('darkMode') === 'true';
 const isLightMode = localStorage.getItem('lightMode') === 'true';
 
+
+
 if (isDarkMode)
 {
     document.body.classList.add('dark-theme');

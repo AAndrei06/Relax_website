@@ -9,41 +9,35 @@ const loadingAnim = document.querySelector(".all>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
 
-firebase.auth().onAuthStateChanged((user) =>
+productsDB.get().then((querySnapshot) =>
 {
-    if (user)
+    let keysArray = []
+
+    for (let key in orders)
     {
-        productsDB.get().then((querySnapshot) =>
+        if (orders.hasOwnProperty(key))
         {
-            let keysArray = []
-
-            for (let key in orders)
-            {
-                if (orders.hasOwnProperty(key))
-                {
-                    keysArray.push(key)
-                }
-            }
-
-            let totalPrice = 0
-
-            querySnapshot.forEach(product =>
-            {
-                if (keysArray.includes(product.id))
-                {
-                    ordersDiv.innerHTML += `<checkout-order name="${product.data().name}" price="${product.data().price}" img="${product.data().photoURL}"
-                        quantity="${orders[product.id]}"></checkout-order>`;
-                    totalPrice += product.data().price * orders[product.id];
-                }
-            })
-            totalPriceDiv.innerText = `${totalPrice + 35}.00 MDL`;
-            subTotal.innerText = `${totalPrice}.00 MDL`;
-            ordersContent.style.display = 'flex';
-            loadingAnim.style.display = 'none'
-            continueButton.classList.remove('disabled');
-        })
+            keysArray.push(key)
+        }
     }
-});
+
+    let totalPrice = 0
+
+    querySnapshot.forEach(product =>
+    {
+        if (keysArray.includes(product.id))
+        {
+            ordersDiv.innerHTML += `<checkout-order name="${product.data().name}" price="${product.data().price}" img="${product.data().photoURL}"
+                        quantity="${orders[product.id]}"></checkout-order>`;
+            totalPrice += product.data().price * orders[product.id];
+        }
+    })
+    totalPriceDiv.innerText = `${totalPrice + 35}.00 MDL`;
+    subTotal.innerText = `${totalPrice}.00 MDL`;
+    ordersContent.style.display = 'flex';
+    loadingAnim.style.display = 'none'
+    continueButton.classList.remove('disabled');
+})
 
 const adressInput = document.querySelector("#adress-input");
 const apartamentInput = document.querySelector("#apartament-input");

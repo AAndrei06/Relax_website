@@ -46,9 +46,6 @@ const emailInput = document.querySelector('#email');
 const messageInput = document.querySelector('#message');
 
 const sendBttn = document.querySelector("#submit-bttn")
-const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
-const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
-const sendBttnText = document.querySelector('#submit-bttn>.text');
 
 
 form.addEventListener('submit', (e) =>

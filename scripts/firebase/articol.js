@@ -159,18 +159,8 @@ firebase.auth().onAuthStateChanged((user) =>
                     querySnapshot.forEach((auth) =>
                     {
                         commentsArea.innerHTML += `
-                            <div class="comment">
-                                <div class="header">
-                                    <div class="img">
-                                        <img src="${auth.data().photoURL}" alt="Imaginea de profil a lui ${auth.data().name}">
-                                    </div>
-                                    <div class="text">
-                                        <div class="name">${auth.data().name}</div>
-                                        <div class="date">${niceDateFormatting(object.data().datePosted)}</div>
-                                    </div>
-                                </div>
-                                <p>${object.data().text}</p>
-                            </div>
+                        <article-comment img="${auth.data().photoURL}" name="${auth.data().name}" date="${object.data().datePosted}" text="${object.data().text}"></article-comment>
+                            
                             `;
                         commentsCount.innerHTML = Number(commentsCount.innerHTML) + 1;
                     })
@@ -179,7 +169,6 @@ firebase.auth().onAuthStateChanged((user) =>
         }
 
     })
-
 
     function deleteItem(arr, item)
     {
