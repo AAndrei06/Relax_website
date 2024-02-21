@@ -9,6 +9,14 @@ const loadingAnim = document.querySelector(".all>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
 
+// Email JS changes
+
+
+let stringListOrders = "";
+
+
+// End Email JS changes
+
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
@@ -34,13 +42,17 @@ firebase.auth().onAuthStateChanged((user) =>
                     ordersDiv.innerHTML += `<checkout-order name="${product.data().name}" price="${product.data().price}" img="${product.data().photoURL}"
                         quantity="${orders[product.id]}"></checkout-order>`;
                     totalPrice += product.data().price * orders[product.id];
+                    stringListOrders = stringListOrders + " x" + orders[product.id]+" " + product.data().name + "  " + product.data().price+"lei/item \n";
                 }
             })
+            stringListOrders = stringListOrders + "Livrare ---------------- 35 lei \nTotal ------------------ "+Number(totalPrice+35)+" lei";
             totalPriceDiv.innerText = `${totalPrice + 35}.00 MDL`;
             subTotal.innerText = `${totalPrice}.00 MDL`;
             ordersContent.style.display = 'flex';
             loadingAnim.style.display = 'none'
             continueButton.classList.remove('disabled');
+        }).then(() => {
+            console.log(stringListOrders);
         })
     }
 });
@@ -54,6 +66,39 @@ const checkoutForm = document.querySelector(".all>.information")
 checkoutForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();
+
+    // Email Js
+
+    const serviceID = "service_30goqf3";
+    const templateID = "template_ovvp6se";
+
+    function sendEmail(){
+        let params = {
+            name:adressInput.value,
+            apartament:apartamentInput.value,
+            tel:phoneInput.value,
+            message:stringListOrders
+        };
+
+        emailjs.send(serviceID,templateID,params).then((res) => {
+            adressInput.value = "";
+            apartamentInput.value = "",
+            phoneInput.value = "",
+            console.log("success");
+        }).then(() => {
+            let btnSubmit = document.getElementById("continue-button");
+            btnSubmit.style.backgroundColor = "#799f82";
+            btnSubmit.innerHTML = "Succes";
+            setTimeout(() => {
+                btnSubmit.style.backgroundColor = "black";
+                btnSubmit.innerHTML = "Continuă";
+            },2000);
+        })
+
+    }
+    sendEmail();
+
+    // Email JS END
 
 })
 
@@ -73,4 +118,3 @@ document.addEventListener('click', (event) =>
         infoPopup.classList.remove('show');
     }
 });
-
