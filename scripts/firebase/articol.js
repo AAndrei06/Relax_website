@@ -159,7 +159,7 @@ firebase.auth().onAuthStateChanged((user) =>
                     querySnapshot.forEach((auth) =>
                     {
                         commentsArea.innerHTML += `
-                        <article-comment img="${auth.data().photoURL}" name="${auth.data().name}" date="niceDateFormatting(${object.data().datePosted})" text="${object.data().text}"></article-comment>
+                        <article-comment img="${auth.data().photoURL}" name="${auth.data().name}" date="${niceDateFormatting(object.data().datePosted)}" text="${object.data().text}"></article-comment>
                             
                             `;
                         commentsCount.innerHTML = Number(commentsCount.innerHTML) + 1;
