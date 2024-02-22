@@ -3,6 +3,7 @@
 
 <head>
     <script type="module" src="./scripts/darkTheme.js"></script>
+    <script type="module" src="./scripts/translate.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/Bonus/icon.webp">
@@ -16,8 +17,6 @@
     <script defer type="module" src="./scripts/general.js"></script>
     <script defer type="module" src="./scripts/home.js"></script>
 
-
-    <script defer type="module" src="./scripts/translate.js"></script>
     <meta name="description" content="Bun venit la Relax! Descoperă o varietate de preparate delicioase, 
         de la specialități culinare unice, până la băuturi răcoritoare și deserturi savuroase.
          Avem totul pentru a-ți satisface papilele gustative.
@@ -113,7 +112,8 @@
                     <p data-translate="welcomeP">Vă invităm să experimentați o adevărată odisee culinară într-un mediu
                         de relaxare minunat.</p>
                 </div>
-                <button aria-label="Vezi meniul"><a href="./pages/menu.html">Vezi meniul</a></button>
+                <button aria-label="Vezi meniul"><a data-translate="lookMenu" href="./pages/menu.html">Vezi
+                        meniul</a></button>
             </div>
             <div class="shadow"></div>
         </header>
@@ -130,8 +130,9 @@
                             specială.</p>
                     </div>
                     <button aria-label="Contactează-ne">
-                        <a data-translate="contactobj" href="./pages/contact.html">
-                            Contactează-ne
+                        <a href="./pages/contact.html">
+                            <span data-translate="contactobj">Contactează-ne</span>
+
                             <svg id="arrow-svg" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                 viewBox="0 0 32 32" fill="none">
                                 <path d="M8 16H24M24 16L17.3333 9.33337M24 16L17.3333 22.6667"

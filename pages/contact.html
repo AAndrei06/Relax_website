@@ -3,6 +3,7 @@
 
 <head>
     <script type="module" src="../scripts/darkTheme.js"></script>
+    <script type="module" src="../scripts/translate.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../assets/Bonus/icon.webp">
@@ -39,26 +40,22 @@
                 <a href="../index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
-                <li data-translate="home_msg" class="link"><a href="../index.html"
-                        aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li data-translate="menu_msg" class=" link"><a href="./menu.html"
-                        aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li data-translate="contact_msg" class="link current"><a href="./contact.html"
-                        aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
-                <li data-translate="articles_msg" class="link"><a href="./articole.html"
-                        aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
             </ul>
 
         </div>
         <div class="account">
-            <button data-translate="auth_msg" class="transparent-bttn" aria-label="Autentifica-te">
+            <button class="transparent-bttn" aria-label="Autentifica-te">
                 <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
                     Autentificare
                 </a>
             </button>
-            <button data-translate="register" class="outline-buttn" aria-label="Înregistrează-te">
+            <button class="outline-buttn" aria-label="Înregistrează-te">
                 <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
             </button>
             <button class="acc-img" aria-label="Account">
@@ -77,24 +74,20 @@
     <div class="more-menu overlay">
         <div class="content">
             <ul class="links-list">
-                <li data-translate="home_msg" class="link"><a href="../index.html"
-                        aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li data-translate="menu_msg" link"><a href="./menu.html"
-                        aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li data-translate="contact_msg" class="link current"><a href="./contact.html"
-                        aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link current"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
-                <li data-translate="articles_msg" class="link"><a href="./articole.html"
-                        aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
             </ul>
             <div class="account">
-                <button data-translate="auth_msg" class="transparent-bttn" aria-label="Autentifica-te">
+                <button class="transparent-bttn" aria-label="Autentifica-te">
                     <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
                         Autentificare
                     </a>
                 </button>
-                <button data-translate="register" class="outline-buttn" aria-label="Înregistrează-te">
+                <button class="outline-buttn" aria-label="Înregistrează-te">
                     <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
                 </button>
             </div>
@@ -178,7 +171,7 @@
                                         stroke="var(--day-dark01)" stroke-opacity="0.75" stroke-width="2"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <span data-translate="span_str">
+                                <span>
                                     Strada Independenţei 14, Leova
                                 </span>
 
@@ -290,7 +283,7 @@
                 <div class="map-div">
                     <iframe class="map"
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10990.157926638973!2d28.2538091!3d46.4776291!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c9fec47611fe05%3A0xadd21194240e6729!2sRelax!5e0!3m2!1sfr!2s!4v1698505701690!5m2!1sfr!2s"
-                        width="600" height="450" allowfullscreen="" loading="lazy"
+                        width="600" height="450" allowfullscreen="" loading="async"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <div class="shadow" id="shadow1"></div>
                     <div class="shadow" id="shadow2"></div>
@@ -483,6 +476,5 @@
         </button>
     </footer>
 </body>
-<script defer type="module" src="./scripts/translate.js"></script>
 
 </html>

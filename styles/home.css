@@ -204,9 +204,6 @@ section {
     padding: 12px 32px;
     border-radius: 4px;
     background: var(--day-dark01);
-    color: var(--day-white01);
-    font-size: 24px;
-    font-weight: 600;
 }
 
 .type2>.content>.main>button>a {
@@ -215,6 +212,17 @@ section {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
+    color: var(--day-white01);
+    font-size: 24px;
+    font-weight: 600;
+
+}
+
+.type2>.content>.main>button>a>span {
+    white-space: nowrap;
+    color: var(--day-white01);
+    font-size: 24px;
+    font-weight: 600;
 }
 
 .type2>.content>.main>button>a>#phone-svg.anim {
@@ -356,8 +364,9 @@ section {
 }
 
 .reviews-section>.content>.reviews {
-    display: flex;
-    gap: 128px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 128px;
 }
 
 .reviews-section>.content>.reviews>.review {
@@ -748,7 +757,7 @@ section {
     }
 
     .reviews-section>.content>.reviews {
-        gap: 0;
+        column-gap: 0;
         justify-content: space-between;
     }
 
@@ -773,8 +782,8 @@ section {
     }
 
     .reviews-section>.content>.reviews {
-        flex-direction: column;
-        gap: 32px;
+        grid-template-columns: auto;
+        row-gap: 32px;
     }
 
     .reviews-section>.content>.reviews>.review>.text {

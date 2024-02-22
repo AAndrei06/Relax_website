@@ -1,6 +1,9 @@
 {
   "ru": {
-    "title_page": "Relax | Контакты",
+    "meta": {
+      "title": "Relax | Контакты",
+      "description": "У вас есть вопросы или предложения к нам? Свяжитесь с нами, и мы здесь, чтобы помочь. Заполните контактную форму или используйте информацию ниже, чтобы связаться с нами. Мы предлагаем дружелюбный и быстрый опыт в расслабляющей обстановке."
+    },
     "auth_msg": "Авторизоваться",
     "register": "Регистрация",
     "home_msg": "Дом",
@@ -11,7 +14,7 @@
     "contact_info2": "Давайте поговорим",
     "contact_info3": "Свяжитесь с нами напрямую или заполните форму, чтобы связаться с нами",
     "name": "Ваше имя",
-    "Email": "Ваш адрес электронной почты",
+    "email": "Ваш адрес электронной почты",
     "span_str": "ул. Независимости 14, Леова",
     "you_msg": "Ваше сообщение",
     "succes": "Успех",
@@ -36,7 +39,10 @@
   },
 
   "ro": {
-    "title_page": "Relax | Contacte",
+    "meta": {
+      "title": "Relax | Contacte",
+      "description": "Ai întrebări sau sugestii pentru noi? Contactează-ne și suntem aici să te ajutăm. Completează formularul de contact sau folosește informațiile de mai jos pentru a ajunge la noi. Oferim o experiență prietenoasă și promptă, într-un mediu relaxant."
+    },
     "auth_msg": "Autentificare",
     "register": "Înregistrare",
     "home_msg": "Acasă",
@@ -47,7 +53,7 @@
     "contact_info2": "Hai sa vorbim",
     "contact_info3": "Contactează-ne direct sau completează formularul pentru a intra în legătură cu noi",
     "name": "Numele Tău",
-    "Email": "Email-ul Tău",
+    "email": "Email-ul Tău",
     "span_str": "Strada Independenţei 14, Leova",
     "you_msg": "Mesajul Tău",
     "succes": "Succes",
@@ -72,7 +78,10 @@
   },
 
   "en": {
-    "title_page": "Relax | Contacts",
+    "meta": {
+      "title": "Relax | Contacts",
+      "description": "Do you have questions or suggestions for us? Contact us and we are here to help. Fill out the contact form or use the information below to reach us. We offer a friendly and prompt experience in a relaxing environment."
+    },
     "auth_msg": "Authentication",
     "register": "Register",
     "home_msg": "Home",
@@ -83,7 +92,7 @@
     "contact_info2": "Let's Talk",
     "contact_info3": "Contact us directly or fill out the form to get in touch with us",
     "name": "Your Name",
-    "Email": "Your Email",
+    "email": "Your Email",
     "span_str": "Independenţei Street 14, Leova",
     "you_msg": "Your message",
     "succes": "Success",

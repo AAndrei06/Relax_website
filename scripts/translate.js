@@ -40,6 +40,7 @@ function getJsonFilePath(pageName)
 
     // Construct the full JSON file path
     const jsonFilePath = translationsFolder + jsonFileName;
+    console.log(jsonFilePath)
 
     return jsonFilePath;
 }
@@ -51,7 +52,6 @@ if (pageName == '')
 {
     pageName = 'index';
 }
-console.log(pageName)
 
 const jsonFilePath = getJsonFilePath(pageName);
 
