@@ -1,3 +1,5 @@
+import { niceDateFormatting } from "./utils.js"
+
 const heroSection = document.querySelector('.hero');
 const navbar = document.querySelector('.nav-bar')
 
@@ -135,6 +137,8 @@ articlesDB.get().then((querySnapshot) =>
 
     articles.sort(compar);
 
+
+
     articleHTML.forEach((art, index) =>
     {
         if (articles[index] !== undefined)
@@ -142,7 +146,7 @@ articlesDB.get().then((querySnapshot) =>
             art.href = `/pages/articol.html?id=${articles[index].id}`
 
             let artData = art.querySelector('.article>.data>.date');
-            artData.innerHTML = `${formatDate(articles[index].data().datePosted)}`;
+            artData.innerHTML = `${niceDateFormatting(articles[index].data().datePosted)}`;
 
             let artName = art.querySelector('.article>.data>h3');
             artName.innerHTML = `${articles[index].data().name}`;

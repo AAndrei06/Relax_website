@@ -26,9 +26,9 @@ async function translateContent(language, jsonFilePath)
     }
 }
 
-const jsonFilePathHome = '/translations/index.json';
-
 const language = localStorage.getItem('language') || 'ro';
+document.documentElement.lang = language;
+
 
 function getJsonFilePath(pageName)
 {
@@ -47,6 +47,11 @@ function getJsonFilePath(pageName)
 let path = window.location.pathname;
 let pageName = path.split('/').pop();
 pageName = pageName.replace(/\.html/, '');
+if (pageName == '')
+{
+    pageName = 'index';
+}
+console.log(pageName)
 
 const jsonFilePath = getJsonFilePath(pageName);
 
