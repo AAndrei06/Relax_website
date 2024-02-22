@@ -137,22 +137,18 @@ articlesDB.get().then((querySnapshot) =>
 
     articles.sort(compar);
 
-
-
     articleHTML.forEach((art, index) =>
     {
         if (articles[index] !== undefined)
         {
             art.href = `/pages/articol.html?id=${articles[index].id}`
-
             let artData = art.querySelector('.article>.data>.date');
             artData.innerHTML = `${niceDateFormatting(articles[index].data().datePosted)}`;
 
             let artName = art.querySelector('.article>.data>h3');
             artName.innerHTML = `${articles[index].data().name}`;
-
-            artImage = art.querySelector('.article>img');
-            artImage.src = `${articles[index].data().photoURL}`;
+            art.querySelector('.article>img').src = `${articles[index].data().photoURL}`;
+            art.querySelector('.article>img').alt = "Imagine"
         }
 
     })
