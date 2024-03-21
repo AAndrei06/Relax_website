@@ -94,7 +94,6 @@ function assignProgress()
     }
 
     progressBar.style.width = `${scrollPercentage}%`;
-    console.log(scrollPercentage);
 }
 
 document.addEventListener('scroll', () =>
