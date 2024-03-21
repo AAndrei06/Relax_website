@@ -88,6 +88,9 @@ function assignProgress()
     } else if (scrollTop >= endSectionBottom)
     {
         scrollPercentage = 100;
+    } else
+    {
+        scrollPercentage = 100;
     }
 
     progressBar.style.width = `${scrollPercentage}%`;
