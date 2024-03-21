@@ -268,7 +268,7 @@ nav {
     padding: 32px 64px;
     position: absolute;
     top: 0px;
-    z-index: 6;
+    z-index: 4;
     transition: transform 0.15s;
     height: 110px;
 }
@@ -617,6 +617,10 @@ footer>.copyright {
 .disclaimer-all.show {
     opacity: 1;
     pointer-events: initial;
+}
+
+#disclaimer-overlay {
+    z-index: 9999 !important;
 }
 
 .disclaimer-all>.content {

@@ -23,6 +23,21 @@ let fuser = null;
 
 const url = new URL(document.location);
 let DocumentID = url.searchParams.get("id");
+
+function generateText(object, contentEditable)
+{
+    for (let i = 0; i < object.data().textTypes.length; i++)
+    {
+        if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
+        {
+            addedText.innerHTML += `<div contenteditable="${contentEditable}" class="header">${object.data().textTypes[i].slice(14)}</div>`;
+        } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
+        {
+            addedText.innerHTML += `<div contenteditable="${contentEditable}" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
+        }
+    }
+}
+
 firebase.auth().onAuthStateChanged((user) =>
 {
 
@@ -61,6 +76,7 @@ firebase.auth().onAuthStateChanged((user) =>
                 {
                     isAdmin = true;
                     adminBtnsEdit.style.display = "flex";
+
                 }
             })
         })
@@ -81,18 +97,19 @@ firebase.auth().onAuthStateChanged((user) =>
             }
         }
 
+
         articleName.textContent = object.data().name;
         articleDate.textContent = niceDateFormatting(object.data().datePosted);
-        for (let i = 0; i < object.data().textTypes.length; i++)
+        if (isAdmin)
         {
-            if (object.data().textTypes[i].startsWith("BIGTXT2023CODE"))
-            {
-                addedText.innerHTML += `<div contenteditable="true" class="header">${object.data().textTypes[i].slice(14)}</div>`;
-            } else if (object.data().textTypes[i].startsWith("SMALLTXT2023CODE"))
-            {
-                addedText.innerHTML += `<div contenteditable="true" class="paragraph">${object.data().textTypes[i].slice(16)}</div>`;
-            }
+            generateText(object, true)
         }
+        else
+        {
+            generateText(object, false)
+        }
+
+
     })
 
     let canPostComment = true;

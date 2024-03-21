@@ -34,7 +34,6 @@ Array.from(addedContent.children).forEach(added =>
         {
             e.target.remove();
         }
-        console.log(e.target.innerText)
     })
 })
 
@@ -75,14 +74,26 @@ const progressBar = document.querySelector('.progress-bar')
 function assignProgress()
 {
     const endSectionRect = endSection.getBoundingClientRect();
-    var endSectionStyles = window.getComputedStyle(endSection);
-    var endSectionMarginTop = endSectionStyles.getPropertyValue('margin-top');
+    const endSectionTop = endSectionRect.top + window.pageYOffset;
+    const endSectionBottom = endSectionRect.bottom + window.pageYOffset;
+
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
 
-    let scrollPercentage = (scrollTop / (scrollHeight - endSectionRect.height - parseFloat(endSectionMarginTop))) * 100
+    let scrollPercentage;
+
+    if (scrollTop < endSectionTop)
+    {
+        scrollPercentage = (scrollTop / (endSectionTop)) * 100;
+    } else if (scrollTop >= endSectionBottom)
+    {
+        scrollPercentage = 100;
+    } else
+    {
+        scrollPercentage = 100;
+    }
+
     progressBar.style.width = `${scrollPercentage}%`;
-    console.log(scrollPercentage)
 }
 
 document.addEventListener('scroll', () =>

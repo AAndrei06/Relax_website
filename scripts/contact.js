@@ -122,8 +122,6 @@ const formObserver = new IntersectionObserver((entries) =>
         {
             underlineAnim.classList.add('anim')
         }
-
-
     });
 });
 
