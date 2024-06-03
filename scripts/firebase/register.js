@@ -77,7 +77,7 @@ form.addEventListener('submit', (e) =>
                 }).then(() =>
                 {
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.email.split("@")[0],
                         PASS: password,
                         EMAIL: email,
                         admin: false,
@@ -148,11 +148,13 @@ GoogleBTN.addEventListener("click", () =>
                 })
             }).then(() =>
             {
+                console.log(user)
                 if (!is_user)
                 {
+                    
                     let date = new Date();
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.displayName,
                         ID: user.uid,
                         admin: false,
                         created: date.getTime(),
@@ -226,7 +228,7 @@ FacebookBTN.addEventListener("click", () =>
                 {
                     let date = new Date();
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.displayName,
                         ID: user.uid,
                         admin: false,
                         created: date.getTime(),
@@ -297,7 +299,7 @@ TwitterBTN.addEventListener("click", () =>
                 {
                     let date = new Date();
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.displayName,
                         ID: user.uid,
                         admin: false,
                         created: date.getTime(),

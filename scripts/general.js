@@ -10,13 +10,8 @@ firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
-        if (user.emailVerified == false){
-            firebase.auth().signOut().then(() => {
-                console.log('Delogat ca nu are email verificat')
-              }).catch((error) => {
-                console.log(error)
-              });
-        }
+        console.log(user)
+
         navButtons.forEach(button =>
         {
             button.style.display = "none"
