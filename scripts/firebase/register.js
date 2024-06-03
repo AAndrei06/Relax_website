@@ -66,6 +66,10 @@ form.addEventListener('submit', (e) =>
             .then((userCredential) =>
             {
                 let user = userCredential.user;
+                user.sendEmailVerification().then(() => {
+                    alert('Email sent!!!')
+                });
+
                 let date = new Date();
                 cartsDB.add({
                     ID: user.uid,
@@ -86,7 +90,9 @@ form.addEventListener('submit', (e) =>
                         setTimeout(() =>
                         {
                             endAnim()
-                            window.location.href = '/';
+                            if (firebase.auth().currentUser.emailVerified){
+                                window.location.href = '/';
+                            }
                         }, 2000)
                     });
                 })
@@ -130,6 +136,9 @@ GoogleBTN.addEventListener("click", () =>
         .then((result) =>
         {
             var user = result.user;
+            user.sendEmailVerification().then(() => {
+                alert('Email sent!!!')
+            });
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
             {
@@ -161,7 +170,9 @@ GoogleBTN.addEventListener("click", () =>
                             setTimeout(() =>
                             {
                                 endAnim()
-                                window.location.href = '/';
+                                if (firebase.auth().currentUser.emailVerified){
+                                    window.location.href = '/';
+                                }
                             }, 2000)
 
                         });
@@ -199,6 +210,9 @@ FacebookBTN.addEventListener("click", () =>
         {
 
             var user = result.user;
+            user.sendEmailVerification().then(() => {
+                alert('Email sent!!!')
+            });
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
             {
@@ -228,7 +242,9 @@ FacebookBTN.addEventListener("click", () =>
                             setTimeout(() =>
                             {
                                 endAnim()
-                                window.location.href = '/';
+                                if (firebase.auth().currentUser.emailVerified){
+                                    window.location.href = '/';
+                                }
                             }, 2000)
                         });
 
@@ -265,6 +281,9 @@ TwitterBTN.addEventListener("click", () =>
         {
 
             var user = result.user;
+            user.sendEmailVerification().then(() => {
+                alert('Email sent!!!')
+            });
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
             {
@@ -294,7 +313,9 @@ TwitterBTN.addEventListener("click", () =>
                             setTimeout(() =>
                             {
                                 endAnim()
-                                window.location.href = '/';
+                                if (firebase.auth().currentUser.emailVerified){
+                                    window.location.href = '/';
+                                }
                             }, 2000)
 
                         });

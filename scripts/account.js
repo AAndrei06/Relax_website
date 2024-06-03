@@ -146,7 +146,7 @@ firebase.auth().onAuthStateChanged((user) =>
 
     if (user)
     {
-
+        console.log(user.emailVerified)
         let editBtn = document.querySelector(".edit-settings-btn");
         let signOutBtn = document.querySelector("#sign-out-btn");
         signOutBtn.onclick = () =>
