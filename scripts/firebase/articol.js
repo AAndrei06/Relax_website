@@ -27,7 +27,7 @@ let DocumentID = url.searchParams.get("id");
 // Luam articolul si facem views++
 // Dupa il iei si pui undeva sa arate vizualizările
 
-articlesDB.doc(DocumentID).get().then((obj) => {
+await articlesDB.doc(DocumentID).get().then((obj) => {
     console.log(obj.data())
     articlesDB.doc(DocumentID).update({
         views: obj.data().views+1
