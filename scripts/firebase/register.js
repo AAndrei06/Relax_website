@@ -2,7 +2,6 @@ let submitBtn = document.querySelector(".submit-btn-form-register");
 let passworField = document.querySelector(".pass-field-input");
 let emailField = document.querySelector(".email-field-input-sign");
 let GoogleBTN = document.getElementById("google-signin-provider");
-let FacebookBTN = document.getElementById("facebook-signin-provider");
 let TwitterBTN = document.getElementById("twitter-login-btn");
 
 // Google SignIn
@@ -200,76 +199,6 @@ GoogleBTN.addEventListener("click", () =>
         });
 });
 
-// Facebook SignIn
-
-FacebookBTN.addEventListener("click", () =>
-{
-    loadingAnim()
-    firebase
-        .auth()
-        .signInWithPopup(FacebookProvider)
-        .then((result) =>
-        {
-
-            var user = result.user;
-            user.sendEmailVerification().then(() => {
-                alert('Email sent!!!')
-            });
-            let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
-                    is_user = true;
-                })
-            }).then(() =>
-            {
-                if (!is_user)
-                {
-                    let date = new Date();
-                    usersDB.add({
-                        name: user.displayName,
-                        ID: user.uid,
-                        admin: false,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() =>
-                    {
-                        cartsDB.add({
-                            ID: user.uid,
-                            products: [],
-                        }).then(() =>
-                        {
-                            responseAnim(false, "Succes")
-                            setTimeout(() =>
-                            {
-                                endAnim()
-                                if (firebase.auth().currentUser.emailVerified){
-                                    window.location.href = '/';
-                                }
-                            }, 2000)
-                        });
-
-
-                    });
-                }
-            });
-
-        })
-        .catch((error) =>
-        {
-
-            responseAnim(true, "Eroare")
-
-            setTimeout(() =>
-            {
-                endAnim()
-            }, 2000)
-
-            console.log(error);
-        });
-
-});
 
 // Twitter SignIn
 

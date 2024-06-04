@@ -77,7 +77,6 @@ form.addEventListener('submit', (e) =>
 })
 
 let GoogleBtn = document.getElementById("google-login-btn");
-let FacebookBtn = document.getElementById("facebook-login-btn");
 let TwitterBtn = document.getElementById("twitter-login-btn");
 let EmailInput = document.querySelector(".email-login-page-input");
 let PasswordInput = document.querySelector(".password-login-page-input");
@@ -108,7 +107,7 @@ GoogleBtn.addEventListener("click", () =>
                 {
                     let date = new Date();
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.displayName,
                         ID: user.uid,
                         admin: false,
                         created: date.getTime(),
@@ -146,68 +145,6 @@ GoogleBtn.addEventListener("click", () =>
         });
 });
 
-// Facebook SignIn
-
-FacebookBtn.addEventListener("click", () =>
-{
-    loadingAnim()
-    firebase
-        .auth()
-        .signInWithPopup(FacebookProvider)
-        .then((result) =>
-        {
-
-            var user = result.user;
-            let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
-                    is_user = true;
-                })
-            }).then(() =>
-            {
-                if (!is_user)
-                {
-                    let date = new Date();
-                    usersDB.add({
-                        name: userInitialName,
-                        ID: user.uid,
-                        admin: false,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() =>
-                    {
-                        cartsDB.add({
-                            ID: user.uid,
-                            products: [],
-
-                        }).then(() =>
-                        {
-                            responseAnim(false, "Succes")
-                            setTimeout(() =>
-                            {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
-                        })
-                    });
-                }
-            });
-        })
-        .catch((error) =>
-        {
-
-            responseAnim(true, "Eroare")
-
-            setTimeout(() =>
-            {
-                endAnim()
-            }, 2000)
-
-        });
-
-});
 
 // Twitter SignIn
 
@@ -234,7 +171,7 @@ TwitterBtn.addEventListener("click", () =>
                 {
                     let date = new Date();
                     usersDB.add({
-                        name: userInitialName,
+                        name: user.displayName,
                         ID: user.uid,
                         admin: false,
                         created: date.getTime(),
