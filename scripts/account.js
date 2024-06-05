@@ -167,6 +167,13 @@ firebase.auth().onAuthStateChanged((user) =>
                 document.getElementById("name-id-change").innerHTML = object.data().name;
                 document.getElementById("avatar-photo-change").src = object.data().photoURL;
                 document.getElementById("email-space-util").innerHTML = user.email;
+                // document.getElementById("register-space-util").innerHTML = `Înregistart la ${formatDate(object.data().created)}`; 
+                const formatDate = (date) =>
+                {
+                    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                    const formattedDate = new Date(date).toLocaleDateString('en-GB', options);
+                    return formattedDate.replace(/\//g, '.');
+                };
                 document.getElementById("register-space-util").innerHTML = `Înregistart la ${formatDate(object.data().created)}`;
                 document.getElementById("avatar-place-first").src = object.data().photoURL;
 
