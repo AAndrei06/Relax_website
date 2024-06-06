@@ -105,7 +105,7 @@ if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
                 window.localStorage.removeItem('emailForSignIn');
                 var user = result.user;
                 let is_user = false;
-                usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                usersDB.where("email", "==", user.email).get().then((querySnapshot) => {
                     querySnapshot.forEach((obj) => {
                         is_user = true;
                     })
@@ -120,6 +120,7 @@ if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
                             admin: false,
                             created: date.getTime(),
                             photoURL: startImage,
+                            email: user.email
                         }).then(() => {
                             cartsDB.add({
                                 ID: user.uid,

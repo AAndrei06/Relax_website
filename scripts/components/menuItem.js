@@ -274,10 +274,12 @@ firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
+        console.log(user)
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
             {
+                console.log(doc.data())
                 createReviewImg.src = doc.data().photoURL;
                 createReviewName.innerText = doc.data().name;
                 accountName = doc.data().name;
