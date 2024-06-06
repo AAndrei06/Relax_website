@@ -120,7 +120,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             start: "top top",
             end: "bottom top",
             scrub: true,
-            markers: true
         },
     });
 
@@ -135,7 +134,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: "top top",
             end: "bottom top",
-            markers: true,
             scrub: true,
         }
     });
@@ -150,7 +148,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -169,7 +166,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
         end: "bottom center",
         scrub: true,
         pin: imgReviews,
-        markers: true
     });
 
 
@@ -186,7 +182,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${sectionHeight01 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -199,7 +194,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${sectionHeight01 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -213,7 +207,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${(sectionHeight01 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -226,7 +219,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${(sectionHeight01 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -241,7 +233,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${sectionHeight01 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
             onEnter: () =>
             {
@@ -265,7 +256,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection01,
             start: () => `+=${(sectionHeight01 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
 
             onEnter: () =>
@@ -292,7 +282,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -305,7 +294,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -318,7 +306,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
 
             onEnter: () =>
@@ -344,11 +331,11 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: "top top",
             end: "bottom top",
-            markers: true,
             scrub: true,
         }
     });
     section02Timeline.to(sushiAnim, { y: "-20px", repeat: 5, yoyo: true, }, 0)
+
 
     // Separator GLOW
     let separatorGlowTL02 = gsap.timeline({
@@ -356,7 +343,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -374,7 +360,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${sectionHeight02 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -387,7 +372,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${sectionHeight02 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -400,7 +384,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${(sectionHeight02 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -413,7 +396,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${(sectionHeight02 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -430,7 +412,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${sectionHeight02 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
             onEnter: () =>
             {
@@ -454,7 +435,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection02,
             start: () => `+=${(sectionHeight02 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
 
             onEnter: () =>
@@ -482,7 +462,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -493,7 +472,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -511,7 +489,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
         }
     });
@@ -523,7 +500,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
             onLeave: () =>
             {
@@ -539,7 +515,14 @@ document.addEventListener("DOMContentLoaded", (event) =>
             }
         }
     });
-    section03Timeline.to(shaormaAnim, { rotation: -5, ease: "power1.inOut", yoyo: true, repeat: 5 }, 0)
+    section03Timeline.to(shaormaAnim, { rotation: -5, ease: "power1.inOut" }, 0)
+    section03Timeline.to(shaormaAnim, { rotation: 5, ease: "power1.inOut" })
+    section03Timeline.to(shaormaAnim, { rotation: -5, ease: "power1.inOut" })
+    section03Timeline.to(shaormaAnim, { rotation: 5, ease: "power1.inOut" })
+    section03Timeline.to(shaormaAnim, { rotation: -5, ease: "power1.inOut" })
+    section03Timeline.to(shaormaAnim, { rotation: 5, ease: "power1.inOut" })
+
+
 
     // TEXT CHANGE 03
 
@@ -548,7 +531,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: "top top",
             end: "+=350px",
-            markers: true,
             scrub: true,
 
             onEnter: () =>
@@ -574,7 +556,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${sectionHeight03 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
             onEnter: () =>
             {
@@ -598,7 +579,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${(sectionHeight03 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
 
             onEnter: () =>
@@ -624,7 +604,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${sectionHeight03 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -637,7 +616,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${sectionHeight03 / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -650,7 +628,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${(sectionHeight02 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -663,7 +640,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: imgSection03,
             start: () => `+=${(sectionHeight02 * 2) / 3}px`,
             end: () => `+=100px`,
-            markers: true,
             scrub: true,
         }
     });
@@ -689,7 +665,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
         end: "bottom center",
         scrub: true,
         pin: articlesText,
-        markers: true
     });
     ScrollTrigger.create({
         trigger: articlesSection,
@@ -697,7 +672,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
         end: "bottom center",
         scrub: true,
         pin: articlesDiv,
-        markers: true
     });
 
     let rotateArticle01TL = gsap.timeline({
@@ -705,7 +679,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: articlesSection,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
         }
     });
@@ -718,7 +691,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
     //         trigger: articlesSection,
     //         start: "top top",
     //         end: "bottom center",
-    //         markers: true,
     //         scrub: true,
     //     }
     // });
@@ -731,7 +703,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: articlesSection,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
         }
     });
@@ -744,7 +715,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: articlesSection,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
         }
     });
@@ -757,7 +727,6 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: articlesSection,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
         }
     });
@@ -765,13 +734,32 @@ document.addEventListener("DOMContentLoaded", (event) =>
     rotateArticle04TL.to("#article04", { top: "0%", left: "50%", transform: "translateX(-50%)", ease: "power1.inOut" }, 0);
     rotateArticle04TL.to("#article04", { top: "50%", left: "0%", transform: "translateY(-50%)", ease: "power1.inOut", opacity: 1 }).set("#article04", { className: "article selected", duration: 0 });;
 
+    // MENU SECTION ANIM
 
+    const menuSection = document.querySelector('.menu-section');
 
+    let highlightMenuItemsTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: menuSection,
+            start: "top-=150px top",
+            end: "bottom-=20% center",
+            scrub: true,
+        }
+    });
 
+    const row1Items = document.querySelectorAll('.menu-section>.row:nth-child(1)>.item');
+    const row2Items = document.querySelectorAll('.menu-section>.row:nth-child(2)>.item');
 
+    // Set initial opacity for all items
+    gsap.set([...row1Items, ...row2Items], { opacity: 0.1 });
 
+    // Animate items in the first row
+    highlightMenuItemsTL.staggerTo(row1Items, 1, { opacity: 1, ease: "power1.inOut" }, 0.5);
+    highlightMenuItemsTL.staggerTo(row1Items, 1, { opacity: 0.3, ease: "power1.inOut" }, 0.5, 0.5);
 
-
+    // Animate items in the second row
+    highlightMenuItemsTL.staggerTo(row2Items, 1, { opacity: 1, ease: "power1.inOut" }, 0.5, 0);
+    highlightMenuItemsTL.staggerTo(row2Items, 1, { opacity: 0.3, ease: "power1.inOut" }, 0.5, 1);
 
 
 
@@ -803,12 +791,11 @@ document.addEventListener("DOMContentLoaded", (event) =>
             trigger: waitSection,
             start: "top top",
             end: "bottom center",
-            markers: true,
             scrub: true,
         }
     });
 
-    waitingForYouArrow.to(waitArrow, { rotation: -45, stroke: "var(--day-gold)" }, 0)
+    waitingForYouArrow.to(waitArrow, { rotation: -45 }, 0)
 
 
 
