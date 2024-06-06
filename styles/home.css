@@ -347,16 +347,35 @@ header>.pizza>.glow {
 
 .articles-section {
     display: flex;
-    align-items: center;
+    align-items: top;
     padding-left: 128px;
     padding-right: 128px;
+    padding-top: 256px;
     width: 100%;
-    height: 100vh;
+    height: 250vh;
     position: relative;
     margin-top: 80px;
 }
 
-.articles-section>.article {
+#articles-text-flex {
+    margin-top: 48px;
+}
+
+.articles-section>.articles {
+    position: absolute;
+    top: 0;
+    right: -28%;
+    width: 1000px;
+    height: 100vh;
+}
+
+.articles-section>.articles>.content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.article {
     display: flex;
     gap: 48px;
     align-items: center;
@@ -364,17 +383,42 @@ header>.pizza>.glow {
     opacity: 0.1;
 }
 
-.articles-section>.article.selected {
-    opacity: 1;
+#article01 {
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
 }
 
-.articles-section>.article>.text {
+#article02 {
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#article03 {
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#article04 {
+    top: 50%;
+    left: 100%;
+    transform: translate(-100%, -50%);
+}
+
+.article.selected {
+    opacity: 1;
+    z-index: 4;
+}
+
+.article>.text {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.articles-section>.article>.text>.name {
+.article>.text>.name {
     font-weight: 500;
     font-size: 28px;
     line-height: 36px;
@@ -382,13 +426,13 @@ header>.pizza>.glow {
     width: 150px;
 }
 
-.articles-section>.article>.text>.date {
+.article>.text>.date {
     font-style: italic;
     font-size: 20px;
     color: var(--day-white03);
 }
 
-.articles-section>.article>.img {
+.article>.img {
     width: 225px;
     height: 225px;
     border-radius: 50%;
@@ -396,11 +440,11 @@ header>.pizza>.glow {
     position: relative;
 }
 
-.articles-section>.article>.img>img {
+.article>.img>img {
     z-index: 10;
 }
 
-.articles-section>.article>.img>div {
+.article>.img>div {
     width: 235px;
     height: 235px;
     border-radius: 50%;
@@ -415,34 +459,12 @@ header>.pizza>.glow {
     transition: all 0.15s;
 }
 
-.articles-section>.article>.img:hover>div {
+.article>.img:hover>div {
     transform: translate(-50%, -50%) scale(1.025);
 }
 
-.articles-section>.article.selected>.img>div {
+.article.selected>.img>div {
     opacity: 1;
-}
-
-#article01 {
-    top: 50%;
-    right: 168px;
-    transform: translateY(-50%);
-}
-
-#article02 {
-    top: 10px;
-    right: -56px;
-}
-
-#article03 {
-    bottom: 10px;
-    right: -56px;
-}
-
-#article04 {
-    top: 50%;
-    transform: translate(100%, -50%);
-    right: -64px;
 }
 
 .relax-section {
@@ -454,6 +476,7 @@ header>.pizza>.glow {
     width: 100%;
     height: 100vh;
     position: relative;
+    margin-top: 356px;
 }
 
 .relax-section>.b-h-p-flex>p {

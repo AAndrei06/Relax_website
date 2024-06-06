@@ -672,6 +672,130 @@ document.addEventListener("DOMContentLoaded", (event) =>
         .to(prevReviewArrow, { x: 0 });
 
 
+    // ARTICLES ANIM
+
+    const articlesText = document.querySelector('#articles-text-flex');
+    const articlesSection = document.querySelector('.articles-section');
+    const articlesDiv = document.querySelector("#articles-div")
+    const article01 = document.querySelector('#article01');
+    const article02 = document.querySelector('#article02');
+    const article03 = document.querySelector('#article03');
+    const article04 = document.querySelector('#article04');
+
+
+    ScrollTrigger.create({
+        trigger: articlesSection,
+        start: "top top",
+        end: "bottom center",
+        scrub: true,
+        pin: articlesText,
+        markers: true
+    });
+    ScrollTrigger.create({
+        trigger: articlesSection,
+        start: "top top",
+        end: "bottom center",
+        scrub: true,
+        pin: articlesDiv,
+        markers: true
+    });
+
+    let rotateArticle01TL = gsap.timeline({
+        scrollTrigger: {
+            trigger: articlesSection,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    rotateArticle01TL.to("#article01", { top: "100%", left: "50%", transform: "translate(-50%, -100%)", ease: "power1.inOut", opacity: 0.1 }, 0).set("#article01", { className: "article", duration: 0 })
+    rotateArticle01TL.to("#article01", { top: "50%", left: "100%", transform: "translate(-100%, -50%)", ease: "power1.inOut" });
+
+    // let selectedArticleTimeline01 = gsap.timeline({
+    //     scrollTrigger: {
+    //         trigger: articlesSection,
+    //         start: "top top",
+    //         end: "bottom center",
+    //         markers: true,
+    //         scrub: true,
+    //     }
+    // });
+
+    // selectedArticleTimeline01.to("#article01", { opacity: 0, ease: "power1.inOut" }, 0);
+
+
+    let rotateArticle02TL = gsap.timeline({
+        scrollTrigger: {
+            trigger: articlesSection,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    rotateArticle02TL.to("#article02", { top: "50%", left: "0%", transform: "translateY(-50%)", ease: "power1.inOut", opacity: 1 }, 0).set("#article02", { className: "article selected", duration: 0 });
+    rotateArticle02TL.to("#article02", { top: "100%", left: "50%", transform: "translate(-50%, -100%)", ease: "power1.inOut", opacity: 0.1 }).set("#article02", { className: "article", duration: 0 });
+
+    let rotateArticle03TL = gsap.timeline({
+        scrollTrigger: {
+            trigger: articlesSection,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    rotateArticle03TL.to("#article03", { top: "50%", left: "100%", transform: "translate(-100%, -50%)", ease: "power1.inOut" }, 0);
+    rotateArticle03TL.to("#article03", { top: "0%", left: "50%", transform: "translate(-50%, -70%)", ease: "power1.inOut" });
+
+    let rotateArticle04TL = gsap.timeline({
+        scrollTrigger: {
+            trigger: articlesSection,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    rotateArticle04TL.to("#article04", { top: "0%", left: "50%", transform: "translateX(-50%)", ease: "power1.inOut" }, 0);
+    rotateArticle04TL.to("#article04", { top: "50%", left: "0%", transform: "translateY(-50%)", ease: "power1.inOut", opacity: 1 }).set("#article04", { className: "article selected", duration: 0 });;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // WAITING FOR YOU ARROW
+
+
     const waitArrow = document.querySelector('#wait-arrow')
 
     let waitingForYouArrow = gsap.timeline({
