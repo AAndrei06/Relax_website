@@ -3,13 +3,17 @@ document.addEventListener("DOMContentLoaded", (event) =>
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
     const pizzaAnim = document.querySelector('.pizza')
     const headerSection = document.querySelector('header')
+
+    // const separatorGlow = document.querySelector('.separator-glow')
+
     const imgReviews = document.querySelector('.img-sections>.reviews')
     const imgSections = document.querySelector('.img-sections')
     const imgSection01 = document.querySelector('#img-section01')
     // const info01 = document.querySelector('#img-section01>.container')
     const imgSection02 = document.querySelector('#img-section02')
     // const info02 = document.querySelector('#img-section02>.container')
-    const imgSection03 = document.querySelector('#img-section03')
+    const imgSection03 = document.querySelector('#img-section03');
+    const waitSection = document.querySelector('.wait-section');
     // const info03 = document.querySelector('#img-section03>.container')
 
     const reviewName = document.querySelector('#review-name')
@@ -64,6 +68,48 @@ document.addEventListener("DOMContentLoaded", (event) =>
         ]
     }
 
+    // EVENT LISTENERS
+
+    prevReviewArrow.addEventListener('click', () =>
+    {
+        let currentReview = parseInt(reviewNumber.innerHTML);
+        let currentReviewText = reviewName.innerHTML.toLowerCase();
+        if (currentReviewText == "pizza capricioasa")
+        {
+            currentReviewText = "pizza"
+        }
+        let reviewsArray = reviewsText[currentReviewText];
+        let newReview = currentReview - 1;
+        if (newReview < 1)
+        {
+            newReview = reviewsArray.length;
+        }
+        reviewContent.innerHTML = reviewsArray[newReview - 1].content;
+        reviewAuthor.innerHTML = reviewsArray[newReview - 1].name;
+        reviewNumber.innerHTML = newReview;
+        console.log(newReview)
+    })
+
+    nextReviewArrow.addEventListener('click', () =>
+    {
+        let currentReview = parseInt(reviewNumber.innerHTML);
+        let currentReviewText = reviewName.innerHTML.toLowerCase();
+        if (currentReviewText == "pizza capricioasa")
+        {
+            currentReviewText = "pizza"
+        }
+        let reviewsArray = reviewsText[currentReviewText];
+        let newReview = currentReview + 1;
+        if (newReview > reviewsArray.length)
+        {
+            newReview = 1;
+        }
+        reviewContent.innerHTML = reviewsArray[newReview - 1].content;
+        reviewAuthor.innerHTML = reviewsArray[newReview - 1].name;
+        reviewNumber.innerHTML = newReview;
+        console.log(newReview)
+    })
+
     // HEADER ANIMATION
 
     gsap.to(pizzaAnim, {
@@ -99,7 +145,22 @@ document.addEventListener("DOMContentLoaded", (event) =>
     // .to(pizzaAnim, { rotation: 16, ease: "power1.inOut" }) // tilt to the right
     // .to(pizzaAnim, { rotation: -16, ease: "power1.inOut" }) // tilt to the right
 
+    let separatorGlowTL01 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
 
+    separatorGlowTL01.to(reviewName, {
+        textShadow: "0px 0px 30px white, 0px 0px 10px white",
+        repeat: 1,
+        yoyo: true,
+        // duration: 1
+    }, 0)
 
 
     ScrollTrigger.create({
@@ -110,6 +171,8 @@ document.addEventListener("DOMContentLoaded", (event) =>
         pin: imgReviews,
         markers: true
     });
+
+
 
 
     // NEXT ARROW TIMELINE
@@ -287,7 +350,24 @@ document.addEventListener("DOMContentLoaded", (event) =>
     });
     section02Timeline.to(sushiAnim, { y: "-20px", repeat: 5, yoyo: true, }, 0)
 
+    // Separator GLOW
+    let separatorGlowTL02 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
 
+    // separatorGlowTL02.to(separatorGlow, { opacity: 1, x: "400%" }, 0)
+    separatorGlowTL02.to(reviewName, {
+        textShadow: "0px 0px 30px white, 0px 0px 10px white",
+        repeat: 1,
+        yoyo: true,
+        // duration: 1
+    }, 0)
 
     let nextReviewArrowTL3 = gsap.timeline({
         scrollTrigger: {
@@ -407,6 +487,23 @@ document.addEventListener("DOMContentLoaded", (event) =>
         }
     });
     sushiLeaveTimeline.to(sushiAnim, { left: 0, y: "0px", duration: 0.2, opacity: 0 })
+
+    let separatorGlowTL03 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    separatorGlowTL03.to(reviewName, {
+        textShadow: "0px 0px 30px white, 0px 0px 10px white",
+        repeat: 1,
+        yoyo: true,
+        // duration: 1
+    }, 0)
 
 
     let shaormaEnterTimeline = gsap.timeline({
@@ -573,6 +670,22 @@ document.addEventListener("DOMContentLoaded", (event) =>
 
     prevReviewArrowTL6.to(prevReviewArrow, { x: -4 }, 0)
         .to(prevReviewArrow, { x: 0 });
+
+
+    const waitArrow = document.querySelector('#wait-arrow')
+
+    let waitingForYouArrow = gsap.timeline({
+        scrollTrigger: {
+            trigger: waitSection,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    waitingForYouArrow.to(waitArrow, { rotation: -45, stroke: "var(--day-gold)" }, 0)
+
 
 
 });
