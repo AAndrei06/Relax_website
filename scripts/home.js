@@ -765,13 +765,33 @@ document.addEventListener("DOMContentLoaded", (event) =>
     rotateArticle04TL.to("#article04", { top: "0%", left: "50%", transform: "translateX(-50%)", ease: "power1.inOut" }, 0);
     rotateArticle04TL.to("#article04", { top: "50%", left: "0%", transform: "translateY(-50%)", ease: "power1.inOut", opacity: 1 }).set("#article04", { className: "article selected", duration: 0 });;
 
+    // MENU SECTION ANIM
 
+    const menuSection = document.querySelector('.menu-section');
 
+    let highlightMenuItemsTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: menuSection,
+            start: "top-=150px top",
+            end: "bottom-=20% center",
+            markers: true,
+            scrub: true,
+        }
+    });
 
+    const row1Items = document.querySelectorAll('.menu-section>.row:nth-child(1)>.item');
+    const row2Items = document.querySelectorAll('.menu-section>.row:nth-child(2)>.item');
 
+    // Set initial opacity for all items
+    gsap.set([...row1Items, ...row2Items], { opacity: 0.1 });
 
+    // Animate items in the first row
+    highlightMenuItemsTL.staggerTo(row1Items, 1, { opacity: 1, ease: "power1.inOut" }, 0.5);
+    highlightMenuItemsTL.staggerTo(row1Items, 1, { opacity: 0.3, ease: "power1.inOut" }, 0.5, 0.5);
 
-
+    // Animate items in the second row
+    highlightMenuItemsTL.staggerTo(row2Items, 1, { opacity: 1, ease: "power1.inOut" }, 0.5, 0);
+    highlightMenuItemsTL.staggerTo(row2Items, 1, { opacity: 0.3, ease: "power1.inOut" }, 0.5, 1);
 
 
 
