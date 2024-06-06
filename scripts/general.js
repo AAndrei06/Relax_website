@@ -6,21 +6,16 @@ const navButtons = document.querySelectorAll('nav>.account>button')
 const moreMenuAcc = document.querySelector(".more-menu>.content>.acc-img");
 const moreMenuAccButtons = document.querySelector(".more-menu>.content>.account");
 
-firebase.auth().onAuthStateChanged((user) =>
-{
-    if (user)
-    {
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
         console.log(user)
 
-        navButtons.forEach(button =>
-        {
+        navButtons.forEach(button => {
             button.style.display = "none"
         })
         moreMenuAccButtons.style.display = 'none'
-        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-        {
-            querySnapshot.forEach((doc) =>
-            {
+        usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
                 navAcc.querySelector('img').src = doc.data().photoURL;
                 navAcc.style.display = 'initial';
                 moreMenuAcc.style.display = 'initial';
@@ -29,10 +24,8 @@ firebase.auth().onAuthStateChanged((user) =>
         })
 
 
-    } else
-    {
-        navButtons.forEach(button =>
-        {
+    } else {
+        navButtons.forEach(button => {
             button.style.display = "initial"
             button.style.pointerEvents = "initial"
         })
@@ -48,21 +41,18 @@ const disclaimerOverlay = document.querySelector('#disclaimer-overlay');
 const disclaimerContent = document.querySelector('.disclaimer');
 const disclaimerBttn = document.querySelector(".close-disclaimer");
 
-copyright.addEventListener('click', () =>
-{
+copyright.addEventListener('click', () => {
     disclaimer.classList.add('show');
     disclaimerContent.classList.add('show');
     disclaimerOverlay.classList.add('show');
 })
 
-disclaimerBttn.addEventListener('click', () =>
-{
+disclaimerBttn.addEventListener('click', () => {
     disclaimer.classList.remove('show');
     disclaimerContent.classList.remove('show');
     disclaimerOverlay.classList.remove('show');
 })
-disclaimerOverlay.addEventListener('click', () =>
-{
+disclaimerOverlay.addEventListener('click', () => {
     disclaimer.classList.remove('show');
     disclaimerContent.classList.remove('show');
     disclaimerOverlay.classList.remove('show');
@@ -77,10 +67,8 @@ const moreMenuAccBttns = document.querySelector('.more-menu>.content>.account');
 const navBar = document.querySelector("nav");
 const moreMenuLinks = document.querySelector('.more-menu>.content>.links-list');
 
-moreMenu.addEventListener('click', (e) =>
-{
-    if (!moreMenuLinks.contains(e.target) || !moreMenuAccImage.contains(e.target) || !moreMenuAccBttns.contains(e.target))
-    {
+moreMenu.addEventListener('click', (e) => {
+    if (!moreMenuLinks.contains(e.target) || !moreMenuAccImage.contains(e.target) || !moreMenuAccBttns.contains(e.target)) {
         moreMenu.classList.remove('show');
         navBar.classList.remove('more')
     }
@@ -88,24 +76,61 @@ moreMenu.addEventListener('click', (e) =>
 
 })
 
-moreMenuLinks.addEventListener('click', (event) =>
-{
+moreMenuLinks.addEventListener('click', (event) => {
     event.stopPropagation();
     event.stopImmediatePropagation();
 });
 
-moreMenuButton.addEventListener('click', (e) =>
-{
+moreMenuButton.addEventListener('click', (e) => {
     e.stopPropagation();
     moreMenu.classList.toggle('show');
-    if (moreMenu.classList.contains('show'))
-    {
+    if (moreMenu.classList.contains('show')) {
         navBar.classList.add('more')
     }
-    else
-    {
+    else {
         navBar.classList.remove('more')
     }
 
 })
 
+if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+
+    var email = window.localStorage.getItem('emailForSignIn');
+    if (!email) {
+        window.location.href = '/';
+    } else {
+
+        firebase.auth().signInWithEmailLink(email, window.location.href)
+            .then((result) => {
+                window.localStorage.removeItem('emailForSignIn');
+                var user = result.user;
+                let is_user = false;
+                usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                    querySnapshot.forEach((obj) => {
+                        is_user = true;
+                    })
+                }).then(() => {
+                    console.log(user)
+                    if (!is_user) {
+
+                        let date = new Date();
+                        usersDB.add({
+                            name: user.email.split("@")[0],
+                            ID: user.uid,
+                            admin: false,
+                            created: date.getTime(),
+                            photoURL: startImage,
+                        }).then(() => {
+                            cartsDB.add({
+                                ID: user.uid,
+                                products: [],
+                            })
+                        });
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }
+}

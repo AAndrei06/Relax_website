@@ -11,27 +11,22 @@ const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
 const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
 const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-function loadingAnim()
-{
+function loadingAnim() {
     sendBttnText.innerText = ''
     sendBttnLoading.style.opacity = "1"
 }
 
-function responseAnim(err = false, msg)
-{
-    if (err)
-    {
+function responseAnim(err = false, msg) {
+    if (err) {
         sendBttnFeedback.style.background = '#EF5B5B'
         sendBttnFeedback.textContent = msg
-    } else
-    {
+    } else {
         sendBttnFeedback.style.background = '#799f82'
         sendBttnFeedback.textContent = msg
     }
     sendBttnLoading.style.opacity = "0"
 
-    setTimeout(() =>
-    {
+    setTimeout(() => {
         sendBttnText.innerText = 'Trimite'
     }, 250)
 
@@ -41,116 +36,58 @@ function responseAnim(err = false, msg)
 
 }
 
-function endAnim()
-{
+function endAnim() {
 
     sendBttnFeedback.style.transform = "translateX(100%)"
-    setTimeout(() =>
-    {
+    setTimeout(() => {
         sendBttnFeedback.style.opacity = "0"
         sendBttnFeedback.style.transform = "translateX(-100%)"
     }, 250);
 
 }
+console.log(window.location)
+form.addEventListener('submit', (e) => {
 
-form.addEventListener('submit', (e) =>
-{
     e.preventDefault();
     email = emailField.value;
-    password = passworField.value;
-    if (email.value != "" && password.value != "")
-    {
+    if (email.value != "") {
         loadingAnim()
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) =>
-            {
-                let user = userCredential.user;
-                user.sendEmailVerification().then(() => {
-                    alert('Email sent!!!')
-                });
 
-                let date = new Date();
-                cartsDB.add({
-                    ID: user.uid,
-                    products: [],
-                }).then(() =>
-                {
-                    usersDB.add({
-                        name: user.email.split("@")[0],
-                        PASS: password,
-                        EMAIL: email,
-                        admin: false,
-                        ID: user.uid,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() =>
-                    {
-                        responseAnim(false, "Succes")
-                        setTimeout(() =>
-                        {
-                            endAnim()
-                            if (firebase.auth().currentUser.emailVerified){
-                                window.location.href = '/';
-                            }
-                        }, 2000)
-                    });
-                })
+        var actionCodeSettings = {
+            url: window.location.origin + '/pages/menu.html',
+            handleCodeInApp: true,
+        };
 
-            })
-            .catch((error) =>
-            {
-                let message = "";
-                if (error.code == "auth/invalid-email")
-                {
-                    message = "Email Nevalid";
-                } else if (error.code == "auth/weak-password")
-                {
-                    message = "Parolă Slabă";
-                } else if (error.code == "auth/email-already-in-use")
-                {
-                    message = "Email Folosit";
-                } else
-                {
-                    message = "Eroare";
-                }
-
-
-                responseAnim(true, message)
-
-                setTimeout(() =>
-                {
+        firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+            .then(() => {
+                window.localStorage.setItem('emailForSignIn', email);
+                responseAnim(false, "Succes")
+                setTimeout(() => {
                     endAnim()
                 }, 2000)
-
+            })
+            .catch((error) => {
+                console.log(error)
             });
     }
 })
 
-GoogleBTN.addEventListener("click", () =>
-{
+GoogleBTN.addEventListener("click", () => {
     loadingAnim()
 
     firebase.auth()
         .signInWithPopup(GoogleProvider)
-        .then((result) =>
-        {
+        .then((result) => {
             var user = result.user;
-            user.sendEmailVerification().then(() => {
-                alert('Email sent!!!')
-            });
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
                     is_user = true;
                 })
-            }).then(() =>
-            {
+            }).then(() => {
                 console.log(user)
-                if (!is_user)
-                {
-                    
+                if (!is_user) {
+
                     let date = new Date();
                     usersDB.add({
                         name: user.displayName,
@@ -158,22 +95,18 @@ GoogleBTN.addEventListener("click", () =>
                         admin: false,
                         created: date.getTime(),
                         photoURL: startImage,
-                    }).then(() =>
-                    {
+                    }).then(() => {
                         cartsDB.add({
                             ID: user.uid,
                             products: [],
-                        }).then(() =>
-                        {
+                        }).then(() => {
 
 
                             responseAnim(false, "Succes")
-                            setTimeout(() =>
-                            {
+                            setTimeout(() => {
                                 endAnim()
-                                if (firebase.auth().currentUser.emailVerified){
-                                    window.location.href = '/';
-                                }
+                                window.location.href = '/';
+
                             }, 2000)
 
                         });
@@ -185,13 +118,11 @@ GoogleBTN.addEventListener("click", () =>
 
 
 
-        }).catch((error) =>
-        {
+        }).catch((error) => {
 
             responseAnim(true, "Eroare")
 
-            setTimeout(() =>
-            {
+            setTimeout(() => {
                 endAnim()
             }, 2000)
 
@@ -202,30 +133,21 @@ GoogleBTN.addEventListener("click", () =>
 
 // Twitter SignIn
 
-TwitterBTN.addEventListener("click", () =>
-{
+TwitterBTN.addEventListener("click", () => {
     loadingAnim()
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
-        .then((result) =>
-        {
+        .then((result) => {
 
             var user = result.user;
-            user.sendEmailVerification().then(() => {
-                alert('Email sent!!!')
-            });
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
                     is_user = true;
                 })
-            }).then(() =>
-            {
-                if (!is_user)
-                {
+            }).then(() => {
+                if (!is_user) {
                     let date = new Date();
                     usersDB.add({
                         name: user.displayName,
@@ -233,20 +155,15 @@ TwitterBTN.addEventListener("click", () =>
                         admin: false,
                         created: date.getTime(),
                         photoURL: startImage,
-                    }).then(() =>
-                    {
+                    }).then(() => {
                         cartsDB.add({
                             ID: user.uid,
                             products: [],
-                        }).then(() =>
-                        {
+                        }).then(() => {
                             responseAnim(false, "Succes")
-                            setTimeout(() =>
-                            {
+                            setTimeout(() => {
                                 endAnim()
-                                if (firebase.auth().currentUser.emailVerified){
-                                    window.location.href = '/';
-                                }
+                                window.location.href = '/';
                             }, 2000)
 
                         });
@@ -257,13 +174,11 @@ TwitterBTN.addEventListener("click", () =>
             });
 
         })
-        .catch((error) =>
-        {
+        .catch((error) => {
 
             responseAnim(true, "Eroare")
 
-            setTimeout(() =>
-            {
+            setTimeout(() => {
                 endAnim()
             }, 2000)
 

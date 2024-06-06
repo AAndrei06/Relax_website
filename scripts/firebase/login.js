@@ -46,41 +46,39 @@ function endAnim()
 
 }
 
-form.addEventListener('submit', (e) =>
-{
-    e.preventDefault();
-    if (EmailInput.value != "" && PasswordInput.value != "")
-    {
-        loadingAnim()
-        firebase.auth().signInWithEmailAndPassword(EmailInput.value, PasswordInput.value)
-            .then((userCredential) =>
-            {
-                responseAnim(false, "Succes")
-                setTimeout(() =>
-                {
-                    endAnim();
-                    window.location.href = '/';
-                }, 2000)
 
-            })
-            .catch((error) =>
-            {
-                responseAnim(true, "Credențiale Nevalide")
-
-                setTimeout(() =>
-                {
-                    endAnim()
-                }, 2000)
-
-            });
-    }
-})
 
 let GoogleBtn = document.getElementById("google-login-btn");
 let TwitterBtn = document.getElementById("twitter-login-btn");
 let EmailInput = document.querySelector(".email-login-page-input");
 let PasswordInput = document.querySelector(".password-login-page-input");
 let SubmitForm = document.querySelector(".submit-btn-form-pass");
+
+form.addEventListener('submit', (e) =>
+    {
+        e.preventDefault();
+        if (EmailInput.value != "")
+        {
+            loadingAnim()
+    
+            var actionCodeSettings = {
+                url: window.location.origin + '/pages/menu.html',
+                handleCodeInApp: true,
+            };
+    
+            firebase.auth().sendSignInLinkToEmail(EmailInput.value, actionCodeSettings)
+                .then(() => {
+                    window.localStorage.setItem('emailForSignIn', EmailInput.value);
+                    responseAnim(false, "Succes")
+                    setTimeout(() => {
+                        endAnim()
+                    }, 2000)
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+    })
 
 
 // Google SignIn
