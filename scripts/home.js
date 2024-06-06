@@ -1,283 +1,578 @@
-import { niceDateFormatting } from "./utils.js"
-
-const heroSection = document.querySelector('.hero');
-const navbar = document.querySelector('.nav-bar')
-
-let navbarBool = true;
-
-let navbarTransitionTimeout;
-let navbarFixedTimeout;
-
-const observer = new IntersectionObserver((entries) =>
+document.addEventListener("DOMContentLoaded", (event) =>
 {
-    entries.forEach((entry) =>
-    {
-        if (!entry.isIntersecting && !navbar.classList.contains("fixed"))
-        {
-            navbar.style.transition = 'initial'
-            navbar.classList.add("fixed");
-            navbar.classList.remove('home');
-            navbar.style.backgroundColor = 'var(--day-white01)'
-            clearTimeout(navbarTransitionTimeout)
-            navbarTransitionTimeout = setTimeout(() =>
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+    const pizzaAnim = document.querySelector('.pizza')
+    const headerSection = document.querySelector('header')
+    const imgReviews = document.querySelector('.img-sections>.reviews')
+    const imgSections = document.querySelector('.img-sections')
+    const imgSection01 = document.querySelector('#img-section01')
+    // const info01 = document.querySelector('#img-section01>.container')
+    const imgSection02 = document.querySelector('#img-section02')
+    // const info02 = document.querySelector('#img-section02>.container')
+    const imgSection03 = document.querySelector('#img-section03')
+    // const info03 = document.querySelector('#img-section03>.container')
+
+    const reviewName = document.querySelector('#review-name')
+    const reviewContent = document.querySelector('#review-content')
+    const reviewAuthor = document.querySelector('#review-author')
+    const reviewNumber = document.querySelector('#review-number')
+    const prevReviewArrow = document.querySelector('#prev-review-arrow')
+    const nextReviewArrow = document.querySelector('#next-review-arrow')
+
+    const reviewsText = {
+        pizza: [
             {
-                navbar.style.transition = 'transform 0.15s'
-            }, 150)
-            navbarBool = true;
-        }
-        if (entry.isIntersecting)
-        {
-            navbarBool = false;
-            clearTimeout(navbarFixedTimeout)
-            navbarFixedTimeout = setTimeout(() =>
+                name: "Ana Dobre",
+                content: "“Delicioasă! Blatul subțire și crocant, topping-urile proaspete. Recomand cu drag!”"
+            },
             {
-                navbar.classList.remove("fixed");
-                navbar.classList.add('home');
-                navbar.style.background = 'none';
-                navbar.style.transition = 'initial'
-                navbar.style.transform = 'translateY(0%)'
-
-            }, 150)
-
-        }
-
-    });
-});
-
-observer.observe(heroSection);
-
-let previousScrollPosition = window.scrollY;
-
-window.addEventListener('scroll', () =>
-{
-    const currentScrollPosition = window.scrollY;
-
-    if (currentScrollPosition < previousScrollPosition && navbarBool)
-    {
-        navbar.style.transform = 'translateY(0%)'
+                name: "Ioan Vasilescu",
+                content: "“Ingredientele sunt echilibrate și blatul e crocant. Atmosfera e relaxantă și personalul amabil.”"
+            },
+            {
+                name: "Radu Roman",
+                content: "“Pizza Capricioasa a fost o alegere excelentă. Gustul e incredibil, iar porția e mai mult decât generoasă.”"
+            }
+        ],
+        sushi: [
+            {
+                name: "Mihai Stoica",
+                content: "“Am comandat sushi și am fost foarte mulțumit. Ingrediente proaspete, gust autentic și prezentare impecabilă.”"
+            },
+            {
+                name: "Ioana Petrescu",
+                content: "“Sushi-ul m-a impresionat. Localul e foarte primitor și curat. Cu siguranță o să revin!”"
+            },
+            {
+                name: "Andrei Constantinescu",
+                content: "“Sushi-ul e absolut minunat! Rolele sunt bine echilibrate și foarte gustoase.”"
+            }
+        ],
+        shaorma: [
+            {
+                name: "Marius Dumitru",
+                content: "“Am comandat shaorma la Relax și a fost extraordinară. Carnea suculentă și legumele proaspete!”"
+            },
+            {
+                name: "Cristina Pop",
+                content: "“Shaorma m-a impresionat cu adevărat. Gustul e incredibil, iar porția generoasă.”"
+            },
+            {
+                name: "Bogdan Ionescu",
+                content: "“Shaorma de la Relax e de neegalat! Carnea e fragedă, sosurile delicioase și legumele proaspete.”"
+            }
+        ]
     }
-    else if (navbar.classList.contains('fixed'))
-    {
-        navbar.style.transform = 'translateY(-100%)'
-        navbar.classList.remove('more')
-    }
 
-    previousScrollPosition = currentScrollPosition;
-});
+    // HEADER ANIMATION
 
-// Animations
-
-const phoneSVG = document.querySelector("#phone-svg")
-
-const phoneObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            phoneSVG.classList.add("anim")
-        }
-
-
+    gsap.to(pizzaAnim, {
+        left: "128px",
+        rotation: 360,
+        scrollTrigger: {
+            trigger: headerSection,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            markers: true
+        },
     });
-});
 
-phoneObserver.observe(phoneSVG);
 
-const arrowSVG = document.querySelector("#arrow-svg")
+    // PAST
 
-const arrowObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            arrowSVG.classList.add("anim")
+
+    // FIRST SECTION ANIMATIONS
+
+    let pizzaTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: "top top",
+            end: "bottom top",
+            markers: true,
+            scrub: true,
         }
-
     });
-});
-
-arrowObserver.observe(arrowSVG);
-
-const articles = document.querySelector(".articles-section>.content>.articles")
-
-const articlesObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            Array.from(articles.children).forEach(a =>
-            {
-                a.classList.add("anim")
-            })
-
-        }
+    pizzaTimeline.to(pizzaAnim, { rotation: 0, ease: "power1.inOut", duration: 0 }, 0) // tilt to the left
+        .to(pizzaAnim, { rotation: 16, ease: "power1.inOut" }) // tilt to the right
+        .to(pizzaAnim, { rotation: -16, ease: "power1.inOut" }) // tilt to the left
+    // .to(pizzaAnim, { rotation: 16, ease: "power1.inOut" }) // tilt to the right
+    // .to(pizzaAnim, { rotation: -16, ease: "power1.inOut" }) // tilt to the right
 
 
+
+
+    ScrollTrigger.create({
+        trigger: imgSections,
+        start: "top top",
+        end: "bottom center",
+        scrub: true,
+        pin: imgReviews,
+        markers: true
     });
-});
 
-articlesObserver.observe(articles);
 
-let article1 = document.querySelector('#article1');
-let article2 = document.querySelector('#article2');
-let article3 = document.querySelector('#article3');
+    // NEXT ARROW TIMELINE
 
-let articleHTML = [article1, article2, article3];
+    let sectionHeight01 = imgSection01.offsetHeight;
+    let sectionHeight02 = imgSection02.offsetHeight;
+    let sectionHeight03 = imgSection03.offsetHeight;
 
-articlesDB.get().then((querySnapshot) =>
-{
-    let articles = [];
-    querySnapshot.forEach((object) =>
-    {
-        articles.push(object);
-    })
-
-    articles.sort(compar);
-
-    articleHTML.forEach((art, index) =>
-    {
-        if (articles[index] !== undefined)
-        {
-            art.href = `/pages/articol.html?id=${articles[index].id}`
-            let artData = art.querySelector('.article>.data>.date');
-            artData.innerHTML = `${niceDateFormatting(articles[index].data().datePosted)}`;
-
-            let artName = art.querySelector('.article>.data>h3');
-            artName.innerHTML = `${articles[index].data().name}`;
-            art.querySelector('.article>img').src = `${articles[index].data().photoURL}`;
-            art.querySelector('.article>img').alt = "Imagine"
+    let nextReviewArrowTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${sectionHeight01 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
         }
-
-    })
-})
-
-const starsDiv = document.querySelectorAll('.stars')
-
-const starsObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            starsDiv.forEach(div =>
-            {
-                Array.from(div.children).forEach((star, index) =>
-                {
-                    star.style.animation = `jump 0.35s ease-in-out forwards ${index * 0.15}s`;
-                    const fill = star.querySelector('.fill')
-                    fill.style.animation = `big-star 0.25s ease-in-out forwards ${index * 0.15}s`;
-                })
-            })
-
-        }
-
-
     });
-});
 
-starsObserver.observe(starsDiv[0]);
+    nextReviewArrowTL.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
 
-const services = document.querySelectorAll('.services-section>.content>.services>.service')
-
-const servicesObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            services.forEach((div, index) =>
-            {
-                div.style.animation = `ascend 0.35s ease-in-out forwards ${index * 0.15}s`;
-
-            })
-
+    let prevReviewArrowTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${sectionHeight01 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
         }
-
-
     });
-});
 
-servicesObserver.observe(services[0]);
+    prevReviewArrowTL.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
 
-// Stats animation
 
-const statsSection = document.querySelector('.stats');
-const statSVGs = document.querySelectorAll('.stats>.content>.stat>div>svg');
+    let nextReviewArrowTL2 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${(sectionHeight01 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
 
-const starStatSpan = document.querySelector("#star-stat-span"); // 4.1
-const timeStatSpan = document.querySelector("#time-stat-span"); // 22:00
-const menuStatSpan = document.querySelector("#menu-stat-span"); // +50
+    nextReviewArrowTL2.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
 
-let starStatSpanInterval;
-let starStatNr = 0.0;
+    let prevReviewArrowTL2 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${(sectionHeight01 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
 
-let timeStatSpanInterval;
-let timeStatNr = 0;
+    prevReviewArrowTL2.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
 
-let menuStatSpanInterval;
-let menuStatNr = 0;
+    // REVIEW CHANGE
 
-const statsObserver = new IntersectionObserver((entries) =>
-{
-    entries.forEach((entry) =>
-    {
-        if (entry.isIntersecting)
-        {
-            statSVGs.forEach((div, index) =>
+    let textChangeTL1 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${sectionHeight01 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+            onEnter: () =>
             {
-                div.style.animation = `descend 0.35s ease-in-out forwards ${index * 0.10}s`;
-            })
-
-            starStatSpanInterval = setInterval(() =>
+                reviewContent.innerHTML = reviewsText.pizza[1].content
+                reviewAuthor.innerHTML = reviewsText.pizza[1].name
+                reviewNumber.innerHTML = 2;
+            },
+            onLeaveBack: () =>
             {
+                reviewContent.innerHTML = reviewsText.pizza[0].content
+                reviewAuthor.innerHTML = reviewsText.pizza[0].name
+                reviewNumber.innerHTML = 1;
 
-                if (starStatNr <= 4.1)
-                {
-                    starStatNr += 0.1;
-                    starStatSpan.innerText = `${starStatNr.toFixed(1)}`;
-                }
-                else
-                {
-                    clearInterval(starStatSpanInterval)
-                }
+            },
+        }
+    });
 
-            }, 25);
 
-            timeStatSpanInterval = setInterval(() =>
+    let textChangeTL2 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection01,
+            start: () => `+=${(sectionHeight01 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+
+            onEnter: () =>
             {
-
-                if (timeStatNr < 22)
-                {
-                    timeStatNr += 1;
-                    timeStatSpan.innerText = `${timeStatNr}:00`;
-                }
-                else
-                {
-                    clearInterval(timeStatSpanInterval)
-                }
-
-            }, 50);
-
-            menuStatSpanInterval = setInterval(() =>
+                reviewContent.innerHTML = reviewsText.pizza[2].content
+                reviewAuthor.innerHTML = reviewsText.pizza[2].name
+                reviewNumber.innerHTML = 3;
+            },
+            onLeaveBack: () =>
             {
-
-                if (menuStatNr < 50)
-                {
-                    menuStatNr += 1;
-                    menuStatSpan.innerText = `+${menuStatNr}`;
-                }
-                else
-                {
-                    clearInterval(menuStatSpanInterval)
-                }
-
-            }, 20);
+                reviewContent.innerHTML = reviewsText.pizza[1].content
+                reviewAuthor.innerHTML = reviewsText.pizza[1].name
+                reviewNumber.innerHTML = 2;
+            },
 
         }
     });
-});
 
-statsObserver.observe(statsSection);
+
+    // SECOND SECTION
+
+    let pizzaLeaveTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
+    pizzaLeaveTimeline.to(pizzaAnim, { left: "0px", ease: "power1.inOut", opacity: 0, rotation: 15 })
+
+    const sushiAnim = document.querySelector('.sushi')
+
+    let sushiEnterTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
+    sushiEnterTimeline.to(sushiAnim, { left: "128px", ease: "power1.inOut", opacity: 1 })
+        .to(sushiAnim, { y: "-20px", repeat: 3, yoyo: true, duration: 0.2 }, 0);
+
+
+    let textChangeTL3 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+
+            onEnter: () =>
+            {
+                reviewName.innerHTML = "Sushi"
+                reviewContent.innerHTML = reviewsText.sushi[0].content
+                reviewAuthor.innerHTML = reviewsText.sushi[0].name
+                reviewNumber.innerHTML = 1;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.pizza[2].content
+                reviewAuthor.innerHTML = reviewsText.pizza[2].name
+                reviewNumber.innerHTML = 3;
+                reviewName.innerHTML = "Pizza Capricioasa"
+            },
+
+        }
+    });
+
+    let section02Timeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: "top top",
+            end: "bottom top",
+            markers: true,
+            scrub: true,
+        }
+    });
+    section02Timeline.to(sushiAnim, { y: "-20px", repeat: 5, yoyo: true, }, 0)
+
+
+
+    let nextReviewArrowTL3 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${sectionHeight02 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    nextReviewArrowTL3.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
+
+    let prevReviewArrowTL3 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${sectionHeight02 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    prevReviewArrowTL3.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
+
+    let nextReviewArrowTL4 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${(sectionHeight02 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    nextReviewArrowTL4.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
+
+    let prevReviewArrowTL4 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${(sectionHeight02 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    prevReviewArrowTL4.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
+
+    // TEXT CHANGE 02
+
+
+
+    let textChangeTL4 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${sectionHeight02 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+            onEnter: () =>
+            {
+                reviewContent.innerHTML = reviewsText.sushi[1].content
+                reviewAuthor.innerHTML = reviewsText.sushi[1].name
+                reviewNumber.innerHTML = 2;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.sushi[0].content
+                reviewAuthor.innerHTML = reviewsText.sushi[0].name
+                reviewNumber.innerHTML = 1;
+
+            },
+        }
+    });
+
+
+    let textChangeTL5 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection02,
+            start: () => `+=${(sectionHeight02 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+
+            onEnter: () =>
+            {
+                reviewContent.innerHTML = reviewsText.sushi[2].content
+                reviewAuthor.innerHTML = reviewsText.sushi[2].name
+                reviewNumber.innerHTML = 3;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.sushi[1].content
+                reviewAuthor.innerHTML = reviewsText.sushi[1].name
+                reviewNumber.innerHTML = 2;
+            },
+
+        }
+    });
+
+    // SHAORMA ANIMATION
+
+    const shaormaAnim = document.querySelector('.shaorma')
+
+    let sushiLeaveTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
+    sushiLeaveTimeline.to(sushiAnim, { left: 0, y: "0px", duration: 0.2, opacity: 0 })
+
+
+    let shaormaEnterTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+        }
+    });
+    shaormaEnterTimeline.to(shaormaAnim, { left: "128px", ease: "power1.inOut", opacity: 1 })
+        .to(shaormaAnim, { rotation: 15 }, 0);
+
+    let section03Timeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: "top top",
+            end: "bottom center",
+            markers: true,
+            scrub: true,
+            onLeave: () =>
+            {
+                shaormaAnim.style.position = "absolute";
+                shaormaAnim.style.top = "100%";
+                section03Timeline.pause();
+            },
+            onEnterBack: () =>
+            {
+                shaormaAnim.style.position = "fixed";
+                shaormaAnim.style.top = "50%";
+                section03Timeline.resume();
+            }
+        }
+    });
+    section03Timeline.to(shaormaAnim, { rotation: -5, ease: "power1.inOut", yoyo: true, repeat: 5 }, 0)
+
+    // TEXT CHANGE 03
+
+    let textChangeTL6 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: "top top",
+            end: "+=350px",
+            markers: true,
+            scrub: true,
+
+            onEnter: () =>
+            {
+                reviewName.innerHTML = "Shaorma"
+                reviewContent.innerHTML = reviewsText.shaorma[0].content
+                reviewAuthor.innerHTML = reviewsText.shaorma[0].name
+                reviewNumber.innerHTML = 1;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.sushi[2].content
+                reviewAuthor.innerHTML = reviewsText.sushi[2].name
+                reviewNumber.innerHTML = 3;
+                reviewName.innerHTML = "Sushi"
+            },
+
+        }
+    });
+
+    let textChangeTL7 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${sectionHeight03 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+            onEnter: () =>
+            {
+                reviewContent.innerHTML = reviewsText.shaorma[1].content
+                reviewAuthor.innerHTML = reviewsText.shaorma[1].name
+                reviewNumber.innerHTML = 2;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.shaorma[0].content
+                reviewAuthor.innerHTML = reviewsText.shaorma[0].name
+                reviewNumber.innerHTML = 1;
+
+            },
+        }
+    });
+
+
+    let textChangeTL8 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${(sectionHeight03 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+
+            onEnter: () =>
+            {
+                reviewContent.innerHTML = reviewsText.shaorma[2].content
+                reviewAuthor.innerHTML = reviewsText.shaorma[2].name
+                reviewNumber.innerHTML = 3;
+            },
+            onLeaveBack: () =>
+            {
+                reviewContent.innerHTML = reviewsText.shaorma[1].content
+                reviewAuthor.innerHTML = reviewsText.shaorma[1].name
+                reviewNumber.innerHTML = 2;
+            },
+
+        }
+    });
+
+    // ARROWS
+
+    let nextReviewArrowTL5 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${sectionHeight03 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    nextReviewArrowTL5.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
+
+    let prevReviewArrowTL5 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${sectionHeight03 / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    prevReviewArrowTL5.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
+
+    let nextReviewArrowTL6 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${(sectionHeight02 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    nextReviewArrowTL6.to(nextReviewArrow, { x: 4 }, 0)
+        .to(nextReviewArrow, { x: 0 });
+
+    let prevReviewArrowTL6 = gsap.timeline({
+        scrollTrigger: {
+            trigger: imgSection03,
+            start: () => `+=${(sectionHeight02 * 2) / 3}px`,
+            end: () => `+=100px`,
+            markers: true,
+            scrub: true,
+        }
+    });
+
+    prevReviewArrowTL6.to(prevReviewArrow, { x: -4 }, 0)
+        .to(prevReviewArrow, { x: 0 });
+
+
+});
