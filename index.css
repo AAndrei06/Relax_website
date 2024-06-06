@@ -291,6 +291,7 @@ nav.fixed.abs {
 
 nav>.content>.logo>a {
     color: var(--day-dark01);
+    font-weight: 700;
 }
 
 /* 
@@ -993,7 +994,7 @@ footer>.copyright {
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
-    background: linear-gradient(to right, #FF971E, #FFF0DF);
+    background: linear-gradient(to right, #FF971E, #FFDEB8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
