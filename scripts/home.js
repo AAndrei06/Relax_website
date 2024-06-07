@@ -897,13 +897,13 @@ const isLightMode = localStorage.getItem('lightMode') === 'true';
 if (isDarkMode)
 {
     themeToggle.checked = true
-    document.body.classList.add('dark-theme');
+    document.body.classList.remove('dark-theme');
     document.documentElement.style.colorScheme = 'light';
 }
 if (isLightMode)
 {
     themeToggle.checked = false
-    document.body.classList.remove('dark-theme');
+    document.body.classList.add('dark-theme');
     document.documentElement.style.colorScheme = 'dark';
 }
 if (!isLightMode && !isDarkMode)
@@ -924,14 +924,14 @@ themeToggle.addEventListener('change', () =>
 {
     if (!themeToggle.checked)
     {
-        document.body.classList.remove('dark-theme');
+        document.body.classList.add('dark-theme');
         document.documentElement.style.colorScheme = 'dark';
         localStorage.setItem('darkMode', false);
         localStorage.setItem('lightMode', true);
     }
     else
     {
-        document.body.classList.add('dark-theme');
+        document.body.classList.remove('dark-theme');
         document.documentElement.style.colorScheme = 'light';
         localStorage.setItem('darkMode', true);
         localStorage.setItem('lightMode', false);
@@ -977,9 +977,9 @@ const langPopup = document.querySelector('footer>.right>.lang>.popup')
 const languages = document.querySelectorAll('footer>.right>.lang>.popup>.language')
 const crrLangDiv = document.querySelector('footer>.right>.lang>.crr-lang')
 
-langDiv.addEventListener('click', () =>
+langDiv.addEventListener('click', (e) =>
 {
-    console.log(langPopup)
+    e.stopPropagation();
     langPopup.classList.toggle('show')
 })
 
@@ -1000,7 +1000,47 @@ languages.forEach(lang =>
         )
         e.target.classList.add('selected')
         crrLangDiv.innerHTML = e.target.innerHTML
+
+        if (lang.classList.contains('ro'))
+        {
+            localStorage.setItem("language", "ro");
+        }
+        if (lang.classList.contains('ru'))
+        {
+            localStorage.setItem("language", "ru");
+        }
+        if (lang.classList.contains('en'))
+        {
+            localStorage.setItem("language", "en");
+        }
     })
 
 }
 )
+
+document.addEventListener('click', () =>
+{
+    if (langPopup.classList.contains('show'))
+    {
+        langPopup.classList.remove('show');
+    }
+})
+
+
+const language = localStorage.getItem('language') || 'ro';
+console.log(language)
+if (language == 'ro')
+{
+    languages[0].classList.add('selected')
+    crrLangDiv.innerHTML = "Română"
+}
+if (language == 'ru')
+{
+    languages[1].classList.add('selected')
+    crrLangDiv.innerHTML = "Русский"
+}
+if (language == 'en')
+{
+    languages[2].classList.add('selected')
+    crrLangDiv.innerHTML = "English"
+}

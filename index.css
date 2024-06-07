@@ -760,7 +760,7 @@ footer>.right>.lang>.popup.show {
 
 footer>.right>.lang>.popup>.language {
     font-size: 12px;
-    color: var(--day-white01);
+    color: var(--day-white03);
     text-align: left;
     display: flex;
     align-items: center;
@@ -769,6 +769,10 @@ footer>.right>.lang>.popup>.language {
     justify-content: space-between;
     background: none;
     border: none;
+}
+
+footer>.right>.lang>.popup>.language.selected {
+    color: var(--day-white01);
 }
 
 footer>.right>.lang>.popup>.language.selected>div {
