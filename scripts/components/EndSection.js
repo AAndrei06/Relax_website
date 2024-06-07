@@ -208,8 +208,8 @@ class EndSection extends HTMLElement
     width: 100%;
     padding-top: 36px;
     padding-bottom: 36px;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: 64px;
+    padding-right: 64px;
     display: flex;
     position: relative;
     justify-content: space-between;
@@ -507,6 +507,12 @@ footer>.disclaimer-all>.content>.disclaimer>button {
     border-radius: 4px;
     background: var(--day-dark01);
 }
+@media(max-width: 1100px) {
+    footer {
+    padding-left: 48px;
+    padding-right: 48px;
+    }
+}
 
 @media(max-width: 550px) {
     footer>.disclaimer-all>.content>.disclaimer {
@@ -516,6 +522,14 @@ footer>.disclaimer-all>.content>.disclaimer>button {
     footer>.disclaimer-all>.content>.disclaimer>p {
         width: 100%;
         font-size: 18px;
+    }
+}
+
+@media(max-width: 450px)
+{
+    footer {
+    padding-left: 24px;
+    padding-right: 24px;
     }
 }
         
