@@ -181,6 +181,9 @@ nav>.content>.links-list>.link.current>a {
     color: var(--day-dark01);
     font-weight: 600;
 }
+nav>.content>.links-list>.link>a {
+    color: var(--day-dark03);
+}
 
 nav>.account>.transparent-bttn {
     color: var(--day-dark01);
@@ -211,14 +214,6 @@ nav>.content>.logo {
     letter-spacing: 6.36px;
 }
 
-nav.home>.content>.logo>a {
-    color: #fff;
-}
-
-nav.home>.more>svg {
-    stroke: white;
-}
-
 nav>.content>.links-list {
     display: flex;
     align-items: center;
@@ -229,18 +224,6 @@ nav>.content>.links-list>.link>a {
     font-size: 20px;
     font-weight: 500;
     transition: color 0.1s linear;
-}
-
-nav.home>.content>.links-list>.link>a {
-    color: rgba(255, 255, 255, 0.75);
-}
-
-nav.home>.content>.links-list>.link:hover>a {
-    color: rgba(255, 255, 255, 0.90);
-}
-
-nav.home>.content>.links-list>.link.current>a {
-    color: #fff;
 }
 
 nav>.account {
@@ -265,14 +248,6 @@ nav>.account>.transparent-bttn {
     display: none;
 }
 
-nav.home>.account>.transparent-bttn {
-    color: #fff;
-}
-
-nav.home>.account>.transparent-bttn:hover {
-    color: rgba(255, 255, 255, 0.9);
-}
-
 nav>.account>.outline-buttn {
     display: flex;
     padding: 8px 24px;
@@ -291,12 +266,6 @@ nav>.account>.outline-buttn {
 nav>.account>.outline-buttn {
     border: 2px solid var(--day-dark01);
     color: var(--day-dark01);
-}
-
-nav.home>.account>.outline-buttn {
-    border: 2px solid #FFF;
-    background: rgba(12, 12, 12, 0.25);
-    color: #fff;
 }
 
 nav>.account>.acc-img {
@@ -500,7 +469,7 @@ nav>.more>.more>svg {
 
       
     
-    <nav class="nav-bar ${this.dark === 'true' ? 'home' : ''}">
+    <nav class="nav-bar">
         <div class="content">
             <div class="logo">
                 <a href="./index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>

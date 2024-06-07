@@ -596,7 +596,7 @@ footer>.separator {
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: var(--day-white01);
+    background-color: var(--day-dark06);
 }
 
 footer>.circle {
@@ -604,11 +604,11 @@ footer>.circle {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--day-dark01);
+    background-color: var(--day-white01);
     width: 72px;
     height: 72px;
     border-radius: 1000px;
-    border: 1px solid var(--day-white01);
+    border: 1px solid var(--day-dark06);
 
 }
 
@@ -620,7 +620,7 @@ footer>.left>button {
 footer>.left>button>span {
     font-size: 24px;
     font-weight: 700;
-    color: var(--day-white01);
+    color: var(--day-dark01);
     letter-spacing: 6px;
 }
 
@@ -633,7 +633,7 @@ footer>.left>button>div {
 footer>.left>p {
     font-weight: 200;
     font-size: 14px;
-    color: var(--day-white02);
+    color: var(--day-dark02);
 }
 
 footer>.left>label {
@@ -642,7 +642,7 @@ footer>.left>label {
     border-radius: 1000px;
     width: 48px;
     height: 24px;
-    border: 1px solid var(--day-white04);
+    border: 1px solid var(--day-dark05);
     position: relative;
 }
 
@@ -658,10 +658,10 @@ footer>.left>label>.switch {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    border: 1px solid var(--day-white03);
+    border: 1px solid var(--day-dark05);
     transition: all 0.1s ease-in-out;
     z-index: 5;
-    background-color: var(--day-dark01);
+    background-color: var(--day-white01);
 }
 
 footer>.left>label>.icon {
@@ -719,7 +719,7 @@ footer>.right>.buttons>a {
 }
 
 footer>.right>.buttons>a:hover {
-    border: 1px solid var(--day-white02);
+    border: 1px solid var(--day-dark02);
 }
 
 footer>.right>.lang {
@@ -727,7 +727,7 @@ footer>.right>.lang {
     text-align: right;
     cursor: pointer;
     font-size: 12px;
-    color: var(--day-white02);
+    color: var(--day-dark02);
     position: relative;
 }
 
@@ -745,7 +745,7 @@ footer>.right>.lang>.popup {
     top: 50%;
     transform: translateY(-50%);
     left: -20%;
-    background-color: var(--day-dark01);
+    background-color: var(--day-white01);
     display: none;
     flex-direction: column;
     gap: 8px;
@@ -760,7 +760,7 @@ footer>.right>.lang>.popup.show {
 
 footer>.right>.lang>.popup>.language {
     font-size: 12px;
-    color: var(--day-white03);
+    color: var(--day-dark03);
     text-align: left;
     display: flex;
     align-items: center;
@@ -772,7 +772,7 @@ footer>.right>.lang>.popup>.language {
 }
 
 footer>.right>.lang>.popup>.language.selected {
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 footer>.right>.lang>.popup>.language.selected>div {
@@ -1052,7 +1052,7 @@ footer>.right>.lang>.popup>.language>div {
     font-size: 64px;
     font-weight: 700;
     line-height: 103.5%;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 .b-header.straight {
@@ -1061,7 +1061,7 @@ footer>.right>.lang>.popup>.language>div {
 
 .b-paragraph {
     font-size: 24px;
-    color: var(--day-white02);
+    color: var(--day-dark02);
 }
 
 .b-glow {

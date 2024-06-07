@@ -1028,7 +1028,7 @@ document.addEventListener('click', () =>
 
 
 const language = localStorage.getItem('language') || 'ro';
-console.log(language)
+
 if (language == 'ro')
 {
     languages[0].classList.add('selected')

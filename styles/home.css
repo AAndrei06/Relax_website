@@ -3,9 +3,6 @@
 }
 
 
-body {
-    background-color: var(--day-dark01);
-}
 
 * {
     font-weight: 300;
@@ -43,7 +40,7 @@ header>.text>h1 {
     font-size: 64px;
     font-weight: 700;
     line-height: 103.5%;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 header>.text>h1>span {
@@ -57,7 +54,7 @@ header>.text>h1>span {
 
 header>.text>p {
     font-size: 24px;
-    color: var(--day-white02);
+    color: var(--day-dark02);
 }
 
 header>.pizza {
@@ -235,7 +232,7 @@ header>.pizza>.glow {
 
 .info>.item-name {
     font-size: 18px;
-    color: var(--day-white02);
+    color: var(--day-dark02);
     width: 100%;
     text-align: right;
 }
@@ -244,7 +241,7 @@ header>.pizza>.glow {
     width: 100%;
     height: 1px;
     border-radius: 100px;
-    background-color: var(--day-white02);
+    background-color: var(--day-dark02);
     margin-top: 4px;
     position: relative;
     overflow: hidden;
@@ -262,7 +259,7 @@ header>.pizza>.glow {
 .info>.review {
     margin-top: 32px;
     font-size: 24px;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 .info>.extra {
@@ -281,7 +278,7 @@ header>.pizza>.glow {
 .info>.extra>.name-flex>.name {
     font-size: 20px;
     font-weight: 500;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 .info>.extra>.name-flex>.stars {
@@ -307,7 +304,7 @@ header>.pizza>.glow {
 
 .info>.extra>.more span {
     font-size: 18px;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 .menu-section {
@@ -368,7 +365,7 @@ header>.pizza>.glow {
 .menu-section>.row>.item>.content>div>.name {
     font-weight: 500;
     font-size: 20px;
-    color: var(--day-white01);
+    color: var(--day-dark01);
 }
 
 .menu-section>.row>.item>.content>div>.stars {
@@ -381,7 +378,7 @@ header>.pizza>.glow {
     font-weight: 200;
     line-height: 24px;
     font-size: 16px;
-    color: var(--day-white03);
+    color: var(--day-dark03);
 }
 
 .articles-section {
@@ -434,21 +431,21 @@ header>.pizza>.glow {
     font-weight: 500;
     font-size: 28px;
     line-height: 36px;
-    color: var(--day-white01);
+    color: var(--day-dark01);
     width: 150px;
 }
 
 .articles-section>.responsive>.articles>.articlee>.text>.date {
     font-style: italic;
     font-size: 20px;
-    color: var(--day-white03);
+    color: var(--day-dark03);
 }
 
 .articles-section>.responsive>.articles>.articlee>.img {
     width: 175px;
     height: 175px;
     border-radius: 50%;
-    border: 2px solid var(--day-white01);
+    border: 2px solid var(--day-dark01);
     position: relative;
     display: flex;
     align-items: center;
@@ -468,7 +465,7 @@ header>.pizza>.glow {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid var(--day-white01);
+    border: 1px solid var(--day-dark01);
     z-index: -1;
     opacity: 1;
     transition: all 0.15s;
@@ -546,21 +543,21 @@ header>.pizza>.glow {
     font-weight: 500;
     font-size: 28px;
     line-height: 36px;
-    color: var(--day-white01);
+    color: var(--day-dark01);
     width: 150px;
 }
 
 .article>.text>.date {
     font-style: italic;
     font-size: 20px;
-    color: var(--day-white03);
+    color: var(--day-dark03);
 }
 
 .article>.img {
     width: 225px;
     height: 225px;
     border-radius: 50%;
-    border: 2px solid var(--day-white01);
+    border: 2px solid var(--day-dark01);
     position: relative;
 }
 
@@ -572,12 +569,12 @@ header>.pizza>.glow {
     width: 235px;
     height: 235px;
     border-radius: 50%;
-    background-color: var(--day-dark01);
+    background-color: var(--day-white01);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid var(--day-white01);
+    border: 1px solid var(--day-dark01);
     z-index: -1;
     opacity: 0;
     transition: all 0.15s;
@@ -622,8 +619,8 @@ header>.pizza>.glow {
     justify-content: center;
     font-size: 24px;
     font-weight: 400;
-    border: 1px solid var(--day-white02);
-    color: var(--day-white01);
+    border: 1px solid var(--day-dark02);
+    color: var(--day-dark01);
     width: fit-content;
     position: relative;
     transition: all 0.15s ease-in-out;
@@ -632,7 +629,7 @@ header>.pizza>.glow {
 .relax-section>.content>a>.hover {
     width: 100%;
     height: 100%;
-    outline: 1px solid var(--day-white02);
+    outline: 1px solid var(--day-dark02);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -685,7 +682,7 @@ header>.pizza>.glow {
 }
 
 #wait-arrow {
-    stroke: var(--day-white01);
+    stroke: var(--day-dark01);
 }
 
 @media(max-width: 1250px) {
