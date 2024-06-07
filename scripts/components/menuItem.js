@@ -668,7 +668,7 @@ function updateMainCategories()
 
 // Exit Popup
 
-itemOverlay.addEventListener('click', () =>
+function closeItemPopup()
 {
     itemPopup.classList.remove('show');
     itemOverlay.classList.remove('show');
@@ -676,7 +676,12 @@ itemOverlay.addEventListener('click', () =>
     reviewSide.classList.remove('show')
     popupButton.classList.remove('shake')
     resetReviewSlide()
-})
+}
+
+const closeItemPopupButtons = document.querySelectorAll('.close-item-popup')
+
+itemOverlay.addEventListener('click', closeItemPopup)
+closeItemPopupButtons.forEach(button => button.addEventListener('click', closeItemPopup))
 
 // Checkout Page
 

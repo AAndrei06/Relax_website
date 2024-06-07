@@ -1,5 +1,10 @@
 nav {
     padding-top: 64px;
+    position: absolute;
+    top: 0;
+    left: 64px;
+    z-index: 4;
+
 }
 
 nav>a {
