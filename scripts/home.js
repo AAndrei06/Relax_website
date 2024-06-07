@@ -968,3 +968,39 @@ disclaimerOverlay.addEventListener('click', () =>
     disclaimerContent.classList.remove('show');
     disclaimerOverlay.classList.remove('show');
 })
+
+
+// LANGUAGE TEMPORARY
+
+const langDiv = document.querySelector('footer>.right>.lang')
+const langPopup = document.querySelector('footer>.right>.lang>.popup')
+const languages = document.querySelectorAll('footer>.right>.lang>.popup>.language')
+const crrLangDiv = document.querySelector('footer>.right>.lang>.crr-lang')
+
+langDiv.addEventListener('click', () =>
+{
+    console.log(langPopup)
+    langPopup.classList.toggle('show')
+})
+
+langPopup.addEventListener('click', (e) =>
+{
+    e.stopPropagation();
+})
+
+languages.forEach(lang =>
+{
+    lang.addEventListener('click', (e) =>
+    {
+        languages.forEach(lang =>
+        {
+            lang.classList.remove('selected')
+            langPopup.classList.remove('show')
+        }
+        )
+        e.target.classList.add('selected')
+        crrLangDiv.innerHTML = e.target.innerHTML
+    })
+
+}
+)

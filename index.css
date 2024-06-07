@@ -726,9 +726,61 @@ footer>.right>.lang {
     width: 100%;
     text-align: right;
     cursor: pointer;
-    font-weight: 200;
     font-size: 12px;
     color: var(--day-white02);
+    position: relative;
+}
+
+footer>.right>.lang>.crr-lang {
+    text-align: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+footer>.right>.lang>.popup {
+    position: absolute;
+    padding: 8px 12px;
+    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -20%;
+    background-color: var(--day-dark01);
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 92px;
+    z-index: 4;
+    box-shadow: var(--day-m-shadow02);
+}
+
+footer>.right>.lang>.popup.show {
+    display: flex;
+}
+
+footer>.right>.lang>.popup>.language {
+    font-size: 12px;
+    color: var(--day-white01);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    justify-content: space-between;
+    background: none;
+    border: none;
+}
+
+footer>.right>.lang>.popup>.language.selected>div {
+    display: initial;
+}
+
+footer>.right>.lang>.popup>.language>div {
+    width: 4px;
+    height: 4px;
+    border-radius: 1000px;
+    background-color: var(--day-gold);
+    display: none;
 }
 
 .disclaimer-all {
