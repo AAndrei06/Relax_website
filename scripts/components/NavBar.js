@@ -5,7 +5,6 @@ class NavBar extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.currentPage = this.getAttribute('current-page') || 'home';
-        this.dark = this.getAttribute('dark') || false;
     }
 
     connectedCallback()
