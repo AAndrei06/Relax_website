@@ -110,11 +110,64 @@ document.addEventListener("DOMContentLoaded", (event) =>
         console.log(newReview)
     })
 
+    // STATIC EVENT LISTENERS FOR ARROWS
+
+    const reviewssDivs = document.querySelectorAll('.reviewss');
+
+
+    for (let i = 0; i < reviewssDivs.length; i++)
+    {
+        const itemReviewContent = reviewssDivs[i].querySelector('.review');
+        const itemAuthor = reviewssDivs[i].querySelector('.name');
+        const itemNr = reviewssDivs[i].querySelector('.nr');
+        const itemLArrow = reviewssDivs[i].querySelector('.l-arrow');
+        const itemRArrow = reviewssDivs[i].querySelector('.r-arrow');
+
+        let keys = Object.keys(reviewsText);
+        let name = keys[i];
+
+
+        itemLArrow.addEventListener('click', () =>
+        {
+            prevReview(itemReviewContent, itemAuthor, itemNr, name, reviewsText);
+        });
+
+        itemRArrow.addEventListener('click', () =>
+        {
+            nextReview(itemReviewContent, itemAuthor, itemNr, name, reviewsText);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // HEADER ANIMATION
 
     gsap.to(pizzaAnim, {
         left: "128px",
         rotation: 360,
+        transform: "translate(0%, -50%)",
         scrollTrigger: {
             trigger: headerSection,
             start: "top top",
@@ -800,3 +853,36 @@ document.addEventListener("DOMContentLoaded", (event) =>
 
 
 });
+
+
+
+function prevReview(itemReviewContent, itemAuthor, itemNr, itemName, reviewsText)
+{
+    let currentReview = parseInt(itemNr.innerHTML);
+
+    let reviewsArray = reviewsText[itemName];
+    let newReview = currentReview - 1;
+    if (newReview < 1)
+    {
+        newReview = reviewsArray.length;
+    }
+    itemReviewContent.innerHTML = reviewsArray[newReview - 1].content;
+    itemAuthor.innerHTML = reviewsArray[newReview - 1].name;
+    itemNr.innerHTML = newReview;
+}
+function nextReview(itemReviewContent, itemAuthor, itemNr, itemName, reviewsText)
+{
+    let currentReview = parseInt(itemNr.innerHTML);
+
+    let reviewsArray = reviewsText[itemName];
+    let newReview = currentReview + 1;
+    if (newReview > reviewsArray.length)
+    {
+        newReview = 1;
+    }
+    itemReviewContent.innerHTML = reviewsArray[newReview - 1].content;
+    itemAuthor.innerHTML = reviewsArray[newReview - 1].name;
+    itemNr.innerHTML = newReview;
+}
+
+
