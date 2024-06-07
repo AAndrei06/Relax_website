@@ -5,6 +5,7 @@ class NavBar extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.currentPage = this.getAttribute('current-page') || 'home';
+        this.dark = this.getAttribute('dark') || false;
     }
 
     connectedCallback()
@@ -113,7 +114,7 @@ class NavBar extends HTMLElement
         user-select: none;
         z-index: 3;
         font-weight: 300;
-        color: var(--day-white01);
+        color: var(--day-dark01);
       }
       button
       {
@@ -140,6 +141,7 @@ class NavBar extends HTMLElement
     padding: 32px 128px;
     position: absolute;
     top: 0px;
+    left: 0px;
     z-index: 4;
     transition: transform 0.15s;
     height: 110px;
@@ -149,17 +151,17 @@ a
     text-decoration: none;
 }
 
-nav>.fixed {
+nav.fixed {
     position: fixed;
     background-color: var(--day-white01);
     transform: translateY(-100%);
 }
 
-nav>.fixed.normal {
+nav.fixed.normal {
     transform: translateY(0%);
 }
 
-nav>.fixed.abs {
+nav.fixed.abs {
     position: absolute;
     padding: 32px 64px;
 }
@@ -498,17 +500,17 @@ nav>.more>.more>svg {
 
       
     
-    <nav class="nav-bar home">
+    <nav class="nav-bar ${this.dark === 'true' ? 'home' : ''}">
         <div class="content">
             <div class="logo">
                 <a href="./index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
-                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="./index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class="link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="./pages/menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link ${this.currentPage === 'article' ? 'current' : ''}"><a href="./pages/articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class="link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/menu.html' : './menu.html'}" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/articole.html' : './articole.html'}" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
-                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="./pages/contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/contact.html' : './contact.html'}" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
             </ul>
 

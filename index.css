@@ -999,6 +999,38 @@ footer>.copyright {
     -webkit-text-fill-color: transparent;
 }
 
+@media(max-width: 650px) {
+    .b-header.straight {
+        white-space: initial;
+    }
+
+    .b-h-p-flex {
+        width: 100%;
+    }
+
+    footer {
+        padding-left: 64px;
+        padding-right: 64px;
+    }
+
+    .b-glow {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media(max-width: 450px) {
+    footer {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    footer>.circle {
+        width: 48px;
+        height: 48px;
+    }
+}
+
 @media(max-width: 400px) {
     .b-header {
         font-size: 56px;
