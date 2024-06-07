@@ -496,10 +496,21 @@
     gap: 16px;
 }
 
-.menu-section>.content>h2 {
+.menu-section>.content>div {
     color: var(--day-dark01);
     font-size: 28px;
     font-weight: 700;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.menu-section>.content>div>.icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-section>.content>.items {
