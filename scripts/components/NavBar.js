@@ -300,20 +300,20 @@ nav>.more {
     z-index: 6;
 }
 
-nav>.more {
+nav.more {
     z-index: 10;
     background: none !important;
 }
 
-nav>.more>.content>.logo>a {
-    color: white;
-}
 
 nav>.more>svg {
     fill: var(--day-dark01);
 }
-
-nav>.more>.more>svg {
+nav.more>.content>.logo>a
+{
+    color: white;
+}
+nav.more>.more>svg {
     stroke: white;
     fill: white;
 }
@@ -349,18 +349,19 @@ nav>.more>.more>svg {
     left: 48px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
     top: calc(50% - 5vh);
     transform: translateY(-50%);
+    z-index:8;
 }
 
-.more-menu>.content>.links-list>.link {
+.more-menu>.content>.links-list>.link>a {
     color: rgba(255, 255, 255, 0.75);
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 400;
 }
 
-.more-menu>.content>.links-list>.link.current {
+.more-menu>.content>.links-list>.link.current>a {
     color: #fff;
 }
 
@@ -375,14 +376,15 @@ nav>.more>.more>svg {
     gap: 24px;
 }
 
-.more-menu>.content>.account>button {
+.more-menu>.content>.account>a {
     background: none;
     color: #fff;
     font-weight: 400;
 }
 
 .more-menu>.content>.account>.transparent-bttn {
-    font-size: 40px;
+    font-size: 32px;
+    text-align: center;
 }
 
 .more-menu>.content>.account>.outline-buttn {
@@ -394,6 +396,7 @@ nav>.more>.more>svg {
     align-items: center;
     border-radius: 8px;
     border: 3px solid #FFF;
+    text-align: center;
 }
 
 .more-menu>.content>.acc-img {
