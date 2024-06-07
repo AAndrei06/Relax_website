@@ -32,8 +32,6 @@ function responseAnim(err = false, msg) {
 
     sendBttnFeedback.style.transform = "translateX(0%)"
     sendBttnFeedback.style.opacity = "1"
-
-
 }
 
 function endAnim() {
@@ -82,42 +80,46 @@ GoogleBTN.addEventListener("click", () => {
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
                 querySnapshot.forEach((obj) => {
+                    console.log(obj)
                     is_user = true;
                 })
             }).then(() => {
-                console.log(user)
-                if (!is_user) {
+                usersDB.where("ID", "==", user.email).get().then((querySnapshot) => {
+                    querySnapshot.forEach((obj) => {
+                        console.log(obj)
+                        is_user = true;
+                    })
+                }).then(() => {
+                    console.log(user)
+                    if (!is_user) {
 
-                    let date = new Date();
-                    usersDB.add({
-                        name: user.displayName,
-                        ID: user.uid,
-                        admin: false,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() => {
-                        cartsDB.add({
+                        let date = new Date();
+                        usersDB.add({
+                            name: user.displayName,
                             ID: user.uid,
-                            products: [],
+                            admin: false,
+                            created: date.getTime(),
+                            photoURL: startImage,
+                            email: user.email
                         }).then(() => {
+                            cartsDB.add({
+                                ID: user.uid,
+                                products: [],
+                            }).then(() => {
 
 
-                            responseAnim(false, "Succes")
-                            setTimeout(() => {
-                                endAnim()
-                                window.location.href = '/';
+                                responseAnim(false, "Succes")
+                                setTimeout(() => {
+                                    endAnim()
+                                    window.location.href = '/';
 
-                            }, 2000)
+                                }, 2000)
 
+                            });
                         });
-
-
-                    });
-                }
-            });
-
-
-
+                    }
+                });
+            })
         }).catch((error) => {
 
             responseAnim(true, "Eroare")
@@ -130,7 +132,6 @@ GoogleBTN.addEventListener("click", () => {
         });
 });
 
-
 // Twitter SignIn
 
 TwitterBTN.addEventListener("click", () => {
@@ -139,42 +140,51 @@ TwitterBTN.addEventListener("click", () => {
         .auth()
         .signInWithPopup(TwitterProvider)
         .then((result) => {
-
             var user = result.user;
             let is_user = false;
             usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
                 querySnapshot.forEach((obj) => {
+                    console.log(obj)
                     is_user = true;
                 })
             }).then(() => {
-                if (!is_user) {
-                    let date = new Date();
-                    usersDB.add({
-                        name: user.displayName,
-                        ID: user.uid,
-                        admin: false,
-                        created: date.getTime(),
-                        photoURL: startImage,
-                    }).then(() => {
-                        cartsDB.add({
+                usersDB.where("ID", "==", user.email).get().then((querySnapshot) => {
+                    querySnapshot.forEach((obj) => {
+                        console.log(obj)
+                        is_user = true;
+                    })
+                }).then(() => {
+                    console.log(user)
+                    if (!is_user) {
+
+                        let date = new Date();
+                        usersDB.add({
+                            name: user.displayName,
                             ID: user.uid,
-                            products: [],
+                            admin: false,
+                            created: date.getTime(),
+                            photoURL: startImage,
+                            email: user.email
                         }).then(() => {
-                            responseAnim(false, "Succes")
-                            setTimeout(() => {
-                                endAnim()
-                                window.location.href = '/';
-                            }, 2000)
+                            cartsDB.add({
+                                ID: user.uid,
+                                products: [],
+                            }).then(() => {
 
+
+                                responseAnim(false, "Succes")
+                                setTimeout(() => {
+                                    endAnim()
+                                    window.location.href = '/';
+
+                                }, 2000)
+
+                            });
                         });
-
-
-                    });
-                }
-            });
-
-        })
-        .catch((error) => {
+                    }
+                });
+            })
+        }).catch((error) => {
 
             responseAnim(true, "Eroare")
 

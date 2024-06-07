@@ -491,7 +491,6 @@ function renderMenuItems(menuItems)
         const items = section.querySelector('.items');
 
         const reviews = item.reviews || [];
-        console.log(item.descriptiontran.en)
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
