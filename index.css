@@ -1,14 +1,15 @@
 :root {
-    --day-dark01: rgba(12, 12, 12, 1);
-    --day-dark02: rgba(12, 12, 12, 0.9);
-    --day-dark03: rgba(12, 12, 12, 0.75);
-    --day-dark04: rgba(12, 12, 12, 0.5);
-    --day-dark05: rgba(12, 12, 12, 0.25);
-    --day-dark06: rgba(12, 12, 12, 0.1);
-    --day-separator: rgba(12, 12, 12, 0.1);
+    --day-dark01: rgba(2, 2, 2, 1);
+    --day-dark02: rgba(2, 2, 2, 0.9);
+    --day-dark03: rgba(2, 2, 2, 0.75);
+    --day-dark04: rgba(2, 2, 2, 0.5);
+    --day-dark05: rgba(2, 2, 2, 0.25);
+    --day-dark06: rgba(2, 2, 2, 0.1);
+    --day-separator: rgba(2, 2, 2, 0.1);
     --day-white01: rgba(255, 255, 255, 1);
     --day-white02: rgba(255, 255, 255, 0.9);
     --day-white03: rgba(255, 255, 255, 0.75);
+    --day-white04: rgba(255, 255, 255, 0.1);
     --day-background: rgba(247, 247, 247, 1);
     --day-i-background: rgba(247, 247, 247, 1);
     --day-ebackground: rgba(247, 247, 247, 0.5);
@@ -16,9 +17,9 @@
     --day-admin: rgba(0, 87, 24, 1);
     --day-heart: rgba(255, 60, 60, 1);
     --day-brown: rgba(46, 46, 46, 1);
-    --day-m-shadow01: rgba(12, 12, 12, 1);
+    --day-m-shadow01: rgba(2, 2, 2, 1);
     --day-m-shadow02: rgba(46, 46, 46, 1);
-    --day-concealed-black: rgba(12, 12, 12, 1);
+    --day-concealed-black: rgba(2, 2, 2, 1);
 
     --day-placeholder: #F3F3F3;
     --day-menu-shadow: 0px -4px 9px 0px rgba(0, 0, 0, 0.05),
@@ -36,8 +37,10 @@
     --day-dark05: rgba(255, 255, 255, 0.25);
     --day-dark06: rgba(255, 255, 255, 0.10);
     --day-separator: rgba(255, 255, 255, 0.1);
-    --day-white01: rgba(12, 12, 12, 1);
-    --day-white02: rgba(12, 12, 12, 0.9);
+    --day-white01: rgba(2, 2, 2, 1);
+    --day-white02: rgba(2, 2, 2, 0.9);
+    --day-white03: rgba(2, 2, 2, 0.75);
+    --day-white04: rgba(2, 2, 2, 0.1);
     --day-background: rgba(27, 27, 27, 1);
     --day-i-background: rgba(9, 9, 9, 1);
     --day-ebackground: rgba(18, 18, 18, 0.65);
@@ -601,11 +604,11 @@ footer>.circle {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #020202;
+    background-color: var(--day-dark01);
     width: 72px;
     height: 72px;
     border-radius: 1000px;
-    border: 1px solid white;
+    border: 1px solid var(--day-white01);
 
 }
 
@@ -633,12 +636,65 @@ footer>.left>p {
     color: var(--day-white02);
 }
 
-footer>.left>div {
+footer>.left>label {
+    cursor: pointer;
     margin-top: 12px;
     border-radius: 1000px;
     width: 48px;
     height: 24px;
-    border: 1px solid rgba(255, 255, 255, 10%);
+    border: 1px solid var(--day-white04);
+    position: relative;
+}
+
+footer>.left>label>input {
+    display: none;
+}
+
+footer>.left>label>.switch {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid var(--day-white03);
+    transition: all 0.1s ease-in-out;
+    z-index: 5;
+    background-color: var(--day-dark01);
+}
+
+footer>.left>label>.icon {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 6px;
+    transition: all 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+footer>.left>label>input:checked+.switch {
+    right: calc(100% - 20px);
+}
+
+footer>.left>label>input:checked+.switch+.icon {
+    left: calc(100% - 20px);
+}
+
+footer>.left>label>input:checked+.switch+.icon>#moon-icon {
+    display: none;
+}
+
+#sun-icon {
+    display: none;
+}
+
+footer>.left>label>input:checked+.switch+.icon>#sun-icon {
+    display: initial;
 }
 
 footer>.right {
@@ -663,7 +719,7 @@ footer>.right>.buttons>a {
 }
 
 footer>.right>.buttons>a:hover {
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--day-white02);
 }
 
 footer>.right>.lang {
@@ -674,32 +730,6 @@ footer>.right>.lang {
     font-size: 12px;
     color: var(--day-white02);
 }
-
-/* footer>.social-media>a {
-    display: flex;
-    align-items: center;
-}
-
-footer>.logo {
-    color: #FFF;
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 6.36px;
-    white-space: nowrap;
-    text-align: center;
-}
-
-footer>.copyright {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    color: #FFF;
-    font-size: 20px;
-    font-weight: 600;
-    background: none;
-    border: none;
-    white-space: nowrap;
-} */
 
 .disclaimer-all {
     width: 100%;

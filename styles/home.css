@@ -4,7 +4,7 @@
 
 
 body {
-    background-color: #020202;
+    background-color: var(--day-dark01);
 }
 
 * {
@@ -463,7 +463,7 @@ header>.pizza>.glow {
     width: 185px;
     height: 185px;
     border-radius: 50%;
-    background-color: #020202;
+    background-color: var(--day-dark01);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -572,7 +572,7 @@ header>.pizza>.glow {
     width: 235px;
     height: 235px;
     border-radius: 50%;
-    background-color: #020202;
+    background-color: var(--day-dark01);
     position: absolute;
     top: 50%;
     left: 50%;
