@@ -703,17 +703,22 @@ function updateMenuSidebar()
 
     sideMenuIDs.forEach(itemId =>
     {
+        console.log(itemId)
         const item = itemQuantityMap.get(itemId);
+        console.log(item)
+        if (item)
+            {
+            orders[item.id] = item.numValue
 
-        orders[item.id] = item.numValue
+            ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
 
-        ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
-
-        if (item && item.numValue > 0)
-        {
-            ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
+            if (item.numValue > 0)
+            {
+                ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
                         quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
-        }
+            }
+            }
+            
     });
 
     localStorage.setItem('orders', JSON.stringify(orders));
@@ -741,13 +746,16 @@ function assignReviewNum(div, num)
     let sing = "";
     let plurar = "";
     let lang = localStorage.getItem('language');
-    if (lang == 'ro'){
+    if (lang == 'ro')
+    {
         sing = "recenzie";
         plurar = "recenzii";
-    }else if (lang == 'ru'){
+    } else if (lang == 'ru')
+    {
         sing = "обзор";
         plurar = "обзоры";
-    }else if (lang == 'en'){
+    } else if (lang == 'en')
+    {
         sing = "review";
         plurar = "reviews";
     }
