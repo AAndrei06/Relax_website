@@ -261,7 +261,7 @@ div[contenteditable="true"] {
     pointer-events: initial;
 }
 
-nav {
+/* nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -300,7 +300,7 @@ nav>.content>.links-list>.link>a {
     font-weight: 100;
 } */
 
-nav>.content>.links-list>.link:hover>a {
+/* nav>.content>.links-list>.link:hover>a {
     color: var(--day-dark01);
 }
 
@@ -475,9 +475,9 @@ nav>.more>svg {
 nav.more>.more>svg {
     stroke: white;
     fill: white;
-}
+} */
 
-.more-menu {
+/* .more-menu {
     background: rgba(0, 0, 0, 0.9);
     transform: translateY(-100%);
     transition: all 0.15s linear;
@@ -563,7 +563,7 @@ nav.more>.more>svg {
 
 .more-menu>.content>.acc-img>img {
     border-radius: 100%;
-}
+} */
 
 footer {
     width: 100%;
@@ -770,7 +770,7 @@ footer>.copyright {
     background: var(--day-dark01);
 }
 
-@media(max-width: 1100px) {
+/* @media(max-width: 1100px) {
     nav>.content>.links-list {
         display: none;
     }
@@ -790,9 +790,9 @@ footer>.copyright {
     footer {
         padding: 0 48px;
     }
-}
+} */
 
-@media(max-width: 800px) {
+/* @media(max-width: 800px) {
     footer>.social-media {
         display: none;
     }
@@ -801,7 +801,7 @@ footer>.copyright {
         grid-template-columns: auto auto;
         justify-items: center;
     }
-}
+} */
 
 @media(max-width: 550px) {
     .disclaimer-all>.content>.disclaimer {
@@ -815,7 +815,7 @@ footer>.copyright {
 }
 
 
-@media(max-width: 500px) {
+/* @media(max-width: 500px) {
 
     footer>.logo {
         display: none;
@@ -827,14 +827,14 @@ footer>.copyright {
         justify-items: center;
     }
 
-}
+} */
 
 @media(max-width: 400px) {
-    nav {
+    /* nav {
         padding: 32px 24px !important;
-    }
+    } */
 
-    .more-menu>.content>.acc-img {
+    /* .more-menu>.content>.acc-img {
         left: 24px;
         bottom: 40px;
     }
@@ -856,7 +856,7 @@ footer>.copyright {
 
     .more-menu>.content>.account>.outline-buttn {
         font-size: 28px;
-    }
+    } */
 }
 
 
@@ -997,4 +997,15 @@ footer>.copyright {
     background: linear-gradient(to right, #FF971E, #FFDEB8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+@media(max-width: 400px) {
+    .b-header {
+        font-size: 56px;
+    }
+
+    .b-paragraph {
+        font-size: 22px;
+    }
+
 }

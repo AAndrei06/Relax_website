@@ -36,7 +36,8 @@ const articlesDB = firebase.firestore().collection("articles");
 const commentsDB = firebase.firestore().collection("comments");
 
 
-function formatDate(stamp){
+function formatDate(stamp)
+{
     let date = new Date(stamp);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -48,7 +49,8 @@ function formatDate(stamp){
 let userInitialName = "user12747538";
 let startImage = "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/download.webp?alt=media&token=1ac24416-0327-41fe-991e-47df2a4087e8";
 
-function compar(a, b) {
+function compar(a, b)
+{
     return b.data().datePosted - a.data().datePosted;
 }
 
