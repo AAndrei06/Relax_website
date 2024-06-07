@@ -102,6 +102,41 @@ class NavBar extends HTMLElement
 
     render()
     {
+        console.log(this.currentPage)
+        let lang = localStorage.getItem('language')
+        let navOBJ = {
+            'home':{
+                "en":"Home",
+                "ro":"Acasă",
+                "ru":"Дом"
+            },
+            'menu':{
+                "en":"Menu",
+                "ro":"Meniu",
+                "ru":"Меню"
+            },
+            'article':{
+                "en":"Articles",
+                "ro":"Articole",
+                "ru":"Cтатьях"
+            },
+            'contact':{
+                "en":"Contacts",
+                "ro":"Contacte",
+                "ru":"Контакты"
+            },
+            'auth':{
+                "en":"Log In",
+                "ro":"Autentificare",
+                "ru":"Авторизоваться"
+            },
+            'register':{
+                "en":"Sign Up",
+                "ro":"Înregistrare",
+                "ru":"Регистрация"
+            },
+
+        }
         this.shadowRoot.innerHTML = `
       <style>
         *
@@ -471,26 +506,26 @@ nav>.more>.more>svg {
     <nav class="nav-bar">
         <div class="content">
             <div class="logo">
-                <a href="./index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
+                <a href="${this.currentPage != 'home' ? '.' : ''}./index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
-                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class="link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/menu.html' : './menu.html'}" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/articole.html' : './articole.html'}" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina de acasă">${navOBJ['home'][lang]}</a></li>
+                <li class="link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/menu.html' : './menu.html'}" aria-label="Intră pe pagina de meniu">${navOBJ['menu'][lang]}</a></li>
+                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/articole.html' : './articole.html'}" aria-label="Intră pe pagina de articole">${navOBJ['article'][lang]}</a>
                 </li>
-                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/contact.html' : './contact.html'}" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/contact.html' : './contact.html'}" aria-label="Intră pe pagina de contacte">${navOBJ['contact'][lang]}</a>
                 </li>
             </ul>
 
         </div>
         <div class="account">
-            <a href="./pages/autentificare.html" class="transparent-bttn" aria-label="Autentifica-te" data-translate="authobj"
+            <a href=".${this.currentPage != 'home' ? '' : '/pages'}/autentificare.html" class="transparent-bttn" aria-label="Autentifica-te" data-translate="authobj"
                     aria-label="Intră pe pagina de Autentificare">
-                    Autentificare
+                    ${navOBJ['auth'][lang]}
                 </a>
                 
-            <a href="./pages/inregistrare.html" aria-label="Intră pe pagina de Înregistrare" class="outline-buttn" aria-label="Înregistrează-te">Înregistrare</a>
-            <a href="./pages/account.html" class="acc-img ${this.currentPage === 'account' ? 'current' : ''}" aria-label="Account" >
+            <a href=".${this.currentPage != 'home' ? '' : '/pages'}/inregistrare.html" aria-label="Intră pe pagina de Înregistrare" class="outline-buttn" aria-label="Înregistrează-te">${navOBJ['register'][lang]}</a>
+            <a href=".${this.currentPage === 'home' ? '/pages' : ''}/account.html" class="acc-img ${this.currentPage === 'account' ? 'current' : ''}" aria-label="Account" >
                     <img src="" alt="Imaginea ta de profil">
                 </a>
         </div>
@@ -504,21 +539,21 @@ nav>.more>.more>svg {
     <div class="more-menu overlay">
         <div class="content">
             <ul class="links-list">
-                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="./index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class=" link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="./pages/menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="./pages/articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="./index.html" aria-label="Intră pe pagina de acasă">${navOBJ['home'][lang]}</a></li>
+                <li class=" link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="./pages/menu.html" aria-label="Intră pe pagina de meniu">${navOBJ['menu'][lang]}</a></li>
+                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="./pages/articole.html" aria-label="Intră pe pagina de articole">${navOBJ['article'][lang]}</a>
                 </li>
-                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="./pages/contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="./pages/contact.html" aria-label="Intră pe pagina de contacte">${navOBJ['contact'][lang]}</a>
                 </li>
             </ul>
             <div class="account">
-                <a href="./pages/autentificare.html" data-translate="authobj" class="transparent-bttn" aria-label="Autentifica-te"
+                <a href=".${this.currentPage != 'home' ? '' : '/pages'}/autentificare.html" data-translate="authobj" class="transparent-bttn" aria-label="Autentifica-te"
                         aria-label="Intră pe pagina de Autentificare">
-                        Autentificare
+                        ${navOBJ['auth'][lang]}
                     </a>
-                <a href="./pages/inregistrare.html" class="outline-buttn" aria-label="Înregistrează-te">Înregistrare</a>
+                <a href=".${this.currentPage != 'home' ? '' : '/pages'}/inregistrare.html" class="outline-buttn" aria-label="Înregistrează-te">${navOBJ['register'][lang]}</a>
             </div>
-            <a class="acc-img" href="./pages/account.html">
+            <a class="acc-img" href=".${this.currentPage === 'home' ? '/pages' : ''}/account.html">
                 <img src="" alt="Imaginea ta de profil">
             </a>
         </div>
