@@ -14,9 +14,6 @@ const APP = firebase.initializeApp(firebaseConfig);
 // Google Provider
 let GoogleProvider = new firebase.auth.GoogleAuthProvider();
 
-// Facebook Provider
-let FacebookProvider = new firebase.auth.FacebookAuthProvider();
-
 // Twitter Provider
 let TwitterProvider = new firebase.auth.TwitterAuthProvider();;
 
@@ -47,7 +44,7 @@ function formatDate(stamp)
 }
 
 let userInitialName = "user12747538";
-let startImage = "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/download.webp?alt=media&token=1ac24416-0327-41fe-991e-47df2a4087e8";
+let startImage = "https://firebasestorage.googleapis.com/v0/b/relax-92c1e.appspot.com/o/36caa0817d2c07fd46cf610c3aa4b1646254a1d4.png?alt=media&token=37e9da13-febb-4f75-b959-7109067af6cc";
 
 function compar(a, b)
 {

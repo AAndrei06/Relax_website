@@ -274,10 +274,12 @@ firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
+        console.log(user)
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
             {
+                console.log(doc.data())
                 createReviewImg.src = doc.data().photoURL;
                 createReviewName.innerText = doc.data().name;
                 accountName = doc.data().name;
@@ -437,10 +439,10 @@ const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
 const popupReviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
 
+
 const reviewSide = document.querySelector('.reviews-side')
 const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars')
 const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num')
-
 const newPoint = document.querySelector(".menu-bttn>.wrap>.new");
 const ordersDiv = document.querySelector(".menu-side>.wrap>.orders");
 const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>.total>.main>.price');
@@ -489,17 +491,18 @@ function renderMenuItems(menuItems)
         const items = section.querySelector('.items');
 
         const reviews = item.reviews || [];
-
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
         }
         else
         {
+            let languageSelectedStorage = localStorage.getItem('language');
+
             section.style.display = 'initial';
-            items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
+            items.innerHTML += `<menu-item name="${item.nametran[languageSelectedStorage]}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
                             reviews='${JSON.stringify(reviews)}'
-                            description="${item.description}"
+                            description="${item.descriptiontran[languageSelectedStorage]}"
                             masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
         }
 
@@ -597,7 +600,7 @@ function filterAndRender(menuItems)
     ];
 
     let filteredItems = filterMenuItems(menuItems, criteria);
-
+    console.log(filteredItems)
     filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
     let filteredIDs = [];
@@ -735,7 +738,20 @@ function updateMenuSidebar()
 
 function assignReviewNum(div, num)
 {
-    const pluralText = num === 1 ? 'recenzie' : 'recenzii';
+    let sing = "";
+    let plurar = "";
+    let lang = localStorage.getItem('language');
+    if (lang == 'ro'){
+        sing = "recenzie";
+        plurar = "recenzii";
+    }else if (lang == 'ru'){
+        sing = "обзор";
+        plurar = "обзоры";
+    }else if (lang == 'en'){
+        sing = "review";
+        plurar = "reviews";
+    }
+    const pluralText = num === 1 ? sing : plurar;
     div.innerText = `${num} ${pluralText}`;
 }
 
