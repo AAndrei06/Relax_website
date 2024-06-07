@@ -527,6 +527,8 @@
     overflow: hidden;
 }
 
+
+
 .item-popup.show {
     opacity: 1;
     pointer-events: initial;
@@ -586,6 +588,24 @@
     flex-direction: column;
     padding: 32px 32px 32px 0;
     position: relative;
+}
+
+.close-item-popup {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    background: none;
+    border: none;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+#close-item-popup-img {
+    display: none;
 }
 
 .item-popup>.text>.header {
@@ -1910,6 +1930,14 @@
         height: 100%;
         min-height: 30vh;
         width: 100%;
+    }
+
+    #close-item-popup-text {
+        display: none;
+    }
+
+    #close-item-popup-img {
+        display: initial;
     }
 
 

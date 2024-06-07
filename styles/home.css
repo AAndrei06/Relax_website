@@ -897,9 +897,10 @@ header>.pizza>.glow {
 }
 
 @media(max-width: 450px) {
+    /* JOS
     :root {
-        --padding-side: 24px;
-    }
+            --padding-side: 24px;
+        } */
 
     .relax-section>.img {
         width: 156px;
@@ -935,15 +936,18 @@ header>.pizza>.glow {
     .info>.extra>.more span {
         font-size: 16px;
     }
-}
 
-@media(max-width: 450px) {
     .articles-section>.responsive>.articles {
         gap: 16px;
     }
 }
 
 @media(max-width: 400px) {
+
+    :root {
+        --padding-side: 24px;
+    }
+
     .articles-section>.responsive>.articles {
         grid-template-columns: auto;
         align-items: flex-start;

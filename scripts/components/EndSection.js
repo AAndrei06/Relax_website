@@ -525,7 +525,7 @@ footer>.disclaimer-all>.content>.disclaimer>button {
     }
 }
 
-@media(max-width: 450px)
+@media(max-width: 400px)
 {
     footer {
     padding-left: 24px;
