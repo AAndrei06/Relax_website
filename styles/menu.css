@@ -3,8 +3,8 @@
 } */
 
 .filter-section {
-    margin-top: 110px;
-    padding: 0 64px;
+    /* margin-top: 110px; */
+    padding: 110px 64px 0 64px;
 }
 
 .filter-section>.content {

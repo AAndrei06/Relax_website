@@ -1,16 +1,22 @@
+:root {
+    --padding-side: 64px;
+}
+
+
 body {
-    background-color: #020202;
+    background-color: var(--day-dark01);
 }
 
 * {
     font-weight: 300;
+    /* outline: 1px solid white; */
 }
 
 header {
     display: flex;
     align-items: center;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     width: 100%;
     height: 100vh;
     position: relative;
@@ -66,7 +72,7 @@ header>.pizza {
     position: fixed;
     top: 50%;
     /* right: 128px !important; */
-    left: calc(100% - 128px);
+    left: calc(100% - var(--padding-side));
     transform: translate(-100%, -50%);
 }
 
@@ -87,8 +93,8 @@ header>.pizza>.glow {
 .img-section {
     display: flex;
     align-items: center;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     justify-content: flex-end;
     width: 100%;
     height: 300vh;
@@ -182,7 +188,7 @@ header>.pizza>.glow {
     top: 256px;
     width: 450px;
     height: 243px;
-    right: 128px;
+    right: var(--padding-side);
     z-index: 8;
 }
 
@@ -307,8 +313,8 @@ header>.pizza>.glow {
 .menu-section {
     display: flex;
     align-items: center;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     justify-content: space-between;
     width: 100%;
     height: 100vh;
@@ -381,8 +387,8 @@ header>.pizza>.glow {
 .articles-section {
     display: flex;
     align-items: top;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     padding-top: 256px;
     width: 100%;
     height: 250vh;
@@ -457,7 +463,7 @@ header>.pizza>.glow {
     width: 185px;
     height: 185px;
     border-radius: 50%;
-    background-color: #020202;
+    background-color: var(--day-dark01);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -566,7 +572,7 @@ header>.pizza>.glow {
     width: 235px;
     height: 235px;
     border-radius: 50%;
-    background-color: #020202;
+    background-color: var(--day-dark01);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -588,8 +594,8 @@ header>.pizza>.glow {
 .relax-section {
     display: flex;
     align-items: center;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     justify-content: space-between;
     width: 100%;
     height: 100vh;
@@ -653,8 +659,8 @@ header>.pizza>.glow {
 .wait-section {
     display: flex;
     align-items: center;
-    padding-left: 128px;
-    padding-right: 128px;
+    padding-left: var(--padding-side);
+    padding-right: var(--padding-side);
     justify-content: center;
     width: 100%;
     height: 100vh;
@@ -672,6 +678,10 @@ header>.pizza>.glow {
     width: 40px;
     height: 40px;
     background: none;
+}
+
+.wait-section>div>h2 {
+    text-align: center;
 }
 
 #wait-arrow {
@@ -708,6 +718,14 @@ header>.pizza>.glow {
     #articles-text-flex {
         margin-top: 0;
         display: none;
+    }
+
+    .articles-section>.responsive>.articles>.articlee {
+        flex-direction: row;
+    }
+
+    .articles-section>.responsive>.articles {
+        gap: 48px;
     }
 
     .articles-section>.responsive {
@@ -768,6 +786,12 @@ header>.pizza>.glow {
     }
 }
 
+@media(max-width: 1100px) {
+    :root {
+        --padding-side: 48px;
+    }
+}
+
 @media(max-width: 1050px) {
     .menu-section {
         justify-content: center;
@@ -788,5 +812,170 @@ header>.pizza>.glow {
         transform: none;
         top: 0;
         left: 0;
+    }
+}
+
+@media(max-width: 875px) {
+    .articles-section>.responsive>.articles>.articlee {
+        flex-direction: column;
+    }
+
+    .articles-section>.responsive>.articles {
+        gap: 48px;
+    }
+}
+
+
+
+
+@media(max-width: 650px) {
+
+
+    .relax-section>.content>.b-h-p-flex>p {
+        width: 100%;
+    }
+
+    .articles-section>.responsive>.b-h-p-flex {
+        text-align: start;
+    }
+
+    .articles-section>.responsive>.b-h-p-flex>.b-paragraph {
+        width: 100%;
+    }
+
+    .wait-section>div>p {
+        width: 100%;
+        text-align: center;
+    }
+
+
+}
+
+@media(max-width: 600px) {
+    .info {
+        width: 100%;
+    }
+
+    .info>.review {
+        width: 100%;
+    }
+
+    .reviewss {
+        width: 100%;
+    }
+}
+
+@media(max-width: 550px) {
+    .articles-section>.responsive>.articles>.articlee>.img {
+        width: 128px;
+        height: 128px;
+    }
+
+    .articles-section>.responsive>.articles>.articlee>.img>div {
+        width: 138px;
+        height: 138px;
+    }
+
+    .articles-section>.responsive>.articles>.articlee>.text>.name {
+        font-size: 26px;
+        text-align: center;
+    }
+
+    .articles-section>.responsive>.articles>.articlee>.text>.date {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .articles-section>.responsive>.articles>.articlee {
+        gap: 16px;
+    }
+
+
+}
+
+@media(max-width: 450px) {
+    :root {
+        --padding-side: 24px;
+    }
+
+    .relax-section>.img {
+        width: 156px;
+        height: 156px;
+    }
+
+    .menu-section>.row>.item {
+        align-items: center;
+        gap: 16px;
+    }
+
+    .menu-section>.row>.item>.img {
+        width: 64px;
+        height: 64px;
+    }
+
+    .info>.review {
+        font-size: 22px;
+    }
+
+    .info>.item-name {
+        font-size: 16px;
+    }
+
+    .info>.extra>.name-flex>.name {
+        font-size: 18px;
+    }
+
+    .info>.extra>.name-flex>.stars {
+        font-size: 16px;
+    }
+
+    .info>.extra>.more span {
+        font-size: 16px;
+    }
+}
+
+@media(max-width: 450px) {
+    .articles-section>.responsive>.articles {
+        gap: 16px;
+    }
+}
+
+@media(max-width: 400px) {
+    .articles-section>.responsive>.articles {
+        grid-template-columns: auto;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .articles-section>.responsive>.articles>.articlee {
+        flex-direction: row;
+    }
+
+    .articles-section>.responsive>.articles>.articlee>.text>.name {
+        width: 100%;
+    }
+
+    .articles-section>.responsive>.articles {
+        gap: 32px;
+    }
+
+    .articles-section>.responsive>.articles>.articlee {
+        display: grid;
+        grid-template-columns: 138px 1fr;
+    }
+
+
+
+    .articles-section {
+        height: 100%;
+    }
+
+    .relax-section {
+        margin-top: 128px;
+    }
+
+    .img-section>.img {
+        width: 300px;
+        height: 300px;
     }
 }
