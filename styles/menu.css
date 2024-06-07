@@ -379,6 +379,15 @@
     font-size: 24px;
     font-weight: 700;
     letter-spacing: 6.36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-side>.wrap>.logo>.exit-menu-side {
+    width: 32px;
+    height: 32px;
+    background: none;
 }
 
 .menu-side>.wrap>.orders {
@@ -2045,6 +2054,10 @@
         margin-top: 64px;
         bottom: 0;
         top: initial;
+    }
+
+    .exit-menu-side {
+        transform: rotate(90deg);
     }
 
     .categories-sections>.empty-section>.no-results {
