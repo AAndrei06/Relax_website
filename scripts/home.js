@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", (event) =>
     const reviewsText = {
         pizza: [
             {
-                name: "Ana Dobre",
+                name:"Ana Dobre",
                 content: "“Delicioasă! Blatul subțire și crocant, topping-urile proaspete. Recomand cu drag!”"
             },
             {
@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", (event) =>
             }
         ]
     }
+    console.log(reviewsText.pizza[0].name[localStorage.getItem('language')])
 
     // EVENT LISTENERS
 
