@@ -641,6 +641,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
+    width: fit-content;
 }
 
 .item-popup>.text>.reviews>.stars {
@@ -652,6 +654,7 @@
 .item-popup>.text>.reviews>.num {
     margin-top: 2px;
     background: none;
+    /* text-decoration: underline; */
 }
 
 .item-popup>.text>.reviews>.num,
@@ -659,6 +662,15 @@
     color: var(--day-gold);
     font-size: 16px;
     font-weight: 700;
+}
+
+.item-popup>.text>.reviews>.arrow {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    transform: translateX(125%);
 }
 
 .item-popup>.text>.description {
