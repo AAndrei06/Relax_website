@@ -1,5 +1,5 @@
 :root {
-    --padding-side: 128px;
+    --padding-side: 64px;
 }
 
 
@@ -720,6 +720,14 @@ header>.pizza>.glow {
         display: none;
     }
 
+    .articles-section>.responsive>.articles>.articlee {
+        flex-direction: row;
+    }
+
+    .articles-section>.responsive>.articles {
+        gap: 48px;
+    }
+
     .articles-section>.responsive {
         display: flex;
     }
@@ -778,6 +786,12 @@ header>.pizza>.glow {
     }
 }
 
+@media(max-width: 1100px) {
+    :root {
+        --padding-side: 48px;
+    }
+}
+
 @media(max-width: 1050px) {
     .menu-section {
         justify-content: center;
@@ -801,10 +815,21 @@ header>.pizza>.glow {
     }
 }
 
-@media(max-width: 650px) {
-    :root {
-        --padding-side: 64px;
+@media(max-width: 875px) {
+    .articles-section>.responsive>.articles>.articlee {
+        flex-direction: column;
     }
+
+    .articles-section>.responsive>.articles {
+        gap: 48px;
+    }
+}
+
+
+
+
+@media(max-width: 650px) {
+
 
     .relax-section>.content>.b-h-p-flex>p {
         width: 100%;
@@ -918,17 +943,28 @@ header>.pizza>.glow {
 @media(max-width: 400px) {
     .articles-section>.responsive>.articles {
         grid-template-columns: auto;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
 
     .articles-section>.responsive>.articles>.articlee {
         flex-direction: row;
     }
 
+    .articles-section>.responsive>.articles>.articlee>.text>.name {
+        width: 100%;
+    }
+
     .articles-section>.responsive>.articles {
         gap: 32px;
     }
+
+    .articles-section>.responsive>.articles>.articlee {
+        display: grid;
+        grid-template-columns: 138px 1fr;
+    }
+
+
 
     .articles-section {
         height: 100%;

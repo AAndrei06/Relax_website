@@ -138,7 +138,7 @@ class NavBar extends HTMLElement
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 32px 128px;
+    padding: 32px 64px;
     position: absolute;
     top: 0px;
     left: 0px;

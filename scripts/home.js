@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", (event) =>
     // HEADER ANIMATION
 
     gsap.to(pizzaAnim, {
-        left: "128px",
+        left: "64px",
         rotation: 360,
         transform: "translate(0%, -50%)",
         scrollTrigger: {
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", (event) =>
             scrub: true,
         }
     });
-    sushiEnterTimeline.to(sushiAnim, { left: "128px", ease: "power1.inOut", opacity: 1 })
+    sushiEnterTimeline.to(sushiAnim, { left: "64px", ease: "power1.inOut", opacity: 1 })
         .to(sushiAnim, { y: "-20px", repeat: 3, yoyo: true, duration: 0.2 }, 0);
 
 
@@ -545,7 +545,7 @@ document.addEventListener("DOMContentLoaded", (event) =>
             scrub: true,
         }
     });
-    shaormaEnterTimeline.to(shaormaAnim, { left: "128px", ease: "power1.inOut", opacity: 1 })
+    shaormaEnterTimeline.to(shaormaAnim, { left: "64px", ease: "power1.inOut", opacity: 1 })
         .to(shaormaAnim, { rotation: 15 }, 0);
 
     let section03Timeline = gsap.timeline({
