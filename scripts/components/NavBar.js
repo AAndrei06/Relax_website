@@ -487,13 +487,13 @@ nav.more>.more>svg {
 
         </div>
         <div class="account">
-            <a href="./pages/autentificare.html" class="transparent-bttn" aria-label="Autentifica-te" data-translate="authobj"
+            <a href="${this.currentPage === 'home' ? './pages/autentificare.html' : './autentificare.html'}" class="transparent-bttn" aria-label="Autentifica-te" data-translate="authobj"
                     aria-label="Intră pe pagina de Autentificare">
                     Autentificare
                 </a>
                 
-            <a href="./pages/inregistrare.html" aria-label="Intră pe pagina de Înregistrare" class="outline-buttn" aria-label="Înregistrează-te">Înregistrare</a>
-            <a href="./pages/account.html" class="acc-img ${this.currentPage === 'account' ? 'current' : ''}" aria-label="Account" >
+            <a href="${this.currentPage === 'home' ? './pages/inregistrare.html' : './inregistrare.html'}" aria-label="Intră pe pagina de Înregistrare" class="outline-buttn" aria-label="Înregistrează-te">Înregistrare</a>
+            <a href="${this.currentPage === 'home' ? './pages/account.html' : './account.html'}" class="acc-img ${this.currentPage === 'account' ? 'current' : ''}" aria-label="Account" >
                     <img src="" alt="Imaginea ta de profil">
                 </a>
         </div>
@@ -507,11 +507,11 @@ nav.more>.more>svg {
     <div class="more-menu overlay">
         <div class="content">
             <ul class="links-list">
-                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="./index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class=" link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="./pages/menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="./pages/articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina de acasă">Acasă</a></li>
+                <li class=" link ${this.currentPage === 'menu' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/menu.html' : './menu.html'}" aria-label="Intră pe pagina de meniu">Meniu</a></li>
+                <li class="link ${this.currentPage === 'articles' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/articole.html' : './articole.html'}" aria-label="Intră pe pagina de articole">Articole</a>
                 </li>
-                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="./pages/contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link ${this.currentPage === 'contact' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './pages/contact.html' : './contact.html'}" aria-label="Intră pe pagina de contacte">Contacte</a>
                 </li>
             </ul>
             <div class="account">
