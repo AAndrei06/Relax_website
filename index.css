@@ -23,6 +23,8 @@
     --day-b-gradient: linear-gradient(to right, #FF971E, #FFC37F);
 
     --day-show: none;
+    --day-succes: #34A853;
+    --day-error: #FF4444;
 
     --day-placeholder: #F3F3F3;
     --day-menu-shadow: 0px -4px 9px 0px rgba(0, 0, 0, 0.05),
@@ -58,6 +60,8 @@
     --day-b-gradient: linear-gradient(to right, #FF971E, #FFDEB8);
 
     --day-show: initial;
+    --day-succes: #5FEF85;
+    --day-error: #FF7272;
 
     --day-menu-shadow: 0px -3px 6px 0px rgba(255, 255, 255, 0.05), 0px -12px 12px 0px rgba(255, 255, 255, 0.04), 0px -26px 16px 0px rgba(255, 255, 255, 0.03), 0px -47px 19px 0px rgba(255, 255, 255, 0.01), 0px -73px 20px 0px rgba(255, 255, 255, 0.00);
 
