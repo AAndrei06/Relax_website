@@ -12,7 +12,7 @@ class NavBar extends HTMLElement
     connectedCallback()
     {
         this.render();
-        console.log(this.contactHome)
+
         // FIREBASE ACCOUNT
         const navAcc = this.shadowRoot.querySelector('.account>.acc-img')
         const navButtons = this.shadowRoot.querySelectorAll('.account>a')
@@ -38,6 +38,7 @@ class NavBar extends HTMLElement
                         navAcc.style.display = 'initial';
                         moreMenuAcc.style.display = 'initial';
                         moreMenuAcc.querySelector('img').src = doc.data().photoURL;
+                        console.log('YES')
                     });
                 })
 
@@ -157,6 +158,41 @@ class NavBar extends HTMLElement
 
     render()
     {
+        let lang = localStorage.getItem('language')
+        let navOBJ = {
+            'home': {
+                "en": "Home",
+                "ro": "Acasă",
+                "ru": "Дом"
+            },
+            'menu': {
+                "en": "Menu",
+                "ro": "Meniu",
+                "ru": "Меню"
+            },
+            'article': {
+                "en": "Articles",
+                "ro": "Articole",
+                "ru": "Cтатьях"
+            },
+            'contact': {
+                "en": "Contacts",
+                "ro": "Contacte",
+                "ru": "Контакты"
+            },
+            'auth': {
+                "en": "Log In",
+                "ro": "Autentificare",
+                "ru": "Авторизоваться"
+            },
+            'register': {
+                "en": "Sign Up",
+                "ro": "Înregistrare",
+                "ru": "Регистрация"
+            },
+
+        }
+
         this.shadowRoot.innerHTML = `
       <style>
         *
@@ -328,7 +364,6 @@ nav>.account>.acc-img {
     border-radius: 100px;
     background-color: #000;
     display: none;
-    cursor: pointer;
 }
 
 nav>.account>.acc-img>a {
@@ -564,9 +599,9 @@ nav.more>.more>svg {
                 </a>
                 
             <a href=".${this.currentPage != 'home' ? '' : '/pages'}/inregistrare.html" aria-label="Intră pe pagina de Înregistrare" class="outline-buttn" aria-label="Înregistrează-te">${navOBJ['register'][lang]}</a>
-            <a href=".${this.currentPage === 'home' ? '/pages' : ''}/account.html" class="acc-img ${this.currentPage === 'account' ? 'current' : ''}" aria-label="Account" >
+            <div  class="acc-img" aria-label="Account" >
                     <img src="" alt="Imaginea ta de profil">
-                </a>
+                </div>
         </div>
         <button class="more">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -592,9 +627,9 @@ nav.more>.more>svg {
                     </a>
                 <a href=".${this.currentPage != 'home' ? '' : '/pages'}/inregistrare.html" class="outline-buttn" aria-label="Înregistrează-te">${navOBJ['register'][lang]}</a>
             </div>
-            <a class="acc-img" href=".${this.currentPage === 'home' ? '/pages' : ''}/account.html">
+            <div class="acc-img" >
                 <img src="" alt="Imaginea ta de profil">
-            </a>
+            </div>
         </div>
 
     </div>
