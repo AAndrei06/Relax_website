@@ -135,10 +135,11 @@ const isLightMode = localStorage.getItem('lightMode') === 'true';
 
 const googleMap = document.querySelector('.map');
 
-if (isDarkMode)
+if (!isDarkMode)
 {
     googleMap.style.filter = 'invert(100%)';
 }
+
 if (!isLightMode && !isDarkMode)
 {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -152,115 +153,115 @@ if (!isLightMode && !isDarkMode)
 
 // progress bar
 
-const heroSection = document.querySelector('main>header');
-const navbar = document.querySelector('.nav-bar');
+// const heroSection = document.querySelector('main>header');
+// const navbar = document.querySelector('.nav-bar');
 
-if (window.innerWidth < 1100)
-{
-    navbar.classList.add('home')
+// if (window.innerWidth < 1100)
+// {
+//     navbar.classList.add('home')
 
-    let navbarBool = true;
+//     let navbarBool = true;
 
-    let navbarTransitionTimeout;
-    let navbarFixedTimeout;
+//     let navbarTransitionTimeout;
+//     let navbarFixedTimeout;
 
-    const observer = new IntersectionObserver((entries) =>
-    {
-        entries.forEach((entry) =>
-        {
-            if (!entry.isIntersecting && !navbar.classList.contains("fixed"))
-            {
-                navbar.style.transition = 'initial';
-                navbar.classList.add("fixed");
-                navbar.classList.remove('home');
-                navbar.style.backgroundColor = 'var(--day-white01)'
-                clearTimeout(navbarTransitionTimeout)
-                navbarTransitionTimeout = setTimeout(() =>
-                {
-                    navbar.style.transition = 'transform 0.15s'
-                }, 150)
-                navbarBool = true;
-            }
-            if (entry.isIntersecting)
-            {
-                navbarBool = false;
-                clearTimeout(navbarFixedTimeout)
-                navbarFixedTimeout = setTimeout(() =>
-                {
-                    navbar.classList.remove("fixed");
-                    navbar.classList.add('home');
-                    navbar.style.background = 'none';
-                    navbar.style.transition = 'initial'
-                    navbar.style.transform = 'translateY(0%)'
+//     const observer = new IntersectionObserver((entries) =>
+//     {
+//         entries.forEach((entry) =>
+//         {
+//             if (!entry.isIntersecting && !navbar.classList.contains("fixed"))
+//             {
+//                 navbar.style.transition = 'initial';
+//                 navbar.classList.add("fixed");
+//                 navbar.classList.remove('home');
+//                 navbar.style.backgroundColor = 'var(--day-white01)'
+//                 clearTimeout(navbarTransitionTimeout)
+//                 navbarTransitionTimeout = setTimeout(() =>
+//                 {
+//                     navbar.style.transition = 'transform 0.15s'
+//                 }, 150)
+//                 navbarBool = true;
+//             }
+//             if (entry.isIntersecting)
+//             {
+//                 navbarBool = false;
+//                 clearTimeout(navbarFixedTimeout)
+//                 navbarFixedTimeout = setTimeout(() =>
+//                 {
+//                     navbar.classList.remove("fixed");
+//                     navbar.classList.add('home');
+//                     navbar.style.background = 'none';
+//                     navbar.style.transition = 'initial'
+//                     navbar.style.transform = 'translateY(0%)'
 
-                }, 150)
+//                 }, 150)
 
-            }
+//             }
 
-        });
-    });
+//         });
+//     });
 
-    observer.observe(heroSection);
+//     observer.observe(heroSection);
 
-    let previousScrollPosition = window.scrollY;
+//     let previousScrollPosition = window.scrollY;
 
-    window.addEventListener('scroll', () =>
-    {
-        const currentScrollPosition = window.scrollY;
+//     window.addEventListener('scroll', () =>
+//     {
+//         const currentScrollPosition = window.scrollY;
 
-        if (currentScrollPosition < previousScrollPosition && navbarBool)
-        {
-            navbar.style.transform = 'translateY(0%)'
-        }
-        else if (navbar.classList.contains('fixed'))
-        {
-            navbar.style.transform = 'translateY(-100%)'
-            navbar.classList.remove('more')
-        }
+//         if (currentScrollPosition < previousScrollPosition && navbarBool)
+//         {
+//             navbar.style.transform = 'translateY(0%)'
+//         }
+//         else if (navbar.classList.contains('fixed'))
+//         {
+//             navbar.style.transform = 'translateY(-100%)'
+//             navbar.classList.remove('more')
+//         }
 
-        previousScrollPosition = currentScrollPosition;
-    });
-}
-else
-{
-    let previousScrollPosition;
-    let firstScroll = false;
+//         previousScrollPosition = currentScrollPosition;
+//     });
+// }
+// else
+// {
+//     let previousScrollPosition;
+//     let firstScroll = false;
 
-    window.addEventListener('scroll', () =>
-    {
-        const currentScrollPosition = window.scrollY;
+//     window.addEventListener('scroll', () =>
+//     {
+//         const currentScrollPosition = window.scrollY;
 
-        const rect = navbar.getBoundingClientRect();
+//         const rect = navbar.getBoundingClientRect();
 
-        if (currentScrollPosition > rect.height)
-        {
-            if (!firstScroll)
-            {
-                navbar.style.transition = 'initial'
-                firstScroll = true;
-            }
+//         if (currentScrollPosition > rect.height)
+//         {
+//             if (!firstScroll)
+//             {
+//                 navbar.style.transition = 'initial'
+//                 firstScroll = true;
+//             }
 
-            navbar.classList.add('fixed');
+//             navbar.classList.add('fixed');
 
-            if (currentScrollPosition < previousScrollPosition)
-            {
-                navbar.style.transform = 'translateY(0%)'
-                navbar.style.transition = 'transform 0.15s'
-            }
-            else if (navbar.classList.contains('fixed'))
-            {
-                navbar.style.transform = 'translateY(-100%)';
-            }
-        }
-        if (currentScrollPosition == 0)
-        {
-            navbar.classList.remove('fixed');
-            firstScroll = false;
-        }
+//             if (currentScrollPosition < previousScrollPosition)
+//             {
+//                 navbar.style.transform = 'translateY(0%)'
+//                 navbar.style.transition = 'transform 0.15s'
+//             }
+//             else if (navbar.classList.contains('fixed'))
+//             {
+//                 navbar.style.transform = 'translateY(-100%)';
+//             }
+//         }
+//         if (currentScrollPosition == 0)
+//         {
+//             navbar.classList.remove('fixed');
+//             firstScroll = false;
+//         }
 
-        previousScrollPosition = currentScrollPosition;
-    });
-}
+//         previousScrollPosition = currentScrollPosition;
+//     });
+// }
 
 
 

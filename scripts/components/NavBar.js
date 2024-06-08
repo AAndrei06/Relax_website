@@ -5,12 +5,13 @@ class NavBar extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.currentPage = this.getAttribute('current-page') || 'home';
+        this.contactHome = this.getAttribute('contact-home') || 'false';
     }
 
     connectedCallback()
     {
         this.render();
-
+        console.log(this.contactHome)
         // FIREBASE ACCOUNT
         const navAcc = this.shadowRoot.querySelector('.account>.acc-img')
         const navButtons = this.shadowRoot.querySelectorAll('.account>a')
@@ -470,8 +471,15 @@ nav.more>.more>svg {
         font-size: 28px;
     }
 }
+    ${this.contactHome == 'true' ?
+                '@media(max-width: 1100px) {nav>.content>.logo>a {color:white;} nav>.more {stroke: white; fill: white;}}'
+                : ''
+            }
+    
 
-      </style>
+}
+
+      </style >
 
       
     
@@ -531,7 +539,7 @@ nav.more>.more>svg {
         </div>
 
     </div>
-    `;
+`;
     }
 
 }
