@@ -722,6 +722,10 @@ nav.more>.more>svg {
     color: var(--day-dark02);
 }
 
+.b-paragraph.center {
+    text-align: center;
+}
+
 .b-glow {
     position: absolute;
     top: 50%;

@@ -137,6 +137,7 @@ class EndSection extends HTMLElement
                 {
                     localStorage.setItem("language", "en");
                 }
+                location.reload();
             })
 
         }

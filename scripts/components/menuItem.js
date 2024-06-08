@@ -707,7 +707,7 @@ function updateMenuSidebar()
         const item = itemQuantityMap.get(itemId);
         console.log(item)
         if (item)
-            {
+        {
             orders[item.id] = item.numValue
 
             ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
@@ -717,8 +717,8 @@ function updateMenuSidebar()
                 ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
                         quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
             }
-            }
-            
+        }
+
     });
 
     localStorage.setItem('orders', JSON.stringify(orders));
@@ -966,6 +966,7 @@ class MenuItem extends HTMLElement
                 adminExtraDelete.classList.add('show')
 
                 adminPopupImage.src = `${this.getAttribute('img')}`;
+                adminPopupImage.setAttribute('alt', `${this.getAttribute('name')}`);
 
                 adminPopupName.value = `${this.getAttribute('name')}`
                 adminPopupPrice.value = `${this.getAttribute('price')}`
@@ -991,6 +992,8 @@ class MenuItem extends HTMLElement
                 lockScroll();
 
                 popupImage.src = `${this.getAttribute('img')}`;
+
+                popupImage.setAttribute('alt', `${this.getAttribute('name')}`);
 
                 popupName.innerText = `${this.getAttribute('name')}`
                 popupPrice.innerText = `${this.getAttribute('price')} MDL`
