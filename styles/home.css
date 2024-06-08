@@ -27,6 +27,7 @@ header>.bg-img {
     height: 100%;
     display: none;
     pointer-events: none;
+    z-index: 2;
 }
 
 header>.gradient {

@@ -1,4 +1,4 @@
-import { deleteTextAnim, loadingAnim, responseAnim, endAnim } from "./utils.js";
+import { deleteTextAnim } from "./utils.js";
 
 // Copy Function
 const infoDivs = document.querySelectorAll('.form-section>.content>.form-content>.column1>.info>div');
@@ -45,7 +45,35 @@ const nameInput = document.querySelector('#name');
 const emailInput = document.querySelector('#email');
 const messageInput = document.querySelector('#message');
 
-const sendBttn = document.querySelector("#submit-bttn")
+const submitBtn = document.querySelector("#submit-bttn")
+const submitBtnText = document.querySelector("#submit-bttn>.text")
+const submitBtnLoading = document.querySelector("#submit-bttn>.loading")
+
+const succesText = document.querySelector('.form-section>.content>.text>.header>.succes')
+const errorText = document.querySelector('.form-section>.content>.text>.header>.error')
+const checkmark = document.querySelector('#submit-bttn>.checkmark')
+
+function startLoad()
+{
+    submitBtnLoading.style.opacity = "1";
+    submitBtnText.style.display = "none";
+    submitBtn.style.pointerEvents = "none";
+
+}
+function finishLoad()
+{
+    succesText.classList.add('show')
+    checkmark.classList.add('show')
+    submitBtnLoading.style.opacity = "0";
+}
+
+function errorLoad()
+{
+    submitBtnText.style.display = "block";
+    checkmark.classList.remove('show')
+    succesText.classList.remove('show')
+    errorText.classList.add('show')
+}
 
 
 form.addEventListener('submit', (e) =>
@@ -61,29 +89,28 @@ form.addEventListener('submit', (e) =>
     const serviceId = "service_mcv5bfc";
     const templateId = "template_iviag0d";
 
-    loadingAnim(sendBttn)
+    // loadingAnim(submitBtn)
 
     deleteTextAnim(nameInput)
     deleteTextAnim(emailInput)
     deleteTextAnim(messageInput)
+    startLoad()
 
     emailjs.send(serviceId, templateId, params).then(res =>
     {
 
-        responseAnim(res.status != 200, sendBttn, "Trimite")
+        // responseAnim(res.status != 200, submitBtn, "Trimite")
 
 
         if (res.status == 200)
         {
-            setTimeout(() =>
-            {
-                endAnim(sendBttn)
-            }, 2000)
+            finishLoad()
         }
 
     }).catch(error =>
     {
         console.error('Error:', error);
+        errorLoad()
     });
 
 })

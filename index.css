@@ -179,7 +179,7 @@ div[contenteditable="true"] {
     justify-content: center;
 }
 
-#submit-bttn>.feedback {
+/* #submit-bttn>.feedback {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,6 +197,16 @@ div[contenteditable="true"] {
     font-weight: 700;
     transform: translateX(-100%);
     transition: transform 0.25s ease-in-out;
+} */
+
+#submit-bttn>.checkmark {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#submit-bttn>.checkmark.show {
+    display: flex;
 }
 
 @-webkit-keyframes rotator {
