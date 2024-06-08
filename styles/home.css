@@ -786,6 +786,10 @@ header>.pizza>.glow {
         color: white !important;
     }
 
+    header>div>h1>span {
+        color: white !important;
+    }
+
     header>div>p {
         color: rgba(255, 255, 255, 0.75) !important;
     }
