@@ -6,6 +6,7 @@ class NavBar extends HTMLElement
         this.attachShadow({ mode: 'open' });
         this.currentPage = this.getAttribute('current-page') || 'home';
         this.contactHome = this.getAttribute('contact-home') || 'false';
+        this.mainHome = this.getAttribute('main-home') || 'false';
     }
 
     connectedCallback()
@@ -473,6 +474,11 @@ nav.more>.more>svg {
 }
     ${this.contactHome == 'true' ?
                 '@media(max-width: 1100px) {nav>.content>.logo>a {color:white;} nav>.more {stroke: white; fill: white;}}'
+                : ''
+            }
+
+            ${this.mainHome == 'true' ?
+                '@media(max-width: 1250px) {nav>.content>.logo>a {color:white;} nav>.more {stroke: white; fill: white;}}'
                 : ''
             }
     
