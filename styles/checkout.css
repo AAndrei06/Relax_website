@@ -1,5 +1,11 @@
 nav {
     padding-top: 64px;
+    position: absolute;
+    top: 0;
+    padding-left: 64px;
+    /* left: 64px; */
+    z-index: 4;
+    display: flex;
 }
 
 nav>a {
@@ -348,6 +354,10 @@ main {
 }
 
 @media(max-width: 1100px) {
+    nav {
+        padding-left: 48px;
+    }
+
     .all {
         display: grid;
         grid-template-columns: 1fr;
@@ -488,5 +498,9 @@ main {
     .all>.information,
     .orders-div {
         width: calc(100% - 24px) !important;
+    }
+
+    nav {
+        padding-left: 24px;
     }
 }

@@ -1883,6 +1883,7 @@
 
     .filter-section {
         padding: 0 48px;
+        padding-top: 110px;
     }
 
     .categories-sections {
@@ -2117,6 +2118,7 @@
 @media(max-width: 400px) {
     .filter-section {
         padding: 0 24px;
+        padding-top: 110px;
     }
 
     .categories-sections {

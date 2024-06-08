@@ -1,5 +1,4 @@
 let submitBtn = document.querySelector(".submit-btn-form-register");
-let passworField = document.querySelector(".pass-field-input");
 let emailField = document.querySelector(".email-field-input-sign");
 let GoogleBTN = document.getElementById("google-signin-provider");
 let TwitterBTN = document.getElementById("twitter-login-btn");
@@ -7,91 +6,94 @@ let TwitterBTN = document.getElementById("twitter-login-btn");
 // Google SignIn
 
 const form = document.querySelector("#form")
-const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
-const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
-const sendBttnText = document.querySelector('#submit-bttn>.text');
+const submitBtnLoading = document.querySelector('#submit-bttn>.loading');
+const submitBtnText = document.querySelector('#submit-bttn>.text');
 
-function loadingAnim() {
-    sendBttnText.innerText = ''
-    sendBttnLoading.style.opacity = "1"
-}
+const errorText = document.querySelector('header>.main-text>.error')
+const succesText = document.querySelector('header>.main-text>.succes')
+const checkmark = document.querySelector('#submit-bttn>.checkmark')
 
-function responseAnim(err = false, msg) {
-    if (err) {
-        sendBttnFeedback.style.background = '#EF5B5B'
-        sendBttnFeedback.textContent = msg
-    } else {
-        sendBttnFeedback.style.background = '#799f82'
-        sendBttnFeedback.textContent = msg
-    }
-    sendBttnLoading.style.opacity = "0"
-
-    setTimeout(() => {
-        sendBttnText.innerText = 'Trimite'
-    }, 250)
-
-    sendBttnFeedback.style.transform = "translateX(0%)"
-    sendBttnFeedback.style.opacity = "1"
-}
-
-function endAnim() {
-
-    sendBttnFeedback.style.transform = "translateX(100%)"
-    setTimeout(() => {
-        sendBttnFeedback.style.opacity = "0"
-        sendBttnFeedback.style.transform = "translateX(-100%)"
-    }, 250);
+function startLoad()
+{
+    submitBtnLoading.style.opacity = "1";
+    submitBtnText.style.display = "none";
+    submitBtn.style.pointerEvents = "none";
 
 }
-console.log(window.location)
-form.addEventListener('submit', (e) => {
+function finishLoad()
+{
+    succesText.classList.add('show')
+    checkmark.classList.add('show')
+    submitBtnLoading.style.opacity = "0";
+}
+
+function errorLoad()
+{
+    submitBtnText.style.display = "block";
+    checkmark.classList.remove('show')
+    succesText.classList.remove('show')
+    errorText.classList.add('show')
+}
+
+form.addEventListener('submit', (e) =>
+{
+    submitBtnLoading.style.opacity = "1";
+    submitBtnText.style.display = "none";
 
     e.preventDefault();
     email = emailField.value;
-    if (email.value != "") {
-        loadingAnim()
-
+    if (email.value != "")
+    {
+        startLoad()
         var actionCodeSettings = {
             url: window.location.origin + '/pages/menu.html',
             handleCodeInApp: true,
         };
 
         firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-            .then(() => {
+            .then(() =>
+            {
                 window.localStorage.setItem('emailForSignIn', email);
-                responseAnim(false, "Succes")
-                setTimeout(() => {
-                    endAnim()
-                }, 2000)
+                finishLoad()
             })
-            .catch((error) => {
+            .catch((error) =>
+            {
                 console.log(error)
+                errorLoad()
             });
     }
 })
 
-GoogleBTN.addEventListener("click", () => {
-    loadingAnim()
-
+GoogleBTN.addEventListener("click", () =>
+{
+    startLoad()
     firebase.auth()
         .signInWithPopup(GoogleProvider)
-        .then((result) => {
+        .then((result) =>
+        {
             var user = result.user;
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
-                querySnapshot.forEach((obj) => {
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
+            {
+                querySnapshot.forEach((obj) =>
+                {
                     console.log(obj)
                     is_user = true;
                 })
-            }).then(() => {
-                usersDB.where("ID", "==", user.email).get().then((querySnapshot) => {
-                    querySnapshot.forEach((obj) => {
+            }).then(() =>
+            {
+                usersDB.where("ID", "==", user.email).get().then((querySnapshot) =>
+                {
+                    querySnapshot.forEach((obj) =>
+                    {
                         console.log(obj)
                         is_user = true;
                     })
-                }).then(() => {
+                }).then(() =>
+                {
                     console.log(user)
-                    if (!is_user) {
+                    if (!is_user)
+                    {
 
                         let date = new Date();
                         usersDB.add({
@@ -101,61 +103,65 @@ GoogleBTN.addEventListener("click", () => {
                             created: date.getTime(),
                             photoURL: startImage,
                             email: user.email
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             cartsDB.add({
                                 ID: user.uid,
                                 products: [],
-                            }).then(() => {
+                            }).then(() =>
+                            {
 
 
-                                responseAnim(false, "Succes")
-                                setTimeout(() => {
-                                    endAnim()
-                                    window.location.href = '/';
-
-                                }, 2000)
+                                // End animation
+                                window.location.href = '/';
 
                             });
                         });
                     }
                 });
             })
-        }).catch((error) => {
-
-            responseAnim(true, "Eroare")
-
-            setTimeout(() => {
-                endAnim()
-            }, 2000)
-
-            console.log(error);
+        }).catch((error) =>
+        {
+            // Error anim
+            console.error(error);
+            succesText.classList.remove('show')
+            errorText.classList.add('show')
         });
 });
 
 // Twitter SignIn
 
-TwitterBTN.addEventListener("click", () => {
-    loadingAnim()
+TwitterBTN.addEventListener("click", () =>
+{
+    startLoad()
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
-        .then((result) => {
+        .then((result) =>
+        {
             var user = result.user;
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
-                querySnapshot.forEach((obj) => {
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
+            {
+                querySnapshot.forEach((obj) =>
+                {
                     console.log(obj)
                     is_user = true;
                 })
-            }).then(() => {
-                usersDB.where("ID", "==", user.email).get().then((querySnapshot) => {
-                    querySnapshot.forEach((obj) => {
+            }).then(() =>
+            {
+                usersDB.where("ID", "==", user.email).get().then((querySnapshot) =>
+                {
+                    querySnapshot.forEach((obj) =>
+                    {
                         console.log(obj)
                         is_user = true;
                     })
-                }).then(() => {
+                }).then(() =>
+                {
                     console.log(user)
-                    if (!is_user) {
+                    if (!is_user)
+                    {
 
                         let date = new Date();
                         usersDB.add({
@@ -165,32 +171,29 @@ TwitterBTN.addEventListener("click", () => {
                             created: date.getTime(),
                             photoURL: startImage,
                             email: user.email
-                        }).then(() => {
+                        }).then(() =>
+                        {
                             cartsDB.add({
                                 ID: user.uid,
                                 products: [],
-                            }).then(() => {
+                            }).then(() =>
+                            {
+
+                                // End anim
 
 
-                                responseAnim(false, "Succes")
-                                setTimeout(() => {
-                                    endAnim()
-                                    window.location.href = '/';
-
-                                }, 2000)
-
+                                window.location.href = '/';
                             });
                         });
                     }
                 });
             })
-        }).catch((error) => {
-
-            responseAnim(true, "Eroare")
-
-            setTimeout(() => {
-                endAnim()
-            }, 2000)
+        }).catch((error) =>
+        {
+            // Error anim
+            console.error(error);
+            succesText.classList.remove('show')
+            errorText.classList.add('show')
 
         });
 });

@@ -5,12 +5,14 @@ class NavBar extends HTMLElement
         super();
         this.attachShadow({ mode: 'open' });
         this.currentPage = this.getAttribute('current-page') || 'home';
+        this.contactHome = this.getAttribute('contact-home') || 'false';
+        this.mainHome = this.getAttribute('main-home') || 'false';
     }
 
     connectedCallback()
     {
         this.render();
-
+        console.log(this.contactHome)
         // FIREBASE ACCOUNT
         const navAcc = this.shadowRoot.querySelector('.account>.acc-img')
         const navButtons = this.shadowRoot.querySelectorAll('.account>a')
@@ -336,6 +338,7 @@ nav.more>.more>svg {
 .more-menu.show {
     transform: translateY(0%);
     opacity: 1;
+    pointer-events: initial;
 }
 
 .more-menu>.content {
@@ -352,9 +355,12 @@ nav.more>.more>svg {
     gap: 24px;
     top: calc(50% - 5vh);
     transform: translateY(-50%);
-    z-index:8;
+    z-index: 80;
 }
-
+.more-menu>.content>.links-list>.link
+{
+    z-index: 7;
+}
 .more-menu>.content>.links-list>.link>a {
     color: rgba(255, 255, 255, 0.75);
     font-size: 32px;
@@ -466,15 +472,27 @@ nav.more>.more>svg {
         font-size: 28px;
     }
 }
+    ${this.contactHome == 'true' ?
+                '@media(max-width: 1100px) {nav>.content>.logo>a {color:white;} nav>.more {stroke: white; fill: white;}}'
+                : ''
+            }
 
-      </style>
+            ${this.mainHome == 'true' ?
+                '@media(max-width: 1250px) {nav>.content>.logo>a {color:white;} nav>.more {stroke: white; fill: white;}}'
+                : ''
+            }
+    
+
+}
+
+      </style >
 
       
     
     <nav class="nav-bar">
         <div class="content">
             <div class="logo">
-                <a href="./index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
+                <a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
                 <li class="link ${this.currentPage === 'home' ? 'current' : ''}"><a href="${this.currentPage === 'home' ? './index.html' : '../index.html'}" aria-label="Intră pe pagina de acasă">Acasă</a></li>
@@ -527,7 +545,7 @@ nav.more>.more>svg {
         </div>
 
     </div>
-    `;
+`;
     }
 
 }

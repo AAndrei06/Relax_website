@@ -213,6 +213,8 @@ class EndSection extends HTMLElement
     display: flex;
     position: relative;
     justify-content: space-between;
+    z-index: 5;
+    background-color: var(--day-white01);
 }
 
 footer.abs {
@@ -443,7 +445,7 @@ footer>.disclaimer-all.show {
 }
 
 #disclaimer-overlay {
-    z-index: 5 !important;
+    z-index: 6 !important;
     background: rgba(0, 0, 0, 0.75);
     width: 100vw;
     height: 100vh;
