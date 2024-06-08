@@ -497,7 +497,7 @@ function renderMenuItems(menuItems)
         }
         else
         {
-            let languageSelectedStorage = localStorage.getItem('language');
+            let languageSelectedStorage = localStorage.getItem('language') || "ro";
 
             section.style.display = 'initial';
             items.innerHTML += `<menu-item name="${item.nametran[languageSelectedStorage]}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
@@ -578,7 +578,7 @@ function filterMenuItems(menuItems, criteria)
             {
                 return false;
             }
-            if (field === 'search' && !item.name.toLowerCase().includes(value.toLowerCase()))
+            if (field === 'search' && !item.nametran[localStorage.getItem("language") || "ro"].toLowerCase().includes(value.toLowerCase()))
             {
                 return false;
             }
