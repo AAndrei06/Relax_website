@@ -10,7 +10,7 @@ async function translateContent(language, jsonFilePath)
         document.documentElement.lang = language;
 
         document.title = translations[language]['meta']['title'];
-        document.querySelector('meta[name="description"]').content = translations[language]['meta']['description'];
+        //document.querySelector('meta[name="description"]').content = translations[language]['meta']['description'];
 
         elementsToTranslate.forEach(element =>
         {

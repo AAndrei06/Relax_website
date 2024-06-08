@@ -163,6 +163,13 @@ main {
     position: relative;
 }
 
+.all>.information>.method>.inputs>.input>.info>.content>.popup>.content>span
+{
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 .all>.information>.method>.inputs>.input>.info>.content>.popup>.content>.pointer {
     position: absolute;
     bottom: -10px;
