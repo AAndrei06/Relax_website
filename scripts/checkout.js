@@ -1,6 +1,6 @@
 let ordersString = localStorage.getItem('orders');
 let orders = JSON.parse(ordersString);
-
+console.log(window.location)
 const ordersDiv = document.querySelector(".all>.orders-div>.content>.wrap>.orders");
 const allOrdersSection = document.querySelector('.orders-div>.content');
 const ordersContent = document.querySelector('.all>.orders-div>.content>.wrap')
@@ -8,6 +8,11 @@ const totalPriceDiv = document.querySelector(".all>.orders-div>.content>.wrap>.t
 const loadingAnim = document.querySelector(".all>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
+
+
+document.getElementById("backtocart").onclick = () => {
+    window.location.pathname = "/pages/menu.html"
+}
 
 productsDB.get().then((querySnapshot) =>
 {

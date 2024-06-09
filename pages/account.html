@@ -14,8 +14,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
     <script defer src="../scripts/firebase/main.js"></script>
     <script defer type="module" src="../scripts/general.js"></script>
+    <script defer type="module" src="../scripts/translate.js"></script>
     <script defer type="module" src="../scripts/account.js"></script>
-    <script defer src="../scripts/firebase/settings.js"></script>
 
     <meta name="robots" content="noindex, nofollow">
 
@@ -29,23 +29,23 @@
                 <a href="../index.html" aria-label="Intră pe pagina principala RELAX">RELAX</a>
             </div>
             <ul class="links-list">
-                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă" data-translate="home">Acasă</a></li>
+                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu" data-translate="menu">Meniu</a></li>
+                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte" data-translate="contact">Contacte</a>
                 </li>
-                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole" data-translate="article">Articole</a>
                 </li>
             </ul>
 
         </div>
         <div class="account">
             <button class="transparent-bttn" aria-label="Autentifica-te">
-                <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
+                <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare" data-translate="auth">
                     Autentificare
                 </a>
             </button>
             <button class="outline-buttn" aria-label="Înregistrează-te">
-                <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
+                <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare" data-translate="reg">Înregistrare</a>
             </button>
             <button class="acc-img" aria-label="Account">
                 <a href="./account.html">
@@ -63,21 +63,21 @@
     <div class="more-menu overlay">
         <div class="content">
             <ul class="links-list">
-                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă">Acasă</a></li>
-                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu">Meniu</a></li>
-                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte">Contacte</a>
+                <li class="link"><a href="../index.html" aria-label="Intră pe pagina de acasă" data-translate="home">Acasă</a></li>
+                <li class=" link"><a href="./menu.html" aria-label="Intră pe pagina de meniu" data-translate="menu">Meniu</a></li>
+                <li class="link"><a href="./contact.html" aria-label="Intră pe pagina de contacte" data-translate="contact">Contacte</a>
                 </li>
-                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole">Articole</a>
+                <li class="link"><a href="./articole.html" aria-label="Intră pe pagina de articole" data-translate="article">Articole</a>
                 </li>
             </ul>
             <div class="account">
                 <button class="transparent-bttn" aria-label="Autentifica-te">
-                    <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare">
+                    <a href="./autentificare.html" aria-label="Intră pe pagina de Autentificare" data-translate="auth">
                         Autentificare
                     </a>
                 </button>
                 <button class="outline-buttn" aria-label="Înregistrează-te">
-                    <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare">Înregistrare</a>
+                    <a href="./inregistrare.html" aria-label="Intră pe pagina de Înregistrare" data-translate="reg">Înregistrare</a>
                 </button>
             </div>
             <a class="acc-img" href="./account.html">
@@ -95,9 +95,9 @@
                 <div class="block initial">
                     <div class="content">
                         <div class="text">
-                            <p class="header">Setările utilizatorului</p>
+                            <p class="header" data-translate="set">Setările utilizatorului</p>
                             <p class="email" id="email-space-util">unknown@gmail.com</p>
-                            <p class="date" id="register-space-util">Înregistrat la unknown</p>
+                            <p class="date" id="register-space-util" >Înregistrat la unknown</p>
                         </div>
                         <div class="image-div">
                             <img id="avatar-place-first" src="" alt="Imagine cu poza ta de account">
@@ -108,14 +108,14 @@
                 <div class="block actual initial" id="settings">
                     <div class="content">
                         <div class="header">
-                            <p>Informație Personală</p>
+                            <p data-translate="pers">Informație Personală</p>
                             <div class="separator"></div>
                         </div>
                         <div class="avatar">
-                            <span>Avatar:</span>
+                            <span data-translate="avt">Avatar:</span>
                             <div>
                                 <img class="show" id="avatar-photo-change" src="" alt="Imaginea ta de profil">
-                                <label for="file-id-change">
+                                <label for="file-id-change" data-translate="alege">
                                     Alege imaginea
                                     <input type="file" accept="image/*" id="file-id-change">
                                 </label>
@@ -124,17 +124,17 @@
                         </div>
                         <div class="settings">
                             <div class="setting">
-                                <span>Nume:</span>
+                                <span data-translate="name">Nume:</span>
                                 <div contenteditable="true" id="name-id-change">Unknown</div>
                             </div>
                         </div>
                         <div class="buttons">
                             <div class="main-buttons">
-                                <button id="edit" class="show">Editează setările</button>
-                                <button id="save" class="edit-settings-btn">Salveaza</button>
-                                <button id="cancel" class="outline">Anulează</button>
+                                <button id="edit" class="show" data-translate="edit">Editează setările</button>
+                                <button id="save" class="edit-settings-btn" data-translate="save">Salveaza</button>
+                                <button id="cancel" class="outline" data-translate="cancel">Anulează</button>
                             </div>
-                            <button class="delete" id="sign-out-btn">
+                            <button class="delete" id="sign-out-btn" data-translate="dect">
                                 Deconectează-te
                             </button>
                         </div>
@@ -149,15 +149,15 @@
                 <div class="block actual initial" id="theme">
                     <div class="content">
                         <div class="header">
-                            <p>Aparență</p>
+                            <p data-translate="apar">Aparență</p>
                             <div class="separator"></div>
                         </div>
                         <div class="themes">
                             <div class="theme theme">
                                 <input type="radio" name="theme" id="system-theme" value="system" checked>
                                 <div class="extended">
-                                    <label for="system-theme">Folosește sistemul implicit.</label>
-                                    <p>Sincronizează cu setările de preferință ale sistemului tău de operare pentru o
+                                    <label for="system-theme" data-translate="use">Folosește sistemul implicit.</label>
+                                    <p data-translate="sinc">Sincronizează cu setările de preferință ale sistemului tău de operare pentru o
                                         temă
                                         luminoasă sau întunecată.</p>
                                 </div>
@@ -165,11 +165,11 @@
                             </div>
                             <div class="theme theme">
                                 <input type="radio" name="theme" id="light-theme" value="light">
-                                <label for="light-theme">Luminoasă</label>
+                                <label for="light-theme" data-translate="light">Luminoasă</label>
                             </div>
                             <div class="theme theme">
                                 <input type="radio" name="theme" id="dark-theme" value="dark">
-                                <label for="dark-theme">Intunecată</label>
+                                <label for="dark-theme" data-translate="night">Intunecată</label>
                             </div>
 
                         </div>
@@ -179,22 +179,22 @@
                 <div class="block actual initial" id="language">
                     <div class="content">
                         <div class="header">
-                            <p>Limbă</p>
+                            <p data-translate="lang">Limbă</p>
                             <div class="separator"></div>
                         </div>
                         <div class="themes">
                             <div class="theme lang">
                                 <input type="radio" name="language" id="ro" value="ro" checked>
-                                <label for="ro">Română</label>
+                                <label for="ro" data-translate="rom">Română</label>
 
                             </div>
                             <div class="theme lang">
                                 <input type="radio" name="language" id="ru" value="ru">
-                                <label for="ru">Русский</label>
+                                <label for="ru" data-translate="rus">Русский</label>
                             </div>
                             <div class="theme lang">
                                 <input type="radio" name="language" id="en" value="en">
-                                <label for="en">English</label>
+                                <label for="en" data-translate="eng">English</label>
                             </div>
 
                         </div>

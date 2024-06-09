@@ -730,7 +730,23 @@ function updateMenuSidebar()
 
 function assignReviewNum(div, num)
 {
-    const pluralText = num === 1 ? 'recenzie' : 'recenzii';
+    let sing = "";
+    let plurar = "";
+    let lang = localStorage.getItem('language' || "ro");
+    if (lang == 'ro')
+    {
+        sing = "recenzie";
+        plurar = "recenzii";
+    } else if (lang == 'ru')
+    {
+        sing = "обзор";
+        plurar = "обзоры";
+    } else if (lang == 'en')
+    {
+        sing = "review";
+        plurar = "reviews";
+    }
+    const pluralText = num === 1 ? sing : plurar;
     div.innerText = `${num} ${pluralText}`;
 }
 
@@ -1038,12 +1054,17 @@ class MenuItem extends HTMLElement
         }
         else
         {
+            let obj = {
+                "ro":"Nu există recenzii",
+                "en":"There are no reviews",
+                "ru":"Нет отзывов"
+            }
             popupReviewsDiv.innerHTML = `
             <div class="none-div">
-                <svg xmlns="http://www.w3.org/2000/svg" width="77" height="78" viewBox="0 0 77 78" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 77 78" fill="none">
   <path d="M26.5005 27L50.5005 51M50.5005 27L26.5005 51M74.5005 39C74.5005 58.8824 58.3829 75 38.5005 75C18.6182 75 2.50049 58.8824 2.50049 39C2.50049 19.1178 18.6182 3 38.5005 3C58.3829 3 74.5005 19.1178 74.5005 39Z" stroke="var(--day-dark01)" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-                Nu exista recenzii
+            ${obj[localStorage.getItem("language")]}
             </div>`
             popupReviewsDiv.classList.add('none');
         }

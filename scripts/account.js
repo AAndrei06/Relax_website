@@ -167,7 +167,12 @@ firebase.auth().onAuthStateChanged((user) =>
                 document.getElementById("name-id-change").innerHTML = object.data().name;
                 document.getElementById("avatar-photo-change").src = object.data().photoURL;
                 document.getElementById("email-space-util").innerHTML = user.email;
-                document.getElementById("register-space-util").innerHTML = `Înregistart la ${formatDate(object.data().created)}`;
+                let obj = {
+                    "en":"Registered at ",
+                    "ro":"Înregistrat la ",
+                    "ru":"Зарегистрировано на"
+                }
+                document.getElementById("register-space-util").innerHTML = `${obj[localStorage.getItem("language")]} ${formatDate(object.data().created)}`;
                 document.getElementById("avatar-place-first").src = object.data().photoURL;
 
                 let downloadURLFile = object.data().photoURL;

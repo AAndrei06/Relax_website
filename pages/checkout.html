@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../styles/checkout.css">
     <script defer type="module" src="../scripts/checkout.js"></script>
     <script type="module" src="../scripts/components/CheckoutOrder.js"></script>
-
+    <script defer type="module" src="../scripts/translate.js"></script>
 
     <meta name="robots" content="noindex, nofollow">
 
@@ -30,8 +30,9 @@
     <main>
         <div class="all">
             <form class="information">
+                <!--
                 <div class="method">
-                    <span class="header">
+                    <span class="header" data-translate = "plata">
                         Plată Rapidă
                     </span>
                     <div class="services">
@@ -42,31 +43,35 @@
                     </div>
                     <div class="or">
                         <div></div>
-                        <span>sau</span>
+                        <span data-translate="or">sau</span>
                         <div></div>
                     </div>
                 </div>
+                -->
                 <div class="method">
                     <div class="header">
-                        <span>Adresă de Livrare</span>
-                        <span class="extra">* Livrăm doar în Leova | Moldova</span>
+                        <span data-translate="addr">Adresă de Livrare</span>
+                        <span class="extra" data-translate="livr">* Livrăm doar în Leova | Moldova</span>
                     </div>
                     <div class="inputs">
                         <div class="input">
-                            <input id="adress-input" type="text" placeholder="Adresa" required autocomplete="off">
+                            <input id="adress-input" type="text" placeholder="Numele dumnevoastră (Opțional)" autocomplete="off" maxlength="70">
+                        </div>
+                        <div class="input">
+                            <input id="adress-input" type="text" placeholder="Adresa" required autocomplete="off" maxlength="70">
                         </div>
                         <div class="input">
                             <input id="apartament-input" type="text" placeholder="Apartament (optional)"
-                                autocomplete="off">
+                                autocomplete="off" maxlength="70">
                         </div>
                         <div class="input">
-                            <input id="phone-input" type="number" placeholder="Telefon (optional)" autocomplete="off">
+                            <input id="phone-input" type="number" required placeholder="Telefon" autocomplete="off" maxlength="70">
                             <div class="info">
                                 <div class="content">
                                     <div class="popup">
-                                        <div class="content">
+                                        <div class="content" data-translate="case">
                                             In caz că avem nevoie să te contactăm despre comandă
-                                            <div class="pointer"></div>
+                                            <div class='pointer'></div>
                                         </div>
                                     </div>
                                     <button type="button">
@@ -93,18 +98,18 @@
                     </div>
                 </div>
                 <div class="next">
-                    <button class="accent-off">
+                    <button class="accent-off" id="backtocart">
                         <a href="../pages/menu.html">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
                                 <path
                                     d="M9.47627 3.83133C9.15009 3.53539 8.62119 3.53539 8.29501 3.83133L4.21267 7.53862C3.56082 8.13061 3.56107 9.08983 4.21317 9.68152L8.29802 13.3874C8.6242 13.6834 9.15309 13.6834 9.47929 13.3874C9.80549 13.0915 9.80549 12.6116 9.47929 12.3157L5.98313 9.14386C5.65687 8.84794 5.65695 8.36811 5.98313 8.07219L9.47627 4.90302C9.80247 4.60708 9.80247 4.12727 9.47627 3.83133Z"
                                     fill="var(--day-dark01)" fill-opacity="0.5" />
                             </svg>
-                            Înapoi la Cart
+                            <span data-translate="cart">Înapoi la Cart</span>
                         </a>
 
                     </button>
-                    <button class="disabled" type="submit" id="continue-button">Continuă</button>
+                    <button class="disabled" type="submit" id="continue-button" data-translate="next">Continuă</button>
                 </div>
             </form>
 
@@ -126,17 +131,17 @@
                         <div class="separator"></div>
                         <div class="totals">
                             <div>
-                                <span class="header">Subtotal:</span>
+                                <span class="header" data-translate="sub">Subtotal:</span>
                                 <span class="price" id="subtotal">0.00 MDL</span>
                             </div>
                             <div>
-                                <span class="header">Livrare:</span>
+                                <span class="header" data-translate="livrare">Livrare:</span>
                                 <span class="price">35.00 MDL</span>
                             </div>
                         </div>
                         <div class="separator"></div>
                         <div class="total">
-                            <span class="header">
+                            <span class="header" data-translate="total">
                                 Total
                             </span>
                             <span class="total-price">
