@@ -1,11 +1,5 @@
 nav {
     padding-top: 64px;
-    position: absolute;
-    top: 0;
-    padding-left: 64px;
-    /* left: 64px; */
-    z-index: 4;
-    display: flex;
 }
 
 nav>a {
@@ -26,48 +20,21 @@ header {
     flex-direction: column;
 }
 
-header>.main-text>h1 {
-    font-weight: 700;
-    font-size: 56px;
-    color: var(--day-dark01);
-    text-align: center;
-    line-height: 64px;
-}
-
-header>.main-text>.succes {
-    text-align: center;
-    color: var(--day-succes);
-    font-weight: 500;
-    font-size: 18px;
-    display: none;
-    width: 100%;
-    line-height: 24px;
-}
-
-header>.main-text>.succes.show {
-    display: block;
-}
-
-header>.main-text>.error {
-    width: 100%;
-    text-align: center;
-    color: var(--day-error);
-    font-weight: 500;
-    font-size: 18px;
-    display: none;
-    line-height: 24px;
-}
-
-header>.main-text>.error.show {
-    display: block;
-}
-
 header>img {
     position: absolute;
     top: 0;
     right: 0;
     height: 100vh;
     width: 40%;
+}
+
+header>h1 {
+    color: var(--day-dark01);
+    text-align: center;
+    font-size: 56px;
+    font-weight: 700;
+    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 header>p {
@@ -78,45 +45,55 @@ header>p {
     font-weight: 600;
 }
 
-#form>.s-div {
-    display: grid;
-    grid-template-columns: 132px 1fr;
-    gap: 16px;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-#form>.s-div>.social-media {
+header>.social-media {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 24px;
+    margin-top: 24px;
 }
 
-#form>.s-div>.social-media>button {
+header>.social-media>button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 64px;
     height: 64px;
     border-radius: 100%;
-    background: none;
-    /* background-color: var(--day-background); */
-}
-
-#form>.s-div>.social-media>button:hover {
     background-color: var(--day-background);
 }
 
-header>form {
-    margin-top: 40px;
+
+
+header>.separator {
     display: flex;
-    gap: 14px;
+    align-items: center;
+    gap: 16px;
+    width: 400px;
+    margin-top: 24px;
+}
+
+header>.separator>div {
+    width: 170px;
+    height: 1px;
+    background-color: var(--day-dark05);
+}
+
+header>.separator>span {
+    color: var(--day-dark04);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+header>form {
+    margin-top: 16px;
+    display: flex;
+    gap: 16px;
     flex-direction: column;
     align-items: center;
 }
 
-header>form>input {
+header>form>input,
+header>form>div>input {
     width: 400px;
     height: 44px;
     flex-shrink: 0;
@@ -129,22 +106,46 @@ header>form>input {
     padding-right: 48px;
 }
 
-header>form>input::placeholder {
+header>form>input::placeholder,
+header>form>div>input::placeholder {
     color: var(--day-dark04);
     font-weight: 500;
+}
+
+header>form>div {
+    position: relative;
+}
+
+header>form>div>.see-password {
+    height: 100%;
+    width: 32px;
+    background: none;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 #submit-bttn {
     border-radius: 4px;
     background: var(--day-dark01);
     width: 200px;
-    margin-left: auto;
     height: 44px;
     margin-top: 8px;
     position: relative;
 }
 
 #submit-bttn>.text {
+    color: var(--day-white01);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#submit-bttn>.feedback {
     color: var(--day-white01);
     font-size: 18px;
     font-weight: 600;
@@ -209,16 +210,12 @@ header>form>input::placeholder {
 
     #submit-bttn {
         background-color: rgba(0, 0, 0, 0.75);
-        /* height: auto; */
-        /* width: auto; */
-        /* padding: 8px 32px; */
+        height: auto;
+        width: auto;
+        padding: 8px 32px;
     }
 
-    #form>.s-div>.social-media>button {
-        background-color: rgba(0, 0, 0, 0.25);
-    }
-
-    #form>.s-div>.social-media>button:hover {
+    header>.social-media>button {
         background-color: rgba(0, 0, 0, 0.5);
     }
 
@@ -227,16 +224,8 @@ header>form>input::placeholder {
         color: var(--day-dark02);
     }
 
-    header>.main-text>h1 {
+    header>h1 {
         color: rgba(255, 255, 255, 1);
-    }
-
-    header>.main-text>.succes {
-        color: #5FEF85;
-    }
-
-    header>.main-text>.error {
-        color: #FF7272;
     }
 
     header>p {
@@ -268,8 +257,6 @@ header>form>input::placeholder {
     nav {
         justify-content: center;
         align-items: center;
-        padding-left: 0px;
-        width: 100%;
     }
 
     header>h1 {
@@ -301,16 +288,6 @@ header>form>input::placeholder {
     #submit-bttn>.text {
         font-size: 18px;
     }
-
-    #form>.s-div {
-        gap: 24px;
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    #form>.s-div>.social-media {
-        align-items: center;
-        width: 100%;
-        justify-content: center;
-    }
 }
+
+@media(max-width: 400px) {}

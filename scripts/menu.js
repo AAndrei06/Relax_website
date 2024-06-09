@@ -48,7 +48,6 @@ categoriesPopup.addEventListener('click', (event) =>
 // Menu 
 
 const menuButton = document.querySelector("#menu-bttn");
-const menuExitButton = document.querySelector(".exit-menu-side");
 const menuOverlay = document.querySelector("#menu-overlay");
 const menuSide = document.querySelector('.menu-side');
 
@@ -61,7 +60,6 @@ menuOverlay.addEventListener('click', () =>
 {
     closeMenu()
 })
-menuExitButton.addEventListener('click', closeMenu)
 
 function openMenu()
 {

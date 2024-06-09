@@ -10,7 +10,7 @@ async function translateContent(language, jsonFilePath)
         document.documentElement.lang = language;
 
         document.title = translations[language]['meta']['title'];
-        //document.querySelector('meta[name="description"]').content = translations[language]['meta']['description'];
+        document.querySelector('meta[name="description"]').content = translations[language]['meta']['description'];
 
         elementsToTranslate.forEach(element =>
         {
@@ -37,6 +37,7 @@ function getJsonFilePath(pageName)
 
     // Assuming the JSON file name is the same as the page name with ".json" extension
     const jsonFileName = pageName + '.json';
+
     // Construct the full JSON file path
     const jsonFilePath = translationsFolder + jsonFileName;
     console.log(jsonFilePath)

@@ -1,199 +1,168 @@
-let submitBtn = document.querySelector(".submit-btn-form-register");
-let emailField = document.querySelector(".email-field-input-sign");
-let GoogleBTN = document.getElementById("google-signin-provider");
-let TwitterBTN = document.getElementById("twitter-login-btn");
-
-// Google SignIn
-
 const form = document.querySelector("#form")
-const submitBtnLoading = document.querySelector('#submit-bttn>.loading');
-const submitBtnText = document.querySelector('#submit-bttn>.text');
 
-const errorText = document.querySelector('header>.main-text>.error')
-const succesText = document.querySelector('header>.main-text>.succes')
-const checkmark = document.querySelector('#submit-bttn>.checkmark')
+const sendBttnFeedback = document.querySelector('#submit-bttn>.feedback');
+const sendBttnLoading = document.querySelector('#submit-bttn>.loading');
+const sendBttnText = document.querySelector('#submit-bttn>.text');
 
-function startLoad()
-{
-    submitBtnLoading.style.opacity = "1";
-    submitBtnText.style.display = "none";
-    submitBtn.style.pointerEvents = "none";
-
-}
-function finishLoad()
-{
-    succesText.classList.add('show')
-    checkmark.classList.add('show')
-    submitBtnLoading.style.opacity = "0";
+function loadingAnim() {
+    sendBttnText.innerText = ''
+    sendBttnLoading.style.opacity = "1"
 }
 
-function errorLoad()
-{
-    submitBtnText.style.display = "block";
-    checkmark.classList.remove('show')
-    succesText.classList.remove('show')
-    errorText.classList.add('show')
+function responseAnim(err = false, msg) {
+    if (err) {
+        sendBttnFeedback.style.background = '#EF5B5B'
+        sendBttnFeedback.textContent = msg
+    } else {
+        sendBttnFeedback.style.background = '#799f82'
+        sendBttnFeedback.textContent = msg
+    }
+    sendBttnLoading.style.opacity = "0"
+
+    setTimeout(() => {
+        sendBttnText.innerText = 'Trimite'
+    }, 250)
+
+    sendBttnFeedback.style.transform = "translateX(0%)"
+    sendBttnFeedback.style.opacity = "1"
+
+
 }
 
-form.addEventListener('submit', (e) =>
-{
-    submitBtnLoading.style.opacity = "1";
-    submitBtnText.style.display = "none";
+function endAnim() {
 
+    sendBttnFeedback.style.transform = "translateX(100%)"
+    setTimeout(() => {
+        sendBttnFeedback.style.opacity = "0"
+        sendBttnFeedback.style.transform = "translateX(-100%)"
+    }, 250);
+
+}
+
+form.addEventListener('submit', (e) => {
     e.preventDefault();
-    email = emailField.value;
-    if (email.value != "")
-    {
-        startLoad()
-        var actionCodeSettings = {
-            url: window.location.origin + '/pages/menu.html',
-            handleCodeInApp: true,
-        };
+    if (EmailInput.value != "" && PasswordInput.value != "") {
+        loadingAnim()
+        firebase.auth().signInWithEmailAndPassword(EmailInput.value, PasswordInput.value)
+            .then((userCredential) => {
+                responseAnim(false, "Succes")
+                setTimeout(() => {
+                    endAnim();
+                    window.location.href = '/';
+                }, 2000)
 
-        firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-            .then(() =>
-            {
-                window.localStorage.setItem('emailForSignIn', email);
-                finishLoad()
             })
-            .catch((error) =>
-            {
-                console.log(error)
-                errorLoad()
+            .catch((error) => {
+                responseAnim(true, "Credențiale Nevalide")
+
+                setTimeout(() => {
+                    endAnim()
+                }, 2000)
+
             });
     }
 })
 
-GoogleBTN.addEventListener("click", () =>
-{
-    startLoad()
+let GoogleBtn = document.getElementById("google-login-btn");
+let FacebookBtn = document.getElementById("facebook-login-btn");
+let TwitterBtn = document.getElementById("twitter-login-btn");
+let EmailInput = document.querySelector(".email-login-page-input");
+let PasswordInput = document.querySelector(".password-login-page-input");
+let SubmitForm = document.querySelector(".submit-btn-form-pass");
+
+
+// Google SignIn
+
+GoogleBtn.addEventListener("click", () => {
+    loadingAnim()
     firebase.auth()
         .signInWithPopup(GoogleProvider)
-        .then((result) =>
-        {
-            var user = result.user;
+        .then((result) => {
+            let user = result.user;
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
-                    console.log(obj)
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
                     is_user = true;
-                })
-            }).then(() =>
-            {
-                usersDB.where("ID", "==", user.email).get().then((querySnapshot) =>
-                {
-                    querySnapshot.forEach((obj) =>
-                    {
-                        console.log(obj)
-                        is_user = true;
-                    })
-                }).then(() =>
-                {
-                    console.log(user)
-                    if (!is_user)
-                    {
-
-                        let date = new Date();
-                        usersDB.add({
-                            name: user.displayName,
-                            ID: user.uid,
-                            admin: false,
-                            created: date.getTime(),
-                            photoURL: startImage,
-                            email: user.email
-                        }).then(() =>
-                        {
-                            cartsDB.add({
-                                ID: user.uid,
-                                products: [],
-                            }).then(() =>
-                            {
-
-
-                                // End animation
-                                window.location.href = '/';
-
-                            });
-                        });
+                    if (is_user){
+                        window.location.href = '/';
                     }
-                });
-            })
-        }).catch((error) =>
-        {
-            // Error anim
-            console.error(error);
-            succesText.classList.remove('show')
-            errorText.classList.add('show')
+                })
+            }).then(() => {
+                if (!is_user) {
+                    let date = new Date();
+                    usersDB.add({
+                        name: userInitialName,
+                        ID: user.uid,
+                        admin: false,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
+                        responseAnim(false, "Succes")
+                        setTimeout(() => {
+                            endAnim()
+                            window.location.href = '/';
+                        }, 2000)
+
+                    })
+                }
+            });
+        }).catch((error) => {
+
+            responseAnim(true, "Eroare")
+
+            setTimeout(() => {
+                endAnim()
+            }, 2000)
+
         });
 });
+
 
 // Twitter SignIn
 
-TwitterBTN.addEventListener("click", () =>
-{
-    startLoad()
+TwitterBtn.addEventListener("click", () => {
+    loadingAnim();
     firebase
         .auth()
         .signInWithPopup(TwitterProvider)
-        .then((result) =>
-        {
+        .then((result) => {
+
             var user = result.user;
             let is_user = false;
-            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
-            {
-                querySnapshot.forEach((obj) =>
-                {
-                    console.log(obj)
+            usersDB.where("ID", "==", user.uid).get().then((querySnapshot) => {
+                querySnapshot.forEach((obj) => {
                     is_user = true;
-                })
-            }).then(() =>
-            {
-                usersDB.where("ID", "==", user.email).get().then((querySnapshot) =>
-                {
-                    querySnapshot.forEach((obj) =>
-                    {
-                        console.log(obj)
-                        is_user = true;
-                    })
-                }).then(() =>
-                {
-                    console.log(user)
-                    if (!is_user)
-                    {
-
-                        let date = new Date();
-                        usersDB.add({
-                            name: user.displayName,
-                            ID: user.uid,
-                            admin: false,
-                            created: date.getTime(),
-                            photoURL: startImage,
-                            email: user.email
-                        }).then(() =>
-                        {
-                            cartsDB.add({
-                                ID: user.uid,
-                                products: [],
-                            }).then(() =>
-                            {
-
-                                // End anim
-
-
-                                window.location.href = '/';
-                            });
-                        });
+                    if (is_user){
+                        window.location.href = '/';
                     }
-                });
-            })
-        }).catch((error) =>
-        {
-            // Error anim
-            console.error(error);
-            succesText.classList.remove('show')
-            errorText.classList.add('show')
+                })
+            }).then(() => {
+                if (!is_user) {
+                    let date = new Date();
+                    usersDB.add({
+                        name: userInitialName,
+                        ID: user.uid,
+                        admin: false,
+                        created: date.getTime(),
+                        photoURL: startImage,
+                    }).then(() => {
+                        responseAnim(false, "Succes")
+                        setTimeout(() => {
+                            endAnim()
+                            window.location.href = '/';
+                        }, 2000)
+
+                    })
+                }
+            });
+        })
+        .catch((error) => {
+            responseAnim(true, "Eroare")
+
+            setTimeout(() => {
+                endAnim()
+            }, 2000)
 
         });
 });
+

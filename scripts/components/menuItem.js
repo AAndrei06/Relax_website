@@ -274,12 +274,10 @@ firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
     {
-        console.log(user)
         usersDB.where("ID", "==", user.uid).get().then((querySnapshot) =>
         {
             querySnapshot.forEach((doc) =>
             {
-                console.log(doc.data())
                 createReviewImg.src = doc.data().photoURL;
                 createReviewName.innerText = doc.data().name;
                 accountName = doc.data().name;
@@ -439,10 +437,10 @@ const popupItemQuantity = document.querySelector('.item-popup>.text>.end>button>
 const popupButton = document.querySelector('.item-popup>.text>.end>button')
 const popupReviewsDiv = document.querySelector(".item-popup>.reviews-side>.content>.reviews")
 
-
 const reviewSide = document.querySelector('.reviews-side')
 const reviewStars = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.stars')
 const reviewReviewsNum = document.querySelector('.item-popup>.reviews-side>.content>.header>.first>.reviews-stats>.stars-div>.reviews-num')
+
 const newPoint = document.querySelector(".menu-bttn>.wrap>.new");
 const ordersDiv = document.querySelector(".menu-side>.wrap>.orders");
 const ordersPriceDiv = document.querySelector('.menu-side>.wrap>.checkout>.total>.main>.price');
@@ -491,18 +489,17 @@ function renderMenuItems(menuItems)
         const items = section.querySelector('.items');
 
         const reviews = item.reviews || [];
+
         if (categoriesIndexesArray.includes(item.category) && categoriesIndexesArray.length !== 10)
         {
             section.style.display = 'none'
         }
         else
         {
-            let languageSelectedStorage = localStorage.getItem('language') || "ro";
-
             section.style.display = 'initial';
-            items.innerHTML += `<menu-item name="${item.nametran[languageSelectedStorage]}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
+            items.innerHTML += `<menu-item name="${item.name}" price="${item.price}" img="${item.photoURL}" stars="${item.stars}"
                             reviews='${JSON.stringify(reviews)}'
-                            description="${item.descriptiontran[languageSelectedStorage]}"
+                            description="${item.description}"
                             masa="${item.masa}" category="${item.category}" id="${item.id}"></menu-item>`;
         }
 
@@ -578,7 +575,7 @@ function filterMenuItems(menuItems, criteria)
             {
                 return false;
             }
-            if (field === 'search' && !item.nametran[localStorage.getItem("language") || "ro"].toLowerCase().includes(value.toLowerCase()))
+            if (field === 'search' && !item.name.toLowerCase().includes(value.toLowerCase()))
             {
                 return false;
             }
@@ -600,7 +597,7 @@ function filterAndRender(menuItems)
     ];
 
     let filteredItems = filterMenuItems(menuItems, criteria);
-    console.log(filteredItems)
+
     filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
     let filteredIDs = [];
@@ -668,7 +665,7 @@ function updateMainCategories()
 
 // Exit Popup
 
-function closeItemPopup()
+itemOverlay.addEventListener('click', () =>
 {
     itemPopup.classList.remove('show');
     itemOverlay.classList.remove('show');
@@ -676,12 +673,7 @@ function closeItemPopup()
     reviewSide.classList.remove('show')
     popupButton.classList.remove('shake')
     resetReviewSlide()
-}
-
-const closeItemPopupButtons = document.querySelectorAll('.close-item-popup')
-
-itemOverlay.addEventListener('click', closeItemPopup)
-closeItemPopupButtons.forEach(button => button.addEventListener('click', closeItemPopup))
+})
 
 // Checkout Page
 
@@ -703,22 +695,17 @@ function updateMenuSidebar()
 
     sideMenuIDs.forEach(itemId =>
     {
-        console.log(itemId)
         const item = itemQuantityMap.get(itemId);
-        console.log(item)
-        if (item)
+
+        orders[item.id] = item.numValue
+
+        ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
+
+        if (item && item.numValue > 0)
         {
-            orders[item.id] = item.numValue
-
-            ordersPrice += Number(`${item.getAttribute('price')}`) * Number(`${item.numValue}`);
-
-            if (item.numValue > 0)
-            {
-                ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
+            ordersString += `<side-menu-item name="${item.getAttribute('name')}" stars="${item.starScore}" price="${item.getAttribute('price')}" img="${item.getAttribute('img')}"
                         quantity="${item.numValue}" uid="${item.getAttribute('id')}"></side-menu-item>`;
-            }
         }
-
     });
 
     localStorage.setItem('orders', JSON.stringify(orders));
@@ -743,23 +730,7 @@ function updateMenuSidebar()
 
 function assignReviewNum(div, num)
 {
-    let sing = "";
-    let plurar = "";
-    let lang = localStorage.getItem('language');
-    if (lang == 'ro')
-    {
-        sing = "recenzie";
-        plurar = "recenzii";
-    } else if (lang == 'ru')
-    {
-        sing = "обзор";
-        plurar = "обзоры";
-    } else if (lang == 'en')
-    {
-        sing = "review";
-        plurar = "reviews";
-    }
-    const pluralText = num === 1 ? sing : plurar;
+    const pluralText = num === 1 ? 'recenzie' : 'recenzii';
     div.innerText = `${num} ${pluralText}`;
 }
 
@@ -966,7 +937,6 @@ class MenuItem extends HTMLElement
                 adminExtraDelete.classList.add('show')
 
                 adminPopupImage.src = `${this.getAttribute('img')}`;
-                adminPopupImage.setAttribute('alt', `${this.getAttribute('name')}`);
 
                 adminPopupName.value = `${this.getAttribute('name')}`
                 adminPopupPrice.value = `${this.getAttribute('price')}`
@@ -992,8 +962,6 @@ class MenuItem extends HTMLElement
                 lockScroll();
 
                 popupImage.src = `${this.getAttribute('img')}`;
-
-                popupImage.setAttribute('alt', `${this.getAttribute('name')}`);
 
                 popupName.innerText = `${this.getAttribute('name')}`
                 popupPrice.innerText = `${this.getAttribute('price')} MDL`
