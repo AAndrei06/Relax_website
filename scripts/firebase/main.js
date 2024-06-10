@@ -29,6 +29,9 @@ const articlesDB = firebase.firestore().collection("articles");
 // Comments Collection
 const commentsDB = firebase.firestore().collection("comments");
 
+// Orders Collection
+const ordersDB = firebase.firestore().collection("orders");
+
 
 function formatDate(stamp){
     let date = new Date(stamp);

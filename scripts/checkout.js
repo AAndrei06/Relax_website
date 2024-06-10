@@ -9,6 +9,11 @@ const loadingAnim = document.querySelector(".all>.orders-div>.content>.loading")
 const subTotal = document.querySelector("#subtotal");
 const continueButton = document.querySelector('#continue-button')
 
+let name = document.getElementsByName("name-order")[0];
+let addr = document.getElementsByName("adress-order")[0];
+let apartament = document.getElementsByName("apartament-order")[0];
+let number = document.getElementsByName("number-order")[0];
+
 
 document.getElementById("backtocart").onclick = () => {
     window.location.pathname = "/pages/menu.html"
@@ -49,10 +54,22 @@ const apartamentInput = document.querySelector("#apartament-input");
 const phoneInput = document.querySelector("#phone-input");
 const checkoutForm = document.querySelector(".all>.information")
 
-
 checkoutForm.addEventListener('submit', (e) =>
 {
     e.preventDefault();
+    
+    let date = new Date();
+
+    ordersDB.add({
+        "name":name.value,
+        "addr":addr.value,
+        "apartment":apartament.value,
+        "number":number.value,
+        "date":date.getTime(),
+        "products":localStorage.getItem("orders")
+    }).then(() => {
+        localStorage.removeItem("orders");
+    });
 
 })
 
