@@ -19,24 +19,19 @@ document.getElementById("backtocart").onclick = () => {
     window.location.pathname = "/pages/menu.html"
 }
 
-productsDB.get().then((querySnapshot) =>
-{
+productsDB.get().then((querySnapshot) => {
     let keysArray = []
 
-    for (let key in orders)
-    {
-        if (orders.hasOwnProperty(key))
-        {
+    for (let key in orders) {
+        if (orders.hasOwnProperty(key)) {
             keysArray.push(key)
         }
     }
 
     let totalPrice = 0
 
-    querySnapshot.forEach(product =>
-    {
-        if (keysArray.includes(product.id))
-        {
+    querySnapshot.forEach(product => {
+        if (keysArray.includes(product.id)) {
             ordersDiv.innerHTML += `<checkout-order name="${product.data().name}" price="${product.data().price}" img="${product.data().photoURL}"
                         quantity="${orders[product.id]}"></checkout-order>`;
             totalPrice += product.data().price * orders[product.id];
@@ -54,38 +49,58 @@ const apartamentInput = document.querySelector("#apartament-input");
 const phoneInput = document.querySelector("#phone-input");
 const checkoutForm = document.querySelector(".all>.information")
 
-checkoutForm.addEventListener('submit', (e) =>
-{
+checkoutForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    let date = new Date();
 
-    ordersDB.add({
-        "name":name.value,
-        "addr":addr.value,
-        "apartment":apartament.value,
-        "number":number.value,
-        "date":date.getTime(),
-        "products":localStorage.getItem("orders")
-    }).then(() => {
-        localStorage.removeItem("orders");
-    });
+    let date = new Date();
+    if (localStorage.getItem('orders') != null && localStorage.getItem('orders').length != 0) {
+        ordersDB.add({
+            "name": name.value,
+            "addr": addr.value,
+            "apartment": apartament.value,
+            "number": number.value,
+            "date": date.getTime(),
+            "products": localStorage.getItem("orders")
+        }).then(() => {
+            localStorage.removeItem("orders");
+            continueButton.style.backgroundColor = "#799f82";
+            continueButton.innerHTML = "Trimis";
+            setTimeout(() => {
+                continueButton.style.backgroundColor = "black";
+                continueButton.innerHTML = "Continuă";
+                window.location.href = "/pages/menu.html";
+            }, 2000)
+        }).catch((err) => {
+            console.log(err);
+            continueButton.style.backgroundColor = "#ef5b5b";
+            continueButton.innerHTML = "Eroare";
+            setTimeout(() => {
+                continueButton.style.backgroundColor = "black";
+                continueButton.innerHTML = "Continuă";
+            }, 2000);
+        });
+    } else {
+        continueButton.style.backgroundColor = "#ef5b5b";
+        continueButton.innerHTML = "Eroare";
+        setTimeout(() => {
+            continueButton.style.backgroundColor = "black";
+            continueButton.innerHTML = "Continuă";
+        }, 2000);
+    }
+
 
 })
 
 const infoButton = document.querySelector('.all>.information>.method>.inputs>.input>.info>.content>button');
 const infoPopup = document.querySelector('.all>.information>.method>.inputs>.input>.info>.content>.popup');
 
-infoButton.addEventListener('click', (e) =>
-{
+infoButton.addEventListener('click', (e) => {
     e.stopPropagation();
     infoPopup.classList.toggle('show')
 })
 
-document.addEventListener('click', (event) =>
-{
-    if (!infoPopup.contains(event.target))
-    {
+document.addEventListener('click', (event) => {
+    if (!infoPopup.contains(event.target)) {
         infoPopup.classList.remove('show');
     }
 });

@@ -59,7 +59,6 @@ form.addEventListener('submit', (e) => {
                 let date = new Date();
                 usersDB.add({
                     name: user.email.split('@')[0],
-                    PASS: password,
                     EMAIL: email,
                     admin: false,
                     ID: user.uid,
