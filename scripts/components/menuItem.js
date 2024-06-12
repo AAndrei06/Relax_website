@@ -157,7 +157,10 @@ adminExtraDelete.addEventListener('click', () =>
     {
         productsDB.doc(currentEditID).delete().then(() =>
         {
-            location.reload()
+            firebase.storage().ref().child('/' + currentEditID + ".png").delete().then(() => {
+                location.reload()
+            });
+            
         });
     }
     closeAdminPopup();
