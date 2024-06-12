@@ -58,8 +58,8 @@ form.addEventListener('submit', (e) =>
         message: messageField.value,
     }
 
-    const serviceId = "service_mcv5bfc";
-    const templateId = "template_iviag0d";
+    const serviceId = "service_1fxlqmt";
+    const templateId = "template_ovvp6se";
 
     loadingAnim(sendBttn)
 
