@@ -27,6 +27,12 @@ firebase.auth().onAuthStateChanged((user) => {
                     ordersDB.onSnapshot((snapshot) => {
                         let docs = snapshot.docs;
                         main.innerHTML = '';
+                        try {
+                            let audio = new Audio("../assets/ding.mp3");
+                            audio.play();
+                        } catch (error) {
+                            console.log(error);
+                        }
                         let total = 0;
                         for (let i = 0; i < docs.length; i++) {
                             if (docs[i].data().products != null) {
@@ -36,18 +42,17 @@ firebase.auth().onAuthStateChanged((user) => {
                                 let total = 0;
                                 async function getAll(entries) {
                                     let content = "";
-                                    try {
-                                        for (const [key, value] of entries) {
+                                    for (const [key, value] of entries) {
+                                        try {
                                             let l = await productsDB.doc(key).get().then((doc) => {
-                                                content += `<p>${doc.data().name} ---- ${doc.data().price} lei x${value}</p>`;
-                                                total += doc.data().price;
+                                                content += `<li>${doc.data().name} ---- ${doc.data().price} lei x${value}</li>`;
+                                                total += doc.data().price * value;
                                             })
-
+                                        } catch (err) {
+                                            content = "<li><b>Un produs comandat nu mai este în meniu</b></li>";
                                         }
-                                    } catch (err) {
-                                        content = "Eroare cu comanda, un produs comandad nu mai este în meniu!!!"
                                     }
-                                    console.log(content)
+
 
                                     main.innerHTML += `
                                     <div class="order-box">
@@ -59,7 +64,9 @@ firebase.auth().onAuthStateChanged((user) => {
                                         <h4>De la:</h4> <span class="owner-name">${docs[i].data().name}</span></p>
                                         <h3 class="products-order">Produse:</h3>
                                         <div class="orders">
+                                        <ul>
                                             ${content}
+                                            </ul>
                                         </div>
                                         <br>
                                         <div class="detalii">
@@ -69,7 +76,9 @@ firebase.auth().onAuthStateChanged((user) => {
                                         </div>
                                         <br>
                                         <div class="total">
-                                            <h3>Total: <span>${total}</span> lei</h3>
+                                            <h5>Subtotal: <span>${total}</span> lei</h5>
+                                            <h5>Livrare: <span>${35}</span> lei</h5>
+                                            <h3>Total: <span>${total + 35}</span> lei</h3>
                                         </div>
                                     </div>
                                     `

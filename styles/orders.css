@@ -1,6 +1,22 @@
+body{
+    background: url("../assets/Orders/back.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.home-ord{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 
 .order-box{
     display: inline-block;
@@ -52,7 +68,18 @@
 
 .total{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap:10px;
+}
+
+.total>h3{
+    margin: 0px;
+    padding: 0px;
+}
+
+.total>h5{
+    margin: 0px;
+    padding: 0px;
 }
 
 .text2{

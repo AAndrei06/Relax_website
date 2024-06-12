@@ -554,7 +554,6 @@ function filterMenuItems(menuItems, criteria)
         let stars = 5;
         if (item.reviews.length !== 0)
         {
-            console.log(item.reviews)
             const reviews = item.reviews;
             let totalStars = 0;
 
@@ -564,7 +563,6 @@ function filterMenuItems(menuItems, criteria)
             });
 
             stars = Math.round(totalStars / reviews.length);
-            console.log("NEW STARS: " + stars)
         }
 
         return criteria.every(criterion =>
@@ -747,7 +745,7 @@ function assignReviewNum(div, num)
         plurar = "reviews";
     }
     const pluralText = num === 1 ? sing : plurar;
-    div.innerText = `${num} ${pluralText}`;
+    div.innerHTML = `${num} ${pluralText}<i style = "position:relative;top:3px;color:orange;left:4px;font-size:25px;font-weight:bold;" class="fa-solid fa-plus"></i>`;
 }
 
 class MenuItem extends HTMLElement

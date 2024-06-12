@@ -1,11 +1,15 @@
 import { lockScroll, unlockScroll } from "./utils.js";
 
+if (localStorage.getItem('language') == null){
+    localStorage.setItem("language",'ro');
+}
+
 const navAcc = document.querySelector('nav>.account>.acc-img')
 const navButtons = document.querySelectorAll('nav>.account>button')
 
 const moreMenuAcc = document.querySelector(".more-menu>.content>.acc-img");
 const moreMenuAccButtons = document.querySelector(".more-menu>.content>.account");
-
+let is_admin = false;
 firebase.auth().onAuthStateChanged((user) =>
 {
     if (user)
@@ -19,6 +23,9 @@ firebase.auth().onAuthStateChanged((user) =>
         {
             querySnapshot.forEach((doc) =>
             {
+                if (doc.data().admin){
+                    is_admin = true;
+                }
                 navAcc.querySelector('img').src = doc.data().photoURL;
                 navAcc.style.display = 'initial';
                 moreMenuAcc.style.display = 'initial';
@@ -48,9 +55,14 @@ const disclaimerBttn = document.querySelector(".close-disclaimer");
 
 copyright.addEventListener('click', () =>
 {
+    if (is_admin){
+        window.location.href = "/pages/orders.html";
+    }
+    /*
     disclaimer.classList.add('show');
     disclaimerContent.classList.add('show');
     disclaimerOverlay.classList.add('show');
+    */
 })
 
 disclaimerBttn.addEventListener('click', () =>
