@@ -64,7 +64,6 @@ form.addEventListener('submit', (e) => {
 })
 
 let GoogleBtn = document.getElementById("google-login-btn");
-let FacebookBtn = document.getElementById("facebook-login-btn");
 let TwitterBtn = document.getElementById("twitter-login-btn");
 let EmailInput = document.querySelector(".email-login-page-input");
 let PasswordInput = document.querySelector(".password-login-page-input");
