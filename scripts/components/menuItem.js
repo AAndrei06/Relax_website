@@ -1,5 +1,7 @@
 import { lockScroll, unlockScroll, assignStars, starsAnim, deleteTextAnim, generateMongoLikeID, formatDate, displayImage } from "../utils.js";
 
+
+
 let orders = JSON.parse(localStorage.getItem('orders'));
 
 let ordersKeysArray = []
@@ -469,7 +471,7 @@ const categories = document.querySelectorAll('.filter-section>.content>.categori
 const moreCategories = document.querySelectorAll('.more-filter>.content>.options>.categories>.category')
 
 
-let price = 500;
+let price = 700;
 let mainStarsFilled = 5;
 let categoriesIndexesArray;
 updateMainCategories();
